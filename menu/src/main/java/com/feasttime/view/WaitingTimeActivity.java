@@ -74,6 +74,7 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
     @Override
     protected void initViews() {
 
+
     }
 
     public void goBack(View view){
@@ -112,8 +113,14 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
 
                 if (timerTimes%10==0){
 
+                    String token = PreferenceUtil.getStringKey("token");
+                    String orderID = PreferenceUtil.getStringKey("orderID");
+
+                    token = "ljiqsdgf54sdfweq6565f7wes51635sad4f65f";
+                    orderID = "3675570486095607038197889018";
+
                     //每次需要执行的代码放到这里面。
-                    waitTimePresenter.getWaitTimeMenuList(PreferenceUtil.getStringKey("token"),PreferenceUtil.getStringKey("orderID"));
+                    waitTimePresenter.getWaitTimeMenuList(token,orderID);
                 } else {
 
                     WaitingTimeActivity.this.runOnUiThread(new Runnable() {

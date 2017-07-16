@@ -80,12 +80,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                         userPresenter.login(phone);
                     }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                         //获取验证码成功
+                        hideLoading();
                         Log.d(TAG, "/获取验证码成功");
                     }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
                         Log.d(TAG, "/返回支持发送验证码的国家列表");
                         //返回支持发送验证码的国家列表
                     }
                 }else{
+                    hideLoading();
                     Log.d(TAG, "/((Throwable)data).printStackTrace()");
                     ToastUtil.showToast(LoginActivity.this, "请输入正确的验证码！", Toast.LENGTH_SHORT);
                     ((Throwable)data).printStackTrace();
@@ -134,6 +136,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             ToastUtil.showToast(this,"请输入手机号", Toast.LENGTH_SHORT);
         }
 
+        showLoading();
         SMSSDK.getVerificationCode("86", phone);
     }
 
