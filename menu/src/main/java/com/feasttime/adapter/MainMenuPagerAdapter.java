@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.MenuItemInfo;
+import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.ScreenTools;
 import com.feasttime.tools.UtilTools;
 import com.feasttime.view.PlayVideoActivity;
@@ -58,6 +59,14 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     public void setList(List<MenuItemInfo> list) {
         menuItemInfoList = list;
         this.notifyDataSetChanged();
+        LogUtil.d("result","set list size:" + list.size());
+    }
+
+    public void clearAllData() {
+        if (menuItemInfoList != null) {
+            this.menuItemInfoList.clear();
+            this.notifyDataSetChanged();
+        }
     }
 
     public void setOnItemClickListener(OnItemClick onItemClick) {
@@ -91,7 +100,12 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         LinearLayout ll = new LinearLayout(context);
         LinearLayout view1 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
-        setPerItemView(view1,menuItemInfo1,300);
+        if (menuItemInfo1 != null) {
+            setPerItemView(view1,menuItemInfo1,300);
+        } else {
+            view1.setVisibility(View.INVISIBLE);
+        }
+
         ll.addView(view1);
 
         LinearLayout view2 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
@@ -208,9 +222,9 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         String url = menuItemInfo.getDishImgUrl();
         if (!TextUtils.isEmpty(url)) {
-//            Picasso.with(context)
-//                    .load("http://img4.imgtn.bdimg.com/it/u=1182003525,1136381245&fm=26&gp=0.jpg")
-//                    .into(dishes1);
+            Picasso.with(context)
+                    .load(url)
+                    .into(dishes1);
         }
 
 

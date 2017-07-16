@@ -39,7 +39,10 @@
         <!--短信验证码-->
 
         <activity android:name="com.feasttime.view.SplashActivity">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.feasttime.view.MainActivity">
         </activity>
@@ -51,10 +54,7 @@
 
         <activity android:name="com.feasttime.view.PlayVideoActivity" android:theme="@style/DialogTransparent" ></activity>
         <activity android:name="com.feasttime.view.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity android:name="com.feasttime.view.WaitingTimeActivity">
