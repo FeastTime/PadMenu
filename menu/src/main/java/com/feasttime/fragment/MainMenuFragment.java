@@ -120,7 +120,9 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
             mainMenuPagerAdapter = new MainMenuPagerAdapter(mContext,jazzyViewPager,result.getDishesList());
             mainMenuPagerAdapter.setOnItemClickListener(this);
         } else {
-            if (result.getDishesList().size() == 0) {
+            if (result.getDishesList() == null) {
+                mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
+            } else if (result.getDishesList().size() == 0) {
                 mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
             } else {
                 mainMenuPagerAdapter.setList(result.getDishesList());
