@@ -55,6 +55,9 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.0'
     compile 'com.android.support:support-v4:25.3.0'
     compile project(':android_display_sdk')
+
+    compile name:'SMSSDK-2.1.4', ext: 'aar'
+
 }
 
 
