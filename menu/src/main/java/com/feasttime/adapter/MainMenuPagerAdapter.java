@@ -51,7 +51,11 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         } else {
             this.menuItemInfoList = new ArrayList<MenuItemInfo>();
         }
+    }
 
+    public void setList(List<MenuItemInfo> list) {
+        menuItemInfoList = list;
+        this.notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClick onItemClick) {
@@ -138,6 +142,10 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     }
 
     private void setPerItemView(LinearLayout view, final MenuItemInfo menuItemInfo, int imgWidth) {
+        if (menuItemInfo == null) {
+            return;
+        }
+
         view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
 
         TextView dishesName1 = (TextView)view.findViewById(R.id.menu_item_layout_dishes_name_tv);

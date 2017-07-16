@@ -26,6 +26,7 @@ import com.feasttime.adapter.MainMenuPagerAdapter;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.DishesCategoryInfo;
 import com.feasttime.model.bean.MenuInfo;
+import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
 import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.RecommendOrderListItemInfo;
@@ -41,6 +42,7 @@ import com.feasttime.view.MainActivity;
 import com.feasttime.view.SilentADActivity;
 import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -64,6 +66,8 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
 
     @Bind(R.id.toTheAdBtn)
     Button mToAdBtn;
+
+    MainMenuPagerAdapter mainMenuPagerAdapter;
 
     private Context mContext;
 
@@ -106,9 +110,17 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
         viewpageIndicateRg.removeAllViews();
 
 
+        if (mainMenuPagerAdapter == null) {
+            mainMenuPagerAdapter = new MainMenuPagerAdapter(mContext,jazzyViewPager,result.getDishesList());
+            mainMenuPagerAdapter.setOnItemClickListener(this);
+        } else {
+            if (result.getDishesList().size() == 0) {
+                mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
+            } else {
+                mainMenuPagerAdapter.setList(result.getDishesList());
+            }
+        }
 
-        MainMenuPagerAdapter mainMenuPagerAdapter = new MainMenuPagerAdapter(mContext,jazzyViewPager,result.getDishesList());
-        mainMenuPagerAdapter.setOnItemClickListener(this);
 
         jazzyViewPager.setAdapter(mainMenuPagerAdapter);
         int count = mainMenuPagerAdapter.getCount();

@@ -3,6 +3,8 @@ package com.feasttime.view;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.feasttime.presenter.IBasePresenter;
@@ -45,6 +47,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//remove title bar  即隐藏标题栏
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//remove notification bar  即全屏
+
         setContentView(getLayoutResId());
         ButterKnife.bind(this);
         initViews();
