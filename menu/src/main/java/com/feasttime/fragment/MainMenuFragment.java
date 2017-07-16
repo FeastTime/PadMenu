@@ -92,6 +92,12 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
         jazzyViewPager.setPageMargin(30);
     }
 
+    public void clearAllData() {
+        if (mainMenuPagerAdapter != null) {
+            mainMenuPagerAdapter.clearAllData();
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -114,7 +120,9 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
             mainMenuPagerAdapter = new MainMenuPagerAdapter(mContext,jazzyViewPager,result.getDishesList());
             mainMenuPagerAdapter.setOnItemClickListener(this);
         } else {
-            if (result.getDishesList().size() == 0) {
+            if (result.getDishesList() == null) {
+                mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
+            } else if (result.getDishesList().size() == 0) {
                 mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
             } else {
                 mainMenuPagerAdapter.setList(result.getDishesList());
@@ -165,7 +173,11 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
 
     @Override
     public void onPageSelected(int position) {
-        ((RadioButton)viewpageIndicateRg.getChildAt(position)).setChecked(true);
+        Object radioBtnObj = viewpageIndicateRg.getChildAt(position);
+        if (radioBtnObj != null) {
+            ((RadioButton)radioBtnObj).setChecked(true);
+        }
+
     }
 
     @Override

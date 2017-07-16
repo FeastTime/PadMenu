@@ -178,7 +178,9 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         }
     }
 
-
+    public void showMainMenu() {
+        getFragmentManager().beginTransaction().show(mainMenuFragment).hide(myOrderFragment).hide(recommendMenuFragment).commit();
+    }
 
     @Override
     public void showDishesCategory(DishesCategoryInfo.DishesCategoryListBean dishesCategoryListBean) {
@@ -199,6 +201,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    mainMenuFragment.clearAllData();
                     String classType = buttonView.getTag().toString();
                     LogUtil.d("result","classType:" + classType);
                     String token = PreferenceUtil.getStringKey("token");
