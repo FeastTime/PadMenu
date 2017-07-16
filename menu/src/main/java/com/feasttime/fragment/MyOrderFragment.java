@@ -25,6 +25,7 @@ import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
 import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.view.EndActivity;
+import com.feasttime.view.WaitingTimeActivity;
 import com.feasttime.widget.RecyclerViewDivider;
 
 import java.util.List;
@@ -147,7 +148,7 @@ public class MyOrderFragment extends BaseFragment implements ShoppingCartContrac
 
     @Override
     public void placeOrderComplete() {
-        startActivity(new Intent(this.getActivity(), EndActivity.class));
+        startActivity(new Intent(this.getActivity(), WaitingTimeActivity.class));
     }
 
     @Override

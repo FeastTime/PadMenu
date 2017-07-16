@@ -14,8 +14,12 @@ import android.widget.Toast;
 
 import com.feasttime.menu.R;
 import com.feasttime.presenter.IBasePresenter;
+import com.feasttime.presenter.order.OrderContract;
+import com.feasttime.presenter.order.OrderPresenter;
+import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.user.UserContract;
 import com.feasttime.presenter.user.UserPresenter;
+import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ToastUtil;
 
 import butterknife.Bind;
@@ -23,9 +27,10 @@ import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener,UserContract.IUserView{
+public class LoginActivity extends BaseActivity implements View.OnClickListener,UserContract.IUserView,OrderContract.IOrderView{
 
     UserPresenter userPresenter = new UserPresenter();
+    OrderPresenter mOrderPresenter = new OrderPresenter();
 
     private static final String TAG = "---vc---";
 
@@ -40,12 +45,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected IBasePresenter[] getPresenters() {
-        return new IBasePresenter[]{userPresenter};
+        return new IBasePresenter[]{userPresenter,mOrderPresenter};
     }
 
     @Override
     protected void onInitPresenters() {
         userPresenter.init(this);
+        mOrderPresenter.init(this);
     }
 
     @Override
@@ -133,7 +139,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void loginSuccess() {
-        finish();
+        String token = PreferenceUtil.getStringKey("token");
+        mOrderPresenter.createOrder(token);
     }
 
     @Override
@@ -145,5 +152,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     protected void onDestroy() {
         super.onDestroy();
 //        SMSSDK.unregisterEventHandler(eventHandler);
+    }
+
+    @Override
+    public void createOrderComplete() {
+        finish();
+    }
+
+    @Override
+    public void payOrderComplete() {
+
+    }
+
+    @Override
+    public void placeOrderComplete() {
+
     }
 }

@@ -65,6 +65,7 @@ public class OrderPresenter implements OrderContract.IOrderPresenter {
             public void accept(CreateOrderInfo createOrderInfo) throws Exception {
                 LogUtil.d("result","aa");
                 PreferenceUtil.setStringKey("orderID",createOrderInfo.getOrderID());
+                iOrderView.createOrderComplete();
 //                iOrderView.showMyOrder();
             }
         }, new Consumer<Throwable>() {

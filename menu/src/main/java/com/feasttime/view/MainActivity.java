@@ -83,16 +83,6 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Override
     protected void onResume() {
         super.onResume();
-        String token = PreferenceUtil.getStringKey("token");
-        String orderID = PreferenceUtil.getStringKey("orderID");
-
-        //订单为空且令牌不为空才去登录
-//        if (!TextUtils.isEmpty(token) && TextUtils.isEmpty(orderID)) {
-            mOrderPresenter.createOrder(token);
-//        }
-
-        LogUtil.d("result","myOrderId:" + orderID);
-//        mainMenuFragment.showContentMenu(token,orderID,"1001");
     }
 
     @Override

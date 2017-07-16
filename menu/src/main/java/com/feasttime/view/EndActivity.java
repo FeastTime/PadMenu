@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,6 +36,9 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
 
     @Bind(R.id.end_activity_logout_tv)
     TextView logoutTv;
+
+    @Bind(R.id.end_activity_back_iv)
+    ImageView backIv;
 
     @Bind(R.id.end_activity_fat_lcv)
     LineChart01View fatLcv;
@@ -190,7 +194,7 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
 
     }
 
-    @OnClick({R.id.end_activity_logout_tv})
+    @OnClick({R.id.end_activity_logout_tv,R.id.end_activity_back_iv})
     @Override
     public void onClick(View v) {
         if (v == logoutTv) {
@@ -198,6 +202,8 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
 //            String orderID = PreferenceUtil.getStringKey("orderID");
             PreferenceUtil.setStringKey("token","");
             PreferenceUtil.setStringKey("orderID","");
+            finish();
+        } else if (v == backIv) {
             finish();
         }
     }
