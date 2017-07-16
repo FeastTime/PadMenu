@@ -16,7 +16,6 @@ import com.feasttime.menu.R;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.order.OrderContract;
 import com.feasttime.presenter.order.OrderPresenter;
-import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.user.UserContract;
 import com.feasttime.presenter.user.UserPresenter;
 import com.feasttime.tools.PreferenceUtil;
@@ -76,6 +75,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         //提交验证码成功
                         Log.d(TAG, "/提交验证码成功");
+                        hideLoading();
                         final String phone = phoneEt.getText().toString();
                         userPresenter.login(phone);
                     }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
@@ -120,6 +120,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 ToastUtil.showToast(this,"请输入验证码", Toast.LENGTH_SHORT);
             } else {
 
+                showLoading();
                 SMSSDK.submitVerificationCode("86", phone, verificationCode);
             }
 
