@@ -76,6 +76,9 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
 
     }
 
+    public void goBack(View view){
+        this.finish();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
