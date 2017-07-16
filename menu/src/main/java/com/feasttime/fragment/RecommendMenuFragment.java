@@ -54,6 +54,9 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
     @Bind(R.id.recommend_activity_name_tv)
     TextView nameTv;
 
+    @Bind(R.id.recommend_fragment_dishes_num_tv)
+    TextView dishesNumTv;
+
     @Bind(R.id.recommend_activity_desc_tv)
     TextView descTv;
 
@@ -139,9 +142,28 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
         if (v == addIb) {
             String orderID = PreferenceUtil.getStringKey("orderID");
             mShoppingCartPresenter.addShoppingCart(menuItemInfo.getDishID(),orderID);
+
+            if (dishesNumTv.getTag() == null) {
+                dishesNumTv.setText("1");
+                dishesNumTv.setTag(1);
+            } else {
+                int currentNum = Integer.parseInt(dishesNumTv.getTag().toString()) + 1;
+                dishesNumTv.setText(String.valueOf(currentNum));
+                dishesNumTv.setTag(currentNum);
+            }
+
         } else if (v == reduceIb) {
             String orderID = PreferenceUtil.getStringKey("orderID");
             mShoppingCartPresenter.removeShoppingCart(menuItemInfo.getDishID(),orderID);
+
+            if (dishesNumTv.getTag() == null) {
+                dishesNumTv.setText("1");
+                dishesNumTv.setTag(1);
+            } else {
+                int currentNum = Integer.parseInt(dishesNumTv.getTag().toString()) - 1;
+                dishesNumTv.setText(String.valueOf(currentNum));
+                dishesNumTv.setTag(currentNum);
+            }
         }
     }
 

@@ -18,12 +18,13 @@ import com.feasttime.widget.chart.LineChart01View;
 import com.feasttime.widget.chart.MultiBarChart01View;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by chen on 2017/5/8.
  */
 
-public class EndActivity extends BaseActivity implements StatisticsContract.IStatisticsView{
+public class EndActivity extends BaseActivity implements StatisticsContract.IStatisticsView ,View.OnClickListener{
     private static final String TAG = "EndActivity";
 
     @Bind(R.id.end_activity_last_month_eat_chart_ll)
@@ -31,6 +32,9 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
 
     @Bind(R.id.end_activity_this_month_eat_chart_ll)
     LinearLayout thisMonthChartLl;
+
+    @Bind(R.id.end_activity_logout_tv)
+    TextView logoutTv;
 
     @Bind(R.id.end_activity_fat_lcv)
     LineChart01View fatLcv;
@@ -184,5 +188,17 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
     @Override
     public void showHealthIndexAssessment(HealthIndexAssessmentInfo healthIndexAssessmentInfo) {
 
+    }
+
+    @OnClick({R.id.end_activity_logout_tv})
+    @Override
+    public void onClick(View v) {
+        if (v == logoutTv) {
+//            String token = PreferenceUtil.getStringKey("token");
+//            String orderID = PreferenceUtil.getStringKey("orderID");
+            PreferenceUtil.setStringKey("token","");
+            PreferenceUtil.setStringKey("orderID","");
+            finish();
+        }
     }
 }

@@ -220,7 +220,7 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     }
 
     public void showContentMenu(String token,String orderID,String menuFlag) {
-        mMenuPresenter.getMenu(token,orderID,menuFlag,"");
+        mMenuPresenter.getMenu(token,orderID,menuFlag,"1");
     }
 
 
