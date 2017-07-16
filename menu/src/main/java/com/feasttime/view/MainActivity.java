@@ -23,6 +23,7 @@ import com.feasttime.fragment.RecommendMenuFragment;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.DishesCategoryInfo;
 import com.feasttime.model.bean.MenuInfo;
+import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
 import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.RecommendOrderListItemInfo;
@@ -164,8 +165,8 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         LogUtil.d(TAG,"menuInfo complete");
     }
 
-    public void jumpToRecommend(String ID){
-        recommendMenuFragment.setID(ID);
+    public void jumpToRecommend(MenuItemInfo menuItemInfo){
+        recommendMenuFragment.setMenuData(menuItemInfo);
         getFragmentManager().beginTransaction().show(recommendMenuFragment).hide(mainMenuFragment).hide(myOrderFragment).commit();
     }
 

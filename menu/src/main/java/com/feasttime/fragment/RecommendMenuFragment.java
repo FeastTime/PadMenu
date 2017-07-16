@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.feasttime.adapter.RecommendMenuAdapter;
 import com.feasttime.menu.R;
@@ -36,6 +37,7 @@ import com.feasttime.presenter.menu.MenuPresenter;
 import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
 import com.feasttime.tools.PreferenceUtil;
+import com.feasttime.tools.UtilTools;
 import com.feasttime.widget.RecyclerViewDivider;
 
 import java.util.ArrayList;
@@ -45,9 +47,15 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class RecommendMenuFragment extends BaseFragment implements MenuContract.IMenuView,View.OnClickListener,ShoppingCartContract.IShoppingCartView,RecommendMenuAdapter.RecommendViewHolderClicks {
-    private String ID;
     private MenuPresenter mMenuPresenter = new MenuPresenter();
     private ShoppingCartPresenter mShoppingCartPresenter = new ShoppingCartPresenter();
+    private MenuItemInfo menuItemInfo;
+
+    @Bind(R.id.recommend_activity_name_tv)
+    TextView nameTv;
+
+    @Bind(R.id.recommend_activity_desc_tv)
+    TextView descTv;
 
     @Bind(R.id.recommend_activity_dishes_level_ll)
     LinearLayout dishesLevelLl;
@@ -77,8 +85,10 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
         mShoppingCartPresenter.init(this);
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setMenuData(MenuItemInfo menuItemInfo) {
+        this.menuItemInfo = menuItemInfo;
+        nameTv.setText(UtilTools.decodeStr(menuItemInfo.getDishName()));
+        descTv.setText(UtilTools.decodeStr(menuItemInfo.getDetail()));
     }
 
     @Override
@@ -128,10 +138,10 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
     public void onClick(View v) {
         if (v == addIb) {
             String orderID = PreferenceUtil.getStringKey("orderID");
-            mShoppingCartPresenter.addShoppingCart(ID,orderID);
+            mShoppingCartPresenter.addShoppingCart(menuItemInfo.getDishID(),orderID);
         } else if (v == reduceIb) {
             String orderID = PreferenceUtil.getStringKey("orderID");
-            mShoppingCartPresenter.removeShoppingCart(ID,orderID);
+            mShoppingCartPresenter.removeShoppingCart(menuItemInfo.getDishID(),orderID);
         }
     }
 
@@ -212,7 +222,7 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
     public void onAddClicked(String uid) {
         String orderID = PreferenceUtil.getStringKey("orderID");
         if (!TextUtils.isEmpty(orderID)) {
-            mShoppingCartPresenter.addShoppingCart("3",orderID);
+            mShoppingCartPresenter.addShoppingCart(menuItemInfo.getDishID(),orderID);
         }
     }
 
@@ -220,7 +230,7 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
     public void onReduceClicked(String uid) {
         String orderID = PreferenceUtil.getStringKey("orderID");
         if (!TextUtils.isEmpty(orderID)) {
-            mShoppingCartPresenter.removeShoppingCart("3",orderID);
+            mShoppingCartPresenter.removeShoppingCart(menuItemInfo.getDishID(),orderID);
         }
     }
 

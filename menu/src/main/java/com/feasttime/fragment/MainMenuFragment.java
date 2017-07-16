@@ -174,8 +174,8 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     }
 
     @Override
-    public void onDishesPicClicked(String ID) {
-        ((MainActivity)this.getActivity()).jumpToRecommend(ID);
+    public void onDishesPicClicked(MenuItemInfo menuItemInfo) {
+        ((MainActivity)this.getActivity()).jumpToRecommend(menuItemInfo);
     }
 
     @Override

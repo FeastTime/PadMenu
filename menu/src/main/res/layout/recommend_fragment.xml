@@ -39,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/recommend_activity_name_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Name"
@@ -81,6 +82,7 @@
                     </LinearLayout>
                 </RelativeLayout>
                 <TextView
+                    android:id="@+id/recommend_activity_desc_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="11111"

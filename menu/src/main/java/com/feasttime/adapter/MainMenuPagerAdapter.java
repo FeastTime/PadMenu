@@ -34,7 +34,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     private final int perPageItem = 3;
 
     public interface OnItemClick{
-        void onDishesPicClicked(String ID);
+        void onDishesPicClicked(MenuItemInfo menuItemInfo);
     }
 
     private Context context;
@@ -203,11 +203,10 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
 
         ImageView dishes1 = (ImageView) view.findViewById(R.id.menu_item_layout_dishes_iv);
-
         dishes1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClick.onDishesPicClicked(menuItemInfo.getDishID());
+                mOnItemClick.onDishesPicClicked(menuItemInfo);
             }
         });
 
