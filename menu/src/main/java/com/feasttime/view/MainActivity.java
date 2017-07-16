@@ -180,6 +180,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     public void onClick(View v) {
         if (v == cartIb) {
             getFragmentManager().beginTransaction().show(myOrderFragment).hide(mainMenuFragment).hide(recommendMenuFragment).commit();
+            myOrderFragment.showCart();
         } else if (v == menuIb) {
             getFragmentManager().beginTransaction().show(mainMenuFragment).hide(myOrderFragment).hide(recommendMenuFragment).commit();
         } else if (loginTv == v) {

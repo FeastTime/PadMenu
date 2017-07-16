@@ -79,9 +79,13 @@ public class MyOrderFragment extends BaseFragment implements ShoppingCartContrac
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    public void showCart() {
         String orderID = PreferenceUtil.getStringKey("orderID");
         mShoppingCartPresenter.getShoppingCartList(orderID);
-        return super.onCreateView(inflater, container, savedInstanceState);
+
     }
 
 
