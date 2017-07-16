@@ -1,6 +1,6 @@
 package com.feasttime.view;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Window;
@@ -22,6 +22,10 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity extends FragmentActivity implements IBaseView {
+
+    ProgressDialog m_pDialog;
+    boolean isShowProgressDialog = false;
+
     private Set<IBasePresenter> mAllPresenters = new HashSet<>(1);
     /**
      * 需要子类来实现，获取子类的IPresenter，一个activity有可能有多个IPresenter
@@ -126,11 +130,38 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
     @Override
     public void showLoading() {
 
+
+        if (isShowProgressDialog)
+            return;
+
+        isShowProgressDialog = true;
+
+//创建ProgressDialog对象
+        m_pDialog = new ProgressDialog(this);
+
+// 设置进度条风格，风格为圆形，旋转的
+        m_pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+        // 设置ProgressDialog 提示信息
+        m_pDialog.setMessage("请稍等。。。");
+
+        // 设置ProgressDialog 的进度条是否不明确
+        m_pDialog.setIndeterminate(false);
+
+        // 设置ProgressDialog 是否可以按退回按键取消
+        m_pDialog.setCancelable(false);
+
+        m_pDialog.show();
     }
 
     @Override
     public void hideLoading() {
 
+        if (isShowProgressDialog){
+
+            m_pDialog.cancel();
+            isShowProgressDialog = false;
+        }
     }
 
     @Override
