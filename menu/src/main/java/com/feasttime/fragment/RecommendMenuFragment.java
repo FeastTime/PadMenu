@@ -140,8 +140,6 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
     @Override
     public void onClick(View v) {
         if (v == addIb) {
-            String orderID = PreferenceUtil.getStringKey("orderID");
-            mShoppingCartPresenter.addShoppingCart(menuItemInfo.getDishID(),orderID);
 
             if (dishesNumTv.getTag() == null) {
                 dishesNumTv.setText("1");
@@ -151,11 +149,12 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
                 dishesNumTv.setText(String.valueOf(currentNum));
                 dishesNumTv.setTag(currentNum);
             }
+            String orderID = PreferenceUtil.getStringKey("orderID");
+            mShoppingCartPresenter.addShoppingCart(menuItemInfo.getDishID(),orderID);
+
+
 
         } else if (v == reduceIb) {
-            String orderID = PreferenceUtil.getStringKey("orderID");
-            mShoppingCartPresenter.removeShoppingCart(menuItemInfo.getDishID(),orderID);
-
             if (dishesNumTv.getTag() == null) {
                 dishesNumTv.setText("1");
                 dishesNumTv.setTag(1);
@@ -164,6 +163,10 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
                 dishesNumTv.setText(String.valueOf(currentNum));
                 dishesNumTv.setTag(currentNum);
             }
+            String orderID = PreferenceUtil.getStringKey("orderID");
+            mShoppingCartPresenter.removeShoppingCart(menuItemInfo.getDishID(),orderID);
+
+
         }
     }
 
