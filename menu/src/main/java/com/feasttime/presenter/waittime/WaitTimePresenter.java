@@ -20,10 +20,10 @@ public class WaitTimePresenter implements WaitTimeContract.IWaitTimePresenter {
     private WaitTimeContract.IWaitTimeView mIWaitTimeView;
 
     @Override
-    public void getWaitTimeAD(String token) {
+    public void getWaitTimeAD(String token, int width ,int height, int number) {
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8")
-                ,"{\"width\":\"243\",\"height\":\"146\",\"token\":\"123456\",\"num\":\"10\"}");
+                ,"{\"width\":\""+width+"\",\"height\":\""+height+"\",\"token\":\""+token+"\",\"num\":\""+number+"\"}");
 
         RetrofitService
                 .getWaitTimeAdList(requestBody)

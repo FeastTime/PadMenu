@@ -15,7 +15,7 @@ public interface WaitTimeContract {
     }
 
     interface IWaitTimePresenter extends IBasePresenter<IWaitTimeView> {
-        void getWaitTimeAD(String token);
+        void getWaitTimeAD(String token, int width ,int height, int number);
         void getWaitTimeMenuList(String token, String orderId);
     }
 
