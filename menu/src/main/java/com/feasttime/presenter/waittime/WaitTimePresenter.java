@@ -23,7 +23,7 @@ public class WaitTimePresenter implements WaitTimeContract.IWaitTimePresenter {
     public void getWaitTimeAD(String token, int width ,int height, int number) {
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8")
-                ,"{\"width\":\""+width+"\",\"height\":\""+height+"\",\"token\":\""+token+"\",\"num\":\""+number+"\"}");
+                ,"{\"width\":\""+243+"\",\"height\":\""+146+"\",\"token\":\""+token+"\",\"num\":\""+number+"\"}");
 
         RetrofitService
                 .getWaitTimeAdList(requestBody)
