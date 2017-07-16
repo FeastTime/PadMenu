@@ -20,6 +20,7 @@ import com.feasttime.model.bean.WaitTimeMenuInfo;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.waittime.WaitTimeContract;
 import com.feasttime.presenter.waittime.WaitTimePresenter;
+import com.feasttime.tools.PreferenceUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -109,7 +110,7 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
                 if (timerTimes%10==0){
 
                     //每次需要执行的代码放到这里面。
-                    waitTimePresenter.getWaitTimeMenuList("","");
+                    waitTimePresenter.getWaitTimeMenuList(PreferenceUtil.getStringKey("token"),PreferenceUtil.getStringKey("orderID"));
                 } else {
 
                     WaitingTimeActivity.this.runOnUiThread(new Runnable() {
@@ -129,7 +130,8 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
 
         timer.schedule(task, 0, 1000);
 
-        waitTimePresenter.getWaitTimeAD("");
+        Log.d(TAG, gridview.getWidth()/4 + "--" + getItemHeight() + "");
+        waitTimePresenter.getWaitTimeAD(PreferenceUtil.getStringKey("token"), gridview.getWidth()/4, getItemHeight(), 24);
 
     }
 
