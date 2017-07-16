@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.feasttime.view.PlayVideoActivity;
 import com.feasttime.view.ShowWebActivity;
 import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
 import com.feasttime.widget.jazzyviewpager.OutlineContainer;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -203,6 +205,15 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
 
         ImageView dishes1 = (ImageView) view.findViewById(R.id.menu_item_layout_dishes_iv);
+
+        String url = menuItemInfo.getDishImgUrl();
+        if (!TextUtils.isEmpty(url)) {
+//            Picasso.with(context)
+//                    .load("http://img4.imgtn.bdimg.com/it/u=1182003525,1136381245&fm=26&gp=0.jpg")
+//                    .into(dishes1);
+        }
+
+
         dishes1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
