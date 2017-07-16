@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2017. sheng yan
-  -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
@@ -21,7 +17,8 @@
             android:layout_height="50px"
             android:layout_marginLeft="50px"
             android:layout_marginTop="58px"
-            />
+            android:src="@mipmap/left_arrow"
+            android:onClick="goBack"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -173,18 +170,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/wait_time_text_one"
                         android:textColor="@color/text_color_dark_gray"
                         android:textSize="10sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/wait_time_text_two"
                         android:textColor="@color/text_color_dark_gray"
                         android:textSize="15sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/wait_time_text_three"
                         android:textColor="@color/text_color_dark_gray"
                         android:textSize="10sp"/>
 
