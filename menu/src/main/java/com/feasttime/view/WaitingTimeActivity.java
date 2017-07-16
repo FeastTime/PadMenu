@@ -1,5 +1,6 @@
 package com.feasttime.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -78,6 +79,7 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
     }
 
     public void goBack(View view){
+
         this.finish();
     }
     @Override
@@ -228,4 +230,10 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
 
     }
 
+
+    public void goToHeathPage(View view){
+        Intent intent = new Intent(this, EndActivity.class);
+        this.startActivity(intent);
+
+    }
 }

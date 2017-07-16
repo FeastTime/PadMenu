@@ -21,5 +21,6 @@
     <string name="wait_time_text_one">在40分钟内用餐完成可自动获得再次就餐</string>
     <string name="wait_time_text_two">10元</string>
     <string name="wait_time_text_three">代金券</string>
+    <string name="heathText">健康评估</string>
 
 </resources>

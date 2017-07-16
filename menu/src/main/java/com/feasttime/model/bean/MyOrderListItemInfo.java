@@ -13,6 +13,11 @@ public class MyOrderListItemInfo {
     String amount;
     String price;
     String extraFlag;
+    String state;
+    String startTime;
+
+
+
 
     public String getDishID() {
         return dishID;
@@ -76,5 +81,21 @@ public class MyOrderListItemInfo {
 
     public void setExtraFlag(String extraFlag) {
         this.extraFlag = extraFlag;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 }
