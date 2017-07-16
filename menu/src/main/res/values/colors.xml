@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="holo_blue">#FF33E5B5</color>
+    <color name="red">#D10017</color>
+    <color name="white">#FFFFFF</color>
+    <color name="dark_gray">#302b27</color>
+    <color name="main_bg_color">#F4F3CE</color>
+    <color name="title_bar_normal_color">#483B37</color>
+    <color name="title_bar_selected_color">#322A27</color>
+    <color name="transparent">#00000000</color>
+    <color name="my_red">#D10017</color>
+    <color name="transparent_gray">#cc302b27</color>
+    <color name="small_black">#BBB5AD</color>
+    <color name="small_gray">#DCDDDC</color>
+    <color name="orange_color">#796115</color>
+
+
+
+    <color name="text_color_dark_gray">#373737</color>
+    <color name="text_color_gray">#332a27</color>
+</resources>

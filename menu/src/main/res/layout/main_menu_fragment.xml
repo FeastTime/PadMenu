@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017. sheng yan
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/menu_item_layout_viewpage_indicate_rg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="0dp"></RadioGroup>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
+
+        <ImageButton
+            android:id="@+id/main_activity_left_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/left_arrow" />
+
+        <ImageButton
+            android:id="@+id/main_activity_right_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/right_arrow" />
+
+
+        <com.feasttime.widget.jazzyviewpager.JazzyViewPager
+            android:id="@+id/main_menu_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/main_activity_right_ib"
+            android:layout_toRightOf="@+id/main_activity_left_ib" />
+
+        <Button
+            android:id="@+id/toTheAdBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="进入广告" />
+
+    </RelativeLayout>
+</LinearLayout>

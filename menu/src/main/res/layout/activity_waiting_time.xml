@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2017. sheng yan
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@mipmap/wait_time_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="128px"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:layout_width="30px"
+            android:layout_height="50px"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="58px"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="19px"
+            android:background="#4a4740" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50px"
+        android:layout_marginLeft="70px"
+        android:layout_marginRight="70px"
+        android:layout_marginBottom="77px"
+        android:orientation="horizontal"
+        android:divider="@drawable/waittime_divider_w40"
+        android:showDividers="middle" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="44"
+
+
+            android:divider="@drawable/waittime_divider_h50"
+            android:showDividers="middle"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:background="@color/dark_gray">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/bg_wait_time_1"
+                            android:scaleType="fitXY"/>
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="530px"
+                        android:layout_height="174px"
+                        android:orientation="horizontal"
+
+                        android:layout_gravity="center_horizontal|bottom">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:src="@mipmap/wait_time_progress_background"
+                                android:scaleType="fitXY"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textSize="20sp"
+                                    android:textColor="@color/white"
+                                    android:gravity="center"
+                                    android:text="等餐时间\nWaitTime"/>
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@mipmap/dish1"
+                            android:scaleType="fitXY"/>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@mipmap/dish2"
+                            android:scaleType="fitXY"/>
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="bottom">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="40px"
+                    android:layout_weight="1"
+                    >
+
+                    <ListView
+                        android:id="@+id/waittime_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
+
+                    </ListView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|left"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:src="@mipmap/wait_time_sand_clock"
+                        android:scaleType="fitXY"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_dark_gray"
+                        android:textSize="10sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_dark_gray"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_dark_gray"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="56"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/waittime_gridViewParent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <GridView
+                    android:id="@+id/waittime_gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+
+                    android:layout_gravity="center"
+                    android:numColumns="4"
+                    android:horizontalSpacing="1px"
+                    android:verticalSpacing="1px"
+                    android:stretchMode="columnWidth" />
+
+                <RelativeLayout
+                    android:id="@+id/lottery_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="#BF000000">
+
+                    <ImageView
+                        android:id="@+id/lottery"
+                        android:layout_width="410px"
+                        android:layout_height="315px"
+                        android:src="@mipmap/wait_time_lottery"
+                        android:onClick="adLottery"
+                        android:scaleType="fitXY"/>
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

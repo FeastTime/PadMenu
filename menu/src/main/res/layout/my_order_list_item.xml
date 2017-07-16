@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/my_order_list_item_name_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/big_text_size"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/my_order_list_item_price_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/big_text_size"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="0"
+        android:layout_weight="1"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="right|center_vertical"
+        >
+        <ImageView
+            android:id="@+id/my_order_list_item_reduce_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/reduce"
+            />
+
+        <TextView
+            android:id="@+id/my_order_list_item_dishes_count_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0元"
+            android:textSize="@dimen/big_text_size"
+            android:textColor="@color/white"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            />
+        <ImageView
+            android:id="@+id/my_order_list_item_add_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/add"
+            />
+    </LinearLayout>
+
+</LinearLayout>

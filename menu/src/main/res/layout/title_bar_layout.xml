@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+   >
+
+
+    <LinearLayout
+        android:id="@+id/title_bar_cart_ll"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        >
+
+        <ImageButton
+            android:id="@+id/title_bar_cart_ib"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@mipmap/cart_icon"
+            android:background="@drawable/right_menu_bg"
+            android:foregroundGravity="center"
+            />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_toLeftOf="@+id/title_bar_cart_ll"
+        android:layout_width="match_parent"
+        android:background="@drawable/title_bar_bg"
+        android:layout_height="44dp"
+        android:layout_marginLeft="85dp"
+        >
+        <RadioGroup
+            android:id="@+id/title_bar_content_rb"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="0dp"
+            android:layout_margin="0dp"
+            android:layout_height="match_parent">
+
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            >
+
+            <TextView
+                android:id="@+id/title_bar_layout_login_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登录"
+                android:textColor="@color/white"
+                android:textSize="@dimen/very_big_text_size"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                />
+
+            <ImageButton
+                android:id="@+id/title_bar_layout_menu_ib"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@mipmap/right_menu_icon"
+                android:background="@drawable/right_menu_bg"
+                android:paddingRight="0dp"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>
