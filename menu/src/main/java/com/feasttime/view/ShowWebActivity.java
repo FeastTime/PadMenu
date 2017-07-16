@@ -35,7 +35,7 @@ public class ShowWebActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-
+        String url = this.getIntent().getStringExtra("url");
         WebSettings webSettings = webViewWv.getSettings();
         //设置WebView属性，能够执行Javascript脚本
         webSettings.setJavaScriptEnabled(true);
@@ -44,7 +44,7 @@ public class ShowWebActivity extends BaseActivity {
         //设置支持缩放
         webSettings.setBuiltInZoomControls(true);
         //加载需要显示的网页
-        webViewWv.loadUrl("http://www.baidu.com");
+        webViewWv.loadUrl(url);
         //设置Web视图
         webViewWv.setWebViewClient(new webViewClient ());
 

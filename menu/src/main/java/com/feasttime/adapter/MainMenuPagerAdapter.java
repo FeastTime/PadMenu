@@ -15,11 +15,13 @@ import android.widget.TextView;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.tools.ScreenTools;
+import com.feasttime.tools.UtilTools;
 import com.feasttime.view.PlayVideoActivity;
 import com.feasttime.view.ShowWebActivity;
 import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
 import com.feasttime.widget.jazzyviewpager.OutlineContainer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +46,12 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     public MainMenuPagerAdapter(Context context, JazzyViewPager jazzyViewPager, List<MenuItemInfo> menuItemInfoList) {
         this.context = context;
         this.mJazzy = jazzyViewPager;
-        this.menuItemInfoList = menuItemInfoList;
+        if (menuItemInfoList != null) {
+            this.menuItemInfoList = menuItemInfoList;
+        } else {
+            this.menuItemInfoList = new ArrayList<MenuItemInfo>();
+        }
+
     }
 
     public void setOnItemClickListener(OnItemClick onItemClick) {
@@ -130,14 +137,31 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         }
     }
 
-    private void setPerItemView(LinearLayout view,final MenuItemInfo menuItemInfo,int imgWidth) {
+    private void setPerItemView(LinearLayout view, final MenuItemInfo menuItemInfo, int imgWidth) {
         view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
 
         TextView dishesName1 = (TextView)view.findViewById(R.id.menu_item_layout_dishes_name_tv);
 
         TextView seeDetail1 = (TextView)view.findViewById(R.id.menu_item_layout_dishes_detail_tv);
 
-        dishesName1.setText(menuItemInfo.getDishName());
+        TextView cost = (TextView) view.findViewById(R.id.menu_item_layout_original_price_tv);
+        TextView price = (TextView)view.findViewById(R.id.menu_item_layout_now_price_tv);
+        TextView soldTimes = (TextView)view.findViewById(R.id.menu_item_layout_sold_num_tv);
+        TextView provideDishesTv = (TextView)view.findViewById(R.id.menu_item_provide_dishes_tv);
+        TextView sodiumTv = (TextView)view.findViewById(R.id.menu_item_layout_sodium_tv);
+
+        price.setText(menuItemInfo.getPrice());
+        cost.setText(menuItemInfo.getCost());
+        soldTimes.setText(menuItemInfo.getEatTimes());
+        provideDishesTv.setText(menuItemInfo.getWaitTime());
+        sodiumTv.setText(UtilTools.decodeStr(menuItemInfo.getExponent()));
+
+        try {
+            dishesName1.setText(UtilTools.decodeStr(menuItemInfo.getDishName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         view.setGravity(Gravity.CENTER);
 
@@ -151,7 +175,9 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         playVideoTv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, PlayVideoActivity.class));
+                Intent intent = new Intent(context,PlayVideoActivity.class);
+                intent.putExtra("url",menuItemInfo.getTvUrl());
+                context.startActivity(intent);
             }
         });
 
@@ -161,7 +187,9 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         seeDetail1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, ShowWebActivity.class));
+                Intent intent = new Intent(context,ShowWebActivity.class);
+                intent.putExtra("url", UtilTools.decodeStr(menuItemInfo.getDetail()));
+                context.startActivity(intent);
             }
         });
 

@@ -1,37 +1,28 @@
 package com.feasttime.view;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.feasttime.adapter.MainMenuPagerAdapter;
 import com.feasttime.fragment.MainMenuFragment;
 import com.feasttime.fragment.MyOrderFragment;
 import com.feasttime.fragment.RecommendMenuFragment;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.DishesCategoryInfo;
 import com.feasttime.model.bean.MenuInfo;
-import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
 import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.RecommendOrderListItemInfo;
@@ -47,7 +38,7 @@ import com.feasttime.tools.DeviceTool;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ScreenTools;
-import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
+import com.feasttime.tools.UtilTools;
 
 import java.util.List;
 
@@ -99,8 +90,8 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
             mOrderPresenter.createOrder(token);
         }
 
-
-        mainMenuFragment.showContentMenu(token,orderID,"1001");
+        LogUtil.d("result","myOrderId:" + orderID);
+//        mainMenuFragment.showContentMenu(token,orderID,"1001");
     }
 
     @Override
@@ -132,32 +123,32 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         fragmentTransaction.commit();
 
 
-        RadioButton menuRb = new RadioButton(this);
-        menuRb.setButtonDrawable(android.R.color.transparent);
-        menuRb.setGravity(Gravity.CENTER);
-        menuRb.setText("海鲜" + "\n" + "hot");
-        menuRb.setTextColor(Color.WHITE);
-        menuRb.setTag("1001");
-        menuRb.setPadding(ScreenTools.dip2px(this,40),0,ScreenTools.dip2px(this,40),0);
-        if (mTtitleBarMenuRb.getChildCount() == 0) {
-            menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
-        } else {
-            menuRb.setBackgroundResource(R.drawable.title_normal_menu_selector);
-        }
-
-        menuRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                }
-            }
-        });
-
-        mTtitleBarMenuRb.addView(menuRb);
-        ViewGroup.LayoutParams params = menuRb.getLayoutParams();
-        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-        menuRb.setLayoutParams(params);
-        ((RadioButton)mTtitleBarMenuRb.getChildAt(0)).setChecked(true);
+//        RadioButton menuRb = new RadioButton(this);
+//        menuRb.setButtonDrawable(android.R.color.transparent);
+//        menuRb.setGravity(Gravity.CENTER);
+//        menuRb.setText("海鲜" + "\n" + "hot");
+//        menuRb.setTextColor(Color.WHITE);
+//        menuRb.setTag("1001");
+//        menuRb.setPadding(ScreenTools.dip2px(this,40),0,ScreenTools.dip2px(this,40),0);
+//        if (mTtitleBarMenuRb.getChildCount() == 0) {
+//            menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
+//        } else {
+//            menuRb.setBackgroundResource(R.drawable.title_normal_menu_selector);
+//        }
+//
+//        menuRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                }
+//            }
+//        });
+//
+//        mTtitleBarMenuRb.addView(menuRb);
+//        ViewGroup.LayoutParams params = menuRb.getLayoutParams();
+//        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+//        menuRb.setLayoutParams(params);
+//        ((RadioButton)mTtitleBarMenuRb.getChildAt(0)).setChecked(true);
     }
 
 
@@ -183,7 +174,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
 
     }
 
-    @OnClick({R.id.title_bar_cart_ib,R.id.title_bar_layout_menu_ib,R.id.title_bar_layout_login_tv})
+    @OnClick({R.id.title_bar_cart_ib, R.id.title_bar_layout_menu_ib, R.id.title_bar_layout_login_tv})
     @Override
     public void onClick(View v) {
         if (v == cartIb) {
@@ -202,10 +193,10 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         RadioButton menuRb = new RadioButton(this);
         menuRb.setButtonDrawable(android.R.color.transparent);
         menuRb.setGravity(Gravity.CENTER);
-        menuRb.setText(dishesCategoryListBean.getCategoryName() + "\n" + "hot");
+        menuRb.setText(UtilTools.decodeStr(dishesCategoryListBean.getCategoryName()) + "\n" + "hot");
         menuRb.setTextColor(Color.WHITE);
-        menuRb.setTag("1001");
-        menuRb.setPadding(ScreenTools.dip2px(this,40),0,ScreenTools.dip2px(this,40),0);
+        menuRb.setTag(dishesCategoryListBean.getClassType());
+        menuRb.setPadding(ScreenTools.dip2px(this,40),0, ScreenTools.dip2px(this,40),0);
         if (mTtitleBarMenuRb.getChildCount() == 0) {
             menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
         } else {
@@ -216,6 +207,12 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    String classType = buttonView.getTag().toString();
+                    LogUtil.d("result","classType:" + classType);
+                    String token = PreferenceUtil.getStringKey("token");
+                    String orderID = PreferenceUtil.getStringKey("orderID");
+                    mainMenuFragment.showContentMenu(token,orderID,classType);
+                } else {
                 }
             }
         });

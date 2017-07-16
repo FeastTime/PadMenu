@@ -9,8 +9,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
@@ -47,17 +47,17 @@ public class PlayVideoActivity extends BaseActivity {
 
 //        videoView.setMediaController(new MediaController(this));
 
+        String url = this.getIntent().getStringExtra("url");
 
-        // 播放在线视频
-        Uri mVideoUri = Uri.parse("http://2449.vod.myqcloud.com/2449_22ca37a6ea9011e5acaaf51d105342e3.f20.mp4");
-        videoView.setVideoPath(mVideoUri.toString());
+        if (!TextUtils.isEmpty(url)) {
+            // 播放在线视频
+            Uri mVideoUri = Uri.parse(url);
+            videoView.setVideoPath(mVideoUri.toString());
+            videoView.start();
+            videoView.requestFocus();
+            showProgress();
+        }
 
-
-
-        videoView.start();
-        videoView.requestFocus();
-
-        showProgress();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)

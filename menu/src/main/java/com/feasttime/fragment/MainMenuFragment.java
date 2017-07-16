@@ -23,11 +23,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.feasttime.adapter.MainMenuPagerAdapter;
-import com.feasttime.fragment.BaseFragment;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.DishesCategoryInfo;
 import com.feasttime.model.bean.MenuInfo;
-import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
 import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.RecommendOrderListItemInfo;
@@ -106,6 +104,9 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     @Override
     public void showMenu(MenuInfo result) {
         viewpageIndicateRg.removeAllViews();
+
+
+
         MainMenuPagerAdapter mainMenuPagerAdapter = new MainMenuPagerAdapter(mContext,jazzyViewPager,result.getDishesList());
         mainMenuPagerAdapter.setOnItemClickListener(this);
 
@@ -133,7 +134,7 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     }
 
 
-    @OnClick({R.id.main_activity_left_ib,R.id.main_activity_right_ib,R.id.toTheAdBtn})
+    @OnClick({R.id.main_activity_left_ib, R.id.main_activity_right_ib, R.id.toTheAdBtn})
     @Override
     public void onClick(View v) {
         if (v == leftIb) {

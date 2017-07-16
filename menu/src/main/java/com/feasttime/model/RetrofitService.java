@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.model.bean.CreateOrderInfo;
 import com.feasttime.model.bean.DishesCategoryInfo;
+import com.feasttime.model.bean.HealthIndexAssessmentInfo;
 import com.feasttime.model.bean.LoginInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.model.bean.OrderInfo;
@@ -152,8 +153,9 @@ public class RetrofitService {
     //转换成
     private static void addDeviceInfo(HashMap <String,Object> infoMap) {
         String mobileNO = PreferenceUtil.getStringKey("mobileNO");
-
-        infoMap.put("mobileNO",mobileNO);
+        if (!TextUtils.isEmpty(mobileNO)) {
+            infoMap.put("mobileNO",mobileNO);
+        }
         infoMap.put("imei",imei);
         infoMap.put("androidID",androidID);
         infoMap.put("mac",mac);
@@ -206,7 +208,9 @@ public class RetrofitService {
 
 
     public static Observable<DishesCategoryInfo> getDishesCategoryList(){
-        return sMenuService.getDishesCategoryList()
+        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+        addDeviceInfo(infoMap);
+        return sMenuService.getDishesCategoryList(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -271,6 +275,15 @@ public class RetrofitService {
 
     public static Observable<WaitTimeMenuInfo> getWaitTimeMenuList(RequestBody requestBody){
         return sMenuService.getWaitTimeMenuList(requestBody)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<HealthIndexAssessmentInfo> getHealthIndexAssessment(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.getHealthIndexAssessment(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

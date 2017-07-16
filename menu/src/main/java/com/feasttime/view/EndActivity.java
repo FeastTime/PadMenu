@@ -8,10 +8,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.feasttime.menu.R;
+import com.feasttime.model.bean.HealthIndexAssessmentInfo;
 import com.feasttime.model.bean.PersonalStatisticsInfo;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.statistics.StatisticsContract;
 import com.feasttime.presenter.statistics.StatisticsPresenter;
+import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.widget.chart.LineChart01View;
 import com.feasttime.widget.chart.MultiBarChart01View;
 
@@ -108,6 +110,13 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
 
 
         statisticsPresenter.getStatisticsPersonalInfo("3232326654646464");
+        test();
+    }
+
+
+    private void test()  {
+        String orderID = PreferenceUtil.getStringKey("orderID");
+        statisticsPresenter.getgetHealthIndexAssessment("2017040721001001240261160865");
     }
 
     @Override
@@ -171,4 +180,9 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
         rightEatCountTv.setText(eatCountStr.replace("num",result.getEatCount()));
     }
 
+
+    @Override
+    public void showHealthIndexAssessment(HealthIndexAssessmentInfo healthIndexAssessmentInfo) {
+
+    }
 }

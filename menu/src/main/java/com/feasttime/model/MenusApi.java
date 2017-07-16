@@ -2,6 +2,7 @@ package com.feasttime.model;
 
 import com.feasttime.model.bean.CreateOrderInfo;
 import com.feasttime.model.bean.DishesCategoryInfo;
+import com.feasttime.model.bean.HealthIndexAssessmentInfo;
 import com.feasttime.model.bean.LoginInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.model.bean.OrderInfo;
@@ -47,8 +48,8 @@ public interface MenusApi {
 
 
       //获取菜品类型列表
-      @GET("getDishesCategoryList")
-      Observable<DishesCategoryInfo> getDishesCategoryList();
+      @POST("menu/getDishesCategoryList/")
+      Observable<DishesCategoryInfo> getDishesCategoryList(@Body RequestBody route);
 
       //登录
       @POST("user/login/")
@@ -82,5 +83,8 @@ public interface MenusApi {
 
       @POST("--------1")
       Observable<WaitTimeMenuInfo> getWaitTimeMenuList(@Body RequestBody requestBody);
+
+      @POST("menu/getHealthIndexAssessment/")
+      Observable<HealthIndexAssessmentInfo> getHealthIndexAssessment(@Body RequestBody requestBody);
 
 }

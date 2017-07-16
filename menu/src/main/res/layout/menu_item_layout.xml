@@ -211,6 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:textColor="@color/title_bar_normal_color"
                     />
 
             </LinearLayout>
@@ -246,6 +247,7 @@
                 />
 
             <TextView
+                android:id="@+id/menu_item_provide_dishes_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/title_bar_normal_color"
@@ -297,20 +299,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:textColor="@color/title_bar_normal_color"
                     />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/title_bar_normal_color"
-                    android:text="热量:"
-                    />
 
                 <TextView
                     android:id="@+id/menu_item_layout_amount_of_heat_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:textColor="@color/title_bar_normal_color"
                     />
 
             </LinearLayout>
