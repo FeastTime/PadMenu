@@ -55,7 +55,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.0'
     compile 'com.android.support:support-v4:25.3.0'
     compile project(':android_display_sdk')
-
+    compile 'com.danikula:videocache:2.7.0' //视频缓存框架
     compile name:'SMSSDK-2.1.4', ext: 'aar'
 
 }
