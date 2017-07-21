@@ -78,6 +78,8 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         ScreenInfo info = DeviceTool.getDeviceScreenInfo(this);
         mMenuPresenter.getDishesCategory();
         LogUtil.d(TAG,info.getWidth() + "X" + info.getHeight());
+
+//        startActivity(new Intent(this,TestActivity.class));
     }
 
     @Override

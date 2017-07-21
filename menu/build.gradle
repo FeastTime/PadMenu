@@ -58,6 +58,8 @@ dependencies {
     compile 'com.danikula:videocache:2.7.0' //视频缓存框架
     compile name:'SMSSDK-2.1.4', ext: 'aar'
 
+    compile 'com.pnikosis:materialish-progress:1.7'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.7'
 }
 
 
