@@ -5,26 +5,26 @@ package com.feasttime.model.bean;
  */
 
 public class MenuItemInfo {
-    String dishID;
-    String dishNO;
-    String dishImgUrl;
-    String tvUrl;
-    String hotFlag;
-    String materialFlag;
-    String titleADImgUrl;
-    String titleADUrl;
-    String eatTimes;
-    String dishName;
-    String detail;
-    String time;
-    String cost;
-    String price;
-    String cstFlag;
-    String sales;
-    String waitTime;
-    String exponent;
-    String tmpId;
-    String pageId;
+    String dishID = "";
+    String dishNO = "";
+    String dishImgUrl = "";
+    String tvUrl = "";
+    String hotFlag = "";
+    String materialFlag = "";
+    String titleADImgUrl = "";
+    String titleADUrl = "";
+    String eatTimes = "";
+    String dishName = "";
+    String detail = "";
+    String time = "";
+    String cost = "";
+    String price = "";
+    String cstFlag = "";
+    String sales = "";
+    String waitTime = "";
+    String exponent = "";
+    String tmpId = "";
+    String pageId = "";
 
     public String getEatTimes() {
         return eatTimes;

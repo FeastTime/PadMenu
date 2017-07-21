@@ -34,7 +34,10 @@ import java.util.List;
 
 
 public class MainMenuPagerAdapter extends PagerAdapter {
-    private final int perPageItem = 3;
+    private static final String  TAG = "MainMenuPagerAdapter";
+
+    private int perPageItem = 3;
+    private int dataSizeCount = 9;
 
     public interface OnItemClick{
         void onDishesPicClicked(MenuItemInfo menuItemInfo);
@@ -46,6 +49,10 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     private OnItemClick mOnItemClick;
     private  List<MenuItemInfo> menuItemInfoList;
 
+    public void setDataSizeCount(int num) {
+        this.dataSizeCount = num;
+    }
+
     public MainMenuPagerAdapter(Context context, JazzyViewPager jazzyViewPager, List<MenuItemInfo> menuItemInfoList) {
         this.context = context;
         this.mJazzy = jazzyViewPager;
@@ -53,6 +60,20 @@ public class MainMenuPagerAdapter extends PagerAdapter {
             this.menuItemInfoList = menuItemInfoList;
         } else {
             this.menuItemInfoList = new ArrayList<MenuItemInfo>();
+        }
+    }
+
+    public boolean checkExistData(int position) {
+        if (menuItemInfoList != null) {
+            int currentDataSize = menuItemInfoList.size();
+            int calcPageSize = (int)Math.ceil(currentDataSize / (float)perPageItem);
+            if (calcPageSize >= (position + 1)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
@@ -67,6 +88,16 @@ public class MainMenuPagerAdapter extends PagerAdapter {
             this.menuItemInfoList.clear();
             this.notifyDataSetChanged();
         }
+    }
+
+    public void appendData(List<MenuItemInfo> list) {
+        if (menuItemInfoList != null) {
+            menuItemInfoList.addAll(list);
+        } else {
+            menuItemInfoList = list;
+        }
+
+        this.notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClick onItemClick) {
@@ -101,6 +132,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         LinearLayout ll = new LinearLayout(context);
         LinearLayout view1 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
         if (menuItemInfo1 != null) {
+            view1.setVisibility(View.VISIBLE);
             setPerItemView(view1,menuItemInfo1,300);
         } else {
             view1.setVisibility(View.INVISIBLE);
@@ -110,6 +142,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         LinearLayout view2 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
         if (menuItemInfo2 != null) {
+            view2.setVisibility(View.VISIBLE);
             setPerItemView(view2,menuItemInfo2,245);
         } else {
             view2.setVisibility(View.INVISIBLE);
@@ -119,6 +152,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         LinearLayout view3 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
         if (menuItemInfo3 != null) {
+            view3.setVisibility(View.VISIBLE);
             setPerItemView(view3,menuItemInfo3,135);
 
         } else {
@@ -138,6 +172,11 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         return ll;
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        //这种方法以后需要改进，开销过大
+        return POSITION_NONE;
+    }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object obj) {
@@ -145,7 +184,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     }
     @Override
     public int getCount() {
-        int count = (int)(menuItemInfoList.size() / perPageItem) + 1;
+        int count = (int)Math.ceil(dataSizeCount / (float)perPageItem);
         return count;
     }
     @Override
