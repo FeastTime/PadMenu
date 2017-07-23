@@ -275,6 +275,6 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         ViewGroup.LayoutParams params1 = dishes1.getLayoutParams();
         params1.width = ScreenTools.dip2px(context,imgWidth);
-        dishes1.setLayoutParams(params1);
+//        dishes1.setLayoutParams(params1);
     }
 }

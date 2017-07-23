@@ -7,9 +7,10 @@
 
         <ImageView
             android:id="@+id/menu_item_layout_dishes_iv"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:scaleType="centerInside"
+            android:background="#888768"
+            android:layout_width="330px"
+            android:layout_height="330px"
+            android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher" />
 
 
