@@ -2,20 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent"
+    android:background="#811111"
     android:padding="10dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
         >
         <ImageView
             android:id="@+id/menu_item_layout_dishes_iv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_launcher" />
     </LinearLayout>
@@ -72,18 +72,6 @@
             android:textColor="@color/text_color_gray"
             />
 
-        <TextView
-            android:id="@+id/menu_item_layout_dishes_detail_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/detail_bg"
-            android:layout_marginLeft="5dp"
-            android:textSize="@dimen/normal_text_size"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="查看详情" />
     </LinearLayout>
 
     <LinearLayout
@@ -95,16 +83,13 @@
         android:paddingBottom="2dp"
         >
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/today_price" />
 
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <LinearLayout
@@ -128,41 +113,6 @@
                     />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/title_bar_normal_color"
-                    android:text="原价:"
-                    />
-
-                <TextView
-                    android:id="@+id/menu_item_layout_original_price_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/title_bar_normal_color"
-                    android:text=""
-                    />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/title_bar_normal_color"
-                    android:text="现价:"
-                    />
-
-                <TextView
-                    android:id="@+id/menu_item_layout_now_price_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/title_bar_normal_color"
-                    android:text=""
-                    />
-            </LinearLayout>
 
 
         </LinearLayout>
@@ -178,14 +128,10 @@
         android:paddingBottom="2dp"
         >
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/today_hot_sold" />
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <TextView
@@ -220,6 +166,64 @@
         </LinearLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentLeft="true">
+
+            <TextView
+                android:id="@+id/menu_item_layout_now_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="Y0"
+                />
+
+            <TextView
+                android:id="@+id/menu_item_layout_original_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_gray"
+                android:text="Y0"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/menu_item_layout_reduce_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/reduce"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_gray"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                />
+
+            <ImageView
+                android:id="@+id/menu_item_layout_add_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/add"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -237,19 +241,21 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
                 android:textColor="@color/title_bar_normal_color"
-                android:text="上菜时长"
+                android:text="预计等待"
                 />
 
             <TextView
-                android:id="@+id/menu_item_provide_dishes_tv"
+                android:id="@+id/menu_item_wait_time_num_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
                 android:textColor="@color/title_bar_normal_color"
                 android:text=""
                 />
@@ -264,6 +270,7 @@
         android:gravity="center_vertical"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
+        android:visibility="gone"
         >
 
         <ImageView

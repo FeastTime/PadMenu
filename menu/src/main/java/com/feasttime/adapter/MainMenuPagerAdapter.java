@@ -32,7 +32,6 @@ import java.util.List;
  */
 
 
-
 public class MainMenuPagerAdapter extends PagerAdapter {
     private static final String  TAG = "MainMenuPagerAdapter";
 
@@ -143,7 +142,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         LinearLayout view2 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
         if (menuItemInfo2 != null) {
             view2.setVisibility(View.VISIBLE);
-            setPerItemView(view2,menuItemInfo2,245);
+            setPerItemView(view2,menuItemInfo2,300);
         } else {
             view2.setVisibility(View.INVISIBLE);
             view2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
@@ -153,7 +152,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         LinearLayout view3 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
         if (menuItemInfo3 != null) {
             view3.setVisibility(View.VISIBLE);
-            setPerItemView(view3,menuItemInfo3,135);
+            setPerItemView(view3,menuItemInfo3,300);
 
         } else {
             view3.setVisibility(View.INVISIBLE);
@@ -205,12 +204,11 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         TextView dishesName1 = (TextView)view.findViewById(R.id.menu_item_layout_dishes_name_tv);
 
-        TextView seeDetail1 = (TextView)view.findViewById(R.id.menu_item_layout_dishes_detail_tv);
 
         TextView cost = (TextView) view.findViewById(R.id.menu_item_layout_original_price_tv);
         TextView price = (TextView)view.findViewById(R.id.menu_item_layout_now_price_tv);
         TextView soldTimes = (TextView)view.findViewById(R.id.menu_item_layout_sold_num_tv);
-        TextView provideDishesTv = (TextView)view.findViewById(R.id.menu_item_provide_dishes_tv);
+        TextView provideDishesTv = (TextView)view.findViewById(R.id.menu_item_wait_time_num_tv);
         TextView sodiumTv = (TextView)view.findViewById(R.id.menu_item_layout_sodium_tv);
 
         price.setText(menuItemInfo.getPrice());
@@ -247,14 +245,14 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
 
 
-        seeDetail1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,ShowWebActivity.class);
-                intent.putExtra("url", UtilTools.decodeStr(menuItemInfo.getDetail()));
-                context.startActivity(intent);
-            }
-        });
+//        seeDetail1.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context,ShowWebActivity.class);
+//                intent.putExtra("url", UtilTools.decodeStr(menuItemInfo.getDetail()));
+//                context.startActivity(intent);
+//            }
+//        });
 
 
         ImageView dishes1 = (ImageView) view.findViewById(R.id.menu_item_layout_dishes_iv);

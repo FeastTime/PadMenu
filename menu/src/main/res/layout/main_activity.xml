@@ -5,20 +5,44 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg_color">
 
-
-
-   <FrameLayout
-       android:id="@+id/main_fragment_container_fl"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-
-   </FrameLayout>
-
-
     <include
         android:id="@+id/main_activity_title_bar"
         layout="@layout/title_bar_layout"
+        android:layout_marginTop="42px"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
     </include>
+
+
+    <RelativeLayout
+        android:id="@+id/main_activity_recommend_rel"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="250px">
+        <TextView
+            android:id="@+id/main_activity_recharge_tv"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@mipmap/recharge_icon"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="充值500\n送100"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/main_fragment_container_fl"
+        android:layout_below="@+id/main_activity_title_bar"
+        android:layout_above="@+id/main_activity_recommend_rel"
+        android:layout_marginTop="40px"
+        android:background="#811111"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
+
+
 </RelativeLayout>
