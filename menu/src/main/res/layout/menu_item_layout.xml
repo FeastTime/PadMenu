@@ -3,325 +3,325 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#811111"
-    android:padding="10dp"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        >
         <ImageView
             android:id="@+id/menu_item_layout_dishes_iv"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="150dp"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="3dp"
-            android:src="@mipmap/ad_1" />
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="30dp"></View>
-
-        <TextView
-            android:id="@+id/menu_item_layout_play_video_tv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="3dp"
-            android:layout_marginLeft="30dp"
-            android:text=">"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:background="@drawable/play_video_bg_shape" />
-
-        <ImageView
-            android:id="@+id/menu_item_layout_ad_flag_iv"
-            android:layout_margin="3dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/ad_1" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/menu_item_layout_dishes_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/big_text_size"
-            android:maxLength="10"
-            android:textColor="@color/text_color_gray"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        >
-
-
-
-
+        android:orientation="vertical">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/title_bar_normal_color"
-                    android:text="今日:"
-                    />
-
-                <TextView
-                    android:id="@+id/menu_item_layout_today_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/title_bar_normal_color"
-                    android:text=""
-                    />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/title_bar_normal_color"
-                android:text="今日热卖"
-                />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/title_bar_normal_color"
-                    android:text="已售:"
-                    />
-
-                <TextView
-                    android:id="@+id/menu_item_layout_sold_num_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/title_bar_normal_color"
-                    />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentLeft="true">
-
-            <TextView
-                android:id="@+id/menu_item_layout_now_price_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red"
-                android:text="Y0"
-                />
-
-            <TextView
-                android:id="@+id/menu_item_layout_original_price_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_color_gray"
-                android:text="Y0"
-                />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentRight="true">
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/menu_item_layout_reduce_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/reduce"
-                />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:src="@mipmap/ad_1" />
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"></View>
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_color_gray"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                />
+                android:id="@+id/menu_item_layout_play_video_tv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:layout_marginLeft="30dp"
+                android:text=">"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/play_video_bg_shape" />
 
             <ImageView
-                android:id="@+id/menu_item_layout_add_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/add"
-                />
+                android:id="@+id/menu_item_layout_ad_flag_iv"
+                android:layout_margin="3dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ad_1" />
+
         </LinearLayout>
 
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        >
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/provide_dishes_time" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/menu_item_layout_dishes_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:textColor="@color/title_bar_normal_color"
-                android:text="预计等待"
-                />
-
-            <TextView
-                android:id="@+id/menu_item_wait_time_num_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:textColor="@color/title_bar_normal_color"
-                android:text=""
+                android:textSize="@dimen/big_text_size"
+                android:maxLength="10"
+                android:textColor="@color/text_color_gray"
                 />
 
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:visibility="gone"
-        >
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/health_index" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            >
 
-            <TextView
+
+
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/title_bar_normal_color"
-                android:text="健康指数"
-                />
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/title_bar_normal_color"
+                        android:text="今日:"
+                        />
+
+                    <TextView
+                        android:id="@+id/menu_item_layout_today_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/title_bar_normal_color"
+                        android:text=""
+                        />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/title_bar_normal_color"
+                    android:text="今日热卖"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/title_bar_normal_color"
+                        android:text="已售:"
+                        />
+
+                    <TextView
+                        android:id="@+id/menu_item_layout_sold_num_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/title_bar_normal_color"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true">
+
+                <TextView
+                    android:id="@+id/menu_item_layout_now_price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:text="Y0"
+                    />
+
+                <TextView
+                    android:id="@+id/menu_item_layout_original_price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_gray"
+                    android:layout_marginLeft="10dp"
+                    android:text="Y0"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/menu_item_layout_reduce_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/reduce"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_gray"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/menu_item_layout_add_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/add"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/provide_dishes_time" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="钠含量:"
+                    android:layout_marginLeft="10px"
                     android:textColor="@color/title_bar_normal_color"
+                    android:text="预计等待"
                     />
 
                 <TextView
-                    android:id="@+id/menu_item_layout_sodium_tv"
+                    android:id="@+id/menu_item_wait_time_num_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:layout_marginLeft="20px"
                     android:textColor="@color/title_bar_normal_color"
-                    />
-
-
-                <TextView
-                    android:id="@+id/menu_item_layout_amount_of_heat_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text=""
-                    android:textColor="@color/title_bar_normal_color"
                     />
 
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/health_index" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/title_bar_normal_color"
+                    android:text="健康指数"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="钠含量:"
+                        android:textColor="@color/title_bar_normal_color"
+                        />
+
+                    <TextView
+                        android:id="@+id/menu_item_layout_sodium_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/title_bar_normal_color"
+                        />
 
 
+                    <TextView
+                        android:id="@+id/menu_item_layout_amount_of_heat_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/title_bar_normal_color"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+
 
 </LinearLayout>

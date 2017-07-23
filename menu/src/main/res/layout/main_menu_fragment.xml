@@ -47,7 +47,7 @@
         <com.feasttime.widget.jazzyviewpager.JazzyViewPager
             android:id="@+id/main_menu_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_toLeftOf="@+id/main_activity_right_ib"

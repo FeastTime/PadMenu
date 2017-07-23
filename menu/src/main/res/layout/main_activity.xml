@@ -18,18 +18,32 @@
         android:id="@+id/main_activity_recommend_rel"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="250px">
-        <TextView
-            android:id="@+id/main_activity_recharge_tv"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@mipmap/recharge_icon"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:text="充值500\n送100"
+        android:layout_height="280px">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            />
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/recharge_icon"
+                android:layout_centerInParent="true"
+                />
+
+            <TextView
+                android:id="@+id/main_activity_recharge_tv"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="充值500\n送100"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+
 
     </RelativeLayout>
 
@@ -38,7 +52,6 @@
         android:layout_below="@+id/main_activity_title_bar"
         android:layout_above="@+id/main_activity_recommend_rel"
         android:layout_marginTop="40px"
-        android:background="#811111"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
