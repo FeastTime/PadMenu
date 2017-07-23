@@ -209,6 +209,7 @@
                     android:textColor="@color/text_color_gray"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
+                    android:text="0"
                     />
 
                 <ImageView

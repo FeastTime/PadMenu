@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.feasttime.adapter.HorizontalListViewAdapter;
 import com.feasttime.fragment.MainMenuFragment;
 import com.feasttime.fragment.MyOrderFragment;
 import com.feasttime.fragment.RecommendMenuFragment;
@@ -40,6 +41,7 @@ import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ScreenTools;
 import com.feasttime.tools.UtilTools;
+import com.feasttime.widget.HorizontalListView;
 
 import java.util.List;
 
@@ -67,6 +69,8 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Bind(R.id.title_bar_layout_login_tv)
     TextView loginTv;
 
+    @Bind(R.id.main_activity_recommend_lv)
+    HorizontalListView recommendLv;
 
     private MyOrderFragment myOrderFragment;
     private MainMenuFragment mainMenuFragment;
@@ -114,6 +118,15 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         fragmentTransaction.hide(recommendMenuFragment);
         fragmentTransaction.hide(myOrderFragment);
         fragmentTransaction.commit();
+
+        test();
+    }
+
+
+    private void test() {
+        String titles[] = {"a","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d"};
+        HorizontalListViewAdapter horizontalListViewAdapter = new HorizontalListViewAdapter(this,titles);
+        recommendLv.setAdapter(horizontalListViewAdapter);
     }
 
 

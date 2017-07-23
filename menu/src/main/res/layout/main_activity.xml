@@ -20,6 +20,15 @@
         android:layout_width="match_parent"
         android:layout_height="280px">
 
+        <com.feasttime.widget.HorizontalListView
+            android:id="@+id/main_activity_recommend_lv"
+            android:layout_marginLeft="220px"
+            android:layout_marginRight="220px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.feasttime.widget.HorizontalListView>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
