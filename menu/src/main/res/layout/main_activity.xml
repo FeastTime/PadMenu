@@ -19,6 +19,18 @@
         android:layout_alignParentBottom="true"
         android:paddingTop="10px">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/yellow_bg_for_recommend"
+            android:text="点\n这\n道\n菜\n的\n人\n也\n喜\n欢"
+            android:textColor="#9D7302"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginLeft="115px"
+            />
+
         <com.feasttime.widget.HorizontalListView
             android:id="@+id/main_activity_recommend_lv"
             android:layout_width="match_parent"
@@ -73,9 +85,7 @@
         layout="@layout/help_toolbar"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        >
+        android:layout_height="wrap_content">
 
     </include>
 </RelativeLayout>
