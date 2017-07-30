@@ -198,27 +198,12 @@
                 android:orientation="horizontal"
                 android:layout_alignParentRight="true">
 
-                <ImageView
-                    android:id="@+id/menu_item_layout_reduce_iv"
-                    android:layout_width="wrap_content"
+                <include
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/reduce"
-                    />
-                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color_gray"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
-                    android:text="0"
-                    />
+                    layout="@layout/modiy_order_num">
 
-                <ImageView
-                    android:id="@+id/menu_item_layout_add_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/add"
-                    />
+                </include>
             </LinearLayout>
 
         </RelativeLayout>
