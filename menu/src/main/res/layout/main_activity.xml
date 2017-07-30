@@ -18,7 +18,8 @@
         android:id="@+id/main_activity_recommend_rel"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="280px">
+        android:paddingTop="10px"
+        android:layout_height="358px">
 
         <com.feasttime.widget.HorizontalListView
             android:id="@+id/main_activity_recommend_lv"
@@ -57,15 +58,18 @@
 
     </RelativeLayout>
 
-    <FrameLayout
-        android:id="@+id/main_fragment_container_fl"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40px"
         android:layout_below="@+id/main_activity_title_bar"
         android:layout_above="@+id/main_activity_recommend_rel"
-        android:layout_marginTop="40px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </FrameLayout>
-
+        android:orientation="vertical">
+        <FrameLayout
+            android:id="@+id/main_fragment_container_fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </FrameLayout>
+    </LinearLayout>
 
 </RelativeLayout>

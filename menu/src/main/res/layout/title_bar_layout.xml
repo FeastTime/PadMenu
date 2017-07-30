@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="86px"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
    >
@@ -19,8 +19,8 @@
 
         <ImageButton
             android:id="@+id/title_bar_cart_ib"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="86px"
+            android:layout_height="86px"
             android:src="@mipmap/cart_icon"
             android:background="@drawable/right_menu_bg"
             android:foregroundGravity="center"
@@ -32,7 +32,7 @@
         android:layout_toLeftOf="@+id/title_bar_cart_ll"
         android:layout_width="match_parent"
         android:background="@drawable/title_bar_bg"
-        android:layout_height="44dp"
+        android:layout_height="86px"
         android:layout_marginLeft="85dp"
         >
         <RadioGroup
@@ -68,8 +68,8 @@
 
             <ImageButton
                 android:id="@+id/title_bar_layout_menu_ib"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="86px"
+                android:layout_height="86px"
                 android:src="@mipmap/right_menu_icon"
                 android:background="@drawable/right_menu_bg"
                 android:paddingRight="0dp"
