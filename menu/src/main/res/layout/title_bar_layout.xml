@@ -7,6 +7,25 @@
     android:paddingBottom="10dp"
    >
 
+    <LinearLayout
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        >
+        <ImageButton
+            android:id="@+id/title_bar_bell_ib"
+            android:layout_width="86px"
+            android:layout_height="86px"
+            android:src="@mipmap/bell_icon"
+            android:background="@drawable/right_menu_bg"
+            android:foregroundGravity="center"
+            />
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/title_bar_cart_ll"
