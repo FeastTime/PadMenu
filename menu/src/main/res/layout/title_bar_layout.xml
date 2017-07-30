@@ -71,8 +71,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_alignParentRight="true"
-            >
+            android:layout_alignParentRight="true">
 
             <TextView
                 android:id="@+id/title_bar_layout_login_tv"
