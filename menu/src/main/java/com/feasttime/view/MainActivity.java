@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -66,7 +65,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Bind(R.id.title_bar_content_rb)
     RadioGroup mTtitleBarMenuRb;
 
-    @Bind(R.id.title_bar_layout_login_tv)
+    @Bind(R.id.title_bar_layout_staff_entry_tv)
     TextView loginTv;
 
     @Bind(R.id.main_activity_recommend_lv)
@@ -162,7 +161,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
 
     }
 
-    @OnClick({R.id.title_bar_cart_ib, R.id.title_bar_layout_menu_ib, R.id.title_bar_layout_login_tv})
+    @OnClick({R.id.title_bar_cart_ib, R.id.title_bar_layout_menu_ib, R.id.title_bar_layout_staff_entry_tv})
     @Override
     public void onClick(View v) {
         if (v == cartIb) {

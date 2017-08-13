@@ -74,14 +74,15 @@
             android:layout_alignParentRight="true">
 
             <TextView
-                android:id="@+id/title_bar_layout_login_tv"
+                android:id="@+id/title_bar_layout_staff_entry_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="登录"
+                android:text="员工入口"
+                android:drawablePadding="3px"
+                android:drawableTop="@mipmap/staff_entry"
                 android:textColor="@color/white"
-                android:textSize="@dimen/very_big_text_size"
                 android:gravity="center"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="100px"
                 />
 
             <ImageButton
