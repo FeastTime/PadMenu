@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -39,7 +40,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     private int dataSizeCount = 9;
 
     public interface OnItemClick{
-        void onDishesPicClicked(MenuItemInfo menuItemInfo);
+        void onDishesPicClicked(MenuItemInfo menuItemInfo,float x,float y);
     }
 
     private Context context;
@@ -265,10 +266,21 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         }
 
 
-        dishes1.setOnClickListener(new View.OnClickListener() {
+//        dishes1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mOnItemClick.onDishesPicClicked(menuItemInfo);
+//            }
+//        });
+
+        dishes1.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                mOnItemClick.onDishesPicClicked(menuItemInfo);
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    mOnItemClick.onDishesPicClicked(menuItemInfo,event.getRawX(),event.getRawY());
+                }
+
+                return true;
             }
         });
 

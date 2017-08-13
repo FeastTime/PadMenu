@@ -39,6 +39,7 @@ import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ScreenTools;
+import com.feasttime.tools.UtilTools;
 import com.feasttime.view.MainActivity;
 import com.feasttime.view.SilentADActivity;
 import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
@@ -206,8 +207,9 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     }
 
     @Override
-    public void onDishesPicClicked(MenuItemInfo menuItemInfo) {
-        ((MainActivity)this.getActivity()).jumpToRecommend(menuItemInfo);
+    public void onDishesPicClicked(MenuItemInfo menuItemInfo,float x,float y) {
+//        ((MainActivity)this.getActivity()).jumpToRecommend(menuItemInfo);
+        UtilTools.addOneDishes(this.getActivity(),new int[] {(int)x,(int)y},null);
     }
 
     @Override
