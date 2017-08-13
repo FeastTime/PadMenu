@@ -99,27 +99,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     }
 
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus){
-        // TODO Auto-generated method stub
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus){
-            testPopwindow();
-        }
-    }
 
-    private void testPopwindow() {
-        TextView tv = new TextView(this);
-        tv.setText("nihao\na\nb\nc\nd\ne\nf\nh\nj\nl\nc");
-        tv.setTextSize(30);
-        tv.setBackgroundColor(Color.GREEN);
-
-        PopupWindow mPopupWindow=new PopupWindow(tv, ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,true);
-        mPopupWindow.setFocusable(false);
-        mPopupWindow.setOutsideTouchable(false);
-        mPopupWindow.showAtLocation(findViewById(R.id.main_activity_title_bar), Gravity.CENTER,60,60);
-    }
 
     @Override
     protected IBasePresenter[] getPresenters() {
