@@ -8,6 +8,15 @@ public class LoginInfo {
     int resultCode;
     String resultMsg;
     String token;
+    String storeId;
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
 
     public int getResultCode() {
         return resultCode;

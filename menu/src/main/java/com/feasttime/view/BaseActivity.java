@@ -3,10 +3,15 @@ package com.feasttime.view;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.feasttime.menu.R;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.IBaseView;
 import com.feasttime.tools.ToastUtil;
@@ -60,6 +65,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
         initViews();
         addPresenters();
         onInitPresenters();
+
+
+
+
     }
 
     private void addPresenters() {

@@ -32,6 +32,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     OrderPresenter mOrderPresenter = new OrderPresenter();
 
     private static final String TAG = "---vc---";
+    private boolean mIsUseVerifyCode = false;
 
     @Bind(R.id.login_activity_login_btn)
     Button loginBtn;
@@ -119,9 +120,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
                 ToastUtil.showToast(this,"请输入验证码", Toast.LENGTH_SHORT);
             } else {
+                if (mIsUseVerifyCode) {
+                    showLoading();
+                    SMSSDK.submitVerificationCode("86", phone, verificationCode);
+                } else {
+                    userPresenter.login(phone);
+                }
 
-                showLoading();
-                SMSSDK.submitVerificationCode("86", phone, verificationCode);
             }
 
         }
@@ -160,6 +165,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void createOrderComplete() {
+
         finish();
     }
 

@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -80,15 +80,45 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ScreenInfo info = DeviceTool.getDeviceScreenInfo(this);
-        mMenuPresenter.getDishesCategory();
+
         LogUtil.d(TAG,info.getWidth() + "X" + info.getHeight());
 
 //        startActivity(new Intent(this,TestActivity.class));
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (mTtitleBarMenuRb.getChildCount() == 0) {
+            //没有请求过才去请求
+            mMenuPresenter.getDishesCategory();
+        }
+
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus){
+        // TODO Auto-generated method stub
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus){
+            testPopwindow();
+        }
+    }
+
+    private void testPopwindow() {
+        TextView tv = new TextView(this);
+        tv.setText("nihao\na\nb\nc\nd\ne\nf\nh\nj\nl\nc");
+        tv.setTextSize(30);
+        tv.setBackgroundColor(Color.GREEN);
+
+        PopupWindow mPopupWindow=new PopupWindow(tv, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,true);
+        mPopupWindow.setFocusable(false);
+        mPopupWindow.setOutsideTouchable(false);
+        mPopupWindow.showAtLocation(findViewById(R.id.main_activity_title_bar), Gravity.CENTER,60,60);
     }
 
     @Override
@@ -176,7 +206,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         menuRb.setGravity(Gravity.CENTER);
         menuRb.setText(UtilTools.decodeStr(dishesCategoryListBean.getCategoryName()) + "\n" + "hot");
         menuRb.setTextColor(Color.WHITE);
-        menuRb.setTag(dishesCategoryListBean.getClassType());
+        menuRb.setTag(dishesCategoryListBean.getCategoryId());
         menuRb.setPadding(ScreenTools.dip2px(this,40),0, ScreenTools.dip2px(this,40),0);
         if (mTtitleBarMenuRb.getChildCount() == 0) {
             menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
@@ -188,7 +218,6 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-
                     mainMenuFragment.clearAllData();
                     String classType = buttonView.getTag().toString();
                     String token = PreferenceUtil.getStringKey("token");
@@ -203,7 +232,10 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         ViewGroup.LayoutParams params = menuRb.getLayoutParams();
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         menuRb.setLayoutParams(params);
-        ((RadioButton)mTtitleBarMenuRb.getChildAt(0)).setChecked(true);
+        RadioButton firstRb = ((RadioButton)mTtitleBarMenuRb.getChildAt(0));
+        if (!firstRb.isChecked()) {
+            firstRb.setChecked(true);
+        }
     }
 
 
