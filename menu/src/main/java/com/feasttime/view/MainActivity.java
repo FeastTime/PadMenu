@@ -74,6 +74,11 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Bind(R.id.main_activity_recommend_lv)
     HorizontalListView recommendLv;
 
+    @Bind(R.id.title_bar_cart_num_tv)
+    TextView titleBarCarNumTv;
+    private int cartNum = 0;
+
+    private int cartLocation[];
     private MyOrderFragment myOrderFragment;
     private MainMenuFragment mainMenuFragment;
     private RecommendMenuFragment recommendMenuFragment;
@@ -265,4 +270,18 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     public void showOrderList(List<MyOrderListItemInfo> myOrderList) {
 
     }
+
+    public void refreshCartAnimation(int fromLocation[]) {
+        if (cartLocation == null) {
+            cartLocation = new int[2];
+            titleBarCarNumTv.getLocationOnScreen(cartLocation);
+        }
+
+        UtilTools.addOneDishes(this,fromLocation,cartLocation);
+    }
+
+    public void refreshCartNum() {
+        titleBarCarNumTv.setText(++cartNum + "");
+    }
+
 }

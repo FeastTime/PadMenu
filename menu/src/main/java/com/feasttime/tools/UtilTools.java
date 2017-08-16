@@ -10,6 +10,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 import com.feasttime.menu.R;
+import com.feasttime.view.MainActivity;
 
 import java.net.URLDecoder;
 
@@ -30,7 +31,7 @@ public class UtilTools {
 
 
     public static void addOneDishes(final Activity context, int startLocation[], int toLocation[]) {
-        TranslateAnimation translateAnimation = new TranslateAnimation(startLocation[0], 1800, startLocation[1], 50);
+        TranslateAnimation translateAnimation = new TranslateAnimation(startLocation[0], toLocation[0], startLocation[1], toLocation[1]);
         //设置动画效果
         translateAnimation.setDuration(1000);
         final ImageView redCycleIv = new ImageView(context);
@@ -47,6 +48,7 @@ public class UtilTools {
             public void onAnimationEnd(Animation animation) {
                 ViewGroup parentVg = (ViewGroup) redCycleIv.getParent();
                 parentVg.removeView(redCycleIv);
+                ((MainActivity)context).refreshCartNum();
             }
 
             @Override
