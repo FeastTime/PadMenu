@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/not_eat_filter_dialog_content_ll"
+        android:layout_width="match_parent"
+        android:layout_marginRight="20px"
+        android:layout_marginTop="20px"
+        android:layout_height="825px"
+        android:background="@drawable/not_eat_dialog_bg"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/not_eat_filter_dialog_arrow_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/no_eat_dialog_arrow"
+        android:layout_marginTop="-2dp"
+        android:layout_below="@+id/not_eat_filter_dialog_content_ll"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/dismiss_dialog_icon"
+        android:layout_alignParentRight="true"
+        />
+
+</RelativeLayout>

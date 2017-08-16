@@ -50,6 +50,9 @@
         <activity android:name="com.feasttime.view.EndActivity">
         </activity>
 
+        <activity android:name="com.feasttime.view.ShoppingCartActivity">
+        </activity>
+
         <activity android:name="com.feasttime.view.ShowWebActivity"></activity>
 
         <activity android:name="com.feasttime.view.PlayVideoActivity" android:theme="@style/DialogTransparent" ></activity>

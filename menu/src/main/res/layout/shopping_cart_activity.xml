@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/normal_title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="550px"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/shopping_cart_activity_recommend_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+               >
+
+                <LinearLayout
+                    android:id="@+id/my_order_total_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="115px"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="忌口"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/shopping_cart_activity_onion_cb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="葱"
+                            android:layout_marginLeft="23px"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/shopping_cart_activity_ginger_cb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="23px"
+                            android:textColor="@color/text_color_gray"
+                            android:text="姜"
+                            />
+
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="23px"
+                            android:textColor="@color/text_color_gray"
+                            android:text="其他"
+                            />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="共计"
+                            android:textSize="@dimen/big_text_size" />
+
+                        <TextView
+                            android:id="@+id/my_order_total_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="0元"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/big_text_size" />
+
+                        <TextView
+                            android:id="@+id/shopping_cart_activity_place_order_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/place_order_bg_shape"
+                            android:paddingBottom="3dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:paddingTop="3dp"
+                            android:text="下单"
+                            android:textSize="@dimen/big_text_size" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/my_order_today_activity_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="今日活动"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/normal_text_size" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/shopping_cart_activity_detail_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/my_order_total_ll" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
