@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.feasttime.menu.R;
 import com.feasttime.presenter.IBasePresenter;
+import com.feasttime.tools.ScreenTools;
 
 import butterknife.Bind;
 import butterknife.OnCheckedChanged;
@@ -118,7 +119,7 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
                 int width = dialogContentView.getWidth();
                 int height = dialogContentView.getHeight();
 
-                lp.y = anchorViewLocation[1] - anchorViewHeight * 3 - height; // 新位置Y坐标
+                lp.y = anchorViewLocation[1] - lp.height - 120; // 新位置Y坐标
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) arrowIv.getLayoutParams();
 
                 int arrowLocation[] = new int[2];
