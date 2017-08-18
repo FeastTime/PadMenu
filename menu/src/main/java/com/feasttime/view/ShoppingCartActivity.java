@@ -64,6 +64,13 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
     @Bind(R.id.shopping_cart_activity_ginger_cb)
     CheckBox gingerCb;
 
+    @Bind(R.id.shopping_cart_activity_top_dash_line_iv)
+    ImageView topDashlineIv;
+
+    @Bind(R.id.shopping_cart_activity_bottom_dash_line_iv)
+    ImageView btmDashlineIv;
+
+
     MyOrderAdapter myOrderAdapter;
     RecommendOrderAdapter recommendOrderAdapter;
 
@@ -85,6 +92,8 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void initViews() {
         titleTv.setText("购物车");
+        topDashlineIv.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
+        btmDashlineIv.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
 
         ArrayList<RecommendOrderListItemInfo> recommendOrderListItemInfos = new ArrayList<RecommendOrderListItemInfo>();
         ArrayList<MyOrderListItemInfo> myOrderListItemInfos = new ArrayList<MyOrderListItemInfo>();
@@ -176,7 +185,7 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
                 int width = dialogContentView.getWidth();
                 int height = dialogContentView.getHeight();
 
-                lp.y = anchorViewLocation[1] - lp.height - 120; // 新位置Y坐标
+                lp.y = anchorViewLocation[1] - lp.height - 115; // 新位置Y坐标
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) arrowIv.getLayoutParams();
 
                 int arrowLocation[] = new int[2];

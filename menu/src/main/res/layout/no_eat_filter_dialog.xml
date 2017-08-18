@@ -5,8 +5,8 @@
     android:orientation="vertical">
 
 
-    <LinearLayout
-        android:id="@+id/not_eat_filter_dialog_content_ll"
+    <RelativeLayout
+        android:id="@+id/not_eat_filter_dialog_content_rel"
         android:layout_width="match_parent"
         android:layout_marginRight="20px"
         android:layout_marginTop="20px"
@@ -14,7 +14,77 @@
         android:background="@drawable/red_stroke_bg"
         android:orientation="horizontal">
 
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50px"
+            android:layout_marginLeft="150px"
+            android:layout_marginRight="150px"
+            android:layout_marginBottom="50px"
+            >
+
+            <CheckBox
+                android:id="@+id/no_eat_filter_dialog_select_all_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全选"
+                android:layout_alignParentRight="true"
+                android:button="@null"
+                android:drawableLeft="@drawable/red_chack_box"
+                android:drawablePadding="5dp"
+                android:paddingLeft="0dp"
+                android:layout_marginLeft="23px"
+                android:textColor="@color/text_color_gray"
+                />
+
+            <LinearLayout
+                android:id="@+id/no_eat_filter_dialog_btm_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/no_eat_filter_dialog_remark_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:hint="备注:填写您的其他需求"
+                    android:background="@drawable/red_stroke_bg"
+                    android:textSize="@dimen/very_big_text_size"
+                    android:gravity="top"
+                    android:padding="10px"
+                    android:textColorHint="@color/red"
+                    />
+
+                <Button
+                    android:id="@+id/no_eat_filter_dialog_submit_btn"
+                    android:layout_width="440px"
+                    android:layout_height="60px"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/very_big_text_size"
+                    android:padding="10px"
+                    android:text="提交"
+                    android:gravity="center"
+                    android:layout_marginTop="37px"
+                    android:background="@drawable/place_order_bg_shape"
+                    />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/no_eat_filter_dialog_name_rv"
+                android:layout_below="@+id/no_eat_filter_dialog_select_all_cb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/no_eat_filter_dialog_btm_ll" />
+
+        </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/not_eat_filter_dialog_arrow_iv"
@@ -22,7 +92,7 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/no_eat_dialog_arrow"
         android:layout_marginTop="-2dp"
-        android:layout_below="@+id/not_eat_filter_dialog_content_ll"
+        android:layout_below="@+id/not_eat_filter_dialog_content_rel"
         />
 
     <ImageView

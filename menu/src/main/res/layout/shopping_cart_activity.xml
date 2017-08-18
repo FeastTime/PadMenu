@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></include>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,8 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginRight="20px"
-                    android:layout_marginBottom="16px"
+
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -67,6 +67,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="葱"
+                            android:button="@null"
+                            android:drawableLeft="@drawable/red_chack_box"
+                            android:drawablePadding="5dp"
+                            android:paddingLeft="0dp"
                             android:layout_marginLeft="23px"
                             android:textColor="@color/text_color_gray"
                             />
@@ -76,6 +80,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="23px"
+                            android:button="@null"
+                            android:drawableLeft="@drawable/red_chack_box"
+                            android:drawablePadding="5dp"
+                            android:paddingLeft="0dp"
                             android:textColor="@color/text_color_gray"
                             android:text="姜"
                             />
@@ -85,15 +93,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="23px"
+                            android:button="@null"
+                            android:drawableLeft="@drawable/red_chack_box"
+                            android:drawablePadding="5dp"
+                            android:paddingLeft="0dp"
                             android:textColor="@color/text_color_gray"
                             android:text="其他"
                             />
 
                     </LinearLayout>
-
+                    <ImageView
+                        android:id="@+id/shopping_cart_activity_bottom_dash_line_iv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/gray_dash_line"
+                        android:layout_marginBottom="30px"
+                        android:layout_marginTop="20px"
+                        />
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="20px"
+                        android:layout_marginBottom="16px"
+                        >
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -111,7 +133,7 @@
                                     android:layout_alignParentLeft="true"
                                     android:text="共计"
                                     android:textColor="@color/text_color_gray"
-                                    android:textSize="@dimen/very_big_text_size" />
+                                    android:textSize="@dimen/biggest_text_size" />
 
                                 <TextView
                                     android:id="@+id/shopping_cart_activity_total_price_tv"
@@ -120,7 +142,7 @@
                                     android:layout_centerInParent="true"
                                     android:text="0元"
                                     android:textColor="@color/text_color_gray"
-                                    android:textSize="@dimen/very_big_text_size" />
+                                    android:textSize="@dimen/biggest_text_size" />
 
                             </LinearLayout>
 
@@ -169,10 +191,23 @@
                         android:textSize="@dimen/biggest_text_size"
                         />
 
+                    <ImageView
+                        android:id="@+id/shopping_cart_activity_top_dash_line_iv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/gray_dash_line"
+                        />
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:paddingTop="20px"
+                        android:paddingBottom="20px"
+                        android:background="#FCF9F9"
                         >
 
                         <TextView
