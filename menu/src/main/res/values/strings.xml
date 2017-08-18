@@ -18,9 +18,10 @@
         <item>Accordion</item>
     </string-array>
 
-    <string name="wait_time_text_one">在40分钟内用餐完成可自动获得再次就餐</string>
-    <string name="wait_time_text_two">10元</string>
+    <string name="wait_time_text_one">在40分钟内用餐完成可获得CGV影城电影票</string>
+    <string name="wait_time_text_two">2张</string>
     <string name="wait_time_text_three">代金券</string>
     <string name="heathText">健康评估</string>
+    <string name="waiting_page_text">候餐页</string>
 
 </resources>
