@@ -1,12 +1,21 @@
 package com.feasttime.view;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.feasttime.menu.R;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.IBaseView;
 import com.feasttime.tools.ToastUtil;
@@ -47,7 +56,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
     protected abstract void initViews();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +68,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
         initViews();
         addPresenters();
         onInitPresenters();
+
+
+
+
     }
 
     private void addPresenters() {
@@ -177,5 +189,42 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
     @Override
     public void showTransparentCoverView() {
 
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus){
+        // TODO Auto-generated method stub
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus){
+            showHelpToolBar();
+        }
+    }
+
+    private void showHelpToolBar() {
+        if (this instanceof SplashActivity || this instanceof LoginActivity) {
+            return;
+        }
+
+
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View helpToolbarView = layoutInflater.inflate(R.layout.help_toolbar,null);
+
+        View wifiView = helpToolbarView.findViewById(R.id.help_toolbar_wifi_tv);
+        View loginView = helpToolbarView.findViewById(R.id.help_toolbar_login_tv);
+        View discount = helpToolbarView.findViewById(R.id.help_toolbar_sale_tv);
+
+        loginView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BaseActivity.this,LoginActivity.class));
+            }
+        });
+
+        PopupWindow mPopupWindow=new PopupWindow(helpToolbarView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,true);
+        mPopupWindow.setFocusable(false);
+        mPopupWindow.setOutsideTouchable(false);
+        mPopupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.TOP|Gravity.RIGHT,0,160);
     }
 }

@@ -38,7 +38,7 @@ public class DishesCategoryInfo {
          */
 
         private String categoryName;
-        private String classType;
+        private String categoryId;
 
         public String getCategoryName() {
             return categoryName;
@@ -48,12 +48,12 @@ public class DishesCategoryInfo {
             this.categoryName = categoryName;
         }
 
-        public String getClassType() {
-            return classType;
+        public String getCategoryId() {
+            return categoryId;
         }
 
-        public void setClassType(String classType) {
-            this.classType = classType;
+        public void setCategoryId(String categoryId) {
+            this.categoryId = categoryId;
         }
     }
 }

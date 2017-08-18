@@ -4,6 +4,7 @@
 
 package com.feasttime.view;
 
+import android.annotation.TargetApi;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -14,11 +15,15 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
 
+import com.danikula.videocache.HttpProxyCacheServer;
+import com.feasttime.MenuApplication;
 import com.feasttime.menu.R;
 import com.feasttime.presenter.IBasePresenter;
+import com.feasttime.tools.LogUtil;
 
 import butterknife.Bind;
 
+@TargetApi(17)
 public class PlayVideoActivity extends BaseActivity {
     @Bind(R.id.play_video_activity_vv)
     VideoView videoView;
@@ -50,9 +55,11 @@ public class PlayVideoActivity extends BaseActivity {
         String url = this.getIntent().getStringExtra("url");
 
         if (!TextUtils.isEmpty(url)) {
-            // 播放在线视频
-            Uri mVideoUri = Uri.parse(url);
-            videoView.setVideoPath(mVideoUri.toString());
+
+            HttpProxyCacheServer proxy = MenuApplication.getProxy(this);
+            String proxyUrl = proxy.getProxyUrl(url);
+
+            videoView.setVideoPath(proxyUrl);
             videoView.start();
             videoView.requestFocus();
             showProgress();
@@ -65,6 +72,7 @@ public class PlayVideoActivity extends BaseActivity {
         videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
             @Override
             public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                LogUtil.d("result","the status:" + what);
                 if(what == MediaPlayer.MEDIA_INFO_BUFFERING_START){
                     loadingPb.setVisibility(View.VISIBLE);
                 } else if(what == MediaPlayer.MEDIA_INFO_BUFFERING_END){
@@ -72,6 +80,8 @@ public class PlayVideoActivity extends BaseActivity {
                     if(mp.isPlaying()){
                         loadingPb.setVisibility(View.GONE);
                     }
+                } else if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
+                    loadingPb.setVisibility(View.GONE);
                 }
                 return true;
             }

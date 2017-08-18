@@ -32,9 +32,11 @@ import java.util.List;
  */
 
 
-
 public class MainMenuPagerAdapter extends PagerAdapter {
-    private final int perPageItem = 3;
+    private static final String  TAG = "MainMenuPagerAdapter";
+
+    private int perPageItem = 3;
+    private int dataSizeCount = 9;
 
     public interface OnItemClick{
         void onDishesPicClicked(MenuItemInfo menuItemInfo);
@@ -46,6 +48,10 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     private OnItemClick mOnItemClick;
     private  List<MenuItemInfo> menuItemInfoList;
 
+    public void setDataSizeCount(int num) {
+        this.dataSizeCount = num;
+    }
+
     public MainMenuPagerAdapter(Context context, JazzyViewPager jazzyViewPager, List<MenuItemInfo> menuItemInfoList) {
         this.context = context;
         this.mJazzy = jazzyViewPager;
@@ -53,6 +59,20 @@ public class MainMenuPagerAdapter extends PagerAdapter {
             this.menuItemInfoList = menuItemInfoList;
         } else {
             this.menuItemInfoList = new ArrayList<MenuItemInfo>();
+        }
+    }
+
+    public boolean checkExistData(int position) {
+        if (menuItemInfoList != null) {
+            int currentDataSize = menuItemInfoList.size();
+            int calcPageSize = (int)Math.ceil(currentDataSize / (float)perPageItem);
+            if (calcPageSize >= (position + 1)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
@@ -67,6 +87,16 @@ public class MainMenuPagerAdapter extends PagerAdapter {
             this.menuItemInfoList.clear();
             this.notifyDataSetChanged();
         }
+    }
+
+    public void appendData(List<MenuItemInfo> list) {
+        if (menuItemInfoList != null) {
+            menuItemInfoList.addAll(list);
+        } else {
+            menuItemInfoList = list;
+        }
+
+        this.notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClick onItemClick) {
@@ -101,6 +131,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         LinearLayout ll = new LinearLayout(context);
         LinearLayout view1 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
         if (menuItemInfo1 != null) {
+            view1.setVisibility(View.VISIBLE);
             setPerItemView(view1,menuItemInfo1,300);
         } else {
             view1.setVisibility(View.INVISIBLE);
@@ -110,7 +141,8 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         LinearLayout view2 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
         if (menuItemInfo2 != null) {
-            setPerItemView(view2,menuItemInfo2,245);
+            view2.setVisibility(View.VISIBLE);
+            setPerItemView(view2,menuItemInfo2,300);
         } else {
             view2.setVisibility(View.INVISIBLE);
             view2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
@@ -119,7 +151,8 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         LinearLayout view3 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
         if (menuItemInfo3 != null) {
-            setPerItemView(view3,menuItemInfo3,135);
+            view3.setVisibility(View.VISIBLE);
+            setPerItemView(view3,menuItemInfo3,300);
 
         } else {
             view3.setVisibility(View.INVISIBLE);
@@ -138,6 +171,11 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         return ll;
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        //这种方法以后需要改进，开销过大
+        return POSITION_NONE;
+    }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object obj) {
@@ -145,7 +183,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     }
     @Override
     public int getCount() {
-        int count = (int)(menuItemInfoList.size() / perPageItem) + 1;
+        int count = (int)Math.ceil(dataSizeCount / (float)perPageItem);
         return count;
     }
     @Override
@@ -166,12 +204,11 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         TextView dishesName1 = (TextView)view.findViewById(R.id.menu_item_layout_dishes_name_tv);
 
-        TextView seeDetail1 = (TextView)view.findViewById(R.id.menu_item_layout_dishes_detail_tv);
 
         TextView cost = (TextView) view.findViewById(R.id.menu_item_layout_original_price_tv);
         TextView price = (TextView)view.findViewById(R.id.menu_item_layout_now_price_tv);
         TextView soldTimes = (TextView)view.findViewById(R.id.menu_item_layout_sold_num_tv);
-        TextView provideDishesTv = (TextView)view.findViewById(R.id.menu_item_provide_dishes_tv);
+        TextView provideDishesTv = (TextView)view.findViewById(R.id.menu_item_wait_time_num_tv);
         TextView sodiumTv = (TextView)view.findViewById(R.id.menu_item_layout_sodium_tv);
 
         price.setText(menuItemInfo.getPrice());
@@ -208,14 +245,14 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
 
 
-        seeDetail1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,ShowWebActivity.class);
-                intent.putExtra("url", UtilTools.decodeStr(menuItemInfo.getDetail()));
-                context.startActivity(intent);
-            }
-        });
+//        seeDetail1.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context,ShowWebActivity.class);
+//                intent.putExtra("url", UtilTools.decodeStr(menuItemInfo.getDetail()));
+//                context.startActivity(intent);
+//            }
+//        });
 
 
         ImageView dishes1 = (ImageView) view.findViewById(R.id.menu_item_layout_dishes_iv);
@@ -238,6 +275,6 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         ViewGroup.LayoutParams params1 = dishes1.getLayoutParams();
         params1.width = ScreenTools.dip2px(context,imgWidth);
-        dishes1.setLayoutParams(params1);
+//        dishes1.setLayoutParams(params1);
     }
 }

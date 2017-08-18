@@ -1,24 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg_color">
 
-
-
-   <FrameLayout
-       android:id="@+id/main_fragment_container_fl"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-
-   </FrameLayout>
-
-
     <include
         android:id="@+id/main_activity_title_bar"
         layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </include>
+        android:layout_marginTop="42px"></include>
+
+
+    <RelativeLayout
+        android:id="@+id/main_activity_recommend_rel"
+        android:layout_width="match_parent"
+        android:layout_height="358px"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="10px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/yellow_bg_for_recommend"
+            android:text="点\n这\n道\n菜\n的\n人\n也\n喜\n欢"
+            android:textColor="#9D7302"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginLeft="115px"
+            />
+
+        <com.feasttime.widget.HorizontalListView
+            android:id="@+id/main_activity_recommend_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="220px"
+            android:layout_marginRight="220px">
+
+        </com.feasttime.widget.HorizontalListView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/recharge_icon" />
+
+            <TextView
+                android:id="@+id/main_activity_recharge_tv"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="充值500\n送100"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/main_activity_recommend_rel"
+        android:layout_below="@+id/main_activity_title_bar"
+        android:layout_marginTop="40px"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/main_fragment_container_fl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></FrameLayout>
+    </LinearLayout>
+
 </RelativeLayout>

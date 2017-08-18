@@ -49,7 +49,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * 整个网络通信服务的启动控制，必须先调用初始化函数才能正常使用网络通信接口
  */
 public class RetrofitService {
-
     private static final String TAG = "RetrofitService";
     //设缓存有效期为1天
     static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
@@ -207,8 +206,7 @@ public class RetrofitService {
     }
 
 
-    public static Observable<DishesCategoryInfo> getDishesCategoryList(){
-        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+    public static Observable<DishesCategoryInfo> getDishesCategoryList(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return sMenuService.getDishesCategoryList(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())

@@ -5,6 +5,7 @@ import com.feasttime.model.RetrofitService;
 import com.feasttime.model.bean.DishesCategoryInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.tools.LogUtil;
+import com.feasttime.tools.PreferenceUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +47,7 @@ public class MenuPresenter implements MenuContract.IMenuPresenter {
             @Override
             public void accept(Throwable throwable) throws Exception {
                 //这里接收onError
-                LogUtil.d("result", "error");
+                //throwable.printStackTrace();
             }
         }, new Action() {
             @Override
@@ -59,8 +60,12 @@ public class MenuPresenter implements MenuContract.IMenuPresenter {
 
     @Override
     public void getDishesCategory() {
-
-        RetrofitService.getDishesCategoryList().map(new Function<DishesCategoryInfo, List<DishesCategoryInfo.DishesCategoryListBean>>() {
+        HashMap<String, Object> infoMap = new HashMap<String, Object>();
+        String storeId = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
+        String token = PreferenceUtil.getStringKey("token");
+        infoMap.put("storeId", storeId);
+        infoMap.put("token",token);
+        RetrofitService.getDishesCategoryList(infoMap).map(new Function<DishesCategoryInfo, List<DishesCategoryInfo.DishesCategoryListBean>>() {
             @Override
             public List<DishesCategoryInfo.DishesCategoryListBean> apply(DishesCategoryInfo dishesCategoryInfo) throws Exception {
                 return dishesCategoryInfo.getDishesCategoryList();

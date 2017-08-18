@@ -12,6 +12,9 @@ import com.feasttime.MenuApplication;
 
 public class PreferenceUtil {
 
+	public static final String STORE_ID = "storeId";
+
+
 	private static SharedPreferences mPreference;
 	private static void init(){
 		mPreference = MenuApplication.getInstance().getSharedPreferences("sheng_yan_reference", Activity.MODE_PRIVATE);

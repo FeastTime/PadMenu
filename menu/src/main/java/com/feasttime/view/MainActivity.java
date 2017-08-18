@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.feasttime.adapter.HorizontalListViewAdapter;
 import com.feasttime.fragment.MainMenuFragment;
 import com.feasttime.fragment.MyOrderFragment;
 import com.feasttime.fragment.RecommendMenuFragment;
@@ -40,6 +40,7 @@ import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ScreenTools;
 import com.feasttime.tools.UtilTools;
+import com.feasttime.widget.HorizontalListView;
 
 import java.util.List;
 
@@ -64,9 +65,11 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Bind(R.id.title_bar_content_rb)
     RadioGroup mTtitleBarMenuRb;
 
-    @Bind(R.id.title_bar_layout_login_tv)
+    @Bind(R.id.title_bar_layout_staff_entry_tv)
     TextView loginTv;
 
+    @Bind(R.id.main_activity_recommend_lv)
+    HorizontalListView recommendLv;
 
     private MyOrderFragment myOrderFragment;
     private MainMenuFragment mainMenuFragment;
@@ -76,14 +79,26 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ScreenInfo info = DeviceTool.getDeviceScreenInfo(this);
-        mMenuPresenter.getDishesCategory();
+
         LogUtil.d(TAG,info.getWidth() + "X" + info.getHeight());
+
+//        startActivity(new Intent(this,TestActivity.class));
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (mTtitleBarMenuRb.getChildCount() == 0) {
+            //没有请求过才去请求
+            mMenuPresenter.getDishesCategory();
+        }
+
     }
+
+
+
 
     @Override
     protected IBasePresenter[] getPresenters() {
@@ -113,33 +128,14 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         fragmentTransaction.hide(myOrderFragment);
         fragmentTransaction.commit();
 
+        test();
+    }
 
-//        RadioButton menuRb = new RadioButton(this);
-//        menuRb.setButtonDrawable(android.R.color.transparent);
-//        menuRb.setGravity(Gravity.CENTER);
-//        menuRb.setText("海鲜" + "\n" + "hot");
-//        menuRb.setTextColor(Color.WHITE);
-//        menuRb.setTag("1001");
-//        menuRb.setPadding(ScreenTools.dip2px(this,40),0,ScreenTools.dip2px(this,40),0);
-//        if (mTtitleBarMenuRb.getChildCount() == 0) {
-//            menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
-//        } else {
-//            menuRb.setBackgroundResource(R.drawable.title_normal_menu_selector);
-//        }
-//
-//        menuRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                }
-//            }
-//        });
-//
-//        mTtitleBarMenuRb.addView(menuRb);
-//        ViewGroup.LayoutParams params = menuRb.getLayoutParams();
-//        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-//        menuRb.setLayoutParams(params);
-//        ((RadioButton)mTtitleBarMenuRb.getChildAt(0)).setChecked(true);
+
+    private void test() {
+        String titles[] = {"a","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d"};
+        HorizontalListViewAdapter horizontalListViewAdapter = new HorizontalListViewAdapter(this,titles);
+        recommendLv.setAdapter(horizontalListViewAdapter);
     }
 
 
@@ -165,7 +161,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
 
     }
 
-    @OnClick({R.id.title_bar_cart_ib, R.id.title_bar_layout_menu_ib, R.id.title_bar_layout_login_tv})
+    @OnClick({R.id.title_bar_cart_ib, R.id.title_bar_layout_menu_ib, R.id.title_bar_layout_staff_entry_tv})
     @Override
     public void onClick(View v) {
         if (v == cartIb) {
@@ -189,7 +185,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         menuRb.setGravity(Gravity.CENTER);
         menuRb.setText(UtilTools.decodeStr(dishesCategoryListBean.getCategoryName()) + "\n" + "hot");
         menuRb.setTextColor(Color.WHITE);
-        menuRb.setTag(dishesCategoryListBean.getClassType());
+        menuRb.setTag(dishesCategoryListBean.getCategoryId());
         menuRb.setPadding(ScreenTools.dip2px(this,40),0, ScreenTools.dip2px(this,40),0);
         if (mTtitleBarMenuRb.getChildCount() == 0) {
             menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
@@ -203,7 +199,6 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
                 if (isChecked) {
                     mainMenuFragment.clearAllData();
                     String classType = buttonView.getTag().toString();
-                    LogUtil.d("result","classType:" + classType);
                     String token = PreferenceUtil.getStringKey("token");
                     String orderID = PreferenceUtil.getStringKey("orderID");
                     mainMenuFragment.showContentMenu(token,orderID,classType);
@@ -216,7 +211,10 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         ViewGroup.LayoutParams params = menuRb.getLayoutParams();
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         menuRb.setLayoutParams(params);
-        ((RadioButton)mTtitleBarMenuRb.getChildAt(0)).setChecked(true);
+        RadioButton firstRb = ((RadioButton)mTtitleBarMenuRb.getChildAt(0));
+        if (!firstRb.isChecked()) {
+            firstRb.setChecked(true);
+        }
     }
 
 
