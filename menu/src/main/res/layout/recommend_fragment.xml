@@ -43,7 +43,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Name"
-                        android:textSize="@dimen/very_big_text_size"
+                        android:textSize="@dimen/text_size_20"
                         android:textColor="@color/text_color_dark_gray"
                         />
 
@@ -68,7 +68,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1"
-                            android:textSize="@dimen/normal_text_size"
+                            android:textSize="@dimen/text_size_13"
                             android:textColor="@color/title_bar_normal_color"
                             />
 
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:text="11111"
                     android:textColor="@color/text_color_dark_gray"
-                    android:textSize="@dimen/normal_text_size"
+                    android:textSize="@dimen/text_size_13"
                     />
 
                 <LinearLayout
@@ -100,7 +100,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text_size"
+                        android:textSize="@dimen/text_size_13"
                         android:textColor="@color/text_color_dark_gray"
                         android:text="菜品星级"
                         />
@@ -118,7 +118,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/normal_text_size"
+                        android:textSize="@dimen/text_size_13"
                         android:textColor="@color/text_color_dark_gray"
                         android:text="菜品辣度"
                         android:layout_marginLeft="20dp"
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:text="这道菜不错"
                     android:drawableLeft="@mipmap/head_icon"
-                    android:textSize="@dimen/normal_text_size"
+                    android:textSize="@dimen/text_size_13"
                     android:drawablePadding="10dp"
                     android:visibility="invisible"
                     android:textColor="@color/text_color_dark_gray"
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:text="这道菜不错"
                     android:drawableLeft="@mipmap/head_icon"
-                    android:textSize="@dimen/normal_text_size"
+                    android:textSize="@dimen/text_size_13"
                     android:visibility="invisible"
                     android:drawablePadding="10dp"
                     android:layout_marginTop="5dp"

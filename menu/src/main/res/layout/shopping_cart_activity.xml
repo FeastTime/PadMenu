@@ -27,13 +27,14 @@
             <LinearLayout
                 android:layout_width="550px"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_marginRight="10px"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/shopping_cart_activity_recommend_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    />
             </LinearLayout>
 
             <RelativeLayout
@@ -133,7 +134,7 @@
                                     android:layout_alignParentLeft="true"
                                     android:text="共计"
                                     android:textColor="@color/text_color_gray"
-                                    android:textSize="@dimen/biggest_text_size" />
+                                    android:textSize="@dimen/text_size_31" />
 
                                 <TextView
                                     android:id="@+id/shopping_cart_activity_total_price_tv"
@@ -142,7 +143,7 @@
                                     android:layout_centerInParent="true"
                                     android:text="0元"
                                     android:textColor="@color/text_color_gray"
-                                    android:textSize="@dimen/biggest_text_size" />
+                                    android:textSize="@dimen/text_size_31" />
 
                             </LinearLayout>
 
@@ -150,7 +151,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="满足条件后下单可优惠"
-                                android:textSize="@dimen/normal_text_size"
+                                android:textSize="@dimen/text_size_13"
                                 android:textColor="@color/text_color_gray"
                                 />
 
@@ -169,7 +170,7 @@
                             android:paddingLeft="33px"
                             android:gravity="center"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/final_biggest_text_size" />
+                            android:textSize="@dimen/text_size_38" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -188,7 +189,7 @@
                         android:paddingTop="10px"
                         android:paddingBottom="10px"
                         android:textColor="@color/text_color_gray"
-                        android:textSize="@dimen/biggest_text_size"
+                        android:textSize="@dimen/text_size_31"
                         />
 
                     <ImageView
@@ -216,7 +217,7 @@
                             android:text="菜品分类"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textSize="@dimen/very_big_text_size"
+                            android:textSize="@dimen/text_size_20"
                             android:textColor="@color/text_color_gray"
                             />
 
@@ -226,7 +227,7 @@
                             android:text="菜品名称"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:textSize="@dimen/very_big_text_size"
+                            android:textSize="@dimen/text_size_20"
                             android:textColor="@color/text_color_gray"
                             />
 
@@ -236,7 +237,7 @@
                             android:text="状态"
                             android:gravity="center"
                             android:layout_weight="1"
-                            android:textSize="@dimen/very_big_text_size"
+                            android:textSize="@dimen/text_size_20"
                             android:textColor="@color/text_color_gray"
                             />
 
@@ -245,7 +246,7 @@
                             android:layout_height="wrap_content"
                             android:text="价格"
                             android:gravity="center"
-                            android:textSize="@dimen/very_big_text_size"
+                            android:textSize="@dimen/text_size_20"
                             android:layout_weight="1"
                             android:textColor="@color/text_color_gray"
                             />
@@ -255,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:text="编辑"
                             android:gravity="center"
-                            android:textSize="@dimen/very_big_text_size"
+                            android:textSize="@dimen/text_size_20"
                             android:layout_weight="1"
                             android:textColor="@color/text_color_gray"
                             />

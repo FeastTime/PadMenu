@@ -119,7 +119,7 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
         recommendOrderAdapter = new RecommendOrderAdapter(recommendOrderListItemInfos,this);
 //        recommendOrderAdapter.setListener(this);
         recommendRv.setLayoutManager(new LinearLayoutManager(this));
-//        recommendOrderRv.addItemDecoration(new RecyclerViewDivider(this.getActivity(), LinearLayoutManager.HORIZONTAL, ScreenTools.dip2px(this.getActivity(),10)), Color.TRANSPARENT);
+        recommendRv.addItemDecoration(new RecyclerViewDivider(this, LinearLayoutManager.HORIZONTAL, 10, Color.TRANSPARENT));
         recommendRv.setAdapter(recommendOrderAdapter);
 
 

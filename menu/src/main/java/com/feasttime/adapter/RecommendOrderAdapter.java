@@ -52,7 +52,6 @@ public class RecommendOrderAdapter extends RecyclerView.Adapter<RecommendOrderAd
         holder.nameTv.setText(recommendOrderListItemInfo.getDishName());
         holder.addIv.setTag(recommendOrderListItemInfo.getDishID());
         holder.reduceIv.setTag(recommendOrderListItemInfo.getDishID());
-        holder.amountTv.setText(recommendOrderListItemInfo.getAmount());
         holder.priceTv.setText(recommendOrderListItemInfo.getTodayPrice());
     }
 
@@ -65,17 +64,15 @@ public class RecommendOrderAdapter extends RecyclerView.Adapter<RecommendOrderAd
         public ImageView addIv;
         public TextView nameTv;
         public ImageView reduceIv;
-        public TextView amountTv;
         public TextView priceTv;
         public OrderModifyListener orderModifyListener;
 
         public MyViewHolder(View view) {
             super(view);
             nameTv = (TextView) view.findViewById(R.id.recommend_order_list_item_name_tv);
-            addIv = (ImageView) view.findViewById(R.id.recommend_order_list_item_add_iv);
-            reduceIv = (ImageView) view.findViewById(R.id.recommend_order_list_item_reduce_iv);
+            addIv = (ImageView) view.findViewById(R.id.add_order_num_iv);
+            reduceIv = (ImageView) view.findViewById(R.id.reduce_order_num_iv);
             priceTv = (TextView)view.findViewById(R.id.recommend_order_list_item_specal_price_tv);
-            amountTv = (TextView)view.findViewById(R.id.recommend_order_list_item_dishes_count_tv);
             addIv.setOnClickListener(this);
             reduceIv.setOnClickListener(this);
         }
