@@ -5,25 +5,25 @@
     android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/my_order_list_item_type_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/big_text_size"
+        android:textColor="@color/text_color_gray"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="热菜"
+        />
+
+    <TextView
         android:id="@+id/my_order_list_item_name_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/big_text_size"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color_gray"
         android:gravity="center"
         android:layout_weight="1"
         android:text="0"
-        />
-
-    <TextView
-        android:id="@+id/my_order_list_item_price_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/big_text_size"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:text="0"
-        android:layout_weight="1"
         />
 
     <LinearLayout
@@ -31,12 +31,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_weight="1"
-        android:gravity="right|center_vertical"
+        android:gravity="center"
         >
         <ImageView
             android:id="@+id/my_order_list_item_reduce_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_gray"
             android:src="@mipmap/reduce"
             />
 
@@ -44,9 +45,9 @@
             android:id="@+id/my_order_list_item_dishes_count_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0元"
+            android:text="0"
             android:textSize="@dimen/big_text_size"
-            android:textColor="@color/white"
+            android:textColor="@color/text_color_gray"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             />
@@ -57,5 +58,27 @@
             android:src="@mipmap/add"
             />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/my_order_list_item_price_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/big_text_size"
+        android:gravity="center"
+        android:textColor="@color/text_color_gray"
+        android:text="0"
+        android:layout_weight="1"
+        />
+
+
+    <TextView
+        android:id="@+id/my_order_list_item_delete_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_color_gray"
+        android:text="删除"
+        android:gravity="center"
+        android:layout_weight="1"
+        />
 
 </LinearLayout>

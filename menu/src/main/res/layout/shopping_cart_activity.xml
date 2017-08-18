@@ -12,7 +12,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:layout_marginTop="12px"
+        android:layout_marginBottom="30px">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,15 +38,15 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-               >
+                android:background="@drawable/red_stroke_bg">
 
                 <LinearLayout
-                    android:id="@+id/my_order_total_ll"
+                    android:id="@+id/shopping_cart_activity_total_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:gravity="right"
+                    android:layout_marginRight="20px"
+                    android:layout_marginBottom="16px"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -91,51 +95,147 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:text="共计"
-                            android:textSize="@dimen/big_text_size" />
+                            android:layout_marginLeft="80px"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/my_order_total_price_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="0元"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/big_text_size" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:text="共计"
+                                    android:textColor="@color/text_color_gray"
+                                    android:textSize="@dimen/very_big_text_size" />
+
+                                <TextView
+                                    android:id="@+id/shopping_cart_activity_total_price_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="0元"
+                                    android:textColor="@color/text_color_gray"
+                                    android:textSize="@dimen/very_big_text_size" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="满足条件后下单可优惠"
+                                android:textSize="@dimen/normal_text_size"
+                                android:textColor="@color/text_color_gray"
+                                />
+
+                        </LinearLayout>
+
+
 
                         <TextView
                             android:id="@+id/shopping_cart_activity_place_order_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="400px"
+                            android:layout_height="100px"
                             android:layout_alignParentRight="true"
                             android:background="@drawable/place_order_bg_shape"
-                            android:paddingBottom="3dp"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:paddingTop="3dp"
-                            android:text="下单"
-                            android:textSize="@dimen/big_text_size" />
+                            android:drawableLeft="@mipmap/cart_icon"
+                            android:text="我要下单"
+                            android:paddingLeft="33px"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/final_biggest_text_size" />
                     </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/my_order_today_activity_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="今日活动"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/normal_text_size" />
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/shopping_cart_activity_detail_rv"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/my_order_total_ll" />
+                    android:layout_above="@+id/shopping_cart_activity_total_ll"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="我的菜单"
+                        android:gravity="center"
+                        android:paddingTop="10px"
+                        android:paddingBottom="10px"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/biggest_text_size"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="菜品分类"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="@dimen/very_big_text_size"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="菜品名称"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="@dimen/very_big_text_size"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="状态"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/very_big_text_size"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="价格"
+                            android:gravity="center"
+                            android:textSize="@dimen/very_big_text_size"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="编辑"
+                            android:gravity="center"
+                            android:textSize="@dimen/very_big_text_size"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/shopping_cart_activity_order_rv"
+                        android:layout_marginTop="20px"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/shopping_cart_activity_total_ll" />
+                </LinearLayout>
+
             </RelativeLayout>
 
         </LinearLayout>

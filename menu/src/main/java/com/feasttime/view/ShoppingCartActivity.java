@@ -2,7 +2,10 @@ package com.feasttime.view;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,9 +21,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.feasttime.adapter.MyOrderAdapter;
+import com.feasttime.adapter.RecommendOrderAdapter;
 import com.feasttime.menu.R;
+import com.feasttime.model.bean.MyOrderListItemInfo;
+import com.feasttime.model.bean.RecommendOrderListItemInfo;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.tools.ScreenTools;
+import com.feasttime.widget.RecyclerViewDivider;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnCheckedChanged;
@@ -41,11 +51,21 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
     @Bind(R.id.shopping_cart_activity_place_order_tv)
     TextView placeOrderTv;
 
+    @Bind(R.id.shopping_cart_activity_recommend_rv)
+    RecyclerView recommendRv;
+
+    @Bind(R.id.shopping_cart_activity_order_rv)
+    RecyclerView orderRv;
+
+
     @Bind(R.id.shopping_cart_activity_onion_cb)
     CheckBox onionCb;
 
     @Bind(R.id.shopping_cart_activity_ginger_cb)
     CheckBox gingerCb;
+
+    MyOrderAdapter myOrderAdapter;
+    RecommendOrderAdapter recommendOrderAdapter;
 
     @Override
     protected IBasePresenter[] getPresenters() {
@@ -65,6 +85,43 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void initViews() {
         titleTv.setText("购物车");
+
+        ArrayList<RecommendOrderListItemInfo> recommendOrderListItemInfos = new ArrayList<RecommendOrderListItemInfo>();
+        ArrayList<MyOrderListItemInfo> myOrderListItemInfos = new ArrayList<MyOrderListItemInfo>();
+
+        for (int i = 0 ; i < 3; i++) {
+            RecommendOrderListItemInfo recommendOrderListItemInfo = new RecommendOrderListItemInfo();
+            MyOrderListItemInfo myOrderListItemInfo = new MyOrderListItemInfo();
+
+            recommendOrderListItemInfo.setAmount("1");
+            recommendOrderListItemInfo.setDishName("nice");
+            recommendOrderListItemInfo.setTodayPrice("100");
+            recommendOrderListItemInfos.add(recommendOrderListItemInfo);
+
+
+            myOrderListItemInfo.setTodayPrice("200");
+            myOrderListItemInfo.setDishName("huajiao");
+            myOrderListItemInfo.setAmount("1");
+            myOrderListItemInfo.setState("0");
+            myOrderListItemInfo.setPrice("100");
+            myOrderListItemInfos.add(myOrderListItemInfo);
+        }
+
+        recommendOrderAdapter = new RecommendOrderAdapter(recommendOrderListItemInfos,this);
+//        recommendOrderAdapter.setListener(this);
+        recommendRv.setLayoutManager(new LinearLayoutManager(this));
+//        recommendOrderRv.addItemDecoration(new RecyclerViewDivider(this.getActivity(), LinearLayoutManager.HORIZONTAL, ScreenTools.dip2px(this.getActivity(),10)), Color.TRANSPARENT);
+        recommendRv.setAdapter(recommendOrderAdapter);
+
+
+        myOrderAdapter = new MyOrderAdapter(myOrderListItemInfos,this);
+//        myOrderAdapter.setOrderModifyListener(this);
+        orderRv.setLayoutManager(new LinearLayoutManager(this));
+        orderRv.addItemDecoration(new RecyclerViewDivider(this, LinearLayoutManager.HORIZONTAL, 30, Color.TRANSPARENT));
+        orderRv.setAdapter(myOrderAdapter);
+
+        //totalPriceTv.setText(orderInfo.getTotalPrice());
+
     }
 
     @Override

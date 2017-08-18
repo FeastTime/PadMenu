@@ -11,7 +11,7 @@
         android:layout_marginRight="20px"
         android:layout_marginTop="20px"
         android:layout_height="825px"
-        android:background="@drawable/not_eat_dialog_bg"
+        android:background="@drawable/red_stroke_bg"
         android:orientation="horizontal">
 
     </LinearLayout>

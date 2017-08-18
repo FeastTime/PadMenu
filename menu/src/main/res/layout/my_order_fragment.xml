@@ -52,7 +52,7 @@
                 android:layout_weight="1"
                 >
                 <LinearLayout
-                    android:id="@+id/my_order_total_ll"
+                    android:id="@+id/shopping_cart_activity_total_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -109,7 +109,7 @@
                     android:id="@+id/my_order_detail_rv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/my_order_total_ll"
+                    android:layout_above="@+id/shopping_cart_activity_total_ll"
                     />
             </RelativeLayout>
 
