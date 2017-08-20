@@ -9,7 +9,7 @@ import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.PayOrderInfo;
 import com.feasttime.model.bean.PersonalStatisticsInfo;
 import com.feasttime.model.bean.PlaceOrderInfo;
-import com.feasttime.model.bean.ShoppingCartInfo;
+import com.feasttime.model.bean.SilentAd;
 import com.feasttime.model.bean.WaitTimeAdInfo;
 import com.feasttime.model.bean.WaitTimeMenuInfo;
 
@@ -18,7 +18,6 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -87,4 +86,7 @@ public interface MenusApi {
       @POST("menu/getHealthIndexAssessment/")
       Observable<HealthIndexAssessmentInfo> getHealthIndexAssessment(@Body RequestBody requestBody);
 
+      // 获取开屏静默广告
+      @POST("ad/getSilentAD/")
+      Observable<SilentAd> getSilentAD(@Body RequestBody requestBody);
 }

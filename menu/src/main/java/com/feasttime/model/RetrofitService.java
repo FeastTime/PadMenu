@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.model.bean.CreateOrderInfo;
 import com.feasttime.model.bean.DishesCategoryInfo;
@@ -15,13 +14,12 @@ import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.PayOrderInfo;
 import com.feasttime.model.bean.PersonalStatisticsInfo;
 import com.feasttime.model.bean.PlaceOrderInfo;
-import com.feasttime.model.bean.ShoppingCartInfo;
+import com.feasttime.model.bean.SilentAd;
 import com.feasttime.model.bean.WaitTimeAdInfo;
 import com.feasttime.model.bean.WaitTimeMenuInfo;
 import com.feasttime.tools.DeviceTool;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -40,7 +38,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import retrofit2.Retrofit;
-
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -282,6 +279,16 @@ public class RetrofitService {
     public static Observable<HealthIndexAssessmentInfo> getHealthIndexAssessment(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return sMenuService.getHealthIndexAssessment(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    // 获取开屏广告
+    public static Observable<SilentAd> getSilentAD(HashMap<String,Object> infoMap){
+        return sMenuService.getSilentAD(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
