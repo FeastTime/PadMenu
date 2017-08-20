@@ -94,5 +94,11 @@ public class PYWebViewClient extends WebViewClient {
 
         return true;
     }
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
+        PYWebViewClient.openOnOutWebView = true;
+    }
 }
 

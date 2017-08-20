@@ -64,8 +64,7 @@ public class ADWebView extends JSSafetyWebView {
         webSettings.setAllowFileAccess(true);
         // 设置编码
         webSettings.setDefaultTextEncodingName("utf-8");
-        // 打开 DOM 存储 api
-        webSettings.setDomStorageEnabled(true);
+
 
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
@@ -80,7 +79,6 @@ public class ADWebView extends JSSafetyWebView {
         //自适应屏幕(方法二)
         //适应内容大小
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-
 
 
         // 支持缩放

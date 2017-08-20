@@ -3,17 +3,32 @@ package com.feasttime.view;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.feasttime.menu.R;
-
-import com.ipinyou.ads.IpinyouBanner;
+import com.feasttime.model.bean.SilentAd;
+import com.feasttime.presenter.selentad.SilentAdContract;
+import com.feasttime.presenter.selentad.SilentPresenter;
+import com.ipinyou.ads.OnlyShowView;
+import com.ipinyou.ads.bean.Ad;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.r0adkll.slidr.model.SlidrPosition;
 
-public class SilentADActivity extends AppCompatActivity {
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class SilentADActivity extends AppCompatActivity implements SilentAdContract.ISilentView{
+
+    Timer timer;
+    OnlyShowView adview;
+    int adIndex = 0;
+
+    private SilentPresenter silentPresenter = new SilentPresenter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,17 +40,41 @@ public class SilentADActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_silent_ad);
 
+        silentPresenter.init(this);
+
         // 初始化广告
         initAD();
 
         // 初始化滑动组件
         initSlidr();
 
+        //for new api versions.
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
+
     }
 
     void initAD(){
-        IpinyouBanner ipinyouBanner = (IpinyouBanner)findViewById(R.id.bannerAD);
-        ipinyouBanner.loadAD();
+        adview = (OnlyShowView)findViewById(R.id.bannerAD);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        silentPresenter.getSilentADUrl(1920, 1200, 4, "html");
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (null != timer)
+            timer.cancel();
     }
 
     void initSlidr(){
@@ -56,5 +95,72 @@ public class SilentADActivity extends AppCompatActivity {
                 .build();
 
         Slidr.attach(this, config);
+    }
+
+    @Override
+    public void getSilentADUrlComplete(SilentAd silentAd) {
+
+        Log.d("test", silentAd.getID());
+
+        final List<Ad> ads = silentAd.getAds();
+
+        for (Ad ad: ads) {
+            Log.d("test", ad.getAdm());
+            Log.d("test", ad.getAdmType());
+        }
+
+
+
+        // 刷新上菜进度的定时器
+        timer = new Timer(true);
+
+        TimerTask task = new TimerTask() {
+            public void run() {
+
+                SilentADActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        adview.loadAD(ads.get(adIndex).getAdm());
+
+                    }
+
+                });
+
+
+                adIndex++;
+
+                if (adIndex == ads.size())
+                    adIndex = 0;
+            }
+        };
+
+        timer.schedule(task, 0, 10000);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showNetError() {
+
+    }
+
+    @Override
+    public void finishRefresh() {
+
+    }
+
+    @Override
+    public void showTransparentCoverView() {
+
     }
 }
