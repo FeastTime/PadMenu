@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.feasttime.adapter.HorizontalListViewAdapter;
 import com.feasttime.adapter.MainMenuPagerAdapter;
 import com.feasttime.listener.OrderModifyListener;
 import com.feasttime.menu.R;
@@ -42,6 +43,7 @@ import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ScreenTools;
 import com.feasttime.view.MainActivity;
 import com.feasttime.view.SilentADActivity;
+import com.feasttime.widget.HorizontalListView;
 import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
 
 import java.util.ArrayList;
@@ -73,6 +75,10 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     @Bind(R.id.toTheAdBtn)
     Button mToAdBtn;
 
+    @Bind(R.id.main_activity_recommend_lv)
+    HorizontalListView recommendLv;
+
+
     MainMenuPagerAdapter mainMenuPagerAdapter;
 
     private Context mContext;
@@ -97,6 +103,8 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     protected void initViews() {
         jazzyViewPager.setTransitionEffect(JazzyViewPager.TransitionEffect.Tablet);
         jazzyViewPager.setPageMargin(30);
+
+        test();
     }
 
     public void clearAllData() {
@@ -104,6 +112,13 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
         if (mainMenuPagerAdapter != null) {
             mainMenuPagerAdapter.clearAllData();
         }
+    }
+
+
+    private void test() {
+        String titles[] = {"a","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d"};
+        HorizontalListViewAdapter horizontalListViewAdapter = new HorizontalListViewAdapter(this.getActivity(),titles);
+        recommendLv.setAdapter(horizontalListViewAdapter);
     }
 
     @Nullable
