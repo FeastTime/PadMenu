@@ -64,7 +64,7 @@
                 android:id="@+id/menu_item_layout_dishes_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_size"
+                android:textSize="@dimen/text_size_15"
                 android:maxLength="10"
                 android:textColor="@color/text_color_gray"
                 />

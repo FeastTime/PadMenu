@@ -206,8 +206,10 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     }
 
     @Override
-    public void onDishesPicClicked(MenuItemInfo menuItemInfo) {
-        ((MainActivity)this.getActivity()).jumpToRecommend(menuItemInfo);
+    public void onDishesPicClicked(MenuItemInfo menuItemInfo,float x,float y) {
+        ((MainActivity)this.getActivity()).refreshCartAnimation(new int[] {(int)x,(int)y});
+
+
     }
 
     @Override

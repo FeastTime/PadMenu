@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/normal_title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:layout_marginTop="12px"
+        android:layout_marginBottom="30px">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="550px"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10px"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/shopping_cart_activity_recommend_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/red_stroke_bg">
+
+                <LinearLayout
+                    android:id="@+id/shopping_cart_activity_total_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="115px"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="忌口"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/shopping_cart_activity_onion_cb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="葱"
+                            android:button="@null"
+                            android:drawableLeft="@drawable/red_chack_box"
+                            android:drawablePadding="5dp"
+                            android:paddingLeft="0dp"
+                            android:layout_marginLeft="23px"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/shopping_cart_activity_ginger_cb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="23px"
+                            android:button="@null"
+                            android:drawableLeft="@drawable/red_chack_box"
+                            android:drawablePadding="5dp"
+                            android:paddingLeft="0dp"
+                            android:textColor="@color/text_color_gray"
+                            android:text="姜"
+                            />
+
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="23px"
+                            android:button="@null"
+                            android:drawableLeft="@drawable/red_chack_box"
+                            android:drawablePadding="5dp"
+                            android:paddingLeft="0dp"
+                            android:textColor="@color/text_color_gray"
+                            android:text="其他"
+                            />
+
+                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/shopping_cart_activity_bottom_dash_line_iv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/gray_dash_line"
+                        android:layout_marginBottom="30px"
+                        android:layout_marginTop="20px"
+                        />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="20px"
+                        android:layout_marginBottom="16px"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="80px"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:text="共计"
+                                    android:textColor="@color/text_color_gray"
+                                    android:textSize="@dimen/text_size_31" />
+
+                                <TextView
+                                    android:id="@+id/shopping_cart_activity_total_price_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="0元"
+                                    android:textColor="@color/text_color_gray"
+                                    android:textSize="@dimen/text_size_31" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="满足条件后下单可优惠"
+                                android:textSize="@dimen/text_size_13"
+                                android:textColor="@color/text_color_gray"
+                                />
+
+                        </LinearLayout>
+
+
+
+                        <TextView
+                            android:id="@+id/shopping_cart_activity_place_order_tv"
+                            android:layout_width="400px"
+                            android:layout_height="100px"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/place_order_bg_shape"
+                            android:drawableLeft="@mipmap/cart_icon"
+                            android:text="我要下单"
+                            android:paddingLeft="33px"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_38" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/shopping_cart_activity_total_ll"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="我的菜单"
+                        android:gravity="center"
+                        android:paddingTop="10px"
+                        android:paddingBottom="10px"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_31"
+                        />
+
+                    <ImageView
+                        android:id="@+id/shopping_cart_activity_top_dash_line_iv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/gray_dash_line"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:paddingTop="20px"
+                        android:paddingBottom="20px"
+                        android:background="#FCF9F9"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="菜品分类"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size_20"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="菜品名称"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size_20"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="状态"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/text_size_20"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="价格"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size_20"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="编辑"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_size_20"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_color_gray"
+                            />
+
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/shopping_cart_activity_order_rv"
+                        android:layout_marginTop="20px"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/shopping_cart_activity_total_ll" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

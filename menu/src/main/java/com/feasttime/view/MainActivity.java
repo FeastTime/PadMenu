@@ -5,13 +5,16 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -71,6 +74,11 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Bind(R.id.main_activity_recommend_lv)
     HorizontalListView recommendLv;
 
+    @Bind(R.id.title_bar_cart_num_tv)
+    TextView titleBarCarNumTv;
+    private int cartNum = 0;
+
+    private int cartLocation[];
     private MyOrderFragment myOrderFragment;
     private MainMenuFragment mainMenuFragment;
     private RecommendMenuFragment recommendMenuFragment;
@@ -165,8 +173,9 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Override
     public void onClick(View v) {
         if (v == cartIb) {
-            getFragmentManager().beginTransaction().show(myOrderFragment).hide(mainMenuFragment).hide(recommendMenuFragment).commit();
-            myOrderFragment.showCart();
+//            getFragmentManager().beginTransaction().show(myOrderFragment).hide(mainMenuFragment).hide(recommendMenuFragment).commit();
+//            myOrderFragment.showCart();
+            startActivity(new Intent(this,ShoppingCartActivity.class));
         } else if (v == menuIb) {
             getFragmentManager().beginTransaction().show(mainMenuFragment).hide(myOrderFragment).hide(recommendMenuFragment).commit();
         } else if (loginTv == v) {
@@ -262,4 +271,18 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     public void showOrderList(List<MyOrderListItemInfo> myOrderList) {
 
     }
+
+    public void refreshCartAnimation(int fromLocation[]) {
+        if (cartLocation == null) {
+            cartLocation = new int[2];
+            titleBarCarNumTv.getLocationOnScreen(cartLocation);
+        }
+
+        UtilTools.addOneDishes(this,fromLocation,cartLocation);
+    }
+
+    public void refreshCartNum() {
+        titleBarCarNumTv.setText(++cartNum + "");
+    }
+
 }
