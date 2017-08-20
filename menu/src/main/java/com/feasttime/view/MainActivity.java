@@ -209,8 +209,8 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
                     mainMenuFragment.clearAllData();
                     String classType = buttonView.getTag().toString();
                     String token = PreferenceUtil.getStringKey("token");
-                    String orderID = PreferenceUtil.getStringKey("orderID");
-                    mainMenuFragment.showContentMenu(token,orderID,classType);
+                    String storeId = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
+                    mainMenuFragment.showContentMenu(token,storeId,classType);
                 } else {
                 }
             }

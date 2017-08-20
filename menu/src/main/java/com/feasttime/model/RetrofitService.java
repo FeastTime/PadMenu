@@ -175,9 +175,9 @@ public class RetrofitService {
     }
 
 
-    public static Observable<MenuInfo> getMenu(HashMap<String,Object> infoMap){
+    public static Observable<MenuInfo> getMenuList(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
-        return sMenuService.getMenu(getRequestBody(infoMap))
+        return sMenuService.getMenuList(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

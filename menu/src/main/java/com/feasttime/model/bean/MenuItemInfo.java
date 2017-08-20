@@ -5,7 +5,7 @@ package com.feasttime.model.bean;
  */
 
 public class MenuItemInfo {
-    String dishID = "";
+    String dishId = "";
     String dishNO = "";
     String dishImgUrl = "";
     String tvUrl = "";
@@ -34,12 +34,12 @@ public class MenuItemInfo {
         this.eatTimes = eatTimes;
     }
 
-    public String getDishID() {
-        return dishID;
+    public String getDishId() {
+        return dishId;
     }
 
-    public void setDishID(String dishID) {
-        this.dishID = dishID;
+    public void setDishId(String dishId) {
+        this.dishId = dishId;
     }
 
     public String getDishNO() {

@@ -12,6 +12,7 @@ public class MenuInfo {
     int resultCode;
     String tmpId;
     List<MenuItemInfo> dishesList;
+    String recordCount;
 
     public int getResultCode() {
         return resultCode;
@@ -35,5 +36,13 @@ public class MenuInfo {
 
     public void setDishesList(List<MenuItemInfo> dishesList) {
         this.dishesList = dishesList;
+    }
+
+    public String getRecordCount() {
+        return recordCount;
+    }
+
+    public void setRecordCount(String recordCount) {
+        this.recordCount = recordCount;
     }
 }
