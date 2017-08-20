@@ -14,8 +14,9 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/back"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="27px"
-            android:layout_marginLeft="25px"
+            android:paddingRight="50px"
+            android:paddingBottom="27px"
+            android:paddingLeft="25px"
             />
 
         <TextView
