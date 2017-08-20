@@ -32,10 +32,13 @@ public interface MenusApi {
       @POST("order/createOrder/")
       Observable<CreateOrderInfo> createOrder(@Body RequestBody route);
 
+
+      //{'categoryId':'1001','storeId':'1000000000','pageNo':'0','pageNum':'3'}
       //获取菜单
       @POST("menu/menu/")
       Observable<MenuInfo> getMenu(@Body RequestBody route);
 
+      //{'storeId':'1000000000'}
       //获取购物车详单
       @POST("order/getShoppingCartList/")
       Observable<OrderInfo> getShoppingCartList(@Body RequestBody route);
