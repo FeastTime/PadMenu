@@ -30,14 +30,15 @@ public class MenuPresenter implements MenuContract.IMenuPresenter {
     }
 
     @Override
-    public void getMenu(String token, String orderID, String classType, String page) {
+    public void getMenu(String token, String storeId, String categoryId, String page) {
         HashMap<String, Object> infoMap = new HashMap<String, Object>();
         infoMap.put("token", token);
-        infoMap.put("orderID", orderID);
-        infoMap.put("classType", classType);
-        infoMap.put("page", page);
+        infoMap.put("storeId",storeId);
+        infoMap.put("categoryId", categoryId);
+        infoMap.put("pageNo",page);
+        infoMap.put("pageNum", "4");
 
-        RetrofitService.getMenu(infoMap).subscribe(new Consumer<MenuInfo>() {
+        RetrofitService.getMenuList(infoMap).subscribe(new Consumer<MenuInfo>() {
             @Override
             public void accept(MenuInfo menuInfo) throws Exception {
                 LogUtil.d("result", "aa");

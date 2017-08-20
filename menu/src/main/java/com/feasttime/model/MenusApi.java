@@ -35,8 +35,8 @@ public interface MenusApi {
 
       //{'categoryId':'1001','storeId':'1000000000','pageNo':'0','pageNum':'3'}
       //获取菜单
-      @POST("menu/menu/")
-      Observable<MenuInfo> getMenu(@Body RequestBody route);
+      @POST("menu/getMenuList/")
+      Observable<MenuInfo> getMenuList(@Body RequestBody route);
 
       //{'storeId':'1000000000'}
       //获取购物车详单

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.feasttime.menu.R;
+import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.ScreenTools;
@@ -36,7 +37,7 @@ import java.util.List;
 public class MainMenuPagerAdapter extends PagerAdapter {
     private static final String  TAG = "MainMenuPagerAdapter";
 
-    private int perPageItem = 3;
+    private int perPageItem = 4;
     private int dataSizeCount = 9;
 
     public interface OnItemClick{
@@ -53,14 +54,11 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         this.dataSizeCount = num;
     }
 
-    public MainMenuPagerAdapter(Context context, JazzyViewPager jazzyViewPager, List<MenuItemInfo> menuItemInfoList) {
+    public MainMenuPagerAdapter(Context context, JazzyViewPager jazzyViewPager,MenuInfo menuInfo) {
         this.context = context;
         this.mJazzy = jazzyViewPager;
-        if (menuItemInfoList != null) {
-            this.menuItemInfoList = menuItemInfoList;
-        } else {
-            this.menuItemInfoList = new ArrayList<MenuItemInfo>();
-        }
+        this.menuItemInfoList = menuInfo.getDishesList();
+        this.dataSizeCount = Integer.parseInt(menuInfo.getRecordCount());
     }
 
     public boolean checkExistData(int position) {
@@ -110,10 +108,13 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         int dataPosition1 = position * perPageItem;
         int dataPosition2 = position * perPageItem + 1;
         int dataPosition3 = position * perPageItem + 2;
+        int dataPosition4 = position * perPageItem + 3;
+
 
         MenuItemInfo menuItemInfo1 = null;
         MenuItemInfo menuItemInfo2 = null;
         MenuItemInfo menuItemInfo3 = null;
+        MenuItemInfo menuItemInfo4 = null;
 
         if (dataPosition1 < menuItemInfoList.size())
             menuItemInfo1 = menuItemInfoList.get(dataPosition1);
@@ -123,6 +124,10 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
         if (dataPosition3 < menuItemInfoList.size())
             menuItemInfo3 = menuItemInfoList.get(dataPosition3);
+
+        if (dataPosition4 < menuItemInfoList.size()) {
+            menuItemInfo4 = menuItemInfoList.get(dataPosition4);
+        }
 
 
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -160,6 +165,16 @@ public class MainMenuPagerAdapter extends PagerAdapter {
             view3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
         }
         ll.addView(view3);
+
+        LinearLayout view4 = (LinearLayout) inflater.inflate(R.layout.menu_item_layout,null);
+        if (menuItemInfo4 != null) {
+            view3.setVisibility(View.VISIBLE);
+            setPerItemView(view4,menuItemInfo4,300);
+        } else {
+            view4.setVisibility(View.INVISIBLE);
+            view4.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
+        }
+        ll.addView(view4);
 
 
         ll.setBackgroundColor(Color.TRANSPARENT);

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.model.bean.CreateOrderInfo;
 import com.feasttime.model.bean.DishesCategoryInfo;
@@ -15,13 +14,11 @@ import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.PayOrderInfo;
 import com.feasttime.model.bean.PersonalStatisticsInfo;
 import com.feasttime.model.bean.PlaceOrderInfo;
-import com.feasttime.model.bean.ShoppingCartInfo;
 import com.feasttime.model.bean.WaitTimeAdInfo;
 import com.feasttime.model.bean.WaitTimeMenuInfo;
 import com.feasttime.tools.DeviceTool;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -178,9 +175,9 @@ public class RetrofitService {
     }
 
 
-    public static Observable<MenuInfo> getMenu(HashMap<String,Object> infoMap){
+    public static Observable<MenuInfo> getMenuList(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
-        return sMenuService.getMenu(getRequestBody(infoMap))
+        return sMenuService.getMenuList(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

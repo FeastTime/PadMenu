@@ -23,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.feasttime.adapter.MainMenuPagerAdapter;
+import com.feasttime.listener.OrderModifyListener;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.DishesCategoryInfo;
 import com.feasttime.model.bean.MenuInfo;
@@ -49,7 +50,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class MainMenuFragment extends BaseFragment implements MenuContract.IMenuView,ShoppingCartContract.IShoppingCartView, View.OnClickListener,ViewPager.OnPageChangeListener,MainMenuPagerAdapter.OnItemClick,OrderContract.IOrderView{
+public class MainMenuFragment extends BaseFragment implements MenuContract.IMenuView,ShoppingCartContract.IShoppingCartView, View.OnClickListener,ViewPager.OnPageChangeListener,MainMenuPagerAdapter.OnItemClick,OrderContract.IOrderView,OrderModifyListener {
     private final String TAG = "MainMenuFragment";
     private final static int PAGE_COUNT = 3;  //这个参数需要服务器传回
     private final static int PER_PAGE_ITEM = 3; //这个参数需要服务器传回
@@ -58,6 +59,7 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
 
     private ShoppingCartPresenter mShoppingCartPresenter = new ShoppingCartPresenter();
     private MenuPresenter mMenuPresenter = new MenuPresenter();
+
 
     @Bind(R.id.main_menu_viewpager)
     JazzyViewPager jazzyViewPager;
@@ -80,12 +82,13 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     private String currentClassType;
     @Override
     protected IBasePresenter[] getPresenters() {
-        return new IBasePresenter[]{mMenuPresenter};
+        return new IBasePresenter[]{mMenuPresenter,mShoppingCartPresenter};
     }
 
     @Override
     protected void onInitPresenters() {
         mMenuPresenter.init(this);
+        mShoppingCartPresenter.init(this);
     }
 
     @Override
@@ -120,21 +123,21 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     }
 
     @Override
-    public void showMenu(MenuInfo result) {
+    public void showMenu(MenuInfo menuInfo) {
 
 
         if (mainMenuPagerAdapter == null) {
-            mainMenuPagerAdapter = new MainMenuPagerAdapter(mContext,jazzyViewPager,result.getDishesList());
+            mainMenuPagerAdapter = new MainMenuPagerAdapter(mContext,jazzyViewPager,menuInfo);
             mainMenuPagerAdapter.setOnItemClickListener(this);
             jazzyViewPager.setAdapter(mainMenuPagerAdapter);
             jazzyViewPager.setOnPageChangeListener(this);
         } else {
-            if (result.getDishesList() == null) {
+            if (menuInfo.getDishesList() == null) {
                 mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
-            } else if (result.getDishesList().size() == 0) {
+            } else if (menuInfo.getDishesList().size() == 0) {
                 mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
             } else {
-                mainMenuPagerAdapter.appendData(result.getDishesList());
+                mainMenuPagerAdapter.appendData(menuInfo.getDishesList());
             }
         }
 
@@ -196,7 +199,8 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
         if (position > 0 && !mainMenuPagerAdapter.checkExistData(position)) {
             String token = PreferenceUtil.getStringKey("token");
             String orderID = PreferenceUtil.getStringKey("orderID");
-            mMenuPresenter.getMenu(token,orderID,currentClassType,String.valueOf(position + 1));
+            String storeId = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
+            mMenuPresenter.getMenu(token,storeId,currentClassType,String.valueOf(position));
         }
     }
 
@@ -208,8 +212,8 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     @Override
     public void onDishesPicClicked(MenuItemInfo menuItemInfo,float x,float y) {
         ((MainActivity)this.getActivity()).refreshCartAnimation(new int[] {(int)x,(int)y});
-
-
+        String orderID = PreferenceUtil.getStringKey("orderID");
+        mShoppingCartPresenter.addShoppingCart(menuItemInfo.getDishId(),orderID);
     }
 
     @Override
@@ -253,9 +257,19 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
 
     }
 
-    public void showContentMenu(String token,String orderID,String menuFlag) {
+    public void showContentMenu(String token,String storeId,String menuFlag) {
         currentClassType = menuFlag;
-        mMenuPresenter.getMenu(token,orderID,menuFlag,"1");
+        mMenuPresenter.getMenu(token,storeId,menuFlag,"0");
+
+    }
+
+    @Override
+    public void onAddClicked(String ID) {
+
+    }
+
+    @Override
+    public void onReduceClicked(String ID) {
 
     }
 }
