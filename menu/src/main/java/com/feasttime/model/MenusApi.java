@@ -87,6 +87,6 @@ public interface MenusApi {
       Observable<HealthIndexAssessmentInfo> getHealthIndexAssessment(@Body RequestBody requestBody);
 
       // 获取开屏静默广告
-      @POST("ad/getSilentAD/")
+      @POST("ad/silentads/")
       Observable<SilentAd> getSilentAD(@Body RequestBody requestBody);
 }

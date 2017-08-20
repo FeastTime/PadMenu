@@ -8,68 +8,56 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="128px"
-        android:orientation="vertical"
-        >
-
+        android:layout_height="148px"
+        android:orientation="vertical">
+        <!--标题栏-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50px"
-            android:layout_marginLeft="50px"
-            android:layout_marginTop="58px"
-            >
+            android:layout_height="match_parent" >
 
             <ImageView
                 android:layout_width="30px"
                 android:layout_height="50px"
+                android:layout_marginTop="60px"
                 android:layout_marginLeft="50px"
-
                 android:src="@mipmap/left_arrow"
                 android:onClick="goBack"/>
 
             <TextView
                 android:layout_width="200px"
                 android:layout_height="50px"
-                android:layout_marginRight="50px"
-                android:layout_alignParentRight="true"
-
-                android:text="@string/heathText"
-                android:textSize="@dimen/text_size_15"
+                android:layout_marginTop="70px"
+                android:layout_centerHorizontal="true"
+                android:text="@string/waiting_page_text"
+                android:textSize="@dimen/text_size_20"
                 android:textColor="@color/dark_gray"
                 android:onClick="goToHeathPage"/>
+
         </RelativeLayout>
-
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginTop="19px"
-            android:background="#4a4740" />
 
     </LinearLayout>
 
 
+    <!--标题栏下面的结构-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50px"
+
         android:layout_marginLeft="70px"
         android:layout_marginRight="70px"
-        android:layout_marginBottom="77px"
+        android:layout_marginBottom="70px"
         android:orientation="horizontal"
-        android:divider="@drawable/waittime_divider_w40"
+        android:divider="@drawable/waittime_divider_w5"
         android:showDividers="middle" >
 
+        <!--左边的整体-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="44"
-
-
-            android:divider="@drawable/waittime_divider_h50"
-            android:showDividers="middle"
-            android:orientation="vertical">
+            android:layout_weight="50"
+            android:orientation="vertical"
+            android:divider="@drawable/waittime_divider_h30_fff"
+            android:showDividers="middle">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,21 +70,30 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="match_parent">
 
-                        android:background="@color/dark_gray">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:background="@color/white"
+                            android:layout_alignParentBottom="true"
+                            android:layout_height="30px" />
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="@color/transparent"
                             android:src="@mipmap/bg_wait_time_1"
                             android:scaleType="fitXY"/>
                     </RelativeLayout>
 
 
                     <LinearLayout
-                        android:layout_width="530px"
-                        android:layout_height="174px"
+                        android:layout_width="match_parent"
+                        android:layout_height="172px"
+                        android:layout_marginLeft="181px"
+                        android:layout_marginRight="181px"
+                        android:divider="@drawable/waittime_divider_w8"
+                        android:showDividers = "middle"
                         android:orientation="horizontal"
 
                         android:layout_gravity="center_horizontal|bottom">
@@ -121,7 +118,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center_horizontal"
-                                    android:textSize="20sp"
+                                    android:textSize="18sp"
                                     android:textColor="@color/white"
                                     android:gravity="center"
                                     android:text="等餐时间\nWaitTime"/>
@@ -150,10 +147,13 @@
 
             </LinearLayout>
 
+            <!--进度区域-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="24px"
                 android:orientation="vertical"
+                android:background="@color/white"
                 android:layout_weight="1"
                 android:gravity="bottom">
 
@@ -161,53 +161,60 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:layout_marginLeft="30px"
                     android:layout_marginBottom="40px"
-                    android:layout_weight="1"
-                    >
+                    android:layout_weight="1" >
 
                     <ListView
                         android:id="@+id/waittime_listview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
 
                     </ListView>
 
                 </LinearLayout>
 
+                <!--广告区-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60px"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginBottom="26px"
                     android:gravity="center_vertical|left"
                     android:orientation="horizontal">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="33px"
+                            android:layout_height="52px"
+                            android:src="@mipmap/wait_time_sand_clock"
+                            android:scaleType="fitXY"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="52px"
+                            android:layout_marginLeft="15px"
+                            android:layout_marginRight="15px"
+                            android:paddingLeft="15px"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/wait_time_text_one"
+                            android:textColor="@color/text_color_dark_gray"
+                            android:background="@drawable/waittime_ad_text_border"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+
                     <ImageView
-                        android:layout_width="40px"
-                        android:layout_height="40px"
-                        android:src="@mipmap/wait_time_sand_clock"
-                        android:scaleType="fitXY"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wait_time_text_one"
-                        android:textColor="@color/text_color_dark_gray"
-                        android:textSize="10sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wait_time_text_two"
-                        android:textColor="@color/text_color_dark_gray"
-                        android:textSize="15sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wait_time_text_three"
-                        android:textColor="@color/text_color_dark_gray"
-                        android:textSize="10sp"/>
+                        android:layout_width="180px"
+                        android:layout_height="60px"
+                        android:layout_marginRight="15dp"
+                        android:src="@mipmap/waittime_pay_button"/>
 
                 </LinearLayout>
 
@@ -215,10 +222,11 @@
 
         </LinearLayout>
 
+        <!--右边边的整体-->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="56"
+            android:layout_weight="50"
             android:orientation="vertical">
 
             <FrameLayout
@@ -229,12 +237,12 @@
 
                 <GridView
                     android:id="@+id/waittime_gridView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
 
                     android:layout_gravity="center"
-                    android:numColumns="4"
+                    android:numColumns="3"
                     android:horizontalSpacing="1px"
                     android:verticalSpacing="1px"
                     android:stretchMode="columnWidth" />
