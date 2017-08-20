@@ -102,7 +102,7 @@ public class OnlyShowView extends FrameLayout {
             webView.loadUrl(adUrl);
 
 
-            PYWebViewClient.openOnOutWebView = true;
+
         } catch (Exception e){
             Log.d("pytest", e.toString());
         }
