@@ -32,10 +32,10 @@ public class UserPresenter implements UserContract.IUserPresenter {
             public void accept(LoginInfo loginInfo) throws Exception {
                 //1成功，非1失败
                 if (loginInfo.getResultCode() == 1) {
-                    iUserView.loginSuccess();
                     PreferenceUtil.setStringKey("token",loginInfo.getToken());
                     PreferenceUtil.setStringKey("mobileNO",mobileNO);
                     PreferenceUtil.setStringKey(PreferenceUtil.STORE_ID,loginInfo.getStoreId());
+                    iUserView.loginSuccess();
                 } else {
                     iUserView.showNetError();
 
