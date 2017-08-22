@@ -23,7 +23,7 @@ public class SilentPresenter implements SilentAdContract.ISilentPresenter {
         HashMap<String, Object> map = new HashMap<>();
         map.put("width", width);
         map.put("height", height);
-        map.put("nu", nu);
+        map.put("num", nu);
         map.put("type", type);
 
         RetrofitService

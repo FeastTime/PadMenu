@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,6 +29,8 @@ public class SilentADActivity extends AppCompatActivity implements SilentAdContr
     OnlyShowView adview;
     int adIndex = 0;
 
+    static boolean isShow = false;
+
     private SilentPresenter silentPresenter = new SilentPresenter();
 
     @Override
@@ -48,13 +51,17 @@ public class SilentADActivity extends AppCompatActivity implements SilentAdContr
         // 初始化滑动组件
         initSlidr();
 
+        hideOperateButton();
+
+
+    }
+
+    void hideOperateButton(){
         //for new api versions.
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-
-
     }
 
     void initAD(){
@@ -65,6 +72,7 @@ public class SilentADActivity extends AppCompatActivity implements SilentAdContr
     protected void onResume() {
         super.onResume();
 
+        isShow = true;
         silentPresenter.getSilentADUrl(1920, 1200, 4, "html");
 
     }
@@ -73,8 +81,8 @@ public class SilentADActivity extends AppCompatActivity implements SilentAdContr
     protected void onPause() {
         super.onPause();
 
-        if (null != timer)
-            timer.cancel();
+        isShow = false;
+
     }
 
     void initSlidr(){
@@ -100,22 +108,27 @@ public class SilentADActivity extends AppCompatActivity implements SilentAdContr
     @Override
     public void getSilentADUrlComplete(SilentAd silentAd) {
 
-        Log.d("test", silentAd.getID());
+        if (!isShow)
+            return;
+
+//        Log.d("test", silentAd.getID());
 
         final List<Ad> ads = silentAd.getAds();
 
-        for (Ad ad: ads) {
-            Log.d("test", ad.getAdm());
-            Log.d("test", ad.getAdmType());
-        }
-
-
+//        for (Ad ad: ads) {
+//            Log.d("test", ad.getAdm());
+//            Log.d("test", ad.getAdmType());
+//        }
 
         // 刷新上菜进度的定时器
         timer = new Timer(true);
 
         TimerTask task = new TimerTask() {
+
             public void run() {
+
+                if (!isShow)
+                    timer.cancel();
 
                 SilentADActivity.this.runOnUiThread(new Runnable() {
 
@@ -123,11 +136,10 @@ public class SilentADActivity extends AppCompatActivity implements SilentAdContr
                     public void run() {
 
                         adview.loadAD(ads.get(adIndex).getAdm());
-
+                        hideOperateButton();
                     }
 
                 });
-
 
                 adIndex++;
 
@@ -163,4 +175,33 @@ public class SilentADActivity extends AppCompatActivity implements SilentAdContr
     public void showTransparentCoverView() {
 
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+            Log.d("test", "++++KEYCODE_HOME");
+
+        } else if (keyCode == KeyEvent.KEYCODE_BACK){
+            Log.d("test", "++++KEYCODE_BACK");
+        } else if (keyCode == KeyEvent.KEYCODE_MENU){
+            Log.d("test", "++++KEYCODE_MENU");
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+            Log.d("test", "++++KEYCODE_VOLUME_DOWN");
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+            Log.d("test", "++++KEYCODE_VOLUME_UP");
+        } else if (keyCode == KeyEvent.KEYCODE_POWER){
+            Log.d("test", "++++KEYCODE_POWER");
+        }
+
+
+        return 1==1;
+
+//        return super.onKeyDown(keyCode, event);
+    }
+
+
+
+
 }
