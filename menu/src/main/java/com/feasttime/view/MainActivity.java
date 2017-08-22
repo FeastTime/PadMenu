@@ -71,9 +71,6 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Bind(R.id.title_bar_layout_staff_entry_tv)
     TextView loginTv;
 
-    @Bind(R.id.main_activity_recommend_lv)
-    HorizontalListView recommendLv;
-
     @Bind(R.id.title_bar_cart_num_tv)
     TextView titleBarCarNumTv;
     private int cartNum = 0;
@@ -136,15 +133,8 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         fragmentTransaction.hide(myOrderFragment);
         fragmentTransaction.commit();
 
-        test();
     }
 
-
-    private void test() {
-        String titles[] = {"a","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d"};
-        HorizontalListViewAdapter horizontalListViewAdapter = new HorizontalListViewAdapter(this,titles);
-        recommendLv.setAdapter(horizontalListViewAdapter);
-    }
 
 
 

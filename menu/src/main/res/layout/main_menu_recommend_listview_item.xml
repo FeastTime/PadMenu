@@ -4,20 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <android.support.v4.widget.Space
-        android:layout_width="wrap_content"
+        android:layout_width="350px"
         android:layout_height="358px" />
 
     <LinearLayout
         android:layout_width="300px"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:gravity="left"
         android:layout_centerVertical="true"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:gravity="left"
             android:orientation="vertical">
 
             <RelativeLayout

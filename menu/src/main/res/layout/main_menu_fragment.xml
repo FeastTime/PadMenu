@@ -7,23 +7,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <RadioGroup
-            android:id="@+id/menu_item_layout_viewpage_indicate_rg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="0dp"></RadioGroup>
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="600px"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp">
 
@@ -58,6 +45,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="进入广告" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/main_activity_recommend_rel"
+        android:layout_width="match_parent"
+        android:layout_height="358px"
+        android:layout_marginTop="10px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/yellow_bg_for_recommend"
+            android:text="点\n这\n道\n菜\n的\n人\n也\n喜\n欢"
+            android:textColor="#9D7302"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginLeft="125px"
+            />
+
+        <com.feasttime.widget.HorizontalListView
+            android:id="@+id/main_activity_recommend_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="318px"
+            android:layout_marginRight="318px">
+
+        </com.feasttime.widget.HorizontalListView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/recharge_icon" />
+
+            <TextView
+                android:id="@+id/main_activity_recharge_tv"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="充值500\n送100"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
 
     </RelativeLayout>
 </LinearLayout>

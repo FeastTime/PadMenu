@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.feasttime.adapter.HorizontalListViewAdapter;
 import com.feasttime.adapter.MainMenuPagerAdapter;
 import com.feasttime.listener.OrderModifyListener;
 import com.feasttime.menu.R;
@@ -42,6 +43,7 @@ import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ScreenTools;
 import com.feasttime.view.MainActivity;
 import com.feasttime.view.SilentADActivity;
+import com.feasttime.widget.HorizontalListView;
 import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
 
 import java.util.ArrayList;
@@ -70,11 +72,12 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     @Bind(R.id.main_activity_right_ib)
     ImageButton rightIb;
 
-    @Bind(R.id.menu_item_layout_viewpage_indicate_rg)
-    RadioGroup viewpageIndicateRg;
-
     @Bind(R.id.toTheAdBtn)
     Button mToAdBtn;
+
+    @Bind(R.id.main_activity_recommend_lv)
+    HorizontalListView recommendLv;
+
 
     MainMenuPagerAdapter mainMenuPagerAdapter;
 
@@ -100,6 +103,8 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     protected void initViews() {
         jazzyViewPager.setTransitionEffect(JazzyViewPager.TransitionEffect.Tablet);
         jazzyViewPager.setPageMargin(30);
+
+        test();
     }
 
     public void clearAllData() {
@@ -107,6 +112,13 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
         if (mainMenuPagerAdapter != null) {
             mainMenuPagerAdapter.clearAllData();
         }
+    }
+
+
+    private void test() {
+        String titles[] = {"a","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d","b","c","d"};
+        HorizontalListViewAdapter horizontalListViewAdapter = new HorizontalListViewAdapter(this.getActivity(),titles);
+        recommendLv.setAdapter(horizontalListViewAdapter);
     }
 
     @Nullable
@@ -140,33 +152,6 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
                 mainMenuPagerAdapter.appendData(menuInfo.getDishesList());
             }
         }
-
-        if (viewpageIndicateRg.getChildCount() < PAGE_COUNT) {
-            //只有切换标签才能满足条件
-            viewpageIndicateRg.removeAllViews();
-
-            //没有加过圆点才加
-            for (int i = 0 ; i < PAGE_COUNT ; i++) {
-                RadioButton rb = new RadioButton(mContext);
-                rb.setBackgroundResource(R.drawable.viewpage_indicate_selector);
-                rb.setButtonDrawable(android.R.color.transparent);
-                rb.setWidth(ScreenTools.dip2px(mContext,10));
-                rb.setHeight(ScreenTools.dip2px(mContext,10));
-                viewpageIndicateRg.addView(rb);
-                rb.setTag(i);
-                rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        LogUtil.d("result","the position ->" + buttonView.getTag());
-                    }
-                });
-            }
-            ((RadioButton)viewpageIndicateRg.getChildAt(0)).setChecked(true);
-        }
-
-
-
-
     }
 
 
@@ -190,11 +175,6 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     @Override
     public void onPageSelected(int position) {
         LogUtil.d(TAG,"the page selected:" + position);
-        Object radioBtnObj = viewpageIndicateRg.getChildAt(position);
-        if (radioBtnObj != null) {
-            ((RadioButton)radioBtnObj).setChecked(true);
-        }
-
         //从第二页才开始加载,第一页由网络请求返回,如果当前页有数据则不加载
         if (position > 0 && !mainMenuPagerAdapter.checkExistData(position)) {
             String token = PreferenceUtil.getStringKey("token");
