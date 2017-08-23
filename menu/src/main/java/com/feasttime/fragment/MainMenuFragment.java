@@ -192,8 +192,7 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     @Override
     public void onDishesPicClicked(MenuItemInfo menuItemInfo,float x,float y) {
         ((MainActivity)this.getActivity()).refreshCartAnimation(new int[] {(int)x,(int)y});
-        String orderID = PreferenceUtil.getStringKey("orderID");
-        mShoppingCartPresenter.addShoppingCart(menuItemInfo.getDishId(),orderID);
+        mShoppingCartPresenter.addShoppingCart(menuItemInfo);
     }
 
     @Override

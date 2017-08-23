@@ -2,6 +2,7 @@ package com.feasttime.presenter.shoppingcart;
 
 import com.feasttime.model.RetrofitService;
 import com.feasttime.model.bean.CreateOrderInfo;
+import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.ShoppingCartInfo;
 import com.feasttime.presenter.menu.MenuContract;
@@ -23,10 +24,18 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
 
 
     @Override
-    public void addShoppingCart(String ID,String orderID) {
+    public void addShoppingCart(MenuItemInfo menuItemInfo) {
+        String orderID = PreferenceUtil.getStringKey("orderID");
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         infoMap.put("orderID",orderID);
-        infoMap.put("ID",ID);
+        infoMap.put("ID",menuItemInfo.getDishId());
+        infoMap.put("userID",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
+        infoMap.put("originalprice",menuItemInfo.getCost());
+        infoMap.put("dishname",menuItemInfo.getDishName());
+        infoMap.put("actualprice",menuItemInfo.getPrice());
+        infoMap.put("dishimgurl",menuItemInfo.getDishImgUrl());
+        infoMap.put("orderID",orderID);
+
         RetrofitService.addShoppingCart(infoMap).subscribe(new Consumer<OrderInfo>(){
             @Override
             public void accept(OrderInfo orderInfo) throws Exception {

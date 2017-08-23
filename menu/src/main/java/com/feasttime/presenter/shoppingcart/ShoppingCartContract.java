@@ -1,5 +1,6 @@
 package com.feasttime.presenter.shoppingcart;
 
+import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
 import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.RecommendOrderListItemInfo;
@@ -22,7 +23,7 @@ public interface ShoppingCartContract {
     }
 
     interface IShoppingCartPresenter extends IBasePresenter<IShoppingCartView> {
-        void addShoppingCart(String ID, String orderID);
+        void addShoppingCart(MenuItemInfo menuItemInfo);
         void removeShoppingCart(String ID, String orderID);
         void getShoppingCartList(String orderID);
     }

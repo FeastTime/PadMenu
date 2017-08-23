@@ -13,7 +13,7 @@ import com.feasttime.MenuApplication;
 public class PreferenceUtil {
 
 	public static final String STORE_ID = "storeId";
-
+	public static final String MOBILE_NO = "mobileNO";
 
 	private static SharedPreferences mPreference;
 	private static void init(){
