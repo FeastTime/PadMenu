@@ -83,9 +83,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ScreenInfo info = DeviceTool.getDeviceScreenInfo(this);
 
-        LogUtil.d(TAG,info.getWidth() + "X" + info.getHeight());
 
 //        startActivity(new Intent(this,TestActivity.class));
 

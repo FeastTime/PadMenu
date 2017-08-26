@@ -15,8 +15,11 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.feasttime.menu.R;
+import com.feasttime.model.bean.ScreenInfo;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.IBaseView;
+import com.feasttime.tools.DeviceTool;
+import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.ToastUtil;
 
 import java.util.HashSet;
@@ -58,6 +61,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ScreenInfo info = DeviceTool.getDeviceScreenInfo(this);
+        LogUtil.d("BaseActivity","screen size:" + info.getWidth() + "X" + info.getHeight());
 
         // 隐藏顶部标题栏
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);//remove title bar  即隐藏标题栏
