@@ -3,23 +3,16 @@ package com.feasttime.view;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RadioButton;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.feasttime.adapter.HorizontalListViewAdapter;
 import com.feasttime.fragment.MainMenuFragment;
 import com.feasttime.fragment.MyOrderFragment;
 import com.feasttime.fragment.RecommendMenuFragment;
@@ -31,7 +24,6 @@ import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
 import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.RecommendOrderListItemInfo;
-import com.feasttime.model.bean.ScreenInfo;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.menu.MenuContract;
 import com.feasttime.presenter.menu.MenuPresenter;
@@ -39,18 +31,14 @@ import com.feasttime.presenter.order.OrderContract;
 import com.feasttime.presenter.order.OrderPresenter;
 import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
-import com.feasttime.tools.DeviceTool;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
-import com.feasttime.tools.ScreenTools;
 import com.feasttime.tools.UtilTools;
-import com.feasttime.widget.HorizontalListView;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import q.rorbin.badgeview.QBadgeView;
 
 public class MainActivity extends BaseActivity implements MenuContract.IMenuView,ShoppingCartContract.IShoppingCartView, View.OnClickListener,OrderContract.IOrderView {
     private static final String TAG = "MainActivity";
@@ -67,8 +55,8 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Bind(R.id.title_bar_layout_menu_ib)
     ImageButton menuIb;
 
-    @Bind(R.id.title_bar_content_rb)
-    RadioGroup mTtitleBarMenuRb;
+    @Bind(R.id.title_bar_content_ll)
+    LinearLayout mTtitleBarMenuLl;
 
     @Bind(R.id.title_bar_layout_staff_entry_tv)
     TextView loginTv;
@@ -95,14 +83,12 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Override
     protected void onResume() {
         super.onResume();
-        if (mTtitleBarMenuRb.getChildCount() == 0) {
+        if (mTtitleBarMenuLl.getChildCount() == 0) {
             //没有请求过才去请求
             mMenuPresenter.getDishesCategory();
         }
 
     }
-
-
 
 
     @Override
@@ -182,45 +168,60 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     public void showDishesCategory(DishesCategoryInfo dishesCategoryInfo) {
         List<DishesCategoryInfo.DishesCategoryListBean> dishesCategoryListBeanList =  dishesCategoryInfo.getDishesCategoryList();
         int count = dishesCategoryListBeanList.size();
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+
         for (int i = 0 ; i < count ; i++) {
             DishesCategoryInfo.DishesCategoryListBean dishesCategoryListBean = dishesCategoryListBeanList.get(i);
 
-            RadioButton menuRb = new RadioButton(this);
-            menuRb.setButtonDrawable(android.R.color.transparent);
-            menuRb.setGravity(Gravity.CENTER);
-            menuRb.setText(UtilTools.decodeStr(dishesCategoryListBean.getCategoryName()) + "\n" + "hot");
-            menuRb.setTextColor(Color.WHITE);
-            menuRb.setTag(dishesCategoryListBean.getCategoryId());
-            menuRb.setPadding(ScreenTools.dip2px(this,20),0, ScreenTools.dip2px(this,20),0);
-            if (mTtitleBarMenuRb.getChildCount() == 0) {
-                menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
+            final View titleBarItemView = inflater.inflate(R.layout.title_bar_item,null);
+            TextView  nameTv = (TextView) titleBarItemView.findViewById(R.id.title_bar_item_name_tv);
+            titleBarItemView.setTag(dishesCategoryListBean.getCategoryId());
+            titleBarItemView.setTag(R.id.tag_first,i);
+
+            nameTv.setText(UtilTools.decodeStr(dishesCategoryListBean.getCategoryName()) + "\n" + "hot");
+            if (mTtitleBarMenuLl.getChildCount() == 0) {
+                titleBarItemView.setBackgroundResource(R.drawable.title_bar_left_menu_normal_shape);
             } else {
-                menuRb.setBackgroundResource(R.drawable.title_normal_menu_selector);
+                titleBarItemView.setBackgroundResource(R.color.title_bar_normal_color);
             }
 
-
-
-            menuRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            titleBarItemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        mainMenuFragment.clearAllData();
-                        String classType = buttonView.getTag().toString();
-                        String token = PreferenceUtil.getStringKey("token");
-                        String storeId = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
-                        mainMenuFragment.showContentMenu(token,storeId,classType);
+                public void onClick(View v) {
+                    resetTitleBarBg();
+
+                    int titileBarIndex = (int)titleBarItemView.getTag(R.id.tag_first);
+                    if (titileBarIndex == 0) {
+                        v.setBackgroundResource(R.drawable.title_bar_left_menu_selected_shape);
                     } else {
+                        v.setBackgroundResource(R.color.title_bar_selected_color);
                     }
+
+                    mainMenuFragment.clearAllData();
+                    String classType = v.getTag().toString();
+                    String token = PreferenceUtil.getStringKey("token");
+                    String storeId = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
+                    mainMenuFragment.showContentMenu(token,storeId,classType);
                 }
             });
+            mTtitleBarMenuLl.addView(titleBarItemView);
+        }
 
-            mTtitleBarMenuRb.addView(menuRb);
-            ViewGroup.LayoutParams params = menuRb.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            menuRb.setLayoutParams(params);
-            RadioButton firstRb = ((RadioButton)mTtitleBarMenuRb.getChildAt(0));
-            if (!firstRb.isChecked()) {
-                firstRb.setChecked(true);
+        View firstTitleItemView = mTtitleBarMenuLl.getChildAt(0);
+        if (firstTitleItemView != null) {
+            firstTitleItemView.performClick();
+        }
+    }
+
+    private void resetTitleBarBg() {
+        int count = mTtitleBarMenuLl.getChildCount();
+        for (int i = 0 ; i < count ; i++) {
+            View titleBarItem = mTtitleBarMenuLl.getChildAt(i);
+            if (i == 0) {
+                titleBarItem.setBackgroundResource(R.drawable.title_bar_left_menu_normal_shape);
+            } else {
+                titleBarItem.setBackgroundResource(R.color.title_bar_normal_color);
             }
         }
     }

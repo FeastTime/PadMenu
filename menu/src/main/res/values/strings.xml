@@ -18,6 +18,9 @@
         <item>Accordion</item>
     </string-array>
 
+    <item type="id" name="tag_first">
+    </item>
+
     <string name="wait_time_text_one">在40分钟内用餐完成可获得CGV影城电影票</string>
     <string name="wait_time_text_two">2张</string>
     <string name="wait_time_text_three">代金券</string>

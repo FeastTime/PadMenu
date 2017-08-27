@@ -71,8 +71,8 @@
             android:layout_width="1300px"
             android:layout_height="match_parent">
 
-            <RadioGroup
-                android:id="@+id/title_bar_content_rb"
+            <LinearLayout
+                android:id="@+id/title_bar_content_ll"
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
@@ -80,7 +80,7 @@
                 android:layout_margin="0dp"
                 android:layout_height="match_parent">
 
-            </RadioGroup>
+            </LinearLayout>
 
         </HorizontalScrollView>
 
