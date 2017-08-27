@@ -1,5 +1,6 @@
 package com.feasttime.presenter.shoppingcart;
 
+import com.feasttime.model.CachedData;
 import com.feasttime.model.RetrofitService;
 import com.feasttime.model.bean.CreateOrderInfo;
 import com.feasttime.model.bean.MenuItemInfo;
@@ -8,6 +9,7 @@ import com.feasttime.model.bean.ShoppingCartInfo;
 import com.feasttime.presenter.menu.MenuContract;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
+import com.feasttime.tools.RxBus;
 
 import java.util.HashMap;
 
@@ -40,6 +42,8 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
             @Override
             public void accept(OrderInfo orderInfo) throws Exception {
                 LogUtil.d("result","aa");
+                CachedData.orderInfo = orderInfo;
+                RxBus.getInstance().post("");
                 mIShoppingCartView.addShoppingCartComplete(orderInfo);
             }
         }, new Consumer<Throwable>() {
@@ -66,6 +70,8 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
             @Override
             public void accept(OrderInfo orderInfo) throws Exception {
                 LogUtil.d("result","aa");
+                CachedData.orderInfo = orderInfo;
+                RxBus.getInstance().post("");
                 mIShoppingCartView.removeShoppingCartComplete(orderInfo);
             }
         }, new Consumer<Throwable>() {

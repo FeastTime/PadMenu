@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.feasttime.menu.R;
+import com.feasttime.model.CachedData;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.order.OrderContract;
 import com.feasttime.presenter.order.OrderPresenter;
@@ -149,6 +150,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void loginSuccess() {
         String token = PreferenceUtil.getStringKey("token");
+        CachedData.orderInfo = null;
         mOrderPresenter.createOrder(token);
     }
 

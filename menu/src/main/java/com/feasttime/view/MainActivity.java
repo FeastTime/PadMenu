@@ -17,6 +17,7 @@ import com.feasttime.fragment.MainMenuFragment;
 import com.feasttime.fragment.MyOrderFragment;
 import com.feasttime.fragment.RecommendMenuFragment;
 import com.feasttime.menu.R;
+import com.feasttime.model.CachedData;
 import com.feasttime.model.bean.DishesCategoryInfo;
 import com.feasttime.model.bean.IngredientsMenuInfo;
 import com.feasttime.model.bean.MenuInfo;
@@ -35,12 +36,15 @@ import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
 import com.feasttime.tools.DeviceTool;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
+import com.feasttime.tools.RxBus;
 import com.feasttime.tools.UtilTools;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity implements MenuContract.IMenuView,ShoppingCartContract.IShoppingCartView, View.OnClickListener,OrderContract.IOrderView {
     private static final String TAG = "MainActivity";
@@ -65,7 +69,6 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
 
     @Bind(R.id.title_bar_cart_num_tv)
     TextView titleBarCarNumTv;
-    private int cartNum = 0;
 
     private int cartLocation[];
     private MyOrderFragment myOrderFragment;
@@ -87,11 +90,44 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Override
     protected void onResume() {
         super.onResume();
+        registerRxbus();
+        refreshBadge();
         if (mTtitleBarMenuLl.getChildCount() == 0) {
             //没有请求过才去请求
             mMenuPresenter.getDishesCategory();
         }
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        RxBus.getInstance().unregisterAll();
+    }
+
+    private void registerRxbus() {
+        Flowable<String> f = RxBus.getInstance().register(String.class);
+        f.subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String integer) throws Exception {
+                refreshBadge();
+            }
+        });
+    }
+
+    private void refreshBadge() {
+        if (CachedData.orderInfo == null) {
+            return;
+        }
+
+        List<MyOrderListItemInfo> myOrderList = CachedData.orderInfo.getMyOrderList();
+        int count = myOrderList.size();
+        int countOrders = 0;
+        for (int i = 0 ; i < count ; i++) {
+            MyOrderListItemInfo myOrderListItemInfo = myOrderList.get(i);
+            countOrders = countOrders + Integer.parseInt(myOrderListItemInfo.getAmount());
+        }
+
+        titleBarCarNumTv.setText(countOrders + "");
     }
 
 
@@ -290,7 +326,6 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     }
 
     public void refreshCartNum() {
-        titleBarCarNumTv.setText(++cartNum + "");
     }
 
 }
