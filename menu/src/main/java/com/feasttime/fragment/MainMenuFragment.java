@@ -17,10 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.feasttime.adapter.HorizontalListViewAdapter;
 import com.feasttime.adapter.MainMenuPagerAdapter;
@@ -40,7 +37,6 @@ import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
-import com.feasttime.tools.ScreenTools;
 import com.feasttime.view.MainActivity;
 import com.feasttime.view.SilentADActivity;
 import com.feasttime.widget.HorizontalListView;
@@ -144,12 +140,12 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
             jazzyViewPager.setAdapter(mainMenuPagerAdapter);
             jazzyViewPager.setOnPageChangeListener(this);
         } else {
-            if (menuInfo.getDishesList() == null) {
+            if (menuInfo.getMenuList() == null) {
                 mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
-            } else if (menuInfo.getDishesList().size() == 0) {
+            } else if (menuInfo.getMenuList().size() == 0) {
                 mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
             } else {
-                mainMenuPagerAdapter.appendData(menuInfo.getDishesList());
+                mainMenuPagerAdapter.appendData(menuInfo.getMenuList());
             }
         }
     }

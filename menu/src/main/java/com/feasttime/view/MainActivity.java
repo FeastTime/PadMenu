@@ -183,7 +183,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         menuRb.setText(UtilTools.decodeStr(dishesCategoryListBean.getCategoryName()) + "\n" + "hot");
         menuRb.setTextColor(Color.WHITE);
         menuRb.setTag(dishesCategoryListBean.getCategoryId());
-        menuRb.setPadding(ScreenTools.dip2px(this,40),0, ScreenTools.dip2px(this,40),0);
+        menuRb.setPadding(ScreenTools.dip2px(this,20),0, ScreenTools.dip2px(this,20),0);
         if (mTtitleBarMenuRb.getChildCount() == 0) {
             menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
         } else {

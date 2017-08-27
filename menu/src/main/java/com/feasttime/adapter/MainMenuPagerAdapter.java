@@ -56,7 +56,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     public MainMenuPagerAdapter(Context context, JazzyViewPager jazzyViewPager,MenuInfo menuInfo) {
         this.context = context;
         this.mJazzy = jazzyViewPager;
-        this.menuItemInfoList = menuInfo.getDishesList();
+        this.menuItemInfoList = menuInfo.getMenuList();
         this.dataSizeCount = Integer.parseInt(menuInfo.getRecordCount());
     }
 
