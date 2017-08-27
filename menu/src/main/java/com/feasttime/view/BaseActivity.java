@@ -63,8 +63,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ScreenInfo info = DeviceTool.getDeviceScreenInfo(this);
-        LogUtil.d("BaseActivity","screen size:" + info.getWidth() + "X" + info.getHeight());
 
         // 隐藏顶部标题栏
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);//remove title bar  即隐藏标题栏

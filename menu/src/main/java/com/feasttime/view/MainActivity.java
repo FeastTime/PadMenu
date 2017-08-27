@@ -24,6 +24,7 @@ import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
 import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.RecommendOrderListItemInfo;
+import com.feasttime.model.bean.ScreenInfo;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.menu.MenuContract;
 import com.feasttime.presenter.menu.MenuPresenter;
@@ -31,6 +32,7 @@ import com.feasttime.presenter.order.OrderContract;
 import com.feasttime.presenter.order.OrderPresenter;
 import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
+import com.feasttime.tools.DeviceTool;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.UtilTools;
@@ -74,6 +76,8 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ScreenInfo info = DeviceTool.getDeviceScreenInfo(this);
+        LogUtil.d(TAG,"screen size:" + info.getWidth() + "X" + info.getHeight());
 
 //        startActivity(new Intent(this,TestActivity.class));
 

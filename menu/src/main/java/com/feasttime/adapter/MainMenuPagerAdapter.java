@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -246,7 +247,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         view.setBackgroundColor(Color.TRANSPARENT);
         ImageView adflagIv1 = (ImageView) view.findViewById(R.id.menu_item_layout_ad_flag_iv);
         final ImageView playVideoIv = (ImageView)view.findViewById(R.id.menu_item_layout_play_video_iv);
-
+        final ImageView addShoppingCartIv = (ImageView)view.findViewById(R.id.menu_item_layout_add_top_add_iv);
 
         adflagIv1.setImageResource(R.mipmap.ad_flag_chubang);
 

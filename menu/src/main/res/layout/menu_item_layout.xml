@@ -33,7 +33,7 @@
                 android:src="@mipmap/ad_1" />
 
             <View
-                android:layout_width="30dp"
+                android:layout_width="10dp"
                 android:layout_height="30dp"></View>
 
             <ImageView
