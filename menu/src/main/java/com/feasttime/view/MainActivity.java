@@ -25,6 +25,7 @@ import com.feasttime.fragment.MyOrderFragment;
 import com.feasttime.fragment.RecommendMenuFragment;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.DishesCategoryInfo;
+import com.feasttime.model.bean.IngredientsMenuInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
@@ -49,6 +50,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import q.rorbin.badgeview.QBadgeView;
 
 public class MainActivity extends BaseActivity implements MenuContract.IMenuView,ShoppingCartContract.IShoppingCartView, View.OnClickListener,OrderContract.IOrderView {
     private static final String TAG = "MainActivity";
@@ -131,6 +133,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         fragmentTransaction.hide(myOrderFragment);
         fragmentTransaction.commit();
 
+
     }
 
 
@@ -176,44 +179,51 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     }
 
     @Override
-    public void showDishesCategory(DishesCategoryInfo.DishesCategoryListBean dishesCategoryListBean) {
-        RadioButton menuRb = new RadioButton(this);
-        menuRb.setButtonDrawable(android.R.color.transparent);
-        menuRb.setGravity(Gravity.CENTER);
-        menuRb.setText(UtilTools.decodeStr(dishesCategoryListBean.getCategoryName()) + "\n" + "hot");
-        menuRb.setTextColor(Color.WHITE);
-        menuRb.setTag(dishesCategoryListBean.getCategoryId());
-        menuRb.setPadding(ScreenTools.dip2px(this,20),0, ScreenTools.dip2px(this,20),0);
-        if (mTtitleBarMenuRb.getChildCount() == 0) {
-            menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
-        } else {
-            menuRb.setBackgroundResource(R.drawable.title_normal_menu_selector);
-        }
+    public void showDishesCategory(DishesCategoryInfo dishesCategoryInfo) {
+        List<DishesCategoryInfo.DishesCategoryListBean> dishesCategoryListBeanList =  dishesCategoryInfo.getDishesCategoryList();
+        int count = dishesCategoryListBeanList.size();
+        for (int i = 0 ; i < count ; i++) {
+            DishesCategoryInfo.DishesCategoryListBean dishesCategoryListBean = dishesCategoryListBeanList.get(i);
 
-        menuRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mainMenuFragment.clearAllData();
-                    String classType = buttonView.getTag().toString();
-                    String token = PreferenceUtil.getStringKey("token");
-                    String storeId = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
-                    mainMenuFragment.showContentMenu(token,storeId,classType);
-                } else {
-                }
+            RadioButton menuRb = new RadioButton(this);
+            menuRb.setButtonDrawable(android.R.color.transparent);
+            menuRb.setGravity(Gravity.CENTER);
+            menuRb.setText(UtilTools.decodeStr(dishesCategoryListBean.getCategoryName()) + "\n" + "hot");
+            menuRb.setTextColor(Color.WHITE);
+            menuRb.setTag(dishesCategoryListBean.getCategoryId());
+            menuRb.setPadding(ScreenTools.dip2px(this,20),0, ScreenTools.dip2px(this,20),0);
+            if (mTtitleBarMenuRb.getChildCount() == 0) {
+                menuRb.setBackgroundResource(R.drawable.title_left_menu_selector);
+            } else {
+                menuRb.setBackgroundResource(R.drawable.title_normal_menu_selector);
             }
-        });
 
-        mTtitleBarMenuRb.addView(menuRb);
-        ViewGroup.LayoutParams params = menuRb.getLayoutParams();
-        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-        menuRb.setLayoutParams(params);
-        RadioButton firstRb = ((RadioButton)mTtitleBarMenuRb.getChildAt(0));
-        if (!firstRb.isChecked()) {
-            firstRb.setChecked(true);
+
+
+            menuRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        mainMenuFragment.clearAllData();
+                        String classType = buttonView.getTag().toString();
+                        String token = PreferenceUtil.getStringKey("token");
+                        String storeId = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
+                        mainMenuFragment.showContentMenu(token,storeId,classType);
+                    } else {
+                    }
+                }
+            });
+
+            mTtitleBarMenuRb.addView(menuRb);
+            ViewGroup.LayoutParams params = menuRb.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            menuRb.setLayoutParams(params);
+            RadioButton firstRb = ((RadioButton)mTtitleBarMenuRb.getChildAt(0));
+            if (!firstRb.isChecked()) {
+                firstRb.setChecked(true);
+            }
         }
     }
-
 
 
     @Override
@@ -267,6 +277,11 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         }
 
         UtilTools.addOneDishes(this,fromLocation,cartLocation);
+    }
+
+    @Override
+    public void showIngredientsMenuList(IngredientsMenuInfo ingredientsMenuInfo) {
+
     }
 
     public void refreshCartNum() {

@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.feasttime.model.bean.CreateOrderInfo;
 import com.feasttime.model.bean.DishesCategoryInfo;
 import com.feasttime.model.bean.HealthIndexAssessmentInfo;
+import com.feasttime.model.bean.IngredientsMenuInfo;
 import com.feasttime.model.bean.LoginInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.model.bean.OrderInfo;
@@ -289,6 +290,16 @@ public class RetrofitService {
     // 获取开屏广告
     public static Observable<SilentAd> getSilentAD(HashMap<String,Object> infoMap){
         return sMenuService.getSilentAD(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<IngredientsMenuInfo> getIngredientsList(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.getIngredientsList(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

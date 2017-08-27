@@ -24,6 +24,7 @@ import com.feasttime.adapter.MainMenuPagerAdapter;
 import com.feasttime.listener.OrderModifyListener;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.DishesCategoryInfo;
+import com.feasttime.model.bean.IngredientsMenuInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
@@ -125,10 +126,7 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     }
 
 
-    @Override
-    public void showDishesCategory(DishesCategoryInfo.DishesCategoryListBean dishesCategoryListBean) {
 
-    }
 
     @Override
     public void showMenu(MenuInfo menuInfo) {
@@ -189,6 +187,7 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     public void onDishesPicClicked(MenuItemInfo menuItemInfo,float x,float y) {
         ((MainActivity)this.getActivity()).refreshCartAnimation(new int[] {(int)x,(int)y});
         mShoppingCartPresenter.addShoppingCart(menuItemInfo);
+        mMenuPresenter.getIngredientsMenuInfo(menuItemInfo.getDishId());
     }
 
     @Override
@@ -245,6 +244,16 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
 
     @Override
     public void onReduceClicked(String ID) {
+
+    }
+
+    @Override
+    public void showIngredientsMenuList(IngredientsMenuInfo ingredientsMenuInfo) {
+
+    }
+
+    @Override
+    public void showDishesCategory(DishesCategoryInfo dishesCategoryInfo) {
 
     }
 }

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.feasttime.adapter.RecommendMenuAdapter;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.DishesCategoryInfo;
+import com.feasttime.model.bean.IngredientsMenuInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
@@ -131,10 +132,7 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
 
     }
 
-    @Override
-    public void showDishesCategory(DishesCategoryInfo.DishesCategoryListBean dishesCategoryListBean) {
 
-    }
 
     @OnClick({R.id.recommend_fragment_add_ib,R.id.recommend_fragment_reduce_ib})
     @Override
@@ -265,6 +263,16 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
 
     @Override
     public void showOrderList(List<MyOrderListItemInfo> myOrderList) {
+
+    }
+
+    @Override
+    public void showIngredientsMenuList(IngredientsMenuInfo ingredientsMenuInfo) {
+
+    }
+
+    @Override
+    public void showDishesCategory(DishesCategoryInfo dishesCategoryInfo) {
 
     }
 }

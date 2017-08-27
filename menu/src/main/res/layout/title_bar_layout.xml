@@ -67,16 +67,23 @@
         android:layout_height="86px"
         android:layout_marginLeft="85dp"
         >
-        <RadioGroup
-            android:id="@+id/title_bar_content_rb"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="0dp"
-            android:layout_margin="0dp"
+        <HorizontalScrollView
+            android:layout_width="1300px"
             android:layout_height="match_parent">
 
-        </RadioGroup>
+            <RadioGroup
+                android:id="@+id/title_bar_content_rb"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="0dp"
+                android:layout_margin="0dp"
+                android:layout_height="match_parent">
+
+            </RadioGroup>
+
+        </HorizontalScrollView>
+
 
 
         <LinearLayout

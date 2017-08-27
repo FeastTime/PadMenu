@@ -3,6 +3,7 @@ package com.feasttime.model;
 import com.feasttime.model.bean.CreateOrderInfo;
 import com.feasttime.model.bean.DishesCategoryInfo;
 import com.feasttime.model.bean.HealthIndexAssessmentInfo;
+import com.feasttime.model.bean.IngredientsMenuInfo;
 import com.feasttime.model.bean.LoginInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.model.bean.OrderInfo;
@@ -92,4 +93,8 @@ public interface MenusApi {
       // 获取开屏静默广告
       @POST("ad/silentads/")
       Observable<SilentAd> getSilentAD(@Body RequestBody requestBody);
+
+      // 获取开屏静默广告
+      @POST("menu/getIngredientsList/")
+      Observable<IngredientsMenuInfo> getIngredientsList(@Body RequestBody requestBody);
 }
