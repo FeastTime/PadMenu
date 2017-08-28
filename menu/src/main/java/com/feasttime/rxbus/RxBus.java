@@ -2,7 +2,13 @@ package com.feasttime.rxbus;
 
 import android.support.annotation.NonNull;
 
+import org.reactivestreams.Subscription;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import io.reactivex.Flowable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.processors.FlowableProcessor;
 import io.reactivex.processors.PublishProcessor;
 
@@ -11,6 +17,8 @@ import io.reactivex.processors.PublishProcessor;
  */
 
 public class RxBus {
+    private Map<Object, CompositeDisposable> subscriptionsMap = new HashMap<>();
+
     private final FlowableProcessor<Object> mBus;
 
     private RxBus() {
@@ -41,5 +49,4 @@ public class RxBus {
     public boolean hasSubscribers() {
         return mBus.hasSubscribers();
     }
-
 }

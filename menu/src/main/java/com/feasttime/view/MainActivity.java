@@ -83,14 +83,13 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         LogUtil.d(TAG,"screen size:" + info.getWidth() + "X" + info.getHeight());
 
 //        startActivity(new Intent(this,TestActivity.class));
-
-
+        registerRxbus();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        registerRxbus();
+
         refreshBadge();
         if (mTtitleBarMenuLl.getChildCount() == 0) {
             //没有请求过才去请求
@@ -101,6 +100,11 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         RxBus.getInstance().unregisterAll();
     }
 

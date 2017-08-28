@@ -26,8 +26,11 @@
         android:textColor="@color/white"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
         android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/corners_red_bg_radius_3"
         android:text="0"
         />
         <TextView

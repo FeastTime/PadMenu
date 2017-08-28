@@ -19,6 +19,9 @@ import com.feasttime.presenter.order.OrderContract;
 import com.feasttime.presenter.order.OrderPresenter;
 import com.feasttime.presenter.user.UserContract;
 import com.feasttime.presenter.user.UserPresenter;
+import com.feasttime.rxbus.RxBus;
+import com.feasttime.rxbus.event.OrderEvent;
+import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ToastUtil;
 
@@ -26,6 +29,8 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import io.reactivex.Flowable;
+import io.reactivex.functions.Consumer;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener,UserContract.IUserView,OrderContract.IOrderView{
 
@@ -62,7 +67,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void initViews() {
-
 
         SMSSDK.initSDK(this.getApplicationContext(), "1c86a24bae7d2", "8f972e6dda3098b8fc3ac38f9304fe6c");
 
