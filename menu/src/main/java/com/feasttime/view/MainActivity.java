@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.feasttime.fragment.MainMenuFragment;
@@ -33,10 +32,11 @@ import com.feasttime.presenter.order.OrderContract;
 import com.feasttime.presenter.order.OrderPresenter;
 import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
+import com.feasttime.rxbus.event.OrderEvent;
 import com.feasttime.tools.DeviceTool;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
-import com.feasttime.tools.RxBus;
+import com.feasttime.rxbus.RxBus;
 import com.feasttime.tools.UtilTools;
 
 import java.util.List;
@@ -105,11 +105,13 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     }
 
     private void registerRxbus() {
-        Flowable<String> f = RxBus.getInstance().register(String.class);
-        f.subscribe(new Consumer<String>() {
+        Flowable<OrderEvent> f = RxBus.getInstance().register(OrderEvent.class);
+        f.subscribe(new Consumer<OrderEvent>() {
             @Override
-            public void accept(String integer) throws Exception {
-                refreshBadge();
+            public void accept(OrderEvent orderEvent) throws Exception {
+                if (orderEvent.eventType == OrderEvent.ADD_ONE_DISHES) {
+                    refreshBadge();
+                }
             }
         });
     }
@@ -311,13 +313,13 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
 
     }
 
-    public void refreshCartAnimation(int fromLocation[]) {
+    public void refreshCartAnimation(int fromLocation[],MenuItemInfo menuItemInfo) {
         if (cartLocation == null) {
             cartLocation = new int[2];
             titleBarCarNumTv.getLocationOnScreen(cartLocation);
         }
 
-        UtilTools.addOneDishes(this,fromLocation,cartLocation);
+        UtilTools.addOneDishes(this,fromLocation,cartLocation,menuItemInfo);
     }
 
     @Override
@@ -325,7 +327,8 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
 
     }
 
-    public void refreshCartNum() {
+    public void refreshCartNum(MenuItemInfo menuItemInfo) {
+        mShoppingCartPresenter.addShoppingCart(menuItemInfo);
     }
 
 }

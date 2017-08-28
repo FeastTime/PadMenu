@@ -1,13 +1,10 @@
-package com.feasttime.tools;
+package com.feasttime.rxbus;
 
 import android.support.annotation.NonNull;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import io.reactivex.processors.FlowableProcessor;
 import io.reactivex.processors.PublishProcessor;
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
 
 /**
  * Created by chen on 2017/8/28.

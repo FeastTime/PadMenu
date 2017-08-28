@@ -2,14 +2,12 @@ package com.feasttime.presenter.shoppingcart;
 
 import com.feasttime.model.CachedData;
 import com.feasttime.model.RetrofitService;
-import com.feasttime.model.bean.CreateOrderInfo;
 import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.OrderInfo;
-import com.feasttime.model.bean.ShoppingCartInfo;
-import com.feasttime.presenter.menu.MenuContract;
+import com.feasttime.rxbus.event.OrderEvent;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
-import com.feasttime.tools.RxBus;
+import com.feasttime.rxbus.RxBus;
 
 import java.util.HashMap;
 
@@ -43,7 +41,7 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
             public void accept(OrderInfo orderInfo) throws Exception {
                 LogUtil.d("result","aa");
                 CachedData.orderInfo = orderInfo;
-                RxBus.getInstance().post("");
+                RxBus.getInstance().post(new OrderEvent(OrderEvent.ADD_ONE_DISHES,orderInfo));
                 mIShoppingCartView.addShoppingCartComplete(orderInfo);
             }
         }, new Consumer<Throwable>() {
