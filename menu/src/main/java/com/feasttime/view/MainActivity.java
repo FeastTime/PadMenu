@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,11 +33,11 @@ import com.feasttime.presenter.order.OrderContract;
 import com.feasttime.presenter.order.OrderPresenter;
 import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
+import com.feasttime.rxbus.RxBus;
 import com.feasttime.rxbus.event.OrderEvent;
 import com.feasttime.tools.DeviceTool;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
-import com.feasttime.rxbus.RxBus;
 import com.feasttime.tools.UtilTools;
 
 import java.util.List;
@@ -83,14 +84,14 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         LogUtil.d(TAG,"screen size:" + info.getWidth() + "X" + info.getHeight());
 
 //        startActivity(new Intent(this,TestActivity.class));
-        registerRxbus();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         refreshBadge();
+        registerRxbus();
         if (mTtitleBarMenuLl.getChildCount() == 0) {
             //没有请求过才去请求
             mMenuPresenter.getDishesCategory();
@@ -100,19 +101,19 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
     @Override
     protected void onStop() {
         super.onStop();
+        RxBus.getDefault().unRegister(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.getInstance().unregisterAll();
     }
 
     private void registerRxbus() {
-        Flowable<OrderEvent> f = RxBus.getInstance().register(OrderEvent.class);
-        f.subscribe(new Consumer<OrderEvent>() {
+        RxBus.getDefault().register(this, OrderEvent.class, new Consumer <OrderEvent>() {
             @Override
             public void accept(OrderEvent orderEvent) throws Exception {
+                LogUtil.d("testBus","mainActivity orderEvent");
                 if (orderEvent.eventType == OrderEvent.ADD_ONE_DISHES) {
                     refreshBadge();
                 }

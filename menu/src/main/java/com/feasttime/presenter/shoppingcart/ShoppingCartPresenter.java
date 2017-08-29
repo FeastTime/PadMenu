@@ -41,7 +41,7 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
             public void accept(OrderInfo orderInfo) throws Exception {
                 LogUtil.d("result","aa");
                 CachedData.orderInfo = orderInfo;
-                RxBus.getInstance().post(new OrderEvent(OrderEvent.ADD_ONE_DISHES,orderInfo));
+                RxBus.getDefault().post(new OrderEvent(OrderEvent.ADD_ONE_DISHES,orderInfo));
                 mIShoppingCartView.addShoppingCartComplete(orderInfo);
             }
         }, new Consumer<Throwable>() {
@@ -69,7 +69,7 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
             public void accept(OrderInfo orderInfo) throws Exception {
                 LogUtil.d("result","aa");
                 CachedData.orderInfo = orderInfo;
-                RxBus.getInstance().post("");
+                //RxBus.getInstance().post("");
                 mIShoppingCartView.removeShoppingCartComplete(orderInfo);
             }
         }, new Consumer<Throwable>() {

@@ -1,52 +1,97 @@
 package com.feasttime.rxbus;
-
-import android.support.annotation.NonNull;
-
-import org.reactivestreams.Subscription;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.processors.FlowableProcessor;
-import io.reactivex.processors.PublishProcessor;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 
 /**
- * Created by chen on 2017/8/28.
+ * Created by chen on 2017/8/29.
  */
 
 public class RxBus {
-    private Map<Object, CompositeDisposable> subscriptionsMap = new HashMap<>();
+    private static RxBus instance;
+    //存放订阅者信息
+    private Map<Object, CompositeDisposable> subscriptionsMap;
 
-    private final FlowableProcessor<Object> mBus;
+    private Subject<Object> subjectBus;
 
-    private RxBus() {
-        mBus = PublishProcessor.create().toSerialized();
+    public static RxBus getDefault() {
+        if (instance == null) {
+            synchronized (RxBus.class) {
+                if (instance == null) {
+                    RxBus tempInstance = new RxBus();
+                    tempInstance.subjectBus = PublishSubject.create().toSerialized();
+                    tempInstance.subscriptionsMap = new HashMap<>();
+                    instance = tempInstance;
+                }
+            }
+        }
+        return instance;
     }
 
-    private static class Holder {
-        private static RxBus instance = new RxBus();
+    private CompositeDisposable initRxBus(Object object) {
+        CompositeDisposable compositeDisposable = subscriptionsMap.get(object);
+        if (compositeDisposable != null) {
+            return compositeDisposable;
+        }
+
+        compositeDisposable = new CompositeDisposable();
+        subscriptionsMap.put(object,compositeDisposable);
+        return compositeDisposable;
     }
 
-    public static RxBus getInstance() {
-        return Holder.instance;
+//    public Disposable register(Class eventType, Consumer observer) {
+//        return toObserverable(eventType).subscribe(observer);
+//    }
+
+
+    public void register(Object object,Class eventType, Consumer observer) {
+        CompositeDisposable compositeDisposable = initRxBus(object);
+        Disposable disposable = toObserverable(eventType).subscribe(observer);
+        compositeDisposable.add(disposable);
     }
 
-    public void post(@NonNull Object obj) {
-        mBus.onNext(obj);
+//    public Disposable register(Class eventType, Consumer observer, Scheduler scheduler) {
+//        return toObserverable(eventType).observeOn(scheduler).subscribe(observer);
+//    }
+
+
+
+    public void unRegister(Disposable disposable) {
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 
-    public <T> Flowable<T> register(Class<T> clz) {
-        return mBus.ofType(clz);
+    public void unRegister(Object object) {
+        if (object != null) {
+            CompositeDisposable compositeDisposable = subscriptionsMap.get(object);
+            if (compositeDisposable != null) {
+                compositeDisposable.dispose();
+                subscriptionsMap.remove(object);
+            }
+        }
     }
 
-    public void unregisterAll() {
-        //解除注册
-        mBus.onComplete();
+    public void unRegister(CompositeDisposable compositeDisposable) {
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+        }
     }
 
-    public boolean hasSubscribers() {
-        return mBus.hasSubscribers();
+    public void post(final Object event) {
+        subjectBus.onNext(event);
+    }
+
+    private Observable toObserverable(Class cls) {
+        return subjectBus.ofType(cls);
+    }
+
+    public boolean hasObservers() {
+        return subjectBus.hasObservers();
     }
 }

@@ -66,8 +66,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    protected void initViews() {
+    protected void onStop() {
+        super.onStop();
+    }
 
+    @Override
+    protected void initViews() {
         SMSSDK.initSDK(this.getApplicationContext(), "1c86a24bae7d2", "8f972e6dda3098b8fc3ac38f9304fe6c");
 
         //3.0版本之后的初始化看这里（包括3.0）
