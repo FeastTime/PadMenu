@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.feasttime.fragment.MainMenuFragment;
 import com.feasttime.fragment.MyOrderFragment;
@@ -38,6 +39,7 @@ import com.feasttime.rxbus.event.OrderEvent;
 import com.feasttime.tools.DeviceTool;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
+import com.feasttime.tools.ToastUtil;
 import com.feasttime.tools.UtilTools;
 
 import java.util.List;
@@ -199,6 +201,11 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
         if (v == cartIb) {
 //            getFragmentManager().beginTransaction().show(myOrderFragment).hide(mainMenuFragment).hide(recommendMenuFragment).commit();
 //            myOrderFragment.showCart();
+
+            if (CachedData.orderInfo == null) {
+                ToastUtil.showToast(this,"请添加购物车", Toast.LENGTH_SHORT);
+                return;
+            }
             startActivity(new Intent(this,ShoppingCartActivity.class));
         } else if (v == menuIb) {
             getFragmentManager().beginTransaction().show(mainMenuFragment).hide(myOrderFragment).hide(recommendMenuFragment).commit();

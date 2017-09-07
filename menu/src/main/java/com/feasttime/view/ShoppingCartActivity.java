@@ -24,13 +24,20 @@ import android.widget.TextView;
 import com.feasttime.adapter.MyOrderAdapter;
 import com.feasttime.adapter.RecommendOrderAdapter;
 import com.feasttime.menu.R;
+import com.feasttime.model.CachedData;
 import com.feasttime.model.bean.MyOrderListItemInfo;
+import com.feasttime.model.bean.OrderInfo;
 import com.feasttime.model.bean.RecommendOrderListItemInfo;
 import com.feasttime.presenter.IBasePresenter;
+import com.feasttime.presenter.order.OrderContract;
+import com.feasttime.presenter.order.OrderPresenter;
+import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
+import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ScreenTools;
 import com.feasttime.widget.RecyclerViewDivider;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnCheckedChanged;
@@ -40,7 +47,7 @@ import butterknife.OnClick;
  * Created by chen on 2017/8/16.
  */
 
-public class ShoppingCartActivity extends BaseActivity implements View.OnClickListener,CompoundButton.OnCheckedChangeListener{
+public class ShoppingCartActivity extends BaseActivity implements View.OnClickListener,CompoundButton.OnCheckedChangeListener,ShoppingCartContract.IShoppingCartView,OrderContract.IOrderView{
 
     @Bind(R.id.normal_title_bar_back_iv)
     ImageView backIv;
@@ -74,14 +81,16 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
     MyOrderAdapter myOrderAdapter;
     RecommendOrderAdapter recommendOrderAdapter;
 
+    OrderPresenter mOrderPresenter = new OrderPresenter();
+
     @Override
     protected IBasePresenter[] getPresenters() {
-        return new IBasePresenter[0];
+        return new IBasePresenter[]{mOrderPresenter};
     }
 
     @Override
     protected void onInitPresenters() {
-
+        mOrderPresenter.init(this);
     }
 
     @Override
@@ -95,26 +104,8 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
         topDashlineIv.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
         btmDashlineIv.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
 
-        ArrayList<RecommendOrderListItemInfo> recommendOrderListItemInfos = new ArrayList<RecommendOrderListItemInfo>();
-        ArrayList<MyOrderListItemInfo> myOrderListItemInfos = new ArrayList<MyOrderListItemInfo>();
-
-        for (int i = 0 ; i < 3; i++) {
-            RecommendOrderListItemInfo recommendOrderListItemInfo = new RecommendOrderListItemInfo();
-            MyOrderListItemInfo myOrderListItemInfo = new MyOrderListItemInfo();
-
-            recommendOrderListItemInfo.setAmount("1");
-            recommendOrderListItemInfo.setDishName("nice");
-            recommendOrderListItemInfo.setTodayPrice("100");
-            recommendOrderListItemInfos.add(recommendOrderListItemInfo);
-
-
-            myOrderListItemInfo.setTodayPrice("200");
-            myOrderListItemInfo.setDishName("huajiao");
-            myOrderListItemInfo.setAmount("1");
-            myOrderListItemInfo.setState("0");
-            myOrderListItemInfo.setPrice("100");
-            myOrderListItemInfos.add(myOrderListItemInfo);
-        }
+        List<RecommendOrderListItemInfo> recommendOrderListItemInfos = CachedData.orderInfo.getRecommendOrderList();
+        List<MyOrderListItemInfo> myOrderListItemInfos = CachedData.orderInfo.getMyOrderList();
 
         recommendOrderAdapter = new RecommendOrderAdapter(recommendOrderListItemInfos,this);
 //        recommendOrderAdapter.setListener(this);
@@ -153,7 +144,8 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
         if (v == backIv) {
             finish();
         } else if (v == placeOrderTv) {
-            showDialog(this,gingerCb);
+            String orderID = PreferenceUtil.getStringKey("orderID");
+            mOrderPresenter.placeOrder(orderID);
         }
     }
 
@@ -198,5 +190,37 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void addShoppingCartComplete(OrderInfo orderInfo) {
+    }
+
+    @Override
+    public void removeShoppingCartComplete(OrderInfo orderInfo) {
+    }
+
+    @Override
+    public void getShoppingcartListComplete(OrderInfo orderInfo) {
+    }
+
+    @Override
+    public void showRecommendList(List<RecommendOrderListItemInfo> recommendOrderList) {
+    }
+
+    @Override
+    public void showOrderList(List<MyOrderListItemInfo> myOrderList) {
+    }
+
+    @Override
+    public void createOrderComplete() {
+    }
+
+    @Override
+    public void payOrderComplete() {
+    }
+
+    @Override
+    public void placeOrderComplete() {
     }
 }
