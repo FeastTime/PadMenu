@@ -44,12 +44,228 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/payment_activity_order_list_rv"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="530px">
 
-                </android.support.v7.widget.RecyclerView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/payment_activity_order_list_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="300px">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/payment_activity_dash_line"
+                        android:layout_below="@+id/payment_activity_order_list_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/gray_dash_line"
+                        />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/payment_activity_discount_detail_list_rv"
+                        android:layout_below="@+id/payment_activity_dash_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_20"
+                        android:layout_centerVertical="true"
+                        android:text="发票抬头:" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="需要发票"
+                        android:textColor="@color/dark_gray"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="40px"
+                        android:button="@drawable/invoice_check_box_selector"
+                        android:text="个人"
+                        android:textColor="@color/text_color_gray"
+                        />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="40px"
+                        android:button="@drawable/invoice_check_box_selector"
+                        android:text="单位"
+                        android:layout_marginLeft="20px"
+                        android:textColor="@color/text_color_gray"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="450px"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_31"
+                        android:text="盛宴时代"
+                        />
+
+                    <TextView
+                        android:layout_width="450px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_31"
+                        android:text="纳税人识别号"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="185px"
+                        android:layout_height="44px"
+                        android:src="@mipmap/payment_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="每天都有银行优惠"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_13"
+                        android:drawableLeft="@mipmap/star_icon"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10px"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_13"
+                        android:text="付款过程安全流畅"
+                        android:drawableLeft="@mipmap/star_icon"
+                        />
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="255px"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ali_pay_icon"
+                                />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:button="@drawable/payment_check_box_selector"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="255px"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/wechat_icon"
+                                />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:button="@drawable/payment_check_box_selector"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="255px"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/abc_bank_icon"
+                                />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:button="@drawable/payment_check_box_selector"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="255px"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ccb_bank_icon"
+                                />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:button="@drawable/payment_check_box_selector"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
