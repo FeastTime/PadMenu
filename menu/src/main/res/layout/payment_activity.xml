@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FAFAFA"
     android:orientation="vertical">
     <include
         layout="@layout/normal_title_bar_layout"
@@ -16,11 +16,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="135px"
             android:layout_height="wrap_content"
             android:drawableTop="@mipmap/right_triangle"
             android:drawablePadding="5dp"
             android:text="外\n带\n食\n材"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_20"
+            android:textColor="@color/text_color_gray"
             />
 
         <LinearLayout

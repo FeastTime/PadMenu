@@ -39,6 +39,7 @@ import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.view.MainActivity;
+import com.feasttime.view.PaymentActivity;
 import com.feasttime.view.SilentADActivity;
 import com.feasttime.widget.HorizontalListView;
 import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
@@ -157,7 +158,8 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
         } else if (v == rightIb) {
             jazzyViewPager.setCurrentItem(jazzyViewPager.getCurrentItem() + 1);
         } else if (v == mToAdBtn) {
-            startActivity(new Intent(mContext,SilentADActivity.class));
+            //startActivity(new Intent(mContext,SilentADActivity.class));
+            startActivity(new Intent(mContext,PaymentActivity.class));
         }
     }
 
