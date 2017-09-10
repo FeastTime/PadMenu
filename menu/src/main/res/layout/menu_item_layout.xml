@@ -7,10 +7,8 @@
 
         <ImageView
             android:id="@+id/menu_item_layout_dishes_iv"
-            android:background="#888768"
             android:layout_width="330px"
             android:layout_height="330px"
-            android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher" />
 
 
@@ -72,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_31"
+                android:maxLength="6"
                 android:textColor="@color/text_color_gray"
                 />
 
