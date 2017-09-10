@@ -81,16 +81,22 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_color_gray"
+                        android:textColor="@color/text_color_light_gray"
                         android:textSize="@dimen/text_size_20"
                         android:layout_centerVertical="true"
                         android:text="发票抬头:" />
 
-                    <Button
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="需要发票"
-                        android:textColor="@color/dark_gray"
+                        android:background="@drawable/corners_light_gray_bg_radius_15"
+                        android:textColor="@color/text_color_gray"
+                        android:layout_marginRight="45px"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         />
@@ -102,35 +108,58 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <CheckBox
+
+                    <ImageView
+                        android:layout_width="41px"
+                        android:layout_height="42px"
+                        android:src="@drawable/black_cycle_shape"
+                        />
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="40px"
-                        android:button="@drawable/invoice_check_box_selector"
+                        android:drawableLeft="@drawable/black_cycle_shape"
                         android:text="个人"
+                        android:layout_marginLeft="10px"
                         android:textColor="@color/text_color_gray"
                         />
 
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="40px"
-                        android:button="@drawable/invoice_check_box_selector"
-                        android:text="单位"
+
+                    <ImageView
+                        android:layout_width="41px"
+                        android:layout_height="42px"
+                        android:src="@mipmap/right_flag_icon"
                         android:layout_marginLeft="20px"
-                        android:textColor="@color/text_color_gray"
                         />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="单位"
+                        android:layout_marginLeft="10px"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_20"
+                        />
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15px"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="450px"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_color_gray"
-                        android:textSize="@dimen/text_size_31"
+                        android:textColor="@color/text_color_light_gray"
+                        android:textSize="@dimen/text_size_15"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:background="@drawable/black_corners_with_stroke_radius_50"
                         android:text="盛宴时代"
                         />
 
@@ -138,8 +167,13 @@
                         android:layout_width="450px"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10px"
-                        android:textColor="@color/text_color_gray"
-                        android:textSize="@dimen/text_size_31"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/text_color_light_gray"
+                        android:textSize="@dimen/text_size_15"
+                        android:background="@drawable/black_corners_with_stroke_radius_50"
                         android:text="纳税人识别号"
                         />
 
@@ -148,7 +182,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="40px"
+                    android:gravity="center_vertical">
 
                     <ImageView
                         android:layout_width="185px"
@@ -162,6 +198,7 @@
                         android:text="每天都有银行优惠"
                         android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/text_size_13"
+                        android:gravity="center"
                         android:drawableLeft="@mipmap/star_icon"
                         />
 
@@ -169,6 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10px"
+                        android:gravity="center"
                         android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/text_size_13"
                         android:text="付款过程安全流畅"
@@ -180,10 +218,13 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60px"
+                    android:layout_marginRight="85px"
+                    android:layout_marginTop="30px">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
@@ -191,15 +232,16 @@
                             android:layout_width="255px"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="134px"
+                                android:layout_height="46px"
                                 android:src="@mipmap/ali_pay_icon"
+                                android:layout_centerVertical="true"
                                 />
 
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:button="@drawable/payment_check_box_selector"
+                            <ImageView
+                                android:layout_width="49px"
+                                android:layout_height="50px"
+                                android:src="@mipmap/payment_normal"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true" />
                         </RelativeLayout>
@@ -208,15 +250,16 @@
                             android:layout_width="255px"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="156px"
+                                android:layout_height="44px"
                                 android:src="@mipmap/wechat_icon"
+                                android:layout_centerVertical="true"
                                 />
 
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:button="@drawable/payment_check_box_selector"
+                            <ImageView
+                                android:layout_width="49px"
+                                android:layout_height="50px"
+                                android:src="@mipmap/payment_normal"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true" />
                         </RelativeLayout>
@@ -224,7 +267,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:orientation="vertical">
@@ -233,15 +276,16 @@
                             android:layout_width="255px"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="194px"
+                                android:layout_height="42px"
+                                android:layout_centerVertical="true"
                                 android:src="@mipmap/abc_bank_icon"
                                 />
 
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:button="@drawable/payment_check_box_selector"
+                            <ImageView
+                                android:layout_width="49px"
+                                android:layout_height="50px"
+                                android:src="@mipmap/payment_normal"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true" />
                         </RelativeLayout>
@@ -250,15 +294,16 @@
                             android:layout_width="255px"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="187px"
+                                android:layout_height="42px"
+                                android:layout_centerVertical="true"
                                 android:src="@mipmap/ccb_bank_icon"
                                 />
 
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:button="@drawable/payment_check_box_selector"
+                            <ImageView
+                                android:layout_width="49px"
+                                android:layout_height="50px"
+                                android:src="@mipmap/payment_selected"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true" />
                         </RelativeLayout>

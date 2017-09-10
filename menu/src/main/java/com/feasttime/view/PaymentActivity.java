@@ -35,6 +35,9 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     @Bind(R.id.payment_activity_out_dishes_rv)
     RecyclerView outDishesRv;
 
+    @Bind(R.id.payment_activity_dash_line)
+    TextView dashlineTv;
+
     @Override
     protected IBasePresenter[] getPresenters() {
         return new IBasePresenter[0];
@@ -53,6 +56,8 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initViews() {
         titleTv.setText("付款页");
+        dashlineTv.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
+
         List<MyOrderListItemInfo> orderList = new ArrayList<MyOrderListItemInfo>();
         for (int i = 0 ; i < 4; i++) {
             MyOrderListItemInfo myOrderListItemInfo = new MyOrderListItemInfo();
