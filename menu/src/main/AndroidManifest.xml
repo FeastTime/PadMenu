@@ -47,7 +47,7 @@
         <activity android:name="com.feasttime.view.MainActivity">
         </activity>
 
-        <activity android:name="com.feasttime.view.EndActivity">
+        <activity android:name="com.feasttime.view.PaymentSuccessActivity">
         </activity>
 
         <activity android:name="com.feasttime.view.ShoppingCartActivity">
@@ -64,7 +64,6 @@
         </activity>
         <activity android:name="com.feasttime.view.SilentADActivity"></activity>
         <activity android:name="com.feasttime.view.PaymentActivity"></activity>
-        <activity android:name="com.feasttime.view.PaymentSuccessActivity"></activity>
         <activity android:name="com.feasttime.view.TestActivity"></activity>
 
 

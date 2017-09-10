@@ -24,7 +24,6 @@ import com.feasttime.presenter.order.OrderPresenter;
 import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
 import com.feasttime.tools.PreferenceUtil;
-import com.feasttime.view.EndActivity;
 import com.feasttime.view.MainActivity;
 import com.feasttime.view.WaitingTimeActivity;
 import com.feasttime.widget.RecyclerViewDivider;

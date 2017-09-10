@@ -26,15 +26,16 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
     @Override
     public void addShoppingCart(MenuItemInfo menuItemInfo) {
         String orderID = PreferenceUtil.getStringKey("orderID");
+        String storeID = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
+        String token = PreferenceUtil.getStringKey("token");
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         infoMap.put("orderID",orderID);
-        infoMap.put("ID",menuItemInfo.getDishId());
-        infoMap.put("userID",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
-        infoMap.put("originalprice",menuItemInfo.getCost());
-        infoMap.put("dishname",menuItemInfo.getDishName());
-        infoMap.put("actualprice",menuItemInfo.getPrice());
-        infoMap.put("dishimgurl",menuItemInfo.getDishImgUrl());
+        infoMap.put("dishId",menuItemInfo.getDishId());
+        infoMap.put("userId",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
         infoMap.put("orderID",orderID);
+        infoMap.put("tableId","001");
+        infoMap.put("storeId",storeID);
+        infoMap.put("token",token);
 
         RetrofitService.addShoppingCart(infoMap).subscribe(new Consumer<OrderInfo>(){
             @Override
