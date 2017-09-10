@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.feasttime.adapter.OutDishesAdapter;
@@ -26,6 +27,9 @@ import butterknife.OnClick;
  */
 
 public class PaymentActivity extends BaseActivity implements View.OnClickListener{
+    @Bind(R.id.normal_title_bar_main_bg_rel)
+    RelativeLayout titleBgRel;
+
     @Bind(R.id.normal_title_bar_back_iv)
     ImageView backIv;
 
@@ -57,6 +61,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     protected void initViews() {
         titleTv.setText("付款页");
         dashlineTv.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
+        titleBgRel.setBackgroundColor(Color.TRANSPARENT);
 
         List<MyOrderListItemInfo> orderList = new ArrayList<MyOrderListItemInfo>();
         for (int i = 0 ; i < 4; i++) {
