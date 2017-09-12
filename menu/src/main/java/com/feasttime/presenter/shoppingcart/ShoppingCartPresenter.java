@@ -63,9 +63,18 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
     @Override
     public void removeShoppingCart(String ID) {
         String orderID = PreferenceUtil.getStringKey("orderID");
+        String storeID = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
+        String token = PreferenceUtil.getStringKey("token");
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         infoMap.put("orderID",orderID);
         infoMap.put("ID",ID);
+        infoMap.put("orderID",orderID);
+        infoMap.put("dishId",ID);
+        infoMap.put("userId",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
+        infoMap.put("orderID",orderID);
+        infoMap.put("tableId","001");
+        infoMap.put("storeId",storeID);
+        infoMap.put("token",token);
         RetrofitService.removeShoppingCart(infoMap).subscribe(new Consumer<OrderInfo>(){
             @Override
             public void accept(OrderInfo orderInfo) throws Exception {
