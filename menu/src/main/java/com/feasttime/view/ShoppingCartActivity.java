@@ -60,6 +60,9 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
     @Bind(R.id.normal_title_bar_title_tv)
     TextView titleTv;
 
+    @Bind(R.id.shopping_cart_activity_total_price_tv)
+    TextView totalPriceTv;
+
     @Bind(R.id.shopping_cart_activity_place_order_tv)
     TextView placeOrderTv;
 
@@ -112,6 +115,7 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
 
         List<RecommendOrderListItemInfo> recommendOrderListItemInfos = CachedData.orderInfo.getRecommendOrderList();
         List<MyOrderListItemInfo> myOrderListItemInfos = CachedData.orderInfo.getMyOrderList();
+        totalPriceTv.setText(CachedData.orderInfo.getTotalPrice() + "元");
 
         recommendOrderAdapter = new RecommendOrderAdapter(recommendOrderListItemInfos,this);
 //        recommendOrderAdapter.setListener(this);
@@ -212,16 +216,19 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
     public void addShoppingCartComplete(OrderInfo orderInfo) {
         myOrderAdapter.refreshList(orderInfo.getMyOrderList());
         recommendOrderAdapter.refreshList(orderInfo.getRecommendOrderList());
+        totalPriceTv.setText(orderInfo.getTotalPrice() + "元");
     }
 
     @Override
     public void removeShoppingCartComplete(OrderInfo orderInfo) {
         myOrderAdapter.refreshList(orderInfo.getMyOrderList());
         recommendOrderAdapter.refreshList(orderInfo.getRecommendOrderList());
+        totalPriceTv.setText(orderInfo.getTotalPrice() + "元");
     }
 
     @Override
     public void getShoppingcartListComplete(OrderInfo orderInfo) {
+        totalPriceTv.setText(orderInfo.getTotalPrice() + "元");
     }
 
     @Override
