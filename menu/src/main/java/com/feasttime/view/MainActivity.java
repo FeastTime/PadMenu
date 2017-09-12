@@ -116,7 +116,7 @@ public class MainActivity extends BaseActivity implements MenuContract.IMenuView
             @Override
             public void accept(OrderEvent orderEvent) throws Exception {
                 LogUtil.d("testBus","mainActivity orderEvent");
-                if (orderEvent.eventType == OrderEvent.ADD_ONE_DISHES) {
+                if (orderEvent.eventType == OrderEvent.REFRESH_ORDER_NUMBER) {
                     refreshBadge();
                 }
             }

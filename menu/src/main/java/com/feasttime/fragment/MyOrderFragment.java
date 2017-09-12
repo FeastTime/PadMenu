@@ -159,13 +159,10 @@ public class MyOrderFragment extends BaseFragment implements ShoppingCartContrac
 
     @Override
     public void onAddClicked(String ID) {
-        String orderID = PreferenceUtil.getStringKey("orderID");
-//        mShoppingCartPresenter.addShoppingCart(ID,orderID);
     }
 
     @Override
     public void onReduceClicked(String ID) {
-        String orderID = PreferenceUtil.getStringKey("orderID");
-        mShoppingCartPresenter.removeShoppingCart(ID,orderID);
+        mShoppingCartPresenter.removeShoppingCart(ID);
     }
 }

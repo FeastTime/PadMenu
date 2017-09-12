@@ -161,7 +161,7 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
                 dishesNumTv.setTag(currentNum);
             }
             String orderID = PreferenceUtil.getStringKey("orderID");
-            mShoppingCartPresenter.removeShoppingCart(menuItemInfo.getDishId(),orderID);
+            mShoppingCartPresenter.removeShoppingCart(menuItemInfo.getDishId());
 
 
         }
@@ -252,7 +252,7 @@ public class RecommendMenuFragment extends BaseFragment implements MenuContract.
     public void onReduceClicked(String uid) {
         String orderID = PreferenceUtil.getStringKey("orderID");
         if (!TextUtils.isEmpty(orderID)) {
-            mShoppingCartPresenter.removeShoppingCart(menuItemInfo.getDishId(),orderID);
+            mShoppingCartPresenter.removeShoppingCart(menuItemInfo.getDishId());
         }
     }
 

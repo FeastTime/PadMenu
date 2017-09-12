@@ -24,7 +24,7 @@ public interface ShoppingCartContract {
 
     interface IShoppingCartPresenter extends IBasePresenter<IShoppingCartView> {
         void addShoppingCart(MenuItemInfo menuItemInfo);
-        void removeShoppingCart(String ID, String orderID);
+        void removeShoppingCart(String ID);
         void getShoppingCartList(String orderID);
     }
 }

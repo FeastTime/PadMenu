@@ -24,7 +24,7 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
 
 
     @Override
-    public void addShoppingCart(MenuItemInfo menuItemInfo) {
+    public void addShoppingCart(final MenuItemInfo menuItemInfo) {
         String orderID = PreferenceUtil.getStringKey("orderID");
         String storeID = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
         String token = PreferenceUtil.getStringKey("token");
@@ -42,7 +42,7 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
             public void accept(OrderInfo orderInfo) throws Exception {
                 LogUtil.d("result","aa");
                 CachedData.orderInfo = orderInfo;
-                RxBus.getDefault().post(new OrderEvent(OrderEvent.ADD_ONE_DISHES,orderInfo));
+                RxBus.getDefault().post(new OrderEvent(OrderEvent.REFRESH_ORDER_NUMBER));
                 mIShoppingCartView.addShoppingCartComplete(orderInfo);
             }
         }, new Consumer<Throwable>() {
@@ -61,16 +61,15 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
     }
 
     @Override
-    public void removeShoppingCart(String ID,String orderID) {
+    public void removeShoppingCart(String ID) {
+        String orderID = PreferenceUtil.getStringKey("orderID");
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         infoMap.put("orderID",orderID);
         infoMap.put("ID",ID);
         RetrofitService.removeShoppingCart(infoMap).subscribe(new Consumer<OrderInfo>(){
             @Override
             public void accept(OrderInfo orderInfo) throws Exception {
-                LogUtil.d("result","aa");
                 CachedData.orderInfo = orderInfo;
-                //RxBus.getInstance().post("");
                 mIShoppingCartView.removeShoppingCartComplete(orderInfo);
             }
         }, new Consumer<Throwable>() {

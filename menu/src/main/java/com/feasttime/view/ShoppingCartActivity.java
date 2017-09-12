@@ -32,6 +32,10 @@ import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.order.OrderContract;
 import com.feasttime.presenter.order.OrderPresenter;
 import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
+import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
+import com.feasttime.rxbus.RxBus;
+import com.feasttime.rxbus.event.OrderEvent;
+import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
 import com.feasttime.tools.ScreenTools;
 import com.feasttime.widget.RecyclerViewDivider;
@@ -42,6 +46,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2017/8/16.
@@ -82,15 +87,16 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
     RecommendOrderAdapter recommendOrderAdapter;
 
     OrderPresenter mOrderPresenter = new OrderPresenter();
-
+    ShoppingCartPresenter mShoppingCartPresenter = new ShoppingCartPresenter();
     @Override
     protected IBasePresenter[] getPresenters() {
-        return new IBasePresenter[]{mOrderPresenter};
+        return new IBasePresenter[]{mOrderPresenter,mShoppingCartPresenter};
     }
 
     @Override
     protected void onInitPresenters() {
         mOrderPresenter.init(this);
+        mShoppingCartPresenter.init(this);
     }
 
     @Override
@@ -121,6 +127,16 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
         orderRv.setAdapter(myOrderAdapter);
 
         //totalPriceTv.setText(orderInfo.getTotalPrice());
+        RxBus.getDefault().register(this, OrderEvent.class, new Consumer<OrderEvent>() {
+            @Override
+            public void accept(OrderEvent orderEvent) throws Exception {
+                if (orderEvent.eventType == OrderEvent.ADD_ONE_DISHES) {
+                    mShoppingCartPresenter.addShoppingCart(orderEvent.menuItemInfo);
+                } else if (orderEvent.eventType == OrderEvent.REMOVE_ONE_DISHES) {
+                    mShoppingCartPresenter.removeShoppingCart(orderEvent.menuItemInfo.getDishId());
+                }
+            }
+        });
 
     }
 
@@ -194,10 +210,14 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void addShoppingCartComplete(OrderInfo orderInfo) {
+        myOrderAdapter.refreshList(orderInfo.getMyOrderList());
+        recommendOrderAdapter.refreshList(orderInfo.getRecommendOrderList());
     }
 
     @Override
     public void removeShoppingCartComplete(OrderInfo orderInfo) {
+        myOrderAdapter.refreshList(orderInfo.getMyOrderList());
+        recommendOrderAdapter.refreshList(orderInfo.getRecommendOrderList());
     }
 
     @Override
@@ -222,5 +242,11 @@ public class ShoppingCartActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void placeOrderComplete() {
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.getDefault().unRegister(this);
     }
 }
