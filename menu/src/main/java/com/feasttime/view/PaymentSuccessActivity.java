@@ -2,6 +2,7 @@ package com.feasttime.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -61,7 +62,8 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
     @Bind(R.id.end_activity_west_meal_percent_tv)
     TextView westMealPercentTv;
 
-
+    @Bind(R.id.payment_success_activity_next_station_rv)
+    RecyclerView nextStationRv;
 
     private StatisticsPresenter statisticsPresenter = new StatisticsPresenter();
 
