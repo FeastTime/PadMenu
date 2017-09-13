@@ -2,6 +2,7 @@ package com.feasttime.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.feasttime.adapter.RecommendMenuAdapter;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.HealthIndexAssessmentInfo;
 import com.feasttime.model.bean.PersonalStatisticsInfo;
@@ -16,8 +18,11 @@ import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.statistics.StatisticsContract;
 import com.feasttime.presenter.statistics.StatisticsPresenter;
 import com.feasttime.tools.PreferenceUtil;
+import com.feasttime.widget.RecyclerViewDivider;
 import com.feasttime.widget.chart.LineChart01View;
 import com.feasttime.widget.chart.MultiBarChart01View;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -106,6 +111,17 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
     private void test()  {
         String orderID = PreferenceUtil.getStringKey("orderID");
         statisticsPresenter.getgetHealthIndexAssessment("2017040721001001240261160865");
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        nextStationRv.setLayoutManager(layoutManager);
+        ArrayList<Integer> datas = new ArrayList<Integer>();
+        datas.add(1);
+        datas.add(2);
+        datas.add(3);
+        RecommendMenuAdapter rma = new RecommendMenuAdapter(datas,this);
+        nextStationRv.addItemDecoration(new RecyclerViewDivider(this, LinearLayoutManager.HORIZONTAL));
+        nextStationRv.setAdapter(rma);
     }
 
     @Override
