@@ -37,20 +37,11 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
     @Bind(R.id.end_activity_logout_tv)
     TextView logoutTv;
 
-    @Bind(R.id.end_activity_back_iv)
+    @Bind(R.id.normal_title_bar_back_iv)
     ImageView backIv;
 
-    @Bind(R.id.end_activity_fat_lcv)
-    LineChart01View fatLcv;
-
-    @Bind(R.id.end_activity_carbohydrate_lcv)
-    LineChart01View carbohydrateLcv;
-
-    @Bind(R.id.end_activity_protein_lcv)
-    LineChart01View proteinLcv;
-
-    @Bind(R.id.end_activity_sodium_lcv)
-    LineChart01View sodiumLcv;
+    @Bind(R.id.normal_title_bar_title_tv)
+    TextView titleTv;
 
     @Bind(R.id.end_activity_consume_mbcv)
     MultiBarChart01View consumeMbcv;
@@ -70,11 +61,6 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
     @Bind(R.id.end_activity_west_meal_percent_tv)
     TextView westMealPercentTv;
 
-    @Bind(R.id.end_activity_eat_count_tv)
-    TextView eatCountTv;
-
-    @Bind(R.id.end_activity_right_eat_count_tv)
-    TextView rightEatCountTv;
 
 
     private StatisticsPresenter statisticsPresenter = new StatisticsPresenter();
@@ -96,6 +82,7 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
 
     @Override
     protected void initViews() {
+        titleTv.setText("");
         LayoutInflater inflater = this.getLayoutInflater();
         for (int i = 0 ; i < 6 ; i++) {
             View lastMonth = inflater.inflate(R.layout.rect_chart_item,null);
@@ -107,14 +94,6 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
             thisMonthChartLl.setTag(2);
         }
 
-        fatLcv.setBottomTitle("脂肪摄入量");
-        fatLcv.setLineColor(Color.parseColor("#DD7E10"));
-        carbohydrateLcv.setBottomTitle("碳水化合物");
-        carbohydrateLcv.setLineColor(Color.parseColor("#C65117"));
-        proteinLcv.setBottomTitle("蛋白质摄入量");
-        proteinLcv.setLineColor(Color.parseColor("#235F9E"));
-        sodiumLcv.setBottomTitle("钠摄入量");
-        sodiumLcv.setLineColor(Color.parseColor("#250319"));
 
 
         statisticsPresenter.getStatisticsPersonalInfo("3232326654646464");
@@ -169,10 +148,6 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
 
     @Override
     public void showData(PersonalStatisticsInfo result) {
-        fatLcv.setCHartDataList(result.getHealthAnalysisChart().getFat());
-        carbohydrateLcv.setCHartDataList(result.getHealthAnalysisChart().getCarbohydrate());
-        proteinLcv.setCHartDataList(result.getHealthAnalysisChart().getProtein());
-        sodiumLcv.setCHartDataList(result.getHealthAnalysisChart().getSodium());
         consumeMbcv.setChartData(result.getConsumeChart());
         setChartPercent(lastMonthChartLl,Integer.parseInt(result.getLastMonthEatPercent().replace("%","")));
         setChartPercent(thisMonthChartLl,Integer.parseInt(result.getThisMonthEatPercent().replace("%","")));
@@ -183,9 +158,9 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
         japaneseMealPercentTv.setText(result.getEatType().get(1).getPercent());
         westMealPercentTv.setText(result.getEatType().get(2).getPercent());
 
-        eatCountTv.setText(result.getEatCount());
-        String eatCountStr = this.getString(R.string.end_activity_eat_count);
-        rightEatCountTv.setText(eatCountStr.replace("num",result.getEatCount()));
+//        eatCountTv.setText(result.getEatCount());
+//        String eatCountStr = this.getString(R.string.end_activity_eat_count);
+//        rightEatCountTv.setText(eatCountStr.replace("num",result.getEatCount()));
     }
 
 
@@ -194,7 +169,7 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
 
     }
 
-    @OnClick({R.id.end_activity_logout_tv,R.id.end_activity_back_iv})
+    @OnClick({R.id.end_activity_logout_tv,R.id.normal_title_bar_back_iv})
     @Override
     public void onClick(View v) {
         if (v == logoutTv) {

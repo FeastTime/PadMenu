@@ -4,455 +4,337 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-    <ImageView
-        android:id="@+id/end_activity_back_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/back"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/dark_gray"
-        >
 
-    </View>
+    <include
+        layout="@layout/normal_title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="60px"
+        android:paddingTop="20px">
+
+        <ImageView
+            android:layout_width="89px"
+            android:layout_height="120px"
+            android:layout_marginLeft="640px"
+            android:src="@mipmap/medal_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100px"
+            android:text="支付成功"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_38" />
+
+        <ImageView
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_marginLeft="30px"
+            android:src="@mipmap/green_right_icon" />
+
+
+        <TextView
+            android:id="@+id/end_activity_logout_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="366px"
+            android:background="@drawable/login_out_bg"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="退出登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_31" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_width="74px"
+            android:layout_height="284px"
+            android:layout_marginLeft="150px"
+            android:src="@mipmap/women_icon" />
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            >
+            android:layout_marginLeft="64px"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="就餐类型占比"
+                android:textColor="@color/text_color_dark_gray"
+                android:textSize="@dimen/text_size_15" />
+
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40px"
                 android:gravity="center_vertical"
-                >
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/go_store_counts_bg"
-                        />
+                        android:layout_width="70px"
+                        android:layout_height="74px"
+                        android:src="@mipmap/blue_percent_bg" />
+
                     <TextView
-                        android:id="@+id/end_activity_eat_count_tv"
+                        android:id="@+id/end_activity_chinese_meal_percent_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20"
-                        android:paddingRight="3dp"
+                        android:layout_centerInParent="true"
+                        android:text="81%"
                         android:textColor="@color/white"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="29dp"
-                        />
+                        android:textSize="@dimen/text_size_13" />
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/end_activity_right_eat_count_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="中餐占比"
                     android:textColor="@color/text_color_dark_gray"
-                    android:gravity="center"
-                    android:text=""
-                    android:layout_marginLeft="25dp"
-                    />
+                    android:textSize="@dimen/text_size_13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="70px"
+                        android:layout_height="74px"
+                        android:src="@mipmap/gray_percent_bg" />
+
+                    <TextView
+                        android:id="@+id/end_activity_japanese_meal_percent_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="81%"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="日料占比"
+                    android:textColor="@color/text_color_dark_gray"
+                    android:textSize="@dimen/text_size_13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="70px"
+                        android:layout_height="74px"
+                        android:src="@mipmap/red_percent_bg" />
+
+                    <TextView
+                        android:id="@+id/end_activity_west_meal_percent_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="81%"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_13" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="西餐占比"
+                    android:textColor="@color/text_color_dark_gray"
+                    android:textSize="@dimen/text_size_13" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95px"
+            >
+
+            <LinearLayout
+                android:id="@+id/last_month_chart_wrap_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/end_activity_last_month_eat_percent_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0%"
+                    android:textColor="@color/holo_blue"
+                    android:textSize="@dimen/text_size_25" />
+
+                <LinearLayout
+                    android:id="@+id/end_activity_last_month_eat_chart_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上月外出就餐"
+                    android:layout_marginTop="20px"
+                    android:textColor="@color/text_color_dark_gray"
+                    android:textSize="@dimen/text_size_13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:layout_toRightOf="@+id/last_month_chart_wrap_ll"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/end_activity_this_month_eat_percent_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0%"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text_size_25" />
+
+                <LinearLayout
+                    android:id="@+id/end_activity_this_month_eat_chart_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="本月外出就餐"
+                    android:layout_marginTop="20px"
+                    android:textColor="@color/text_color_dark_gray"
+                    android:textSize="@dimen/text_size_13" />
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color_dark_gray"
-                android:textSize="@dimen/text_size_15"
-                android:text="就餐类型占比"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="28px"
+                android:layout_below="@+id/last_month_chart_wrap_ll"
+                android:text="外出就餐频率分析:"
+                android:textSize="@dimen/text_size_20"
+                android:textColor="@color/text_color_gray"
                 />
 
+        </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="20dp"
-                >
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/blue_percent_bg"
-                        />
-
-                    <TextView
-                        android:id="@+id/end_activity_chinese_meal_percent_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="81%"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_13"
-                        android:layout_centerInParent="true"
-                        />
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="中餐占比"
-                    android:textSize="@dimen/text_size_13"
-                    android:textColor="@color/text_color_dark_gray"
-                    android:layout_marginLeft="30dp"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="20dp"
-                >
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/gray_percent_bg"
-                        />
-
-                    <TextView
-                        android:id="@+id/end_activity_japanese_meal_percent_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="81%"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_13"
-                        android:layout_centerInParent="true"
-                        />
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="日料占比"
-                    android:textSize="@dimen/text_size_13"
-                    android:textColor="@color/text_color_dark_gray"
-                    android:layout_marginLeft="30dp"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="20dp"
-                >
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/red_percent_bg"
-                        />
-
-                    <TextView
-                        android:id="@+id/end_activity_west_meal_percent_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="81%"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_13"
-                        android:layout_centerInParent="true"
-                        />
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="西餐占比"
-                    android:textSize="@dimen/text_size_13"
-                    android:textColor="@color/text_color_dark_gray"
-                    android:layout_marginLeft="30dp"
-                    />
-            </LinearLayout>
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="整\n体\n数\n据\n分\n析"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_25"
+            android:layout_marginTop="30px"
+            android:layout_marginLeft="110px"
+            />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60px"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="尊敬的客人"
-                        android:textColor="@color/text_color_dark_gray"
-                        android:textSize="@dimen/text_size_15"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="尊敬的客人"
-                        android:textColor="@color/text_color_gray"
-                        android:textSize="@dimen/text_size_13"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="尊敬的客人"
-                        android:textColor="@color/text_color_dark_gray"
-                        android:textSize="@dimen/text_size_15"
-                        android:background="@mipmap/red_gradient_bg"
-                        android:gravity="center"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="尊敬的客人"
-                        android:textColor="@color/text_color_gray"
-                        android:textSize="@dimen/text_size_13"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="尊敬的客人"
-                        android:textColor="@color/text_color_dark_gray"
-                        android:textSize="@dimen/text_size_15"
-                        android:gravity="center"
-                        android:background="@mipmap/red_gradient_bg"
-                        />
-
-                </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/end_activity_logout_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_15"
-                    android:textColor="@color/white"
-                    android:background="@drawable/login_out_bg"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginLeft="25dp"
-                    android:text="退出登录"
-                    />
-            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:orientation="horizontal"
-                    >
-                    <com.feasttime.widget.chart.LineChart01View
-                        android:id="@+id/end_activity_fat_lcv"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_weight="1"
-                        />
 
-                    <com.feasttime.widget.chart.LineChart01View
-                        android:id="@+id/end_activity_carbohydrate_lcv"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_weight="1"
-                        />
-
-                    <com.feasttime.widget.chart.LineChart01View
-                        android:id="@+id/end_activity_protein_lcv"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_weight="1"
-                        />
-
-                    <com.feasttime.widget.chart.LineChart01View
-                        android:id="@+id/end_activity_sodium_lcv"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_weight="1"
-                        />
-                </LinearLayout>
-
-                <TextView
+                <RelativeLayout
+                    android:id="@+id/end_activity_multibarchart_rel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="健康分析:"
-                    android:textColor="@color/text_color_dark_gray"
-                    android:textSize="@dimen/text_size_15"
-                    android:layout_marginTop="5dp"
-                    />
+                    android:orientation="vertical">
 
+                    <com.feasttime.widget.chart.MultiBarChart01View
+                        android:id="@+id/end_activity_consume_mbcv"
+                        android:layout_width="300dp"
+                        android:layout_height="190dp" />
 
-                    <RelativeLayout
-                        android:id="@+id/end_activity_multibarchart_rel"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="180dp"
-                        android:orientation="vertical"
-                        >
-
-                        <com.feasttime.widget.chart.MultiBarChart01View
-                            android:id="@+id/end_activity_consume_mbcv"
-                            android:layout_width="300dp"
-                            android:layout_height="190dp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_15"
-                            android:textColor="@color/text_color_dark_gray"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="160dp"
-                            android:text="消费分析"
-                            />
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="220px"
+                        android:text="消费分析:"
+                        android:textColor="@color/text_color_dark_gray"
+                        android:textSize="@dimen/text_size_15" />
 
 
-                    </RelativeLayout>
+                </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginTop="210dp"
-                        android:layout_marginLeft="60dp"
-                        android:layout_toRightOf="@+id/end_activity_multibarchart_rel"
-                        >
-
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <LinearLayout
-                                android:id="@+id/last_month_chart_wrap_ll"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"
-                                android:orientation="vertical"
-                                >
-
-                                <TextView
-                                    android:id="@+id/end_activity_last_month_eat_percent_tv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0%"
-                                    android:textColor="@color/holo_blue"
-                                    android:textSize="@dimen/text_size_15"
-                                    />
-
-                                <LinearLayout
-                                    android:id="@+id/end_activity_last_month_eat_chart_ll"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="vertical"
-                                    >
-
-
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="@dimen/text_size_13"
-                                    android:textColor="@color/text_color_dark_gray"
-                                    android:text="上月外出就餐"
-                                    />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_toRightOf="@+id/last_month_chart_wrap_ll"
-                                android:orientation="vertical"
-                                android:layout_marginLeft="25dp"
-                                android:gravity="center_horizontal"
-                                >
-
-                                <TextView
-                                    android:id="@+id/end_activity_this_month_eat_percent_tv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0%"
-                                    android:textColor="@color/red"
-                                    android:textSize="@dimen/text_size_15"
-                                    />
-                                <LinearLayout
-                                    android:id="@+id/end_activity_this_month_eat_chart_ll"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:orientation="vertical"
-                                    >
-
-
-                                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="210dp"
+                    android:layout_toRightOf="@+id/end_activity_multibarchart_rel"
+                    android:orientation="vertical">
 
 
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="@dimen/text_size_13"
-                                    android:textColor="@color/text_color_dark_gray"
-                                    android:layout_alignParentRight="true"
-                                    android:text="本月外出就餐"
-                                    />
-
-                            </LinearLayout>
-
-                        </RelativeLayout>
-                    </LinearLayout>
+                </LinearLayout>
 
 
             </RelativeLayout>
