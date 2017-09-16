@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.feasttime.adapter.NextStationAdapter;
 import com.feasttime.adapter.RecommendMenuAdapter;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.HealthIndexAssessmentInfo;
@@ -119,7 +120,7 @@ public class PaymentSuccessActivity extends BaseActivity implements StatisticsCo
         datas.add(1);
         datas.add(2);
         datas.add(3);
-        RecommendMenuAdapter rma = new RecommendMenuAdapter(datas,this);
+        NextStationAdapter rma = new NextStationAdapter(datas,this);
         nextStationRv.addItemDecoration(new RecyclerViewDivider(this, LinearLayoutManager.HORIZONTAL));
         nextStationRv.setAdapter(rma);
     }
