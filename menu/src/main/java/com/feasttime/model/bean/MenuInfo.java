@@ -11,7 +11,7 @@ import java.util.List;
 public class MenuInfo {
     int resultCode;
     String tmpId;
-    List<MenuItemInfo> dishesList;
+    List<MenuItemInfo> menuList;
     String recordCount;
 
     public int getResultCode() {
@@ -30,12 +30,12 @@ public class MenuInfo {
         this.tmpId = tmpId;
     }
 
-    public List<MenuItemInfo> getDishesList() {
-        return dishesList;
+    public List<MenuItemInfo> getMenuList() {
+        return menuList;
     }
 
-    public void setDishesList(List<MenuItemInfo> dishesList) {
-        this.dishesList = dishesList;
+    public void setMenuList(List<MenuItemInfo> dishesList) {
+        this.menuList = dishesList;
     }
 
     public String getRecordCount() {

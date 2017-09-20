@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    android:orientation="vertical">
+    <include
+        layout="@layout/normal_title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="135px"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/right_triangle"
+            android:drawablePadding="5dp"
+            android:text="外\n带\n食\n材"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_20"
+            android:textColor="@color/text_color_gray"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/payment_activity_out_dishes_rv"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="530px">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/payment_activity_order_list_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="300px">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                    <TextView
+                        android:id="@+id/payment_activity_dash_line"
+                        android:layout_below="@+id/payment_activity_order_list_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/gray_dash_line"
+                        />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/payment_activity_discount_detail_list_rv"
+                        android:layout_below="@+id/payment_activity_dash_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_light_gray"
+                        android:textSize="@dimen/text_size_20"
+                        android:layout_centerVertical="true"
+                        android:text="发票抬头:" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="需要发票"
+                        android:background="@drawable/corners_light_gray_bg_radius_15"
+                        android:textColor="@color/text_color_gray"
+                        android:layout_marginRight="45px"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="41px"
+                        android:layout_height="42px"
+                        android:src="@drawable/black_cycle_shape"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40px"
+                        android:drawableLeft="@drawable/black_cycle_shape"
+                        android:text="个人"
+                        android:layout_marginLeft="10px"
+                        android:textColor="@color/text_color_gray"
+                        />
+
+
+                    <ImageView
+                        android:layout_width="41px"
+                        android:layout_height="42px"
+                        android:src="@mipmap/right_flag_icon"
+                        android:layout_marginLeft="20px"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="单位"
+                        android:layout_marginLeft="10px"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_20"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15px"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="450px"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_light_gray"
+                        android:textSize="@dimen/text_size_15"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:background="@drawable/black_corners_with_stroke_radius_50"
+                        android:text="盛宴时代"
+                        />
+
+                    <TextView
+                        android:layout_width="450px"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/text_color_light_gray"
+                        android:textSize="@dimen/text_size_15"
+                        android:background="@drawable/black_corners_with_stroke_radius_50"
+                        android:text="纳税人识别号"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="40px"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="185px"
+                        android:layout_height="44px"
+                        android:src="@mipmap/payment_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50px"
+                        android:text="每天都有银行优惠"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_13"
+                        android:gravity="center"
+                        android:drawableLeft="@mipmap/star_icon"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10px"
+                        android:gravity="center"
+                        android:textColor="@color/text_color_gray"
+                        android:textSize="@dimen/text_size_13"
+                        android:text="付款过程安全流畅"
+                        android:drawableLeft="@mipmap/star_icon"
+                        />
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60px"
+                    android:layout_marginRight="85px"
+                    android:layout_marginTop="30px">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="255px"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="134px"
+                                android:layout_height="46px"
+                                android:src="@mipmap/ali_pay_icon"
+                                android:layout_centerVertical="true"
+                                />
+
+                            <ImageView
+                                android:layout_width="49px"
+                                android:layout_height="50px"
+                                android:src="@mipmap/payment_normal"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="255px"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="156px"
+                                android:layout_height="44px"
+                                android:src="@mipmap/wechat_icon"
+                                android:layout_centerVertical="true"
+                                />
+
+                            <ImageView
+                                android:layout_width="49px"
+                                android:layout_height="50px"
+                                android:src="@mipmap/payment_normal"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="255px"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="194px"
+                                android:layout_height="42px"
+                                android:layout_centerVertical="true"
+                                android:src="@mipmap/abc_bank_icon"
+                                />
+
+                            <ImageView
+                                android:layout_width="49px"
+                                android:layout_height="50px"
+                                android:src="@mipmap/payment_normal"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="255px"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="187px"
+                                android:layout_height="42px"
+                                android:layout_centerVertical="true"
+                                android:src="@mipmap/ccb_bank_icon"
+                                />
+
+                            <ImageView
+                                android:layout_width="49px"
+                                android:layout_height="50px"
+                                android:src="@mipmap/payment_selected"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

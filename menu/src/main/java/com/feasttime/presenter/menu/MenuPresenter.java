@@ -3,6 +3,7 @@ package com.feasttime.presenter.menu;
 
 import com.feasttime.model.RetrofitService;
 import com.feasttime.model.bean.DishesCategoryInfo;
+import com.feasttime.model.bean.IngredientsMenuInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
@@ -66,26 +67,73 @@ public class MenuPresenter implements MenuContract.IMenuPresenter {
         String token = PreferenceUtil.getStringKey("token");
         infoMap.put("storeId", storeId);
         infoMap.put("token",token);
-        RetrofitService.getDishesCategoryList(infoMap).map(new Function<DishesCategoryInfo, List<DishesCategoryInfo.DishesCategoryListBean>>() {
+
+
+        RetrofitService.getDishesCategoryList(infoMap).subscribe(new Consumer<DishesCategoryInfo>() {
             @Override
-            public List<DishesCategoryInfo.DishesCategoryListBean> apply(DishesCategoryInfo dishesCategoryInfo) throws Exception {
-                return dishesCategoryInfo.getDishesCategoryList();
-            }
-        }).flatMap(new Function<List<DishesCategoryInfo.DishesCategoryListBean>, ObservableSource<DishesCategoryInfo.DishesCategoryListBean>>() {
-            @Override
-            public ObservableSource<DishesCategoryInfo.DishesCategoryListBean> apply(List<DishesCategoryInfo.DishesCategoryListBean> dishesCategoryListBeen) throws Exception {
-                return Observable.fromIterable(dishesCategoryListBeen);
-            }
-        }).subscribe(new Consumer<DishesCategoryInfo.DishesCategoryListBean>() {
-            @Override
-            public void accept(DishesCategoryInfo.DishesCategoryListBean dishesCategoryListBean) throws Exception {
-                mIMenuView.showDishesCategory(dishesCategoryListBean);
+            public void accept(DishesCategoryInfo dishesCategoryInfo) throws Exception {
+                LogUtil.d("result", "aa");
+                mIMenuView.showDishesCategory(dishesCategoryInfo);
             }
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
                 //这里接收onError
-                LogUtil.d("result", "error:");
+                //throwable.printStackTrace();
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+                //这里接收onComplete。
+                LogUtil.d("result", "complete");
+            }
+        });
+
+//        RetrofitService.getDishesCategoryList(infoMap).map(new Function<DishesCategoryInfo, List<DishesCategoryInfo.DishesCategoryListBean>>() {
+//            @Override
+//            public List<DishesCategoryInfo.DishesCategoryListBean> apply(DishesCategoryInfo dishesCategoryInfo) throws Exception {
+//                return dishesCategoryInfo.getDishesCategoryList();
+//            }
+//        }).flatMap(new Function<List<DishesCategoryInfo.DishesCategoryListBean>, ObservableSource<DishesCategoryInfo.DishesCategoryListBean>>() {
+//            @Override
+//            public ObservableSource<DishesCategoryInfo.DishesCategoryListBean> apply(List<DishesCategoryInfo.DishesCategoryListBean> dishesCategoryListBeen) throws Exception {
+//                return Observable.fromIterable(dishesCategoryListBeen);
+//            }
+//        }).subscribe(new Consumer<DishesCategoryInfo.DishesCategoryListBean>() {
+//            @Override
+//            public void accept(DishesCategoryInfo.DishesCategoryListBean dishesCategoryListBean) throws Exception {
+//                mIMenuView.showDishesCategory(dishesCategoryListBean);
+//            }
+//        }, new Consumer<Throwable>() {
+//            @Override
+//            public void accept(Throwable throwable) throws Exception {
+//                //这里接收onError
+//                LogUtil.d("result", "error:");
+//            }
+//        }, new Action() {
+//            @Override
+//            public void run() throws Exception {
+//                //这里接收onComplete。
+//                LogUtil.d("result", "complete");
+//            }
+//        });
+    }
+
+    @Override
+    public void getIngredientsMenuInfo(String dishId) {
+        HashMap<String, Object> infoMap = new HashMap<String, Object>();
+        infoMap.put("dishId",dishId);
+        RetrofitService.getIngredientsList(infoMap).subscribe(new Consumer<IngredientsMenuInfo>() {
+            @Override
+            public void accept(IngredientsMenuInfo ingredientsMenuInfo) throws Exception {
+                LogUtil.d("result", "aa");
+                mIMenuView.showIngredientsMenuList(ingredientsMenuInfo);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                //这里接收onError
+                //throwable.printStackTrace();
             }
         }, new Action() {
             @Override

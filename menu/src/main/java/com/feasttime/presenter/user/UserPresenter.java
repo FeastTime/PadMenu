@@ -31,11 +31,11 @@ public class UserPresenter implements UserContract.IUserPresenter {
             @Override
             public void accept(LoginInfo loginInfo) throws Exception {
                 //1成功，非1失败
-                if (loginInfo.getResultCode() == 1) {
-                    iUserView.loginSuccess();
+                if (loginInfo.getResultCode() == 0) {
                     PreferenceUtil.setStringKey("token",loginInfo.getToken());
-                    PreferenceUtil.setStringKey("mobileNO",mobileNO);
+                    PreferenceUtil.setStringKey(PreferenceUtil.MOBILE_NO,mobileNO);
                     PreferenceUtil.setStringKey(PreferenceUtil.STORE_ID,loginInfo.getStoreId());
+                    iUserView.loginSuccess();
                 } else {
                     iUserView.showNetError();
 

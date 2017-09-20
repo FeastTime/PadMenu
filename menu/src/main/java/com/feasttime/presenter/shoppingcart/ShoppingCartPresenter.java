@@ -1,12 +1,13 @@
 package com.feasttime.presenter.shoppingcart;
 
+import com.feasttime.model.CachedData;
 import com.feasttime.model.RetrofitService;
-import com.feasttime.model.bean.CreateOrderInfo;
+import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.OrderInfo;
-import com.feasttime.model.bean.ShoppingCartInfo;
-import com.feasttime.presenter.menu.MenuContract;
+import com.feasttime.rxbus.event.OrderEvent;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
+import com.feasttime.rxbus.RxBus;
 
 import java.util.HashMap;
 
@@ -23,14 +24,25 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
 
 
     @Override
-    public void addShoppingCart(String ID,String orderID) {
+    public void addShoppingCart(final MenuItemInfo menuItemInfo) {
+        String orderID = PreferenceUtil.getStringKey("orderID");
+        String storeID = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
+        String token = PreferenceUtil.getStringKey("token");
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         infoMap.put("orderID",orderID);
-        infoMap.put("ID",ID);
+        infoMap.put("dishId",menuItemInfo.getDishId());
+        infoMap.put("userId",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
+        infoMap.put("orderID",orderID);
+        infoMap.put("tableId","001");
+        infoMap.put("storeId",storeID);
+        infoMap.put("token",token);
+
         RetrofitService.addShoppingCart(infoMap).subscribe(new Consumer<OrderInfo>(){
             @Override
             public void accept(OrderInfo orderInfo) throws Exception {
                 LogUtil.d("result","aa");
+                CachedData.orderInfo = orderInfo;
+                RxBus.getDefault().post(new OrderEvent(OrderEvent.REFRESH_ORDER_NUMBER));
                 mIShoppingCartView.addShoppingCartComplete(orderInfo);
             }
         }, new Consumer<Throwable>() {
@@ -49,14 +61,24 @@ public class ShoppingCartPresenter implements ShoppingCartContract.IShoppingCart
     }
 
     @Override
-    public void removeShoppingCart(String ID,String orderID) {
+    public void removeShoppingCart(String ID) {
+        String orderID = PreferenceUtil.getStringKey("orderID");
+        String storeID = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
+        String token = PreferenceUtil.getStringKey("token");
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         infoMap.put("orderID",orderID);
         infoMap.put("ID",ID);
+        infoMap.put("orderID",orderID);
+        infoMap.put("dishId",ID);
+        infoMap.put("userId",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
+        infoMap.put("orderID",orderID);
+        infoMap.put("tableId","001");
+        infoMap.put("storeId",storeID);
+        infoMap.put("token",token);
         RetrofitService.removeShoppingCart(infoMap).subscribe(new Consumer<OrderInfo>(){
             @Override
             public void accept(OrderInfo orderInfo) throws Exception {
-                LogUtil.d("result","aa");
+                CachedData.orderInfo = orderInfo;
                 mIShoppingCartView.removeShoppingCartComplete(orderInfo);
             }
         }, new Consumer<Throwable>() {

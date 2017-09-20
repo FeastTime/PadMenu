@@ -232,7 +232,7 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
 
 
     public void goToHeathPage(View view){
-        Intent intent = new Intent(this, EndActivity.class);
+        Intent intent = new Intent(this, PaymentSuccessActivity.class);
         this.startActivity(intent);
 
     }

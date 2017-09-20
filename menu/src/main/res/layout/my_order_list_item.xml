@@ -12,7 +12,7 @@
         android:textColor="@color/text_color_gray"
         android:gravity="center"
         android:layout_weight="1"
-        android:text="热菜"
+        android:text=""
         />
 
     <TextView
@@ -35,27 +35,26 @@
         >
         <ImageView
             android:id="@+id/my_order_list_item_reduce_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40px"
+            android:layout_height="40px"
             android:textColor="@color/text_color_gray"
-            android:src="@mipmap/reduce"
+            android:src="@mipmap/big_gray_reduce"
             />
 
         <TextView
             android:id="@+id/my_order_list_item_dishes_count_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="65px"
             android:layout_height="wrap_content"
             android:text="0"
             android:textSize="@dimen/text_size_15"
+            android:gravity="center"
             android:textColor="@color/text_color_gray"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
             />
         <ImageView
             android:id="@+id/my_order_list_item_add_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/add"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:src="@mipmap/big_red_add"
             />
     </LinearLayout>
 

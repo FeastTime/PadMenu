@@ -22,4 +22,6 @@
 
     <color name="text_color_dark_gray">#373737</color>
     <color name="text_color_gray">#332a27</color>
+    <color name="text_color_light_gray">#979090</color>
+    <color name="text_color_very_light_gray">#D4D4D4</color>
 </resources>

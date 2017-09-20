@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="423px"
+    android:layout_height="500px"
+    android:background="@drawable/corners_white_bg_radius_10"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/out_dishes_list_item_dishes_icon_iv"
+            android:layout_width="334px"
+            android:layout_height="270px"
+            android:layout_marginTop="40px"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:id="@+id/back_food_list_item_dishes_info_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30px"
+            android:layout_marginLeft="40px"
+            android:layout_below="@+id/out_dishes_list_item_dishes_icon_iv">
+
+            <TextView
+                android:id="@+id/out_dishes_list_item_dishes_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_20"
+                />
+
+
+            <TextView
+                android:id="@+id/out_dishes_list_item_dishes_flag_tv"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="12px"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="@drawable/corners_red_bg_radius_50"
+                android:textSize="@dimen/text_size_15"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/back_food_list_item_dishes_info_ll"
+            android:layout_marginTop="20px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="40px"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/out_dishes_list_item_sale_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="特惠"
+                android:textSize="@dimen/text_size_20"
+                />
+
+
+            <include layout="@layout/big_modify_order_layout"
+                android:layout_marginLeft="40px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </include>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20px"
+            android:layout_marginRight="15px"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:src="@mipmap/special_food"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_gray"
+                android:text="特色外带"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/text_size_15"
+                />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,11 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.feasttime.menu.R;
+import com.feasttime.model.bean.ScreenInfo;
 import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.IBaseView;
+import com.feasttime.tools.DeviceTool;
+import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.ToastUtil;
 
 import java.util.HashSet;
@@ -60,8 +64,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
         super.onCreate(savedInstanceState);
 
 
-
-        hideUIMenu();
+        // 隐藏顶部标题栏
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//remove title bar  即隐藏标题栏
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//remove notification bar  即全屏
 
 
         setContentView(getLayoutResId());
@@ -81,9 +86,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
      */
     protected void hideUIMenu(){
 
-        // 隐藏顶部标题栏
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//remove title bar  即隐藏标题栏
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//remove notification bar  即全屏
 
         //隐藏虚拟按键，并且全屏
         if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
@@ -114,6 +116,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
     @Override
     protected void onResume() {
         super.onResume();
+        if (this instanceof MainActivity || this instanceof SplashActivity) {
+            hideUIMenu();
+        }
+
         //依次调用IPresenter的onResume方法
         for (IBasePresenter presenter : mAllPresenters) {
             if (presenter != null) {

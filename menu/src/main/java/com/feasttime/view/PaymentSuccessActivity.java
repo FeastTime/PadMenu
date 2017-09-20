@@ -2,12 +2,16 @@ package com.feasttime.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.feasttime.adapter.NextStationAdapter;
+import com.feasttime.adapter.RecommendMenuAdapter;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.HealthIndexAssessmentInfo;
 import com.feasttime.model.bean.PersonalStatisticsInfo;
@@ -15,8 +19,11 @@ import com.feasttime.presenter.IBasePresenter;
 import com.feasttime.presenter.statistics.StatisticsContract;
 import com.feasttime.presenter.statistics.StatisticsPresenter;
 import com.feasttime.tools.PreferenceUtil;
+import com.feasttime.widget.RecyclerViewDivider;
 import com.feasttime.widget.chart.LineChart01View;
 import com.feasttime.widget.chart.MultiBarChart01View;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -25,8 +32,8 @@ import butterknife.OnClick;
  * Created by chen on 2017/5/8.
  */
 
-public class EndActivity extends BaseActivity implements StatisticsContract.IStatisticsView ,View.OnClickListener{
-    private static final String TAG = "EndActivity";
+public class PaymentSuccessActivity extends BaseActivity implements StatisticsContract.IStatisticsView ,View.OnClickListener{
+    private static final String TAG = "PaymentSuccessActivity";
 
     @Bind(R.id.end_activity_last_month_eat_chart_ll)
     LinearLayout lastMonthChartLl;
@@ -37,20 +44,11 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
     @Bind(R.id.end_activity_logout_tv)
     TextView logoutTv;
 
-    @Bind(R.id.end_activity_back_iv)
+    @Bind(R.id.normal_title_bar_back_iv)
     ImageView backIv;
 
-    @Bind(R.id.end_activity_fat_lcv)
-    LineChart01View fatLcv;
-
-    @Bind(R.id.end_activity_carbohydrate_lcv)
-    LineChart01View carbohydrateLcv;
-
-    @Bind(R.id.end_activity_protein_lcv)
-    LineChart01View proteinLcv;
-
-    @Bind(R.id.end_activity_sodium_lcv)
-    LineChart01View sodiumLcv;
+    @Bind(R.id.normal_title_bar_title_tv)
+    TextView titleTv;
 
     @Bind(R.id.end_activity_consume_mbcv)
     MultiBarChart01View consumeMbcv;
@@ -70,12 +68,8 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
     @Bind(R.id.end_activity_west_meal_percent_tv)
     TextView westMealPercentTv;
 
-    @Bind(R.id.end_activity_eat_count_tv)
-    TextView eatCountTv;
-
-    @Bind(R.id.end_activity_right_eat_count_tv)
-    TextView rightEatCountTv;
-
+    @Bind(R.id.payment_success_activity_next_station_rv)
+    RecyclerView nextStationRv;
 
     private StatisticsPresenter statisticsPresenter = new StatisticsPresenter();
 
@@ -91,11 +85,12 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.end_activity;
+        return R.layout.payment_success_activity;
     }
 
     @Override
     protected void initViews() {
+        titleTv.setText("");
         LayoutInflater inflater = this.getLayoutInflater();
         for (int i = 0 ; i < 6 ; i++) {
             View lastMonth = inflater.inflate(R.layout.rect_chart_item,null);
@@ -107,14 +102,6 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
             thisMonthChartLl.setTag(2);
         }
 
-        fatLcv.setBottomTitle("脂肪摄入量");
-        fatLcv.setLineColor(Color.parseColor("#DD7E10"));
-        carbohydrateLcv.setBottomTitle("碳水化合物");
-        carbohydrateLcv.setLineColor(Color.parseColor("#C65117"));
-        proteinLcv.setBottomTitle("蛋白质摄入量");
-        proteinLcv.setLineColor(Color.parseColor("#235F9E"));
-        sodiumLcv.setBottomTitle("钠摄入量");
-        sodiumLcv.setLineColor(Color.parseColor("#250319"));
 
 
         statisticsPresenter.getStatisticsPersonalInfo("3232326654646464");
@@ -125,6 +112,17 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
     private void test()  {
         String orderID = PreferenceUtil.getStringKey("orderID");
         statisticsPresenter.getgetHealthIndexAssessment("2017040721001001240261160865");
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        nextStationRv.setLayoutManager(layoutManager);
+        ArrayList<Integer> datas = new ArrayList<Integer>();
+        datas.add(1);
+        datas.add(2);
+        datas.add(3);
+        NextStationAdapter rma = new NextStationAdapter(datas,this);
+        nextStationRv.addItemDecoration(new RecyclerViewDivider(this, LinearLayoutManager.HORIZONTAL));
+        nextStationRv.setAdapter(rma);
     }
 
     @Override
@@ -169,10 +167,6 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
 
     @Override
     public void showData(PersonalStatisticsInfo result) {
-        fatLcv.setCHartDataList(result.getHealthAnalysisChart().getFat());
-        carbohydrateLcv.setCHartDataList(result.getHealthAnalysisChart().getCarbohydrate());
-        proteinLcv.setCHartDataList(result.getHealthAnalysisChart().getProtein());
-        sodiumLcv.setCHartDataList(result.getHealthAnalysisChart().getSodium());
         consumeMbcv.setChartData(result.getConsumeChart());
         setChartPercent(lastMonthChartLl,Integer.parseInt(result.getLastMonthEatPercent().replace("%","")));
         setChartPercent(thisMonthChartLl,Integer.parseInt(result.getThisMonthEatPercent().replace("%","")));
@@ -183,9 +177,9 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
         japaneseMealPercentTv.setText(result.getEatType().get(1).getPercent());
         westMealPercentTv.setText(result.getEatType().get(2).getPercent());
 
-        eatCountTv.setText(result.getEatCount());
-        String eatCountStr = this.getString(R.string.end_activity_eat_count);
-        rightEatCountTv.setText(eatCountStr.replace("num",result.getEatCount()));
+//        eatCountTv.setText(result.getEatCount());
+//        String eatCountStr = this.getString(R.string.end_activity_eat_count);
+//        rightEatCountTv.setText(eatCountStr.replace("num",result.getEatCount()));
     }
 
 
@@ -194,7 +188,7 @@ public class EndActivity extends BaseActivity implements StatisticsContract.ISta
 
     }
 
-    @OnClick({R.id.end_activity_logout_tv,R.id.end_activity_back_iv})
+    @OnClick({R.id.end_activity_logout_tv,R.id.normal_title_bar_back_iv})
     @Override
     public void onClick(View v) {
         if (v == logoutTv) {

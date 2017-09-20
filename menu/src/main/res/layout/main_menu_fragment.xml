@@ -54,6 +54,11 @@
         android:layout_width="match_parent"
         android:layout_height="358px"
         android:layout_marginTop="10px">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5px"
+            android:background="#F2F2F2">
+        </TextView>
 
         <TextView
             android:layout_width="wrap_content"

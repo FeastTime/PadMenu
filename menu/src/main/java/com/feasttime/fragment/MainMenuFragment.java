@@ -17,16 +17,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.feasttime.adapter.HorizontalListViewAdapter;
 import com.feasttime.adapter.MainMenuPagerAdapter;
 import com.feasttime.listener.OrderModifyListener;
 import com.feasttime.menu.R;
 import com.feasttime.model.bean.DishesCategoryInfo;
+import com.feasttime.model.bean.IngredientsMenuInfo;
 import com.feasttime.model.bean.MenuInfo;
 import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
@@ -40,8 +38,10 @@ import com.feasttime.presenter.shoppingcart.ShoppingCartContract;
 import com.feasttime.presenter.shoppingcart.ShoppingCartPresenter;
 import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.PreferenceUtil;
-import com.feasttime.tools.ScreenTools;
 import com.feasttime.view.MainActivity;
+import com.feasttime.view.PaymentActivity;
+import com.feasttime.view.PaymentSuccessActivity;
+import com.feasttime.view.ShoppingCartActivity;
 import com.feasttime.view.SilentADActivity;
 import com.feasttime.widget.HorizontalListView;
 import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
@@ -129,10 +129,7 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
     }
 
 
-    @Override
-    public void showDishesCategory(DishesCategoryInfo.DishesCategoryListBean dishesCategoryListBean) {
 
-    }
 
     @Override
     public void showMenu(MenuInfo menuInfo) {
@@ -144,12 +141,12 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
             jazzyViewPager.setAdapter(mainMenuPagerAdapter);
             jazzyViewPager.setOnPageChangeListener(this);
         } else {
-            if (menuInfo.getDishesList() == null) {
+            if (menuInfo.getMenuList() == null) {
                 mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
-            } else if (menuInfo.getDishesList().size() == 0) {
+            } else if (menuInfo.getMenuList().size() == 0) {
                 mainMenuPagerAdapter.setList(new ArrayList<MenuItemInfo>());
             } else {
-                mainMenuPagerAdapter.appendData(menuInfo.getDishesList());
+                mainMenuPagerAdapter.appendData(menuInfo.getMenuList());
             }
         }
     }
@@ -163,7 +160,9 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
         } else if (v == rightIb) {
             jazzyViewPager.setCurrentItem(jazzyViewPager.getCurrentItem() + 1);
         } else if (v == mToAdBtn) {
-            startActivity(new Intent(mContext,SilentADActivity.class));
+            //startActivity(new Intent(mContext,SilentADActivity.class));
+            startActivity(new Intent(mContext,PaymentSuccessActivity.class));
+//            startActivity(new Intent(mContext,PaymentActivity.class));
         }
     }
 
@@ -191,9 +190,8 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
 
     @Override
     public void onDishesPicClicked(MenuItemInfo menuItemInfo,float x,float y) {
-        ((MainActivity)this.getActivity()).refreshCartAnimation(new int[] {(int)x,(int)y});
-        String orderID = PreferenceUtil.getStringKey("orderID");
-        mShoppingCartPresenter.addShoppingCart(menuItemInfo.getDishId(),orderID);
+        ((MainActivity)this.getActivity()).refreshCartAnimation(new int[] {(int)x,(int)y},menuItemInfo);
+        //mMenuPresenter.getIngredientsMenuInfo(menuItemInfo.getDishId());
     }
 
     @Override
@@ -250,6 +248,16 @@ public class MainMenuFragment extends BaseFragment implements MenuContract.IMenu
 
     @Override
     public void onReduceClicked(String ID) {
+
+    }
+
+    @Override
+    public void showIngredientsMenuList(IngredientsMenuInfo ingredientsMenuInfo) {
+
+    }
+
+    @Override
+    public void showDishesCategory(DishesCategoryInfo dishesCategoryInfo) {
 
     }
 }

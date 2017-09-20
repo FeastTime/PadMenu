@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import com.feasttime.listener.OrderModifyListener;
 import com.feasttime.menu.R;
+import com.feasttime.model.bean.MenuItemInfo;
 import com.feasttime.model.bean.MyOrderListItemInfo;
+import com.feasttime.rxbus.RxBus;
+import com.feasttime.rxbus.event.OrderEvent;
+import com.feasttime.tools.UtilTools;
 
 import java.util.List;
 
@@ -44,19 +48,36 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
         MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
                 context).inflate(R.layout.my_order_list_item, parent,
                 false));
-        holder.orderModifyListener = this.orderModifyListener;
         return holder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position)
     {
-        MyOrderListItemInfo myOrderListItemInfo = datas.get(position);
-        holder.nameTv.setText(myOrderListItemInfo.getDishName());
+        final MyOrderListItemInfo myOrderListItemInfo = datas.get(position);
+        holder.nameTv.setText(UtilTools.decodeStr(myOrderListItemInfo.getDishName()));
         holder.addIv.setTag(myOrderListItemInfo.getDishID());
         holder.reduceIv.setTag(myOrderListItemInfo.getDishID());
         holder.amountTv.setText(myOrderListItemInfo.getAmount());
         holder.priceTv.setText(myOrderListItemInfo.getPrice());
+
+        final MenuItemInfo menuItemInfo = new MenuItemInfo();
+        menuItemInfo.setDishId(myOrderListItemInfo.getDishID());
+        menuItemInfo.setDishName(myOrderListItemInfo.getDishName());
+
+        holder.addIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RxBus.getDefault().post(new OrderEvent(OrderEvent.ADD_ONE_DISHES,menuItemInfo));
+            }
+        });
+
+        holder.reduceIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RxBus.getDefault().post(new OrderEvent(OrderEvent.REMOVE_ONE_DISHES,menuItemInfo));
+            }
+        });
     }
 
     @Override
@@ -65,9 +86,8 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
         return datas.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    public static class MyViewHolder extends RecyclerView.ViewHolder
     {
-        private OrderModifyListener orderModifyListener;
         public TextView nameTv;
         public ImageView addIv;
         public ImageView reduceIv;
@@ -81,17 +101,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
             addIv = (ImageView)view.findViewById(R.id.my_order_list_item_add_iv);
             amountTv = (TextView)view.findViewById(R.id.my_order_list_item_dishes_count_tv);
             priceTv = (TextView)view.findViewById(R.id.my_order_list_item_price_tv);
-            addIv.setOnClickListener(this);
-            reduceIv.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (v == addIv) {
-                orderModifyListener.onAddClicked(v.getTag().toString());
-            } else if (v == reduceIv) {
-                orderModifyListener.onReduceClicked(v.getTag().toString());
-            }
         }
     }
 }

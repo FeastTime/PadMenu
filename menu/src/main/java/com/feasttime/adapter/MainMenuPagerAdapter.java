@@ -3,8 +3,10 @@ package com.feasttime.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -21,12 +23,10 @@ import com.feasttime.tools.LogUtil;
 import com.feasttime.tools.ScreenTools;
 import com.feasttime.tools.UtilTools;
 import com.feasttime.view.PlayVideoActivity;
-import com.feasttime.view.ShowWebActivity;
 import com.feasttime.widget.jazzyviewpager.JazzyViewPager;
 import com.feasttime.widget.jazzyviewpager.OutlineContainer;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +57,7 @@ public class MainMenuPagerAdapter extends PagerAdapter {
     public MainMenuPagerAdapter(Context context, JazzyViewPager jazzyViewPager,MenuInfo menuInfo) {
         this.context = context;
         this.mJazzy = jazzyViewPager;
-        this.menuItemInfoList = menuInfo.getDishesList();
+        this.menuItemInfoList = menuInfo.getMenuList();
         this.dataSizeCount = Integer.parseInt(menuInfo.getRecordCount());
     }
 
@@ -222,10 +222,13 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
 
         TextView cost = (TextView) view.findViewById(R.id.menu_item_layout_original_price_tv);
+        cost.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         TextView price = (TextView)view.findViewById(R.id.menu_item_layout_now_price_tv);
         TextView soldTimes = (TextView)view.findViewById(R.id.menu_item_layout_sold_num_tv);
         TextView provideDishesTv = (TextView)view.findViewById(R.id.menu_item_wait_time_num_tv);
         TextView sodiumTv = (TextView)view.findViewById(R.id.menu_item_layout_sodium_tv);
+        final ImageView addIv = (ImageView)view.findViewById(R.id.menu_item_layout_add_top_add_iv);
+        LinearLayout btmContentLl = (LinearLayout)view.findViewById(R.id.menu_item_layout_ll);
 
         price.setText(menuItemInfo.getPrice());
         cost.setText(menuItemInfo.getCost());
@@ -241,15 +244,14 @@ public class MainMenuPagerAdapter extends PagerAdapter {
 
 
         view.setGravity(Gravity.CENTER);
-
         view.setBackgroundColor(Color.TRANSPARENT);
         ImageView adflagIv1 = (ImageView) view.findViewById(R.id.menu_item_layout_ad_flag_iv);
-        TextView playVideoTv1 = (TextView)view.findViewById(R.id.menu_item_layout_play_video_tv);
-
+        final ImageView playVideoIv = (ImageView)view.findViewById(R.id.menu_item_layout_play_video_iv);
+        final ImageView addShoppingCartIv = (ImageView)view.findViewById(R.id.menu_item_layout_add_top_add_iv);
 
         adflagIv1.setImageResource(R.mipmap.ad_flag_chubang);
 
-        playVideoTv1.setOnClickListener(new View.OnClickListener() {
+        playVideoIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,PlayVideoActivity.class);
@@ -300,8 +302,12 @@ public class MainMenuPagerAdapter extends PagerAdapter {
         });
 
 
+        int itemWidth = ScreenTools.dip2px(context,imgWidth);;
         ViewGroup.LayoutParams params1 = dishes1.getLayoutParams();
-        params1.width = ScreenTools.dip2px(context,imgWidth);
+        params1.width = itemWidth;
+
+        ViewGroup.LayoutParams paramsLl = btmContentLl.getLayoutParams();
+        paramsLl.width = itemWidth;
 //        dishes1.setLayoutParams(params1);
     }
 }

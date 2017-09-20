@@ -58,8 +58,13 @@ public class OrderPresenter implements OrderContract.IOrderPresenter {
 
     @Override
     public void createOrder(String token) {
+        String mobileNo = PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO);
+        String storeID = PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID);
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         infoMap.put("token",token);
+        infoMap.put("userID",mobileNo);
+        infoMap.put("storeID",storeID);
+        infoMap.put("tableID","801"); //目前tableID没有相关逻辑，所以写死了
         RetrofitService.createOrder(infoMap).subscribe(new Consumer<CreateOrderInfo>(){
             @Override
             public void accept(CreateOrderInfo createOrderInfo) throws Exception {
