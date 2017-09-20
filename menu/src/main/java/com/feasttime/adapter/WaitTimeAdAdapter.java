@@ -2,6 +2,7 @@ package com.feasttime.adapter;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,23 +28,28 @@ public class WaitTimeAdAdapter extends BaseAdapter{
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            ViewHolder holder;
+            if (position != 4) {
 
-            if (convertView == null) {
-                convertView = View.inflate(context, R.layout.wait_time_ad_item, null);
+                ViewHolder holder;
 
-                holder = new ViewHolder();
-                holder.adView = (OnlyShowView)convertView.findViewById(R.id.adView);
-                convertView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+                if (convertView == null) {
+                    convertView = View.inflate(context, R.layout.wait_time_ad_item, null);
 
-                convertView.setTag(holder);
+                    holder = new ViewHolder();
+                    holder.adView = (OnlyShowView) convertView.findViewById(R.id.adView);
+                    convertView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
 
+                    convertView.setTag(holder);
+
+                } else {
+
+                    holder = (ViewHolder) convertView.getTag();
+                }
+
+                holder.adView.loadAD(list.get(position));
             } else {
-
-                holder = (ViewHolder) convertView.getTag();
+                Log.d("test", "填充中间区域");
             }
-
-            holder.adView.loadAD(list.get(position));
 
             return convertView;
         }

@@ -79,7 +79,7 @@ public class ADWebView extends JSSafetyWebView {
         //自适应屏幕(方法二)
         //适应内容大小
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-
+        webSettings.setLoadWithOverviewMode(true);
 
         // 支持缩放
         webSettings.setSupportZoom(true);
@@ -89,7 +89,6 @@ public class ADWebView extends JSSafetyWebView {
         webSettings.setBuiltInZoomControls(false);
         // 显示缩放按钮
         webSettings.setDisplayZoomControls(false);
-
 
         this.setHorizontalScrollBarEnabled(false);//水平不显示
         this.setVerticalScrollBarEnabled(false); //垂直不显示

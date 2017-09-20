@@ -7,6 +7,7 @@ import com.feasttime.model.bean.WaitTimeMenuItemInfo;
 import com.feasttime.tools.LogUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.functions.Action;
@@ -22,35 +23,35 @@ public class WaitTimePresenter implements WaitTimeContract.IWaitTimePresenter {
     @Override
     public void getWaitTimeAD(String token, int width ,int height, int number) {
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8")
-                ,"{\"width\":\""+243+"\",\"height\":\""+146+"\",\"token\":\""+token+"\",\"num\":\""+number+"\"}");
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("width", width);
+        hashMap.put("height", height);
+        hashMap.put("num", number);
+        hashMap.put("token", token);
 
         RetrofitService
-                .getWaitTimeAdList(requestBody)
+                .getWaitTimeAdList(hashMap)
                 .subscribe(
                         new Consumer<WaitTimeAdInfo>() {
 
                             @Override
                             public void accept(WaitTimeAdInfo waitTimeAdInfo) throws Exception {
 
-//                                if (null == responseJson && responseJson.length() == 0)
-//                                    return ;
-//
-//                                WaitTimeAdInfo waitTimeAdInfo = JSON.parseObject(responseJson, WaitTimeAdInfo.class);
                                 mIWaitTimeView.showWaitTimeAD(waitTimeAdInfo);
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
                                 //这里接收onError
-                                LogUtil.d("result", "error" + throwable.getMessage());
+                                LogUtil.d("result-----", "error" + throwable.getMessage());
 
                             }
                         }, new Action() {
                             @Override
                             public void run() throws Exception {
                                 //这里接收onComplete。
-                                LogUtil.d("result", "complete");
+                                LogUtil.d("result------", "complete");
                             }
                         });
     }

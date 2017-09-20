@@ -9,9 +9,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.feasttime.adapter.WaitTimeAdAdapter;
 import com.feasttime.adapter.WaitTimeMenuAdapter;
@@ -47,11 +45,11 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
     @Bind(R.id.waittime_gridViewParent)
     protected FrameLayout gridviewParent;
 
-    @Bind(R.id.lottery_parent)
-    protected RelativeLayout lotteryParent;
-
-    @Bind(R.id.lottery)
-    protected ImageView lottery;
+//    @Bind(R.id.lottery_parent)
+//    protected RelativeLayout lotteryParent;
+//
+//    @Bind(R.id.lottery)
+//    protected ImageView lottery;
 
     @Bind(R.id.waittime_listview)
     protected ListView waitTimeListView;
@@ -142,8 +140,10 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
 
         timer.schedule(task, 0, 1000);
 
-        Log.d(TAG, gridview.getWidth()/4 + "--" + getItemHeight() + "");
-        waitTimePresenter.getWaitTimeAD(PreferenceUtil.getStringKey("token"), gridview.getWidth()/4, getItemHeight(), 24);
+        // 获取右边的广告
+        Log.d(TAG, gridview.getWidth()/3 + "--" + getItemHeight() + "");
+        waitTimePresenter.getWaitTimeAD(PreferenceUtil.getStringKey("token"), gridview.getWidth()/3, getItemHeight(), 9);
+//        waitTimePresenter.getWaitTimeAD(PreferenceUtil.getStringKey("token"), 243, 146, 9);
 
     }
 
@@ -155,7 +155,7 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
 
     public void adLottery(View view){
 
-        lotteryParent.setVisibility(View.GONE);
+//        lotteryParent.setVisibility(View.GONE);
 
         startADLottery();
     }
@@ -177,12 +177,12 @@ public class WaitingTimeActivity extends BaseActivity implements WaitTimeContrac
         gridview.setAdapter(waitTimeAdAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                System.out.println("click index:" + arg2);
+//                System.out.println("click index:" + arg2);
 
             }
         });
 
-        Log.d(TAG, gridview.getWidth()/4 + "--" + getItemHeight() + "");
+        Log.d(TAG, gridview.getWidth()/3 + "--" + getItemHeight() + "");
 
     }
 

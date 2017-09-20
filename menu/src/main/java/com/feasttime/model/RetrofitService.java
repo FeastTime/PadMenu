@@ -259,8 +259,9 @@ public class RetrofitService {
     }
 
 
-    public static Observable<WaitTimeAdInfo> getWaitTimeAdList(RequestBody requestBody){
-        return sMenuService.getWaitTimeADList(requestBody)
+    // 获取等餐页面右侧的广告
+    public static Observable<WaitTimeAdInfo> getWaitTimeAdList(HashMap<String,Object> infoMap){
+        return sMenuService.getWaitTimeADList(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
