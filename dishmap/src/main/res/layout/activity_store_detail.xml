@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/title_layout"
+            layout="@layout/title_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"></include>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="2300px"
+            android:layout_below="@+id/title_layout">
+            <ImageView
+                android:id="@+id/activity_store_detail_content_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/store_detail_content"
+                />
+        </ScrollView>
+
+        <include
+            layout="@layout/activity_store_detail_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></include>
+    </RelativeLayout>
+
+
+</LinearLayout>

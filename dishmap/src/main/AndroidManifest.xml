@@ -44,11 +44,7 @@
             android:value="Gj9txmT8FiGB9qp79tPwCXGoqcVDGcBd" />
 
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
@@ -58,6 +54,15 @@
 
         <activity android:name=".VideoActivity" />
         <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".StoreDetailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
     </application>
 
 </manifest>
