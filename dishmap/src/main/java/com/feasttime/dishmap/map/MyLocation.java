@@ -29,8 +29,14 @@ public class MyLocation {
 
         initLocation();
 
-        mLocationClient.start();
+    }
 
+    public void startLocation(){
+        mLocationClient.start();
+    }
+
+    public void stopLocation(){
+        mLocationClient.stop();
     }
 
     private void initLocation(){

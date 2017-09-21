@@ -1,5 +1,6 @@
 package com.feasttime.dishmap;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,9 @@ import android.view.WindowManager;
 
 
 public class BaseActivity extends AppCompatActivity {
+
+    ProgressDialog m_pDialog;
+    boolean isShowProgressDialog = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,44 @@ public class BaseActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
             window.setNavigationBarColor(Color.TRANSPARENT);
+        }
+    }
+
+
+    public void showLoading(String message) {
+
+
+        if (isShowProgressDialog)
+            return;
+
+        isShowProgressDialog = true;
+
+        //创建ProgressDialog对象
+        m_pDialog = new ProgressDialog(this);
+
+        // 设置进度条风格，风格为圆形，旋转的
+        m_pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+        // 设置ProgressDialog 提示信息
+
+        m_pDialog.setMessage(null != message ? message : "请稍等... ...");
+
+        // 设置ProgressDialog 的进度条是否不明确
+        m_pDialog.setIndeterminate(false);
+
+        // 设置ProgressDialog 是否可以按退回按键取消
+        m_pDialog.setCancelable(false);
+
+        m_pDialog.show();
+    }
+
+
+    public void hideLoading() {
+
+        if (isShowProgressDialog){
+
+            m_pDialog.cancel();
+            isShowProgressDialog = false;
         }
     }
 

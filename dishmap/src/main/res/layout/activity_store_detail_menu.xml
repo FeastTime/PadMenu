@@ -42,8 +42,9 @@
 
                     <ImageView
                         android:id="@+id/activity_store_detail_menu_order_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
                         android:src="@mipmap/one_key_order_icon"
                         />
 
@@ -53,6 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -64,8 +66,9 @@
 
                     <ImageView
                         android:id="@+id/activity_store_detail_menu_live_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
                         android:src="@mipmap/live_icon"
                         />
 
@@ -75,6 +78,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -86,8 +91,9 @@
 
                     <ImageView
                         android:id="@+id/activity_store_detail_menu_short_video_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
                         android:src="@mipmap/short_video_icon"
                         />
 
@@ -97,8 +103,9 @@
 
            <ImageView
                android:id="@+id/activity_store_detail_menu_show_menu_iv"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:scaleType="fitCenter"
                android:src="@mipmap/plus_icon"
                />
 

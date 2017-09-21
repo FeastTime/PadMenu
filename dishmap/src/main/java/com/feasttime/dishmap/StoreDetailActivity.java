@@ -5,14 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.feasttime.dishmap.utils.UtilTools;
 
 /**
  * Created by chen on 2017/9/20.
@@ -24,6 +20,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
     ImageView showMenuIv;
     LinearLayout otherMenuLl;
     ImageView orderDishesIv;
+    ImageView liveStreaming;
     ImageView backIv;
     ImageView contentIv;
     @Override
@@ -35,6 +32,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
         showMenuIv = (ImageView)this.findViewById(R.id.activity_store_detail_menu_show_menu_iv);
         otherMenuLl = (LinearLayout)this.findViewById(R.id.activity_store_detail_menu_other_menu_ll);
         orderDishesIv = (ImageView)this.findViewById(R.id.activity_store_detail_menu_order_iv);
+        liveStreaming = (ImageView)this.findViewById(R.id.activity_store_detail_menu_live_iv);
         backIv = (ImageView)this.findViewById(R.id.title_back_iv);
         contentIv = (ImageView)this.findViewById(R.id.activity_store_detail_content_iv);
 
@@ -42,6 +40,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
         titleTv.setOnClickListener(this);
         showMenuIv.setOnClickListener(this);
         orderDishesIv.setOnClickListener(this);
+        liveStreaming.setOnClickListener(this);
         backIv.setOnClickListener(this);
         menuBgRel.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -68,18 +67,27 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
-        if (v == titleTv || v == backIv) {
-            finish();
-        } else if (v == showMenuIv) {
+    public void onClick(View view) {
+        if (view == titleTv || view == backIv) {
+//            finish();
+        } else if (view == showMenuIv) {
             if (showMenuIv.getTag() == null) {
                 showMenu();
             } else {
                 hideMenu();
             }
-        } else if (v == orderDishesIv) {
+        } else if (view == orderDishesIv) {
             startActivity(new Intent(this,MenuActivity.class));
-            finish();
+//            finish();
+        } else if (view == liveStreaming) {
+
+
+                Intent intent = new Intent(this, VideoActivity.class);
+//                intent.putExtra("id", clickMyMarkerInfo.getStoreId());
+                startActivity(intent);
+
+
+//            finish();
         }
     }
 

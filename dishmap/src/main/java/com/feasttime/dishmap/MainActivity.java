@@ -24,12 +24,13 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiAddrInfo;
+import com.baidu.mapapi.search.poi.PoiBoundSearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.feasttime.dishmap.map.LocationCallback;
@@ -41,11 +42,23 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
+    private static final int FOOD_TYPE_HOT_POT = 1;
+    private static final int FOOD_TYPE_CHINA = 2;
+    private static final int FOOD_TYPE_WESTERN = 3;
+
     String TAG = "aaa1";
     MapView mMapView = null;
     BaiduMap mBaiduMap = null;
-    PoiSearch mPoiSearch;
-    OnGetPoiSearchResultListener poiListener;
+
+    PoiSearch hotpotPoiSearch;
+    PoiSearch chinaFoodPoiSearch;
+    PoiSearch westernPoiSearch;
+    // 火锅监听
+    OnGetPoiSearchResultListener hotpotPoiListener;
+    // 中餐监听
+    OnGetPoiSearchResultListener chinaFoodPoiListener;
+    // 火锅监听
+    OnGetPoiSearchResultListener westernFoodPoiListener;
     MyLocation myLocation;
 
     boolean isLocation = false;
@@ -75,7 +88,9 @@ public class MainActivity extends BaseActivity {
         location();
     }
 
+    // 初始化UI
     private void initLayout() {
+
         detailDialog = (LinearLayout)findViewById(R.id.detail_dialog);
         textViewPhoneNO = (TextView)findViewById(R.id.phoneNO);
         textViewName = (TextView)findViewById(R.id.name);
@@ -103,10 +118,8 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    // 初始化地图信息
     private void initMap() {
-
-
-
 
         //获取地图控件引用
         mMapView = (MapView) findViewById(R.id.bmapView);
@@ -116,9 +129,8 @@ public class MainActivity extends BaseActivity {
         //普通地图
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
 
-
         mMapView.showZoomControls(true);//设置是否显示缩放控件
-        mMapView.getChildAt(2).setPadding(0,0,10,350);//这是控制缩放控件的位置
+        mMapView.getChildAt(2).setPadding(0,0,10,400);//这是控制缩放控件的位置
         mMapView.getChildAt(1).setPadding(10000,10000,10100,10100);//这是控制缩放控件的位置
 
         //开启交通图
@@ -131,35 +143,31 @@ public class MainActivity extends BaseActivity {
         // 添加点击事件响应
         addMarkerListener();
 
-        poiListener = new OnGetPoiSearchResultListener() {
+        // 搜索结果监听器初始化
+        initSearchResultListener();
+
+        hotpotPoiSearch = PoiSearch.newInstance();
+        chinaFoodPoiSearch = PoiSearch.newInstance();
+        westernPoiSearch = PoiSearch.newInstance();
+    }
+
+    private void initSearchResultListener() {
+
+        // 火锅搜索结果
+        hotpotPoiListener = new OnGetPoiSearchResultListener() {
 
             public void onGetPoiResult(PoiResult result) {
 
-               Log.d(TAG, result.error +"--" );
 
                 //获取POI检索结果
-
                 String json = JSON.toJSONString(result);
                 Log.d(TAG, json);
 
                 if (null != result.getAllPoi()){
 
-                    List<MyMarkerInfo> list = getMarkerInfos(result.getAllPoi());
+                    List<MyMarkerInfo> list = getMarkerInfos(result.getAllPoi(), FOOD_TYPE_HOT_POT);
                     addPoint(list);
-//
-//                    //遍历所有POI，找到类型为公交线路的POI
-//                    for (PoiInfo poi : result.getAllPoi()) {
-//
-//                        Log.d(TAG, "poi.textViewName ----  " + poi.textViewName);
-//                        Log.d(TAG, "poi.textViewAddress ----  " + poi.textViewAddress);
-//                        Log.d(TAG, "poi.city ----  " + poi.city);
-//                        Log.d(TAG, "poi.phoneNum ----  " + poi.phoneNum);
-//                        Log.d(TAG, "poi.location ----  " + poi.location.latitude + "   :   " +  poi.location.longitude);
-//                        Log.d(TAG, "poi.type ----  " + poi.type);
-//
-//                    }
                 }
-
 
                 if (null != result.getAllAddr()){
 
@@ -175,56 +183,101 @@ public class MainActivity extends BaseActivity {
 
             }
 
-            public void onGetPoiDetailResult(PoiDetailResult result) {
-                //获取Place详情页检索结果
-
-            }
+            @Override
+            public void onGetPoiDetailResult(PoiDetailResult result) {}
 
             @Override
-            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-
-            }
+            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {}
         };
 
-        mPoiSearch = PoiSearch.newInstance();
-        mPoiSearch.setOnGetPoiSearchResultListener(poiListener);
+        // 中国菜搜索结果
+        chinaFoodPoiListener = new OnGetPoiSearchResultListener() {
 
-    }
+            public void onGetPoiResult(PoiResult result) {
 
-    private void location() {
+                if (null != result.getAllPoi()){
 
-        Toast.makeText(this, "定位中。。。", Toast.LENGTH_SHORT).show();
-
-        myLocation = new MyLocation();
-
-        // 启动定位
-        myLocation.init(this.getApplicationContext(), new LocationCallback() {
-            @Override
-            public void getLocationSuccess(BDLocation location) {
-
-                if (!isLocation){
-
-                    isLocation = true;
-
-                    Log.d(TAG, location.getLatitude() + "" + location.getLongitude());
-
-                    // 设置当前位置,和缩放级别
-                    setLocation(location.getLatitude(), location.getLongitude(), 16);
-
-                    search(location.getLatitude(), location.getLongitude(),"饭店");
+                    List<MyMarkerInfo> list = getMarkerInfos(result.getAllPoi(), FOOD_TYPE_CHINA);
+                    addPoint(list);
                 }
             }
 
             @Override
-            public void getLocationFalse(byte errorCode) {
+            public void onGetPoiDetailResult(PoiDetailResult result) {}
 
+            @Override
+            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {}
+        };
+
+        // 西餐搜索结果
+        westernFoodPoiListener = new OnGetPoiSearchResultListener() {
+
+            public void onGetPoiResult(PoiResult result) {
+
+                if (null != result.getAllPoi()){
+
+                    List<MyMarkerInfo> list = getMarkerInfos(result.getAllPoi(), FOOD_TYPE_WESTERN);
+                    addPoint(list);
+                }
             }
-        });
+
+            @Override
+            public void onGetPoiDetailResult(PoiDetailResult result) {}
+
+            @Override
+            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {}
+        };
+    }
+
+    // 定位
+    private void location() {
+
+        showLoading("开足马力为您定位，请稍等！");
+
+        if(null == myLocation){
+
+            myLocation = new MyLocation();
+
+            // 启动定位
+            myLocation.init(this.getApplicationContext(), new LocationCallback() {
+                @Override
+                public void getLocationSuccess(BDLocation location) {
+
+                    myLocation.stopLocation();
+                    Log.d(TAG, "getLocationSuccess");
+
+                    // 设置当前位置,和缩放级别
+                    setLocation(location.getLatitude(), location.getLongitude(), 16);
+
+//                    search(location.getLatitude(), location.getLongitude(),"饭店");
+
+                    // 基于当前地域进行搜索
+                    boundSearch();
+                    hideLoading();
+                }
+
+                @Override
+                public void getLocationFalse(byte errorCode) {
+
+                    hideLoading();
+
+                    Log.d(TAG, "getLocationSuccess");
+
+                    Toast.makeText(MainActivity.this, "定位失败，请打开手机定位功能！", Toast.LENGTH_SHORT).show();
+                    myLocation.stopLocation();
+                }
+            });
+        }
+
+        myLocation.startLocation();
+
+
     }
 
     // 设置中心位置，和缩放级别
     private void setLocation(double latitude, double longitude, int leval) {
 
+        Log.d(TAG, "setLocation" + "-----" + latitude + "----" + longitude + "-----: " + leval);
         LatLng latlng = new LatLng(latitude, longitude);
 
         MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLngZoom(latlng, leval);
@@ -263,22 +316,70 @@ public class MainActivity extends BaseActivity {
 
 
     // 转化成地图设置点的格式
-    private List<MyMarkerInfo> getMarkerInfos(List<PoiInfo> poiInfos) {
+    private List<MyMarkerInfo> getMarkerInfos(List<PoiInfo> poiInfos, int foodType) {
 
 
         List<MyMarkerInfo> infos = new ArrayList<>(poiInfos.size());
 
         int i = 0;
+        int imageId = R.mipmap.hotile_blue;;
+        String storeID;
 
         for (PoiInfo poiInfo : poiInfos) {
 
             i++;
-            String storeID = "unknown";
-            int imageId = R.mipmap.hotile_blue;
+            storeID = "unknown";
 
             if (i%4==0){
                 storeID = "festTime";
-                imageId = R.mipmap.store_feast_pin;
+            }
+
+            int mod6 = i%6;
+
+            if (foodType == FOOD_TYPE_HOT_POT){
+
+                if (mod6 == 0)
+                    imageId = R.mipmap.hotpot_green;
+                else if (mod6 == 1)
+                    imageId = R.mipmap.hotpot_green_camera;
+                else if (mod6 == 2)
+                    imageId = R.mipmap.hotpot_red;
+                else if (mod6 == 3)
+                    imageId = R.mipmap.hotpot_red_camera;
+                else if (mod6 == 4)
+                    imageId = R.mipmap.hotpot_yellow;
+                else if (mod6 == 5)
+                    imageId = R.mipmap.hotpot_yellow_camera;
+
+            } else if (foodType == FOOD_TYPE_CHINA){
+
+                if (mod6 == 0)
+                    imageId = R.mipmap.chinese_green;
+                else if (mod6 == 1)
+                    imageId = R.mipmap.chinese_green_camera;
+                else if (mod6 == 2)
+                    imageId = R.mipmap.chinese_red;
+                else if (mod6 == 3)
+                    imageId = R.mipmap.chinese_red_camera;
+                else if (mod6 == 4)
+                    imageId = R.mipmap.chinese_yellow;
+                else if (mod6 == 5)
+                    imageId = R.mipmap.chinese_yellow_camera;
+
+            } else if (foodType == FOOD_TYPE_WESTERN){
+
+                if (mod6 == 0)
+                    imageId = R.mipmap.western_green;
+                else if (mod6 == 1)
+                    imageId = R.mipmap.western_green_camera;
+                else if (mod6 == 2)
+                    imageId = R.mipmap.western_red;
+                else if (mod6 == 3)
+                    imageId = R.mipmap.western_red_camera;
+                else if (mod6 == 4)
+                    imageId = R.mipmap.western_yellow;
+                else if (mod6 == 5)
+                    imageId = R.mipmap.western_yellow_camera;
             }
 
             infos.add(new MyMarkerInfo(poiInfo.location.latitude, poiInfo.location.longitude, storeID, poiInfo.name,imageId, "unkonwn", poiInfo.address, poiInfo.phoneNum));
@@ -324,13 +425,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    // 搜索
-    private void search(double latitude, double longitude, String key){
-
-        LatLng latlng = new LatLng(latitude, longitude);
-        mPoiSearch.searchNearby(new PoiNearbySearchOption().keyword(key).location(latlng).radius(1000).pageCapacity(50));
-
-    }
 
     @Override
     protected void onDestroy() {
@@ -338,8 +432,9 @@ public class MainActivity extends BaseActivity {
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
 
-        mPoiSearch.destroy();
-        poiListener = null;
+        hotpotPoiSearch.destroy();
+        chinaFoodPoiSearch.destroy();
+        westernPoiSearch.destroy();
     }
 
     @Override
@@ -363,11 +458,15 @@ public class MainActivity extends BaseActivity {
     // 显示对话框
     private void showDialog(String name, String phoneNO, String address){
 
-        detailDialog.setVisibility(View.VISIBLE);
-        textViewName.setText(name);
+//        detailDialog.setVisibility(View.VISIBLE);
+//        textViewName.setText(name);
+//
+//        textViewPhoneNO.setText(phoneNO.isEmpty()?"电话暂未提供" : phoneNO);
+//        textViewAddress.setText(address);
 
-        textViewPhoneNO.setText(phoneNO.isEmpty()?"电话暂未提供" : phoneNO);
-        textViewAddress.setText(address);
+        Intent intent = new Intent(this, StoreDetailActivity.class);
+        this.startActivity(intent);
+
     }
 
     // 关闭对话框
@@ -399,7 +498,56 @@ public class MainActivity extends BaseActivity {
 
     // 点击定位按钮
     public void touchLocation(View view){
-        Toast.makeText(this, "定位功能马上开启！", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "定位功能马上开启！", Toast.LENGTH_SHORT).show();
+
+        location();
+    }
+
+    /**
+     * 范围检索,范围搜索需要制定坐标.以矩形的方式进行范围搜索.
+     */
+    private void boundSearch() {
+
+        PoiBoundSearchOption boundSearchOption = new PoiBoundSearchOption();
+
+        LatLng northeast = mBaiduMap.getMapStatus().bound.northeast;
+        LatLng southwest = mBaiduMap.getMapStatus().bound.southwest;
+
+        // 搜索火锅
+        LatLngBounds bounds = new LatLngBounds.Builder().include(southwest).include(northeast).build();// 得到一个地理范围对象
+        boundSearchOption.bound(bounds);// 设置poi检索范围
+        boundSearchOption.pageNum(1);
+        boundSearchOption.pageCapacity(6);
+        boundSearchOption.keyword("火锅");// 检索关键字
+        hotpotPoiSearch.setOnGetPoiSearchResultListener(hotpotPoiListener);
+        hotpotPoiSearch.searchInBound(boundSearchOption);// 发起poi范围检索请求
+
+        // 搜索中餐
+        bounds = new LatLngBounds.Builder().include(southwest).include(northeast).build();// 得到一个地理范围对象
+        boundSearchOption.bound(bounds);// 设置poi检索范围
+        boundSearchOption.pageNum(1);
+        boundSearchOption.pageCapacity(6);
+        boundSearchOption.keyword("中餐");// 检索关键字
+        chinaFoodPoiSearch.setOnGetPoiSearchResultListener(chinaFoodPoiListener);
+        chinaFoodPoiSearch.searchInBound(boundSearchOption);// 发起poi范围检索请求
+
+        // 搜索西餐
+        bounds = new LatLngBounds.Builder().include(southwest).include(northeast).build();// 得到一个地理范围对象
+        boundSearchOption.bound(bounds);// 设置poi检索范围
+        boundSearchOption.pageNum(1);
+        boundSearchOption.pageCapacity(6);
+        boundSearchOption.keyword("西餐");// 检索关键字
+        westernPoiSearch.setOnGetPoiSearchResultListener(westernFoodPoiListener);
+        westernPoiSearch.searchInBound(boundSearchOption);// 发起poi范围检索请求
+
+    }
+
+    private void getBound(){
+
+        LatLng northeast = mBaiduMap.getMapStatus().bound.northeast;
+        LatLng southwest = mBaiduMap.getMapStatus().bound.southwest;
+        LatLng center = mBaiduMap.getMapStatus().bound.getCenter();
+
     }
 
 }
