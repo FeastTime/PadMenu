@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.feasttime.dishmap.third.onekeyshare.ShareMain;
+
 /**
  * Created by chen on 2017/9/20.
  */
@@ -70,6 +72,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view == titleTv || view == backIv) {
 //            finish();
+            ShareMain.share(this);
         } else if (view == showMenuIv) {
             if (showMenuIv.getTag() == null) {
                 showMenu();
