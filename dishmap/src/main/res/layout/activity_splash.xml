@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/x372"
+        android:layout_height="@dimen/y126"
+        android:layout_marginTop="@dimen/y300"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/logo" />
+
+
+    <ImageView
+        android:layout_width="@dimen/x80"
+        android:layout_height="@dimen/y8"
+        android:src="@mipmap/black_rectangle"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/y292" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:text="@string/text_company_name"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/y100"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_size_13"
+        android:gravity="center" />
+
+
+</RelativeLayout>

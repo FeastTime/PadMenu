@@ -10,5 +10,7 @@
     <color name="title_text_color">#58250D</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="text_black">#020202</color>
 
 </resources>
