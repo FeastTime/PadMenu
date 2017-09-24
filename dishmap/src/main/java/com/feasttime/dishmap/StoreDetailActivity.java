@@ -25,6 +25,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
     ImageView liveStreaming;
     ImageView backIv;
     ImageView contentIv;
+    ImageView titleShareIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
         liveStreaming = (ImageView)this.findViewById(R.id.activity_store_detail_menu_live_iv);
         backIv = (ImageView)this.findViewById(R.id.title_back_iv);
         contentIv = (ImageView)this.findViewById(R.id.activity_store_detail_content_iv);
+        titleShareIv = (ImageView)this.findViewById(R.id.title_bar_share_iv);
 
         titleTv.setText("PavoMea");
         titleTv.setOnClickListener(this);
@@ -44,6 +46,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
         orderDishesIv.setOnClickListener(this);
         liveStreaming.setOnClickListener(this);
         backIv.setOnClickListener(this);
+        titleShareIv.setOnClickListener(this);
         menuBgRel.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -91,6 +94,8 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
 
 
 //            finish();
+        } else if (view == titleShareIv) {
+            ShareMain.share(view.getContext());
         }
     }
 

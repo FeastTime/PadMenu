@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/back"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="@dimen/x30"
             android:layout_centerVertical="true"
             />
 
@@ -27,6 +27,15 @@
             android:textSize="@dimen/text_size_15" />
     
 
-
+        <ImageView
+            android:id="@+id/title_bar_share_iv"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/x60"
+            android:padding="@dimen/x15"
+            android:src="@mipmap/share"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_centerVertical="true"
+            />
 
 </RelativeLayout>
