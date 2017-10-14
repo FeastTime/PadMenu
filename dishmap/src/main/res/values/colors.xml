@@ -11,6 +11,11 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="blue">#3BABBC</color>
+    <color name="bg_gray">#E5E5E5</color>
+
+
     <color name="text_black">#020202</color>
+    <color name="text_hint_gray">#999999</color>
 
 </resources>
