@@ -1,4 +1,4 @@
-package com.feasttime.dishmap;
+package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.third.onekeyshare.ShareMain;
 
 /**

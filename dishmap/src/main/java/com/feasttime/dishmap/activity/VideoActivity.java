@@ -1,10 +1,11 @@
-package com.feasttime.dishmap;
+package com.feasttime.dishmap.activity;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.MediaController;
 
+import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyVideoView;
 
 import java.io.File;

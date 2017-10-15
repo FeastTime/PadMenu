@@ -1,4 +1,4 @@
-package com.feasttime.dishmap;
+package com.feasttime.dishmap.activity;
 
 import java.io.Serializable;
 

@@ -1,8 +1,10 @@
-package com.feasttime.dishmap;
+package com.feasttime.dishmap.activity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import com.feasttime.dishmap.R;
 
 public class MenuActivity extends BaseActivity {
 

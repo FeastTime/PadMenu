@@ -1,4 +1,4 @@
-package com.feasttime.dishmap;
+package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +33,7 @@ import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.map.LocationCallback;
 import com.feasttime.dishmap.map.MyLocation;
 

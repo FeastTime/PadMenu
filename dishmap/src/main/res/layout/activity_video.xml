@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.feasttime.dishmap.VideoActivity">
+    tools:context="com.feasttime.dishmap.activity.VideoActivity">
 
     <com.feasttime.dishmap.customview.MyVideoView
         android:id="@+id/videoView"

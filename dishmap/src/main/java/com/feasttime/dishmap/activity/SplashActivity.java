@@ -1,8 +1,10 @@
-package com.feasttime.dishmap;
+package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.feasttime.dishmap.R;
 
 /**
  * Created by chen on 2017/9/24.

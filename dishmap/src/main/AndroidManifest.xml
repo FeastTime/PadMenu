@@ -46,7 +46,7 @@
         <meta-data android:name="Mob-AppKey" android:value="moba6b6c6d6"/>
         <meta-data android:name="Mob-AppSecret" android:value="b89d2427a3bc7ad1aea1e1e8c1d36bf3"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
 
 
 
@@ -57,20 +57,24 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".VideoActivity" />
-        <activity android:name=".MenuActivity"></activity>
-        <activity android:name=".StoreDetailActivity">
+        <activity android:name=".activity.VideoActivity" />
+        <activity android:name=".activity.MenuActivity"></activity>
+        <activity android:name=".activity.StoreDetailActivity">
 
         </activity>
-        <activity android:name=".CommentActivity"
+        <activity android:name=".activity.CommentActivity"
                android:windowSoftInputMode="adjustPan">
+
+        </activity>
+        <activity android:name=".activity.SplashActivity" >
+
+        </activity>
+
+        <activity android:name=".activity.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".SplashActivity" >
-
         </activity>
 
         <activity

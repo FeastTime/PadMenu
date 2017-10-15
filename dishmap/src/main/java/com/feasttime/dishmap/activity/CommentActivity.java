@@ -1,8 +1,9 @@
-package com.feasttime.dishmap;
+package com.feasttime.dishmap.activity;
 
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.CommentListViewAdapter;
 
 import java.util.ArrayList;
