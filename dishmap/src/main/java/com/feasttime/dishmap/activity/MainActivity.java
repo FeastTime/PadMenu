@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity{
         setContentView(R.layout.activity_main);
 
 
-        requestPermission();
+
 
 
         // 初始化基本控件
@@ -569,67 +569,4 @@ public class MainActivity extends BaseActivity{
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if(grantResults[0] == 0){
-
-
-            if (true == requestPermission()){
-
-            }
-
-        } else {
-            showPermissionDialog();
-        }
-
-    }
-
-    private void showPermissionDialog(){
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("权限拒绝");
-        builder.setMessage("是否退出app？");
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d(TAG, "-------------取消---------");
-                requestPermission();
-            }
-        });
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.d(TAG, "------------确定------------");
-                System.exit(0);
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private boolean requestPermission(){
-
-
-        if (! EasyPermissions.hasPermissions(this, allPermissions)) {
-
-            List<Permission> permissionList = getPermission();
-
-            for (Permission permission : permissionList) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ! EasyPermissions.hasPermissions(this, permission.getName())){
-
-                    ActivityCompat.requestPermissions(this, new String[]{permission.getName()}, permission.getId());
-                    break;
-                }
-            }
-
-            return false;
-
-        } else
-
-            return true;
-
-    }
 }
