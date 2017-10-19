@@ -1,7 +1,12 @@
 package com.feasttime.dishmap.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -36,12 +41,18 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.map.LocationCallback;
 import com.feasttime.dishmap.map.MyLocation;
+import com.feasttime.dishmap.permission.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseActivity {
+import static com.feasttime.dishmap.permission.Permission.allPermissions;
+import static com.feasttime.dishmap.permission.Permission.getPermission;
+
+
+public class MainActivity extends BaseActivity{
 
     private static final int FOOD_TYPE_HOT_POT = 1;
     private static final int FOOD_TYPE_CHINA = 2;
@@ -79,6 +90,10 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
+
         // 初始化基本控件
         initLayout();
 
@@ -87,6 +102,9 @@ public class MainActivity extends BaseActivity {
 
         // 定位
         location();
+
+
+
     }
 
     // 初始化UI
