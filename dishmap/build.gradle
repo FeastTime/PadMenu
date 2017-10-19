@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 
-buildscript {
-    repositories {
-        jcenter()
-    }
+//buildscript {
+//    repositories {
+        //jcenter()
+//         maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+//    }
 
-    dependencies {
-        classpath "com.android.tools.build:gradle:2.3.3"
-    }
-}
+//    dependencies {
+//        classpath "com.android.tools.build:gradle:2.3.3"
+//    }
+//}
 
 android {
     compileSdkVersion 25
@@ -42,6 +43,7 @@ android {
 
 repositories {
     mavenCentral()
+    maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     flatDir {
         dirs 'libs' /**在libs文件夹下找aar文件*/
     }
