@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 
-//buildscript {
-//    repositories {
-//        jcenter()
-//    }
-//
-//    dependencies {
-//        classpath "com.android.tools.build:gradle:2.3.3"
-//    }
-//}
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:2.3.3"
+    }
+}
 
 android {
     compileSdkVersion 25
@@ -71,6 +71,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.alibaba:fastjson:1.1.56.android'
+
     testCompile 'junit:junit:4.12'
 
 

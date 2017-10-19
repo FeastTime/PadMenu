@@ -4,46 +4,59 @@
     android:layout_height="match_parent"
     android:layout_centerVertical="true">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:layout_alignParentBottom="true">
+                <ImageView
+                    android:id="@+id/title_back_iv"
+                    android:layout_width="@dimen/x24"
+                    android:layout_height="@dimen/y40"
+                    android:src="@mipmap/back"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x30"
+                    />
 
-        <ImageView
-            android:id="@+id/title_back_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/back"
-            android:layout_marginLeft="@dimen/x30"
-            android:layout_centerVertical="true"
-            />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_text_tv"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:textColor="@color/title_text_color"
+                    android:textSize="@dimen/text_size_15" />
+
+                <TextView
+                    android:id="@+id/title_center_text_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/text_dark_gray"
+                    android:textSize="@dimen/very_big_text_size" />
 
 
+                <ImageView
+                    android:id="@+id/title_bar_share_iv"
+                    android:layout_width="@dimen/x60"
+                    android:layout_height="@dimen/x60"
+                    android:padding="@dimen/x15"
+                    android:src="@mipmap/share"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_centerVertical="true"
+                    />
+
+
+
+        </RelativeLayout>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/title_text_tv"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="32dp"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/text_size_15" />
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DCE0E0"
+            android:layout_alignParentBottom="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/title_center_text_tv"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="32dp"
-            android:layout_centerInParent="true"
-            android:textColor="@color/text_dark_gray"
-            android:textSize="@dimen/very_big_text_size" />
-
-
-        <ImageView
-            android:id="@+id/title_bar_share_iv"
-            android:layout_width="@dimen/x60"
-            android:layout_height="@dimen/x60"
-            android:padding="@dimen/x15"
-            android:src="@mipmap/share"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/x30"
-            android:layout_centerVertical="true"
-            />
-
+        </TextView>
 </RelativeLayout>

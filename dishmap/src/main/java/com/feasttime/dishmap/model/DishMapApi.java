@@ -2,6 +2,7 @@ package com.feasttime.dishmap.model;
 
 
 import com.feasttime.dishmap.model.bean.LoginInfo;
+import com.feasttime.dishmap.model.bean.RegisterInfo;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -20,5 +21,9 @@ public interface DishMapApi {
     //登录
     @POST("user/login/")
     Observable<LoginInfo> login(@Body RequestBody route);
+
+    //登录
+    @POST("user/register/")
+    Observable<RegisterInfo> register(@Body RequestBody route);
 
 }

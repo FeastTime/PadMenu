@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y128"></include>
+
+    <LinearLayout
+        android:id="@+id/activity_register_step1_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y98"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x21"
+            android:layout_marginTop="@dimen/y46"
+            android:background="@mipmap/input_bg">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y90"
+
+                >
+
+                <ImageView
+                    android:id="@+id/activity_login_down_arrow_iv"
+                    android:layout_width="@dimen/x33"
+                    android:layout_height="@dimen/y19"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x18"
+                    android:src="@mipmap/down_arrow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_toRightOf="@+id/activity_login_down_arrow_iv"
+                    android:text="86"
+                    android:textColor="@color/text_dark_gray"
+                    android:textSize="@dimen/big_text_size" />
+
+
+                <EditText
+                    android:id="@+id/activity_register_phone_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x140"
+                    android:background="@null"
+                    android:hint="请输入电话号码"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:textColorHint="@color/text_hint_gray"
+                    android:textSize="@dimen/normal_text_size" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/activity_register_get_verify_num_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y90"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/y32"
+            android:background="@drawable/blue_bg_radius_5"
+            android:text="获取验证码"
+            android:textColor="@color/white"
+            android:textSize="@dimen/very_big_text_size" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/activity_register_step2_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/activity_register_vierfy_number_sended_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/y40"
+            android:text="验证码已经发送到手机"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/text_dark_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="@dimen/y98"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x21"
+            android:layout_marginTop="@dimen/y40">
+
+            <RelativeLayout
+                android:layout_width="@dimen/x379"
+                android:layout_height="match_parent"
+                android:background="@mipmap/input_verify_num_bg">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y90">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x50"
+                        android:background="@null"
+                        android:hint="验证码"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:textColorHint="@color/text_hint_gray"
+                        android:textSize="@dimen/big_text_size" />
+
+
+                    <ImageView
+                        android:layout_width="@dimen/x33"
+                        android:layout_height="@dimen/y44"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/x18"
+                        android:layout_marginRight="@dimen/x47"
+                        android:src="@mipmap/voice" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+            <Button
+                android:layout_width="@dimen/x290"
+                android:layout_height="@dimen/y87"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/blue_bg_radius_5"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_size"
+                android:text="获取验证码" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y98"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x21"
+            android:layout_marginTop="@dimen/x33"
+            android:background="@mipmap/password_input_bg">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y90">
+
+                <ImageView
+                    android:id="@+id/activity_register_lock_iv"
+                    android:layout_width="@dimen/x33"
+                    android:layout_height="@dimen/y39"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x40"
+                    android:src="@mipmap/lock" />
+
+
+                <EditText
+                    android:id="@+id/activity_register_password_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x140"
+                    android:background="@null"
+                    android:hint="请输入密码"
+                    android:maxLength="20"
+                    android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:textColorHint="@color/text_hint_gray"
+                    android:textSize="@dimen/normal_text_size" />
+
+
+                <ImageView
+                    android:layout_width="@dimen/x38"
+                    android:layout_height="@dimen/y17"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/x43"
+                    android:src="@mipmap/eye" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/activity_register_register_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y90"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/y32"
+            android:background="@drawable/blue_bg_radius_5"
+            android:text="注册"
+            android:textColor="@color/white"
+            android:textSize="@dimen/very_big_text_size" />
+    </LinearLayout>
+
+</LinearLayout>

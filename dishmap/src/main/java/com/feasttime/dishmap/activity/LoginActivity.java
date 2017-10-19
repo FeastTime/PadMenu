@@ -1,5 +1,6 @@
 package com.feasttime.dishmap.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.feasttime.dishmap.utils.ToastUtil;
 
 import java.util.HashMap;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
@@ -29,12 +32,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     private EditText phoneEt;
     private EditText passwordEt;
     private Button submitBtn;
-
+    private TextView registerTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         initView();
     }
 
@@ -45,11 +49,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         phoneEt = (EditText)this.findViewById(R.id.activity_login_phone_et);
         passwordEt = (EditText)this.findViewById(R.id.activity_login_password_et);
         submitBtn = (Button)this.findViewById(R.id.activity_login_submit_btn);
+        registerTv = (TextView)this.findViewById(R.id.activity_login_register_tv);
 
         titleTv.setText("登录");
         backIv = (ImageView)this.findViewById(R.id.title_back_iv);
         backIv.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
+        registerTv.setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +78,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
             HashMap<String,Object> infoMap = new HashMap<String,Object>();
             infoMap.put("mobileNO",phone);
+            infoMap.put("pwd",password);
             RetrofitService.login(infoMap).subscribe(new Consumer<LoginInfo>(){
                 @Override
                 public void accept(LoginInfo loginInfo) throws Exception {
@@ -93,6 +100,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                     //这里接收onComplete。
                 }
             });
+        } else if (v == registerTv) {
+            startActivity(new Intent(this,RegisterActivity.class));
         }
     }
 }
