@@ -104,6 +104,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
             HashMap<String,Object> infoMap = new HashMap<String,Object>();
             infoMap.put("mobileNO",phone);
+            infoMap.put("pwd",password);
             RetrofitService.register(infoMap).subscribe(new Consumer<RegisterInfo>(){
                 @Override
                 public void accept(RegisterInfo registerInfo) throws Exception {
