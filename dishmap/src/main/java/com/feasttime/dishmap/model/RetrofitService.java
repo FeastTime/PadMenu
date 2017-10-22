@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
 import com.feasttime.dishmap.utils.DeviceTool;
@@ -94,6 +95,8 @@ public class RetrofitService {
                 .build();
 
         sMenuService = retrofit.create(DishMapApi.class);
+
+
     }
 
 

@@ -10,17 +10,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.utils.ToastUtil;
 
+import org.reactivestreams.Subscription;
+
 import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by chen on 2017/10/15.
@@ -58,10 +63,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         registerTv.setOnClickListener(this);
     }
 
+
+
     @Override
     public void onClick(View v) {
         if (v == backIv) {
             finish();
+
         } else if (v == submitBtn) {
             String phone = phoneEt.getText().toString().trim();
             String password = passwordEt.getText().toString().trim();
@@ -102,6 +110,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
             });
         } else if (v == registerTv) {
             startActivity(new Intent(this,RegisterActivity.class));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Disposable subscription = RxWebSocketUtil.getInstance().getWebSocketString("ws://sdfs").subscribe();
+        //注销
+        if(subscription!=null&&!subscription.isDisposed()) {
+            subscription.dispose();
         }
     }
 }
