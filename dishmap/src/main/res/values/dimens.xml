@@ -9,9 +9,11 @@
     <dimen name="text_size_31">31dp</dimen>
     <dimen name="text_size_38">38dp</dimen>
 
-    <dimen name="normal_text_size">@dimen/x27</dimen>
+    <dimen name="normal_text_size">@dimen/x28</dimen>
     <dimen name="big_text_size">@dimen/x30</dimen>
+    <dimen name="big_text_size_2">@dimen/x35</dimen>
     <dimen name="very_big_text_size">@dimen/x40</dimen>
-    <dimen name="small_text_size">@dimen/x24</dimen>
-
+    <dimen name="very_big_text_size_2">@dimen/x53</dimen>
+    <dimen name="small_text_size">@dimen/x23</dimen>
+    <dimen name="final_big_text_size">@dimen/x76</dimen>
 </resources>

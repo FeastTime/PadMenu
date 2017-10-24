@@ -7,7 +7,9 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dhh.websocket.RxWebSocketUtil;
+import com.dhh.websocket.WebSocketInfo;
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.utils.DeviceTool;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.alibaba.fastjson.JSON;
@@ -48,8 +50,9 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
         mobileNO = DeviceTool.getPhoneNumber(this);
         mac = DeviceTool.getLocalMacAddress(this);
 
-        testWebSocket();
+//        testWebSocket();
 
+        MyDialogs.showEatDishPersonNumDialog(this);
     }
 
 
@@ -60,7 +63,7 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
         //get StringMsg
-        RxWebSocketUtil.getInstance().getWebSocketString(wsUrl + "/sdfsdf222244")
+        RxWebSocketUtil.getInstance().getWebSocketString(wsUrl + "/2")
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
@@ -86,7 +89,7 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
 
             String requestJson = JSON.toJSONString(requestData);
 
-            RxWebSocketUtil.getInstance().asyncSend(wsUrl, requestJson);
+            RxWebSocketUtil.getInstance().asyncSend(wsUrl + "/2", requestJson);
         }
     }
 }
