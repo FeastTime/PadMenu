@@ -49,7 +49,16 @@
                     android:layout_centerVertical="true"
                     />
 
-
+                <ImageView
+                    android:id="@+id/title_bar_persons_iv"
+                    android:layout_width="@dimen/x50"
+                    android:layout_height="@dimen/x44"
+                    android:src="@mipmap/persons_icon"
+                    android:visibility="gone"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_centerVertical="true"
+                    />
 
         </RelativeLayout>
         <TextView
