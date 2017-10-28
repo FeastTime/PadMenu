@@ -53,9 +53,11 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
 
 //        testWebSocket();
 
-        MyDialogs.showEatDishPersonNumDialog(this);
+//        MyDialogs.showEatDishPersonNumDialog(this);
+//
+//        startActivity(new Intent(this,ChatActivity.class));
 
-        startActivity(new Intent(this,ChatActivity.class));
+        startActivity(new Intent(this,MerchantActivity.class));
     }
 
 

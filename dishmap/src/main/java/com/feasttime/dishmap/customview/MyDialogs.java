@@ -45,4 +45,61 @@ public class MyDialogs {
         dialog.show();
 
     }
+
+    //抢座位对话框
+    public static void showRobSeatDialog(Context context) {
+//        Dialog dialog = new Dialog(context,R.style.DialogTheme);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        LayoutInflater inflater = LayoutInflater.from(context);
+//        View contentView = inflater.inflate(R.layout.eat_dish_dialog_layout,null);
+//        dialog.setContentView(contentView);
+//
+//        Button confirm = (Button)contentView.findViewById(R.id.eat_dish_dialog_confirm_btn);
+//        EditText personNum = (EditText)contentView.findViewById(R.id.eat_dish_dialog_person_num_et);
+//
+//        confirm.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//
+//        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+//        params.gravity = Gravity.CENTER;
+//        params.width = (int)context.getResources().getDimension(R.dimen.x610);
+////        params.height = (int)context.getResources().getDimension(R.dimen.y810);
+//        dialog.getWindow().setAttributes(params);
+//        dialog.show();
+
+    }
+
+
+    //抢座位结果
+    public static void showRobSeatReasultDialog(Context context) {
+//        Dialog dialog = new Dialog(context,R.style.DialogTheme);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        LayoutInflater inflater = LayoutInflater.from(context);
+//        View contentView = inflater.inflate(R.layout.eat_dish_dialog_layout,null);
+//        dialog.setContentView(contentView);
+//
+//        Button confirm = (Button)contentView.findViewById(R.id.eat_dish_dialog_confirm_btn);
+//        EditText personNum = (EditText)contentView.findViewById(R.id.eat_dish_dialog_person_num_et);
+//
+//        confirm.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//
+//        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+//        params.gravity = Gravity.CENTER;
+//        params.width = (int)context.getResources().getDimension(R.dimen.x610);
+////        params.height = (int)context.getResources().getDimension(R.dimen.y810);
+//        dialog.getWindow().setAttributes(params);
+//        dialog.show();
+
+    }
 }

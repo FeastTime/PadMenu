@@ -80,6 +80,9 @@
         <activity android:name=".activity.ChatActivity" >
         </activity>
 
+        <activity android:name=".activity.MerchantActivity" >
+        </activity>
+
         <activity android:name=".activity.TestActivtiy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
