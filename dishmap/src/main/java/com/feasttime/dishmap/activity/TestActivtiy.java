@@ -12,6 +12,7 @@ import com.dhh.websocket.WebSocketInfo;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.utils.DeviceTool;
+import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.alibaba.fastjson.JSON;
 
@@ -37,8 +38,8 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
     private static String mac = "";
     private static String mobileNO = "";
 
-    //String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket?token=thisishaha";
-    String wsUrl = "ws://192.168.1.101:8081/websocket";
+    String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket";
+//    String wsUrl = "ws://192.168.1.101:8081/websocket";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,29 +52,32 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
         mobileNO = DeviceTool.getPhoneNumber(this);
         mac = DeviceTool.getLocalMacAddress(this);
 
-//        testWebSocket();
+        testWebSocket();
 
 //        MyDialogs.showEatDishPersonNumDialog(this);
 //
 //        startActivity(new Intent(this,ChatActivity.class));
 
-        startActivity(new Intent(this,MerchantActivity.class));
+//        startActivity(new Intent(this,MerchantActivity.class));
     }
 
 
     private void testWebSocket() {
         OkHttpClient okHttpClient = new OkHttpClient();
 
+        String token = "afffffffff";
+
         RxWebSocketUtil.getInstance().setClient(okHttpClient);
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
         //get StringMsg
-        RxWebSocketUtil.getInstance().getWebSocketString(wsUrl + "/2")
+        RxWebSocketUtil.getInstance().getWebSocketString(wsUrl + "/" + token)
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         //连接成功后收到消息
                         ToastUtil.showToast(TestActivtiy.this,"receive:" + s, Toast.LENGTH_SHORT);
+                        LogUtil.d("result","receive websocket:" + s);
                     }
                 });
     }
