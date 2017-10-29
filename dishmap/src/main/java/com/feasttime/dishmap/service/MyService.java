@@ -4,9 +4,11 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.dhh.websocket.RxWebSocketUtil;
+import com.dhh.websocket.WebSocketInfo;
 import com.feasttime.dishmap.activity.TestActivtiy;
 import com.feasttime.dishmap.model.WebSocketConfig;
 import com.feasttime.dishmap.rxbus.RxBus;
@@ -16,6 +18,7 @@ import com.feasttime.dishmap.utils.ToastUtil;
 
 import io.reactivex.functions.Consumer;
 import okhttp3.OkHttpClient;
+import okhttp3.WebSocket;
 
 /**
  * Created by chen on 2017/10/29.
@@ -23,6 +26,7 @@ import okhttp3.OkHttpClient;
 
 public class MyService extends Service {
     private static final String TAG =  "MyService";
+    private String requestUrl;
 
     @Override
     public void onCreate() {
@@ -34,13 +38,17 @@ public class MyService extends Service {
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
-        String token = "afffffffff";
+        String token = "6554455";
+        String storeId = "0011";
 
         RxWebSocketUtil.getInstance().setClient(okHttpClient);
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
+        requestUrl = WebSocketConfig.wsUrl + "/" + token + "/" + storeId;
+
+        LogUtil.d(TAG,"will connect:" + requestUrl);
         //get StringMsg
-        RxWebSocketUtil.getInstance().getWebSocketString(WebSocketConfig.wsUrl)
+        RxWebSocketUtil.getInstance().getWebSocketString(requestUrl)
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
@@ -48,6 +56,11 @@ public class MyService extends Service {
                         LogUtil.d(TAG,"receive websocket:" + s);
                         RxBus.getDefault().post(new WebSocketEvent(WebSocketEvent.RECEIVE_SERVER_DATA,s));
                     }});
+
+
+
+
+
     }
 
     @Override
@@ -63,6 +76,14 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        RxWebSocketUtil.getInstance().getWebSocketInfo(requestUrl).subscribe(new Consumer<WebSocketInfo>() {
+            @Override
+            public void accept(WebSocketInfo webSocketInfo) throws Exception {
+                WebSocket webSocket = webSocketInfo.getWebSocket();
+                webSocket.close(3000,"关闭");
+                LogUtil.d(TAG,"myService websocket closed");
+            }
+        });
         LogUtil.d(TAG,"myService ondestory");
     }
 
