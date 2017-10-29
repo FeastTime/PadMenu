@@ -4,6 +4,7 @@ apply plugin: 'com.android.application'
 buildscript {
     repositories {
         //jcenter()
+        maven { url "https://jitpack.io"}
          maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     }
 
@@ -43,6 +44,7 @@ android {
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io"}
     maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     flatDir {
         dirs 'libs' /**在libs文件夹下找aar文件*/
@@ -81,6 +83,9 @@ dependencies {
     compile 'io.apisense:rhino-android:1.0'
     testCompile 'junit:junit:4.12'
 
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.bartoszlipinski:recyclerviewheader2:2.0.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v2.6.1'
     //    扫码
     compile 'com.google.zxing:core:3.3.0'
 
