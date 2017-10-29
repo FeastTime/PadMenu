@@ -168,6 +168,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_centerVertical="true"
                         android:scaleType="fitCenter"
+                        android:onClick="login"
                         android:src="@mipmap/my" />
 
                     <ImageView
@@ -410,12 +411,13 @@
 
             </LinearLayout>
 
-            <!--定位按钮-->
+            <!--底部半透明图片不可点击-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginBottom="0dp"
                 android:layout_alignParentBottom="true"
+                android:clickable="false"
                 android:background="@mipmap/map_bottom_bg">
 
 

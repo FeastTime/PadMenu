@@ -2,6 +2,7 @@ package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.map.LocationCallback;
 import com.feasttime.dishmap.map.MyLocation;
 import com.feasttime.dishmap.service.MyService;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -494,8 +496,19 @@ public class MainActivity extends BaseActivity{
     // 点击菜单按钮
     public void touchMenu(View view){
 
-        Intent intent = new Intent(this, MenuActivity.class);
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        Intent intent;
+
+        if (TextUtils.isEmpty(token)){
+            intent = new Intent(this, LoginActivity.class);
+
+        } else{
+
+            intent = new Intent(this, ScanActivity.class);
+        }
+
         startActivity(intent);
+
     }
 
     // 点击定位按钮
@@ -503,6 +516,20 @@ public class MainActivity extends BaseActivity{
 //        Toast.makeText(this, "定位功能马上开启！", Toast.LENGTH_SHORT).show();
 
         location();
+    }
+
+    // 进入我的或者登录
+    public void login(View view){
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        Intent intent;
+
+        if (TextUtils.isEmpty(token)){
+            intent = new Intent(this, LoginActivity.class);
+
+        } else {
+            intent = new Intent(this, LoginActivity.class);
+        }
+        startActivity(intent);
     }
 
     /**
