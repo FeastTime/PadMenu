@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.activity.TestActivtiy;
+import com.feasttime.dishmap.model.WebSocketConfig;
+import com.feasttime.dishmap.rxbus.RxBus;
+import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 
@@ -28,7 +31,6 @@ public class MyService extends Service {
         LogUtil.d(TAG,"myService oncreate");
 
 
-        String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket";
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -38,14 +40,14 @@ public class MyService extends Service {
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
         //get StringMsg
-        RxWebSocketUtil.getInstance().getWebSocketString(wsUrl)
+        RxWebSocketUtil.getInstance().getWebSocketString(WebSocketConfig.wsUrl)
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         //连接成功后收到消息
                         LogUtil.d(TAG,"receive websocket:" + s);
-                    }
-                });
+                        RxBus.getDefault().post(new WebSocketEvent(WebSocketEvent.RECEIVE_SERVER_DATA,s));
+                    }});
     }
 
     @Override

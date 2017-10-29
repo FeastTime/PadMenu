@@ -8,14 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.rxbus.RxBus;
+import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.utils.LogUtil;
 
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2017/10/28.
  */
 
 public class MerchantOpenTableFragment extends Fragment{
+    private static final String TAG = "MerchantOpenTableFragment";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,17 @@ public class MerchantOpenTableFragment extends Fragment{
                 false);
         ButterKnife.bind(this,view);
         return view;
+    }
+
+    private void init() {
+        RxBus.getDefault().register(this, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
+            @Override
+            public void accept(WebSocketEvent orderEvent) throws Exception {
+                if (orderEvent.eventType == WebSocketEvent.RECEIVE_SERVER_DATA) {
+                    LogUtil.d(TAG,"received data:" + orderEvent.jsonData);
+                }
+            }
+        });
     }
 
     @Override

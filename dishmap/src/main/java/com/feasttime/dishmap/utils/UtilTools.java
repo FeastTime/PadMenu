@@ -6,6 +6,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.dhh.websocket.RxWebSocketUtil;
+import com.feasttime.dishmap.model.WebSocketConfig;
+
+import java.util.HashMap;
+
 /**
  * Created by chen on 2017/9/20.
  */
@@ -34,4 +40,22 @@ public class UtilTools {
         textView.setCompoundDrawables(null,drawable, null, null);
     }
 
+
+    public static void requestByWebSocket(Context context,HashMap<String,String> originRequestDataMap) {
+        String imei = DeviceTool.getIMEI(context);
+        String androidID = DeviceTool.getAndroidId(context);
+        String ipv4 = DeviceTool.getIP(context);
+        String mobileNO = DeviceTool.getPhoneNumber(context);
+        String mac = DeviceTool.getLocalMacAddress(context);
+
+        HashMap<String,String> requestData = new HashMap<String,String>();
+        requestData.put("imei",imei);
+        requestData.put("androidID",androidID);
+        requestData.put("mac",mac);
+        requestData.put("ipv4",ipv4);
+        requestData.putAll(originRequestDataMap);
+        String requestJson = JSON.toJSONString(requestData);
+
+        RxWebSocketUtil.getInstance().asyncSend(WebSocketConfig.wsUrl, requestJson);
+    }
 }
