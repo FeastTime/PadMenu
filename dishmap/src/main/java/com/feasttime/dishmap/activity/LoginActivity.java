@@ -14,6 +14,7 @@ import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.LoginInfo;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 
 import org.reactivestreams.Subscription;
@@ -92,6 +93,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 public void accept(LoginInfo loginInfo) throws Exception {
                     //1成功，非1失败
                     if (loginInfo.getResultCode() == 0) {
+                        PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,loginInfo.getToken());
+                        PreferenceUtil.setStringKey(PreferenceUtil.STORE_ID,loginInfo.getStoreId());
                         ToastUtil.showToast(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT);
                     } else {
                         ToastUtil.showToast(LoginActivity.this,"登录失败",Toast.LENGTH_SHORT);

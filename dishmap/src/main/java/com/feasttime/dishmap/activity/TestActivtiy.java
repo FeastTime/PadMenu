@@ -11,6 +11,10 @@ import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
+import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
+import com.feasttime.dishmap.rxbus.RxBus;
+import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.DeviceTool;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
@@ -38,7 +42,7 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
     private static String mac = "";
     private static String mobileNO = "";
 
-    String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket";
+    String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket/6554455/0011";
 //    String wsUrl = "ws://192.168.1.101:8081/websocket";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +56,24 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
         mobileNO = DeviceTool.getPhoneNumber(this);
         mac = DeviceTool.getLocalMacAddress(this);
 
-        testWebSocket();
+        startService(new Intent(this, MyService.class));
+//        testWebSocket();
 
 //        MyDialogs.showEatDishPersonNumDialog(this);
 //
 //        startActivity(new Intent(this,ChatActivity.class));
 
 //        startActivity(new Intent(this,MerchantActivity.class));
+
+        RxBus.getDefault().register(this, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
+            @Override
+            public void accept(WebSocketEvent orderEvent) throws Exception {
+                if (orderEvent.eventType == WebSocketEvent.RECEIVE_SERVER_DATA) {
+                    LogUtil.d("result","test activity received data:" + orderEvent.jsonData);
+                    //ChatMsgItemInfo obj = JSON.parseObject(orderEvent.jsonData,ChatMsgItemInfo.class);
+                }
+            }
+        });
     }
 
 
