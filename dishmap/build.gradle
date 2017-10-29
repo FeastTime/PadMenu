@@ -81,6 +81,9 @@ dependencies {
     compile 'io.apisense:rhino-android:1.0'
     testCompile 'junit:junit:4.12'
 
+    //    扫码
+    compile 'com.google.zxing:core:3.3.0'
 
+    // web socket 通讯
     compile 'com.dhh:websocket2:1.3.0'
 }
