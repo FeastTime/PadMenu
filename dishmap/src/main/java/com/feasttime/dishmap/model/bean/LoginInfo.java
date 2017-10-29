@@ -9,6 +9,15 @@ public class LoginInfo {
     String resultMsg;
     String token;
     String storeId;
+    String userType;
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 
     public String getStoreId() {
         return storeId;

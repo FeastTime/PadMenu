@@ -1,5 +1,6 @@
 package com.feasttime.dishmap.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,12 +10,17 @@ import android.widget.TextView;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
+import com.feasttime.dishmap.rxbus.RxBus;
+import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.service.MyService;
+import com.feasttime.dishmap.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2017/10/25.
@@ -59,6 +65,18 @@ public class ChatActivity extends BaseActivity {
         contentLv.setAdapter(chatAdapter);
 
         initViews();
+
+        startService(new Intent(this, MyService.class));
+
+        RxBus.getDefault().register(this, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
+            @Override
+            public void accept(WebSocketEvent orderEvent) throws Exception {
+            if (orderEvent.eventType == WebSocketEvent.RECEIVE_SERVER_DATA) {
+                LogUtil.d("result","test activity received data:" + orderEvent.jsonData);
+                //ChatMsgItemInfo obj = JSON.parseObject(orderEvent.jsonData,ChatMsgItemInfo.class);
+            }
+            }
+        });
     }
 
 
@@ -68,4 +86,9 @@ public class ChatActivity extends BaseActivity {
         titleTv.setText("全聚德");
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.getDefault().unRegister(this);
+    }
 }
