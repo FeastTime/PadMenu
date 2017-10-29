@@ -1,17 +1,9 @@
 package com.feasttime.dishmap.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +14,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
@@ -41,15 +34,9 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.map.LocationCallback;
 import com.feasttime.dishmap.map.MyLocation;
-import com.feasttime.dishmap.permission.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import pub.devrel.easypermissions.EasyPermissions;
-
-import static com.feasttime.dishmap.permission.Permission.allPermissions;
-import static com.feasttime.dishmap.permission.Permission.getPermission;
 
 
 public class MainActivity extends BaseActivity{
@@ -80,7 +67,7 @@ public class MainActivity extends BaseActivity{
     TextView textViewName;
     TextView textViewAddress;
     ImageView playButtonImg;
-    EditText searchText;
+//    EditText searchText;
 
     MyMarkerInfo clickMyMarkerInfo;
 
@@ -89,9 +76,6 @@ public class MainActivity extends BaseActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
 
 
         // 初始化基本控件
@@ -103,8 +87,6 @@ public class MainActivity extends BaseActivity{
         // 定位
         location();
 
-
-
     }
 
     // 初始化UI
@@ -115,25 +97,25 @@ public class MainActivity extends BaseActivity{
         textViewName = (TextView)findViewById(R.id.name);
         textViewAddress = (TextView)findViewById(R.id.address);
         playButtonImg = (ImageView)findViewById(R.id.play_button_img);
-        searchText = (EditText) findViewById(R.id.search_text);
+//        searchText = (EditText) findViewById(R.id.search_text);
 
-        searchText.setOnKeyListener(new View.OnKeyListener() {
-
-            @Override
-
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    // hidden keyboard
-                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
-                            .hideSoftInputFromWindow(MainActivity.this.getCurrentFocus()
-                                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                    // do search
-                    Toast.makeText(MainActivity.this, "稍后开放此功能", Toast.LENGTH_SHORT).show();
-                }
-                return false;
-            }
-        });
+//        searchText.setOnKeyListener(new View.OnKeyListener() {
+//
+//            @Override
+//
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//
+//                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+//                    // hidden keyboard
+//                    ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+//                            .hideSoftInputFromWindow(MainActivity.this.getCurrentFocus()
+//                                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//                    // do search
+//                    Toast.makeText(MainActivity.this, "稍后开放此功能", Toast.LENGTH_SHORT).show();
+//                }
+//                return false;
+//            }
+//        });
 
     }
 
@@ -156,21 +138,25 @@ public class MainActivity extends BaseActivity{
 //        mBaiduMap.setTrafficEnabled(true);
 
 
-        // 设置饭店图标
-        addPoint(getMarkerInfos());
+//        // 设置饭店图标
+//        addPoint(getMarkerInfos());
 
         // 添加点击事件响应
         addMarkerListener();
 
-        // 搜索结果监听器初始化
-        initSearchResultListener();
+        // 地图监听器初始化
+        initMapListener();
+
+
 
         hotpotPoiSearch = PoiSearch.newInstance();
         chinaFoodPoiSearch = PoiSearch.newInstance();
         westernPoiSearch = PoiSearch.newInstance();
+
+
     }
 
-    private void initSearchResultListener() {
+    private void initMapListener() {
 
         // 火锅搜索结果
         hotpotPoiListener = new OnGetPoiSearchResultListener() {
@@ -246,6 +232,24 @@ public class MainActivity extends BaseActivity{
             @Override
             public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {}
         };
+
+        mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
+
+            @Override
+            public void onMapStatusChangeStart(MapStatus mapStatus) {}
+
+            @Override
+            public void onMapStatusChangeStart(MapStatus mapStatus, int i) {}
+
+            @Override
+            public void onMapStatusChange(MapStatus mapStatus) {}
+
+            @Override
+            public void onMapStatusChangeFinish(MapStatus mapStatus) {
+
+                boundSearch();
+            }
+        });
     }
 
     // 定位
@@ -327,8 +331,8 @@ public class MainActivity extends BaseActivity{
 
         List infos = new ArrayList<MyMarkerInfo>();
 
-        infos.add(new MyMarkerInfo(39.963177, 116.400244, "9998887771", "天津站",R.mipmap.hotile_blue,"天津站，俗称天津东站，隶属北京铁路局管辖", "textViewAddress", "01023432423"));
-        infos.add(new MyMarkerInfo(39.973176, 116.402234, "9998887772",  "南开大学",R.mipmap.hotile_green,"正式成立于1919年，是由严修、张伯苓秉承教育救国理念创办的综合性大学。", "textViewAddress", "01023432423"));
+        infos.add(new MyMarkerInfo(39.963177, 116.400244, "9998887771", "天津站",R.mipmap.hotpot_red,"天津站，俗称天津东站，隶属北京铁路局管辖", "textViewAddress", "01023432423"));
+        infos.add(new MyMarkerInfo(39.973176, 116.402234, "9998887772",  "南开大学",R.mipmap.hotpot_red,"正式成立于1919年，是由严修、张伯苓秉承教育救国理念创办的综合性大学。", "textViewAddress", "01023432423"));
 
         return infos;
     }
@@ -341,7 +345,7 @@ public class MainActivity extends BaseActivity{
         List<MyMarkerInfo> infos = new ArrayList<>(poiInfos.size());
 
         int i = 0;
-        int imageId = R.mipmap.hotile_blue;;
+        int imageId = R.mipmap.hotpot_red;
         String storeID;
 
         for (PoiInfo poiInfo : poiInfos) {
@@ -353,52 +357,28 @@ public class MainActivity extends BaseActivity{
                 storeID = "festTime";
             }
 
-            int mod6 = i%6;
+            int mod2 = i%2;
 
             if (foodType == FOOD_TYPE_HOT_POT){
 
-                if (mod6 == 0)
-                    imageId = R.mipmap.hotpot_green;
-                else if (mod6 == 1)
-                    imageId = R.mipmap.hotpot_green_camera;
-                else if (mod6 == 2)
+                if (mod2 == 0)
                     imageId = R.mipmap.hotpot_red;
-                else if (mod6 == 3)
-                    imageId = R.mipmap.hotpot_red_camera;
-                else if (mod6 == 4)
+                else if (mod2 == 1)
                     imageId = R.mipmap.hotpot_yellow;
-                else if (mod6 == 5)
-                    imageId = R.mipmap.hotpot_yellow_camera;
 
             } else if (foodType == FOOD_TYPE_CHINA){
 
-                if (mod6 == 0)
-                    imageId = R.mipmap.chinese_green;
-                else if (mod6 == 1)
-                    imageId = R.mipmap.chinese_green_camera;
-                else if (mod6 == 2)
+                if (mod2 == 0)
                     imageId = R.mipmap.chinese_red;
-                else if (mod6 == 3)
-                    imageId = R.mipmap.chinese_red_camera;
-                else if (mod6 == 4)
+                else if (mod2 == 1)
                     imageId = R.mipmap.chinese_yellow;
-                else if (mod6 == 5)
-                    imageId = R.mipmap.chinese_yellow_camera;
 
             } else if (foodType == FOOD_TYPE_WESTERN){
 
-                if (mod6 == 0)
-                    imageId = R.mipmap.western_green;
-                else if (mod6 == 1)
-                    imageId = R.mipmap.western_green_camera;
-                else if (mod6 == 2)
+                if (mod2 == 0)
                     imageId = R.mipmap.western_red;
-                else if (mod6 == 3)
-                    imageId = R.mipmap.western_red_camera;
-                else if (mod6 == 4)
+                else if (mod2 == 1)
                     imageId = R.mipmap.western_yellow;
-                else if (mod6 == 5)
-                    imageId = R.mipmap.western_yellow_camera;
             }
 
             infos.add(new MyMarkerInfo(poiInfo.location.latitude, poiInfo.location.longitude, storeID, poiInfo.name,imageId, "unkonwn", poiInfo.address, poiInfo.phoneNum));
@@ -561,12 +541,8 @@ public class MainActivity extends BaseActivity{
 
     }
 
-    private void getBound(){
 
-        LatLng northeast = mBaiduMap.getMapStatus().bound.northeast;
-        LatLng southwest = mBaiduMap.getMapStatus().bound.southwest;
-        LatLng center = mBaiduMap.getMapStatus().bound.getCenter();
 
-    }
+
 
 }
