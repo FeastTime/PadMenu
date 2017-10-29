@@ -71,7 +71,7 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
         //get StringMsg
-        RxWebSocketUtil.getInstance().getWebSocketString(wsUrl + "/" + token)
+        RxWebSocketUtil.getInstance().getWebSocketString(wsUrl)
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
@@ -98,7 +98,7 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
 
             String requestJson = JSON.toJSONString(requestData);
 
-            RxWebSocketUtil.getInstance().asyncSend(wsUrl + "/2", requestJson);
+            RxWebSocketUtil.getInstance().asyncSend(wsUrl, requestJson);
         }
     }
 }

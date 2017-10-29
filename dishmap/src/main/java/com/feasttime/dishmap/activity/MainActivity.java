@@ -34,6 +34,7 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.map.LocationCallback;
 import com.feasttime.dishmap.map.MyLocation;
+import com.feasttime.dishmap.service.MyService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,7 @@ public class MainActivity extends BaseActivity{
         // 定位
         location();
 
+        startService(new Intent(this, MyService.class));
     }
 
     // 初始化UI
@@ -434,6 +436,7 @@ public class MainActivity extends BaseActivity{
         hotpotPoiSearch.destroy();
         chinaFoodPoiSearch.destroy();
         westernPoiSearch.destroy();
+        stopService(new Intent(this,MyService.class));
     }
 
     @Override

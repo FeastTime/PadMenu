@@ -76,7 +76,10 @@
 
         </activity>
         <activity android:name=".activity.SplashActivity" >
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".activity.LoginActivity" >
@@ -92,11 +95,10 @@
         <activity android:name=".activity.MerchantActivity" >
         </activity>
 
+        <service android:name=".service.MyService"></service>
+
         <activity android:name=".activity.TestActivtiy">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity
