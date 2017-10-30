@@ -60,6 +60,7 @@ public class Permission {
             Manifest.permission.ACCESS_FINE_LOCATION
             , Manifest.permission.READ_PHONE_STATE
             , Manifest.permission.WRITE_EXTERNAL_STORAGE
+            , Manifest.permission.CAMERA
     };
 
 

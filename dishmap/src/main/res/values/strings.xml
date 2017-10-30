@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">趣吃</string>
+    <string name="app_name">优先吃</string>
     <string name="search_hint">查找菜品/餐厅</string>
     <string name="text_busy">繁忙</string>
     <string name="text_leisure">空闲</string>
