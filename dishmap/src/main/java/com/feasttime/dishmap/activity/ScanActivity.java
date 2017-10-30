@@ -1,5 +1,6 @@
 package com.feasttime.dishmap.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,8 +26,6 @@ public class ScanActivity extends AppCompatActivity {
 
         mQRCodeView = (ZXingView) findViewById(R.id.zxingview);
 
-
-
     }
 
     @Override
@@ -49,6 +48,11 @@ public class ScanActivity extends AppCompatActivity {
                 if (result.startsWith("优先吃：")){
                     String storeID = result.substring(4);
                     Log.d(TAG, storeID);
+
+                    Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
+                    intent.putExtra("STORE_ID", storeID);
+                    ScanActivity.this.startActivity(intent);
+
                     ScanActivity.this.finish();
                 }
 

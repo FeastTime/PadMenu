@@ -21,6 +21,7 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
@@ -32,6 +33,16 @@ import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.route.BikingRouteResult;
+import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
+import com.baidu.mapapi.search.route.DrivingRouteResult;
+import com.baidu.mapapi.search.route.IndoorRouteResult;
+import com.baidu.mapapi.search.route.MassTransitRouteResult;
+import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
+import com.baidu.mapapi.search.route.PlanNode;
+import com.baidu.mapapi.search.route.RoutePlanSearch;
+import com.baidu.mapapi.search.route.TransitRouteResult;
+import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.map.LocationCallback;
 import com.feasttime.dishmap.map.MyLocation;
@@ -62,8 +73,8 @@ public class MainActivity extends BaseActivity{
     // 火锅监听
     OnGetPoiSearchResultListener westernFoodPoiListener;
     MyLocation myLocation;
+    BDLocation nowLocation = null;
 
-    boolean isLocation = false;
 
     LinearLayout detailDialog;
     TextView textViewPhoneNO;
@@ -73,6 +84,8 @@ public class MainActivity extends BaseActivity{
 //    EditText searchText;
 
     MyMarkerInfo clickMyMarkerInfo;
+
+    private RoutePlanSearch mSearch = RoutePlanSearch.newInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +146,7 @@ public class MainActivity extends BaseActivity{
 
         //普通地图
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+        mBaiduMap.setMyLocationEnabled(true);
 
         mMapView.showZoomControls(true);//设置是否显示缩放控件
         mMapView.getChildAt(2).setPadding(0,0,10,400);//这是控制缩放控件的位置
@@ -254,6 +268,38 @@ public class MainActivity extends BaseActivity{
                 boundSearch();
             }
         });
+
+        mSearch.setOnGetRoutePlanResultListener(new OnGetRoutePlanResultListener() {
+            @Override
+            public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
+
+            }
+
+            @Override
+            public void onGetTransitRouteResult(TransitRouteResult transitRouteResult) {
+
+            }
+
+            @Override
+            public void onGetMassTransitRouteResult(MassTransitRouteResult massTransitRouteResult) {
+
+            }
+
+            @Override
+            public void onGetDrivingRouteResult(DrivingRouteResult drivingRouteResult) {
+
+            }
+
+            @Override
+            public void onGetIndoorRouteResult(IndoorRouteResult indoorRouteResult) {
+
+            }
+
+            @Override
+            public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
+
+            }
+        });
     }
 
     // 定位
@@ -270,12 +316,14 @@ public class MainActivity extends BaseActivity{
                 @Override
                 public void getLocationSuccess(BDLocation location) {
 
+                    nowLocation = location;
                     myLocation.stopLocation();
                     Log.d(TAG, "getLocationSuccess");
 
                     // 设置当前位置,和缩放级别
                     setLocation(location.getLatitude(), location.getLongitude(), 16);
 
+                    showSelfLocation(location);
 //                    search(location.getLatitude(), location.getLongitude(),"饭店");
 
                     // 基于当前地域进行搜索
@@ -323,11 +371,21 @@ public class MainActivity extends BaseActivity{
 
                 clickMyMarkerInfo = (MyMarkerInfo) marker.getExtraInfo().get("MyMarkerInfo");
 
-                showDialog(clickMyMarkerInfo.getName(), clickMyMarkerInfo.getPhoneNO(), clickMyMarkerInfo.getAddress());
+                showDialog(clickMyMarkerInfo.getName(), clickMyMarkerInfo.getPhoneNO(), clickMyMarkerInfo.getAddress(), clickMyMarkerInfo.getLatitude(), clickMyMarkerInfo.getLongitude());
 
                 return false;
             }
         });
+    }
+
+    // 显示个人位置图标
+    private void showSelfLocation(BDLocation location){
+
+        MyLocationData.Builder builder = new MyLocationData.Builder();
+        builder.latitude(location.getLatitude());
+        builder.longitude(location.getLongitude());
+        MyLocationData data = builder.build();
+        mBaiduMap.setMyLocationData(data);
     }
 
 
@@ -460,16 +518,39 @@ public class MainActivity extends BaseActivity{
     }
 
     // 显示对话框
-    private void showDialog(String name, String phoneNO, String address){
+    private void showDialog(String name, String phoneNO, String address, double latitude, double longitude){
 
-//        detailDialog.setVisibility(View.VISIBLE);
-//        textViewName.setText(name);
-//
-//        textViewPhoneNO.setText(phoneNO.isEmpty()?"电话暂未提供" : phoneNO);
-//        textViewAddress.setText(address);
+        detailDialog.setVisibility(View.VISIBLE);
+        textViewName.setText(name);
 
-        Intent intent = new Intent(this, StoreDetailActivity.class);
-        this.startActivity(intent);
+        textViewPhoneNO.setText(phoneNO.isEmpty()?"电话暂未提供" : phoneNO);
+        textViewAddress.setText(address);
+
+        searchLine(nowLocation, latitude, longitude);//调用路径规划
+
+//        Intent intent = new Intent(this, StoreDetailActivity.class);
+//        this.startActivity(intent);
+
+    }
+
+    // 搜索导航路线
+    private void searchLine(BDLocation start, double endLatitude, double endLongitude) {
+
+
+        //重置浏览节点的路线数据
+        //route = null;
+        mBaiduMap.clear();
+
+        //设置起终点、途经点信息，对于tranist search 来说，城市名无意义
+        PlanNode stNode = PlanNode.withLocation(new LatLng(start.getLatitude(), start.getLongitude()));
+        PlanNode enNode = PlanNode.withLocation(new LatLng(endLatitude, endLongitude));
+
+
+        // 实际使用中请对起点终点城市进行正确的设定
+        mSearch.drivingSearch((new DrivingRoutePlanOption())
+                .from(stNode)//起点
+                .to(enNode));//终点
+
 
     }
 
