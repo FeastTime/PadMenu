@@ -30,6 +30,11 @@ public class ChatAdapter extends BaseAdapter {
         mLayoutInflater = LayoutInflater.from(context);
     }
 
+    public void addData(ChatMsgItemInfo chatMsgItemInfo) {
+        dataList.add(chatMsgItemInfo);
+        this.notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return dataList.size();

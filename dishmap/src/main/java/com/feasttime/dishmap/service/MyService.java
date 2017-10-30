@@ -36,6 +36,22 @@ public class MyService extends Service {
 
 
 
+
+
+
+
+
+
+    }
+
+    @Override
+    public void onStart(Intent intent, int startId) {
+        super.onStart(intent, startId);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
         OkHttpClient okHttpClient = new OkHttpClient();
 
         String token = "6554455";
@@ -58,18 +74,6 @@ public class MyService extends Service {
                     }});
 
 
-
-
-
-    }
-
-    @Override
-    public void onStart(Intent intent, int startId) {
-        super.onStart(intent, startId);
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
 
