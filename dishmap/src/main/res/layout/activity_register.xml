@@ -203,6 +203,7 @@
             android:id="@+id/activity_register_type_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x30"
             android:text="个人"
             android:checked="true"
             android:textSize="@dimen/big_text_size"
