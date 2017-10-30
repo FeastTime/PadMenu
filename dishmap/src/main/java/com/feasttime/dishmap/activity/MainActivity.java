@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity{
         // 定位
         location();
 
-        startService(new Intent(this, MyService.class));
+
     }
 
     // 初始化UI

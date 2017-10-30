@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,6 +62,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Bind(R.id.activity_register_vierfy_number_sended_tv)
     TextView verifyNumSendedTv;
 
+    @Bind(R.id.activity_register_type_cb)
+    CheckBox typeCb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private void initView() {
         titleShareIv.setVisibility(View.GONE);
         centerTitleTv.setText("注册");
+
+        typeCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    buttonView.setText("个人");
+                } else {
+                    buttonView.setText("饭店");
+                }
+            }
+        });
     }
 
 
@@ -105,10 +120,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             HashMap<String,Object> infoMap = new HashMap<String,Object>();
             infoMap.put("mobileNO",phone);
             infoMap.put("pwd",password);
+            infoMap.put("name","no name");
+            if (typeCb.isChecked()) {
+                infoMap.put("userType","customer");
+            } else {
+                infoMap.put("userType","store");
+            }
+
             RetrofitService.register(infoMap).subscribe(new Consumer<RegisterInfo>(){
                 @Override
                 public void accept(RegisterInfo registerInfo) throws Exception {
-                    if (registerInfo.isResultCode()) {
+                    if (registerInfo.getResultCode() == 0) {
                         ToastUtil.showToast(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT);
                         finish();
                     } else {

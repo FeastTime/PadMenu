@@ -5,15 +5,15 @@ package com.feasttime.dishmap.model.bean;
  */
 
 public class RegisterInfo {
-    boolean resultCode;
+    int resultCode;
     String resultMsg;
     String token;
 
-    public boolean isResultCode() {
+    public int getResultCode() {
         return resultCode;
     }
 
-    public void setResultCode(boolean resultCode) {
+    public void setResultCode(int resultCode) {
         this.resultCode = resultCode;
     }
 

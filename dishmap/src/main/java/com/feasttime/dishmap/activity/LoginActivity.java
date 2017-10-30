@@ -95,7 +95,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                     if (loginInfo.getResultCode() == 0) {
                         PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,loginInfo.getToken());
                         PreferenceUtil.setStringKey(PreferenceUtil.STORE_ID,loginInfo.getStoreId());
+                        PreferenceUtil.setStringKey(PreferenceUtil.USER_TYPE,loginInfo.getUserType());
                         ToastUtil.showToast(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT);
+                        finish();
                     } else {
                         ToastUtil.showToast(LoginActivity.this,"登录失败",Toast.LENGTH_SHORT);
                     }
