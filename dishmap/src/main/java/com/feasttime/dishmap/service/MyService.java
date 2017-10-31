@@ -80,8 +80,8 @@ public class MyService extends Service {
 
                             } catch (Exception e){
                                 e.printStackTrace();
+                                LogUtil.d(TAG,"receive json pase exception");
                             }
-
                         }
 
                     }});
