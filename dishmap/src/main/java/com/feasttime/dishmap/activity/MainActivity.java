@@ -1,6 +1,7 @@
 package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,10 +23,13 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiAddrInfo;
 import com.baidu.mapapi.search.poi.PoiBoundSearchOption;
@@ -34,6 +38,7 @@ import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.route.BikingRouteResult;
+import com.baidu.mapapi.search.route.DrivingRouteLine;
 import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
 import com.baidu.mapapi.search.route.DrivingRouteResult;
 import com.baidu.mapapi.search.route.IndoorRouteResult;
@@ -85,7 +90,7 @@ public class MainActivity extends BaseActivity{
 
     MyMarkerInfo clickMyMarkerInfo;
 
-    private RoutePlanSearch mSearch = RoutePlanSearch.newInstance();
+    private RoutePlanSearch routePlanSearch = RoutePlanSearch.newInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +107,6 @@ public class MainActivity extends BaseActivity{
 
         // 定位
         location();
-
 
     }
 
@@ -164,7 +168,6 @@ public class MainActivity extends BaseActivity{
 
         // 地图监听器初始化
         initMapListener();
-
 
 
         hotpotPoiSearch = PoiSearch.newInstance();
@@ -269,7 +272,7 @@ public class MainActivity extends BaseActivity{
             }
         });
 
-        mSearch.setOnGetRoutePlanResultListener(new OnGetRoutePlanResultListener() {
+        routePlanSearch.setOnGetRoutePlanResultListener(new OnGetRoutePlanResultListener() {
             @Override
             public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
 
@@ -287,6 +290,38 @@ public class MainActivity extends BaseActivity{
 
             @Override
             public void onGetDrivingRouteResult(DrivingRouteResult drivingRouteResult) {
+
+
+
+                // 规划路线结果
+
+                if (drivingRouteResult == null || drivingRouteResult.error != SearchResult.ERRORNO.NO_ERROR) {
+                    Toast.makeText(MainActivity.this, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+                }
+                if (drivingRouteResult.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
+                    //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
+                    //result.getSuggestAddrInfo()
+                    Toast.makeText(MainActivity.this, "抱歉，未找到结果", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (drivingRouteResult.error == SearchResult.ERRORNO.NO_ERROR) {
+
+                    if(drivingRouteResult.getRouteLines()!=null) {
+
+                        DrivingRouteLine drivingRouteLine = drivingRouteResult.getRouteLines().get(0);
+
+                        int distance = drivingRouteLine.getDistance();
+
+                        Log.d("lixiaoqing", "distance : " + distance);
+
+                        List allStep = drivingRouteLine.getAllStep();
+
+                        for (int i = 0; i < allStep.size(); i++) {
+
+                        }
+                    }
+                }
 
             }
 
@@ -389,15 +424,15 @@ public class MainActivity extends BaseActivity{
     }
 
 
-    private List<MyMarkerInfo> getMarkerInfos() {
-
-        List infos = new ArrayList<MyMarkerInfo>();
-
-        infos.add(new MyMarkerInfo(39.963177, 116.400244, "9998887771", "天津站",R.mipmap.hotpot_red,"天津站，俗称天津东站，隶属北京铁路局管辖", "textViewAddress", "01023432423"));
-        infos.add(new MyMarkerInfo(39.973176, 116.402234, "9998887772",  "南开大学",R.mipmap.hotpot_red,"正式成立于1919年，是由严修、张伯苓秉承教育救国理念创办的综合性大学。", "textViewAddress", "01023432423"));
-
-        return infos;
-    }
+//    private List<MyMarkerInfo> getMarkerInfos() {
+//
+//        List infos = new ArrayList<MyMarkerInfo>();
+//
+//        infos.add(new MyMarkerInfo(39.963177, 116.400244, "9998887771", "天津站",R.mipmap.hotpot_red,"天津站，俗称天津东站，隶属北京铁路局管辖", "textViewAddress", "01023432423"));
+//        infos.add(new MyMarkerInfo(39.973176, 116.402234, "9998887772",  "南开大学",R.mipmap.hotpot_red,"正式成立于1919年，是由严修、张伯苓秉承教育救国理念创办的综合性大学。", "textViewAddress", "01023432423"));
+//
+//        return infos;
+//    }
 
 
     // 转化成地图设置点的格式
@@ -547,7 +582,7 @@ public class MainActivity extends BaseActivity{
 
 
         // 实际使用中请对起点终点城市进行正确的设定
-        mSearch.drivingSearch((new DrivingRoutePlanOption())
+        routePlanSearch.drivingSearch((new DrivingRoutePlanOption())
                 .from(stNode)//起点
                 .to(enNode));//终点
 

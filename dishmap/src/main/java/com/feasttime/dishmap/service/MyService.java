@@ -4,9 +4,12 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
 import com.feasttime.dishmap.activity.MerchantActivity;
@@ -56,7 +59,8 @@ public class MyService extends Service {
         RxWebSocketUtil.getInstance().setClient(okHttpClient);
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
-        requestUrl = WebSocketConfig.wsUrl + "/" + token + "/" + storeId;
+
+        requestUrl = WebSocketConfig.wsUrl + "/" + token + "/" + storeId ;
 
         LogUtil.d(TAG,"will connect:" + requestUrl);
         //get StringMsg
@@ -64,9 +68,22 @@ public class MyService extends Service {
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        //连接成功后收到消息
-                        LogUtil.d(TAG,"receive websocket:" + s);
-                        RxBus.getDefault().post(new WebSocketEvent(WebSocketEvent.RECEIVE_SERVER_DATA,s));
+
+                        if (!TextUtils.isEmpty(s) && s.equals("success666success")){
+                            WebSocketConfig.wsUrl = requestUrl;
+                        } else {
+
+                            try{
+                                JSONObject jsonObject = JSON.parseObject(s);
+                                String type = jsonObject.getString("type");
+                                RxBus.getDefault().post(new WebSocketEvent(Integer.parseInt(type),s));
+
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                        }
+
                     }});
 
 
