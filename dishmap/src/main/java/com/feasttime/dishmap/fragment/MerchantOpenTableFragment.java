@@ -97,6 +97,7 @@ public class MerchantOpenTableFragment extends Fragment implements View.OnClickL
             requestData.put("minPerson",minPerson);
             requestData.put("maxPerson",maxPerson);
             requestData.put("storeID","");
+            requestData.put("type",WebSocketEvent.BOSS_PLACE_TABLE + "");
             requestData.put("desc","very nice");
             UtilTools.requestByWebSocket(v.getContext(),requestData);
         }
