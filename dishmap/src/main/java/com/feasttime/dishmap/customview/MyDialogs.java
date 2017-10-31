@@ -97,7 +97,7 @@ public class MyDialogs {
 
     //抢座位结果
     public static void showGrapTableResultDialog(Context context,String resultStr) {
-        Dialog dialog = new Dialog(context,R.style.DialogTheme);
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
         View contentView = inflater.inflate(R.layout.dialog_grap_table_result,null);
@@ -106,10 +106,18 @@ public class MyDialogs {
         TextView resultTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_result_tv);
         resultTv.setText(resultStr);
 
+        Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_grap_table_confirm_btn);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.width = (int)context.getResources().getDimension(R.dimen.x610);
-//        params.height = (int)context.getResources().getDimension(R.dimen.y810);
+        params.height = (int)context.getResources().getDimension(R.dimen.y400);
         dialog.getWindow().setAttributes(params);
         dialog.show();
 
