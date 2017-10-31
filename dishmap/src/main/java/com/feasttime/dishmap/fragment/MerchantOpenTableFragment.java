@@ -44,6 +44,7 @@ public class MerchantOpenTableFragment extends Fragment implements View.OnClickL
     @Bind(R.id.fragment_merchant_open_table_time_et)
     EditText timeEt;
 
+    private String storeId = "";
 
     @Nullable
     @Override
@@ -53,6 +54,10 @@ public class MerchantOpenTableFragment extends Fragment implements View.OnClickL
         ButterKnife.bind(this,view);
         init();
         return view;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
     private void init() {
@@ -96,7 +101,7 @@ public class MerchantOpenTableFragment extends Fragment implements View.OnClickL
             HashMap<String,String> requestData = new HashMap<String,String>();
             requestData.put("minPerson",minPerson);
             requestData.put("maxPerson",maxPerson);
-            requestData.put("storeID","");
+            requestData.put("storeID",this.storeId);
             requestData.put("type",WebSocketEvent.BOSS_PLACE_TABLE + "");
             requestData.put("desc","very nice");
             UtilTools.requestByWebSocket(v.getContext(),requestData);

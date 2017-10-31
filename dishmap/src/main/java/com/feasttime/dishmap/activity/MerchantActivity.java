@@ -50,6 +50,7 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_merchant);
         ButterKnife.bind(this);
         storeId = this.getIntent().getStringExtra("STORE_ID");
+
         startService();
         initView();
     }
@@ -88,7 +89,10 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
         if (v == opentTableTv) {
             if (merchantOpenTableFragment == null) {
                 merchantOpenTableFragment = new MerchantOpenTableFragment();
+
             }
+
+            merchantOpenTableFragment.setStoreId(storeId);
 
             if (merchantOpenTableFragment.isAdded()) {
                 fragmentTransaction.show(merchantOpenTableFragment).commitAllowingStateLoss();
