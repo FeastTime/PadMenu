@@ -56,6 +56,6 @@ public class UtilTools {
         requestData.putAll(originRequestDataMap);
         String requestJson = JSON.toJSONString(requestData);
 
-        RxWebSocketUtil.getInstance().asyncSend(WebSocketConfig.wsUrl, requestJson);
+        RxWebSocketUtil.getInstance().asyncSend(WebSocketConfig.wsRequestUrl, requestJson);
     }
 }

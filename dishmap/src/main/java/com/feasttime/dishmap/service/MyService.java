@@ -31,7 +31,6 @@ import okhttp3.WebSocket;
 
 public class MyService extends Service {
     private static final String TAG =  "MyService";
-    private String requestUrl;
 
     @Override
     public void onCreate() {
@@ -60,7 +59,7 @@ public class MyService extends Service {
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
 
-        requestUrl = WebSocketConfig.wsUrl + "/" + token + "/" + storeId ;
+        final String requestUrl = WebSocketConfig.baseWsUrl + "/" + token + "/" + storeId ;
 
         LogUtil.d(TAG,"will connect:" + requestUrl);
         //get StringMsg
@@ -70,7 +69,7 @@ public class MyService extends Service {
                     public void accept(String s) throws Exception {
 
                         if (!TextUtils.isEmpty(s) && s.equals("success666success")){
-                            WebSocketConfig.wsUrl = requestUrl;
+                            WebSocketConfig.wsRequestUrl = requestUrl;
                         } else {
 
                             try{
@@ -93,7 +92,7 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RxWebSocketUtil.getInstance().getWebSocketInfo(requestUrl).subscribe(new Consumer<WebSocketInfo>() {
+        RxWebSocketUtil.getInstance().getWebSocketInfo(WebSocketConfig.wsRequestUrl).subscribe(new Consumer<WebSocketInfo>() {
             @Override
             public void accept(WebSocketInfo webSocketInfo) throws Exception {
                 WebSocket webSocket = webSocketInfo.getWebSocket();

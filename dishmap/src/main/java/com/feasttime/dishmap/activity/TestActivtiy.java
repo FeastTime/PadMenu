@@ -103,18 +103,19 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v == joinStoreBtn) {
-            HashMap<String,String> requestData = new HashMap<String,String>();
-            requestData.put("imei",imei);
-            requestData.put("androidID",androidID);
-            requestData.put("mac",mac);
-            requestData.put("ipv4",ipv4);
-            requestData.put("mobileNo","15810697038");
-            requestData.put("storeID","00010001");
-            requestData.put("type","1");
-
-            String requestJson = JSON.toJSONString(requestData);
-
-            RxWebSocketUtil.getInstance().asyncSend(WebSocketConfig.wsUrl, requestJson);
+//            HashMap<String,String> requestData = new HashMap<String,String>();
+//            requestData.put("imei",imei);
+//            requestData.put("androidID",androidID);
+//            requestData.put("mac",mac);
+//            requestData.put("ipv4",ipv4);
+//            requestData.put("mobileNo","15810697038");
+//            requestData.put("storeID","00010001");
+//            requestData.put("type","1");
+//
+//            String requestJson = JSON.toJSONString(requestData);
+//
+//            RxWebSocketUtil.getInstance().asyncSend(WebSocketConfig.wsRequestUrl, requestJson);
+            MyDialogs.showGrapTableResultDialog(this,"666");
         }
     }
 }
