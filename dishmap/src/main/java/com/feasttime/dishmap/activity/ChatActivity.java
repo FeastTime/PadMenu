@@ -12,7 +12,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
-import com.feasttime.dishmap.model.WebSocketConfig;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
@@ -85,14 +84,15 @@ public class ChatActivity extends BaseActivity {
             @Override
             public void accept(WebSocketEvent orderEvent) throws Exception {
                 if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
-                    MyDialogs.showGrapSeatDialog(ChatActivity.this,storeId);
-                } else if (orderEvent.eventType == WebSocketEvent.USER_BET_PRICE) {
-
-
+                    MyDialogs.showBetPriceDialog(ChatActivity.this,storeId);
                 } else if (orderEvent.eventType == WebSocketEvent.USER_GRAP_TABLE) {
-
+                    MyDialogs.showGrapTableSeatDialog(ChatActivity.this,storeId);
                 } else if (orderEvent.eventType == WebSocketEvent.PRICE_RANK_CHANGE) {
-
+                    ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+                    chatMsgItemInfo.setIcon(R.mipmap.temp_icon_1);
+                    chatMsgItemInfo.setLeft(true);
+                    chatMsgItemInfo.setMsg(orderEvent.jsonData);
+                    mChatAdapter.addData(chatMsgItemInfo);
                 } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) {
                     JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
                     MyDialogs.showGrapTableResultDialog(ChatActivity.this,jsonObject.getString("name"));
@@ -102,20 +102,6 @@ public class ChatActivity extends BaseActivity {
 
                 LogUtil.d("result", "test activity received data:" + orderEvent.jsonData);
                 //ChatMsgItemInfo obj = JSON.parseObject(orderEvent.jsonData,ChatMsgItemInfo.class);
-
-                JSONObject object = JSON.parseObject(orderEvent.jsonData);
-                JSONObject type = (JSONObject) object.get("type");
-
-                ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                int tempRandom = (int) (Math.random() * 10);
-                if (tempRandom % 2 == 0) {
-                    chatMsgItemInfo.setIcon(R.mipmap.temp_icon_1);
-                    chatMsgItemInfo.setLeft(true);
-                } else {
-                    chatMsgItemInfo.setIcon(R.mipmap.temp_icon_2);
-                    chatMsgItemInfo.setLeft(false);
-                }
-                chatMsgItemInfo.setMsg(orderEvent.jsonData);
             }
         });
 

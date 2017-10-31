@@ -115,7 +115,7 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
 //            String requestJson = JSON.toJSONString(requestData);
 //
 //            RxWebSocketUtil.getInstance().asyncSend(WebSocketConfig.wsRequestUrl, requestJson);
-            MyDialogs.showGrapTableResultDialog(this,"666");
+            MyDialogs.showBetPriceDialog(this,"666");
         }
     }
 }

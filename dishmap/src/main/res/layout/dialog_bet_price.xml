@@ -6,15 +6,24 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/dialog_bet_price_count_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_text_size"
+        android:text="0"
+        />
+
     <EditText
-        android:id="@+id/dialog_grap_seat_number_et"
+        android:id="@+id/dialog_bet_price_number_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:maxLength="2" />
 
     <Button
-        android:id="@+id/dialog_grap_seat_grap_btn"
+        android:id="@+id/dialog_bet_price_grap_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="抢" />
