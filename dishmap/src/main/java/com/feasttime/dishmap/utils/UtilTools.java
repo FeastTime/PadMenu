@@ -45,7 +45,6 @@ public class UtilTools {
         String imei = DeviceTool.getIMEI(context);
         String androidID = DeviceTool.getAndroidId(context);
         String ipv4 = DeviceTool.getIP(context);
-        String mobileNO = DeviceTool.getPhoneNumber(context);
         String mac = DeviceTool.getLocalMacAddress(context);
 
         HashMap<String,String> requestData = new HashMap<String,String>();
@@ -53,6 +52,7 @@ public class UtilTools {
         requestData.put("androidID",androidID);
         requestData.put("mac",mac);
         requestData.put("ipv4",ipv4);
+        requestData.put("mobileNo",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
         requestData.putAll(originRequestDataMap);
         String requestJson = JSON.toJSONString(requestData);
 

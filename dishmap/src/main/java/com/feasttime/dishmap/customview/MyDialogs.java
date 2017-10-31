@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.WebSocketConfig;
+import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
@@ -74,7 +75,7 @@ public class MyDialogs {
                 String number = numberEt.getText().toString();
                 if (TextUtils.equals("0",number)) {
                     requestData.put("price",number);
-                    requestData.put("type", WebSocketConfig.USER_BET_PRICE);
+                    requestData.put("type", WebSocketEvent.USER_BET_PRICE + "");
                     UtilTools.requestByWebSocket(v.getContext(),requestData);
                 } else {
                     ToastUtil.showToast(v.getContext(),"请输入合法数字", Toast.LENGTH_SHORT);

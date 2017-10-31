@@ -11,6 +11,7 @@ import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
+import com.feasttime.dishmap.model.WebSocketConfig;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
@@ -42,7 +43,7 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
     private static String mac = "";
     private static String mobileNO = "";
 
-    String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket/6554455/0011";
+//    String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket/";
 //    String wsUrl = "ws://192.168.1.101:8081/websocket";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
         RxBus.getDefault().register(this, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
             @Override
             public void accept(WebSocketEvent orderEvent) throws Exception {
-                if (orderEvent.eventType == WebSocketEvent.RECEIVE_SERVER_DATA) {
+                if (orderEvent.eventType == WebSocketEvent.BEFORE_TABLES_LIST) {
                     LogUtil.d("result","test activity received data:" + orderEvent.jsonData);
                     //ChatMsgItemInfo obj = JSON.parseObject(orderEvent.jsonData,ChatMsgItemInfo.class);
                 }
@@ -86,15 +87,15 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
         //get StringMsg
-        RxWebSocketUtil.getInstance().getWebSocketString(wsUrl)
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        //连接成功后收到消息
-                        ToastUtil.showToast(TestActivtiy.this,"receive:" + s, Toast.LENGTH_SHORT);
-                        LogUtil.d("result","receive websocket:" + s);
-                    }
-                });
+//        RxWebSocketUtil.getInstance().getWebSocketString(wsUrl)
+//                .subscribe(new Consumer<String>() {
+//                    @Override
+//                    public void accept(String s) throws Exception {
+//                        //连接成功后收到消息
+//                        ToastUtil.showToast(TestActivtiy.this,"receive:" + s, Toast.LENGTH_SHORT);
+//                        LogUtil.d("result","receive websocket:" + s);
+//                    }
+//                });
     }
 
 
@@ -113,7 +114,7 @@ public class TestActivtiy extends BaseActivity implements View.OnClickListener{
 
             String requestJson = JSON.toJSONString(requestData);
 
-            RxWebSocketUtil.getInstance().asyncSend(wsUrl, requestJson);
+            RxWebSocketUtil.getInstance().asyncSend(WebSocketConfig.wsUrl, requestJson);
         }
     }
 }

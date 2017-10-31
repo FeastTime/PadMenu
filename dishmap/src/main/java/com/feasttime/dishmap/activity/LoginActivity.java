@@ -87,6 +87,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
             HashMap<String,Object> infoMap = new HashMap<String,Object>();
             infoMap.put("mobileNO",phone);
+            PreferenceUtil.setStringKey(PreferenceUtil.MOBILE_NO,phone);
             infoMap.put("pwd",password);
             RetrofitService.login(infoMap).subscribe(new Consumer<LoginInfo>(){
                 @Override

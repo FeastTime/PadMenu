@@ -59,7 +59,7 @@ public class MerchantOpenTableFragment extends Fragment implements View.OnClickL
         RxBus.getDefault().register(this, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
             @Override
             public void accept(WebSocketEvent orderEvent) throws Exception {
-                if (orderEvent.eventType == WebSocketEvent.RECEIVE_SERVER_DATA) {
+                if (orderEvent.eventType == WebSocketEvent.BEFORE_TABLES_LIST) {
                     LogUtil.d(TAG,"received data:" + orderEvent.jsonData);
                 }
             }
