@@ -32,6 +32,7 @@
             />
 
         <EditText
+            android:id="@+id/fragment_merchant_open_table_least_people_et"
             android:layout_width="@dimen/x250"
             android:layout_height="@dimen/y72"
             android:gravity="center"
@@ -66,6 +67,7 @@
             />
 
         <EditText
+            android:id="@+id/fragment_merchant_open_table_most_people_et"
             android:layout_width="@dimen/x250"
             android:layout_height="@dimen/y72"
             android:gravity="center"
@@ -104,6 +106,7 @@
             android:layout_width="@dimen/x250"
             android:layout_height="@dimen/y72">
             <EditText
+                android:id="@+id/fragment_merchant_open_table_time_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -144,6 +147,7 @@
 
 
     <Button
+        android:id="@+id/fragment_merchant_open_table_place_table_btn"
         android:layout_width="@dimen/x691"
         android:layout_height="@dimen/y89"
         android:text="放桌"

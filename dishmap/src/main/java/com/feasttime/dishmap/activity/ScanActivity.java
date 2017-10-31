@@ -3,9 +3,11 @@ package com.feasttime.dishmap.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
@@ -49,9 +51,17 @@ public class ScanActivity extends AppCompatActivity {
                     String storeID = result.substring(4);
                     Log.d(TAG, storeID);
 
-                    Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
-                    intent.putExtra("STORE_ID", storeID);
-                    ScanActivity.this.startActivity(intent);
+                    String storeType = PreferenceUtil.getStringKey(PreferenceUtil.USER_TYPE);
+                    if (TextUtils.equals(storeType,"store")) {
+                        Intent intent = new Intent(ScanActivity.this, MerchantActivity.class);
+                        intent.putExtra("STORE_ID", storeID);
+                        ScanActivity.this.startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
+                        intent.putExtra("STORE_ID", storeID);
+                        ScanActivity.this.startActivity(intent);
+                    }
+
 
                     ScanActivity.this.finish();
                 }

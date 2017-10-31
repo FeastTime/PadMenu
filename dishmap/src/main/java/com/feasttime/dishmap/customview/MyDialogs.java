@@ -39,7 +39,9 @@ public class MyDialogs {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//                HashMap<String,String> requestData = new HashMap<String, String>();
+//                requestData.put("",);
+//                UtilTools.requestByWebSocket(v.getContext(),);
             }
         });
 

@@ -1,10 +1,12 @@
 package com.feasttime.dishmap.activity;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.fragment.MerchantMineFragment;
 import com.feasttime.dishmap.fragment.MerchantOpenTableFragment;
 import com.feasttime.dishmap.fragment.MerchantReachStoreConfirmFragment;
+import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.UtilTools;
 
 import butterknife.Bind;
@@ -36,6 +39,7 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
     @Bind(R.id.activity_merchant_mine_tv)
     TextView mineTv;
 
+    private String storeId = "";
 
     private MerchantOpenTableFragment merchantOpenTableFragment;
     private MerchantMineFragment merchantMineFragment;
@@ -45,7 +49,15 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_merchant);
         ButterKnife.bind(this);
+        storeId = this.getIntent().getStringExtra("STORE_ID");
+        startService();
         initView();
+    }
+
+    private void startService() {
+        Intent intent = new Intent(this,MyService.class);
+        intent.putExtra("STORE_ID",storeId);
+        startService(intent);
     }
 
 
@@ -107,8 +119,6 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
                 fragmentTransaction.show(merchantMineFragment).commitAllowingStateLoss();
             }
         }
-
-
     }
 
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
@@ -123,5 +133,11 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
         if (merchantReachStoreConfirmFragment != null && merchantReachStoreConfirmFragment.isAdded()) {
             fragmentTransaction.hide(merchantReachStoreConfirmFragment);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, MyService.class));
     }
 }

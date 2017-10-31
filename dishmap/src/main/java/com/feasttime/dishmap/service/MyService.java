@@ -9,11 +9,13 @@ import android.widget.Toast;
 
 import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
+import com.feasttime.dishmap.activity.MerchantActivity;
 import com.feasttime.dishmap.activity.TestActivtiy;
 import com.feasttime.dishmap.model.WebSocketConfig;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 
 import io.reactivex.functions.Consumer;
@@ -34,14 +36,6 @@ public class MyService extends Service {
 
         LogUtil.d(TAG,"myService oncreate");
 
-
-
-
-
-
-
-
-
     }
 
     @Override
@@ -52,10 +46,12 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        String storeId = intent.getStringExtra("STORE_ID");
+
         OkHttpClient okHttpClient = new OkHttpClient();
 
-        String token = "6554455";
-        String storeId = "0011";
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+
 
         RxWebSocketUtil.getInstance().setClient(okHttpClient);
         // show log,default false
