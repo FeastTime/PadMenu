@@ -83,6 +83,8 @@ public class ChatActivity extends BaseActivity {
         RxBus.getDefault().register(this, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
             @Override
             public void accept(WebSocketEvent orderEvent) throws Exception {
+
+
                 if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
                     MyDialogs.showBetPriceDialog(ChatActivity.this,storeId);
                 } else if (orderEvent.eventType == WebSocketEvent.USER_GRAP_TABLE) {
