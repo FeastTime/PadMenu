@@ -21,6 +21,10 @@ import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 
+
+import org.reactivestreams.Subscription;
+
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import okhttp3.OkHttpClient;
 import okhttp3.WebSocket;
@@ -31,6 +35,8 @@ import okhttp3.WebSocket;
 
 public class MyService extends Service {
     private static final String TAG =  "MyService";
+
+    private Disposable mDisposable;
 
     @Override
     public void onCreate() {
@@ -47,6 +53,8 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        //如果多次请求service 那么先结束之前的连接
+        closeWebSocket();
 
         String storeId = intent.getStringExtra("STORE_ID");
 
@@ -63,7 +71,7 @@ public class MyService extends Service {
 
         LogUtil.d(TAG,"will connect:" + requestUrl);
         //get StringMsg
-        RxWebSocketUtil.getInstance().getWebSocketString(requestUrl)
+        mDisposable = RxWebSocketUtil.getInstance().getWebSocketString(requestUrl)
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
@@ -92,15 +100,14 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RxWebSocketUtil.getInstance().getWebSocketInfo(WebSocketConfig.wsRequestUrl).subscribe(new Consumer<WebSocketInfo>() {
-            @Override
-            public void accept(WebSocketInfo webSocketInfo) throws Exception {
-                WebSocket webSocket = webSocketInfo.getWebSocket();
-                webSocket.close(3000,"关闭");
-                LogUtil.d(TAG,"myService websocket closed");
-            }
-        });
+        closeWebSocket();
         LogUtil.d(TAG,"myService ondestory");
+    }
+
+    private void closeWebSocket() {
+        if (mDisposable != null && !mDisposable.isDisposed()) {
+            mDisposable.dispose();
+        }
     }
 
     @Nullable
