@@ -92,14 +92,20 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RxWebSocketUtil.getInstance().getWebSocketInfo(WebSocketConfig.wsRequestUrl).subscribe(new Consumer<WebSocketInfo>() {
-            @Override
-            public void accept(WebSocketInfo webSocketInfo) throws Exception {
-                WebSocket webSocket = webSocketInfo.getWebSocket();
-                webSocket.close(3000,"关闭");
-                LogUtil.d(TAG,"myService websocket closed");
-            }
-        });
+        try {
+
+            RxWebSocketUtil.getInstance().getWebSocketInfo(WebSocketConfig.wsRequestUrl).subscribe(new Consumer<WebSocketInfo>() {
+                @Override
+                public void accept(WebSocketInfo webSocketInfo) throws Exception {
+                    WebSocket webSocket = webSocketInfo.getWebSocket();
+                    webSocket.close(3000,"关闭");
+                    LogUtil.d(TAG,"myService websocket closed");
+                }
+            });
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         LogUtil.d(TAG,"myService ondestory");
     }
 
