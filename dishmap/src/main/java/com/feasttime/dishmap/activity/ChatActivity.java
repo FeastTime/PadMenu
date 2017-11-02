@@ -95,6 +95,9 @@ public class ChatActivity extends BaseActivity {
                     chatMsgItemInfo.setLeft(true);
                     chatMsgItemInfo.setMsg(orderEvent.jsonData);
                     mChatAdapter.addData(chatMsgItemInfo);
+
+
+
                 } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) {
                     JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
                     MyDialogs.showGrapTableResultDialog(ChatActivity.this,jsonObject.getString("name"));
@@ -108,9 +111,7 @@ public class ChatActivity extends BaseActivity {
         });
 
 
-        HashMap<String,String> reuquestData = new HashMap<String,String>();
-        reuquestData.put("type", WebSocketEvent.USER_REACH_STORE + "");
-        UtilTools.requestByWebSocket(this,reuquestData);
+        MyDialogs.showEatDishPersonNumDialog(this);
     }
 
 

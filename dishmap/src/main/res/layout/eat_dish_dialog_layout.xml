@@ -115,6 +115,7 @@
                 android:hint="人数"
                 android:layout_marginLeft="@dimen/x20"
                 android:gravity="center"
+                android:inputType="number"
                 android:textSize="@dimen/big_text_size"
                 android:background="@drawable/white_bg_radius_5_with_stroke"
                 />

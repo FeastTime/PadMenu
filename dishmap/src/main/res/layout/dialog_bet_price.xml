@@ -15,6 +15,14 @@
         android:text="0"
         />
 
+    <TextView
+        android:id="@+id/dialog_bet_price_count_high_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="最高价"
+        />
+
     <EditText
         android:id="@+id/dialog_bet_price_number_et"
         android:layout_width="wrap_content"
