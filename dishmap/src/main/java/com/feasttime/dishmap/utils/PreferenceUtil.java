@@ -17,6 +17,7 @@ public class PreferenceUtil {
 	public static final String MOBILE_NO = "mobileNO";
 	public static final String TOKEN = "token";
 	public static final String USER_TYPE = "userType";
+	public static final String PERSION_NO = "persionNO";
 
 	private static SharedPreferences mPreference;
 	private static void init(){

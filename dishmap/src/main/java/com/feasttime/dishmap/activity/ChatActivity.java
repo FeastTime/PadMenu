@@ -80,7 +80,7 @@ public class ChatActivity extends BaseActivity {
         intent.putExtra("STORE_ID",storeId);
         startService(intent);
 
-        RxBus.getDefault().register(this, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
+        RxBus.getDefault().register(this, WebSocketEvent.class,  new Consumer<WebSocketEvent>() {
             @Override
             public void accept(WebSocketEvent orderEvent) throws Exception {
 

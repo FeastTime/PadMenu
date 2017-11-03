@@ -27,7 +27,12 @@ import java.util.HashMap;
  */
 
 public class MyDialogs {
-    public static void showEatDishPersonNumDialog(Context context) {
+
+    public interface PersonNumListener{
+        void overInput(int personNum);
+    }
+
+    public static void showEatDishPersonNumDialog(Context context, final PersonNumListener personNumListener) {
         Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -43,6 +48,10 @@ public class MyDialogs {
 //                HashMap<String,String> requestData = new HashMap<String, String>();
 //                requestData.put("",);
 //                UtilTools.requestByWebSocket(v.getContext(),);
+
+                if (null != personNumListener){
+                    personNumListener.overInput(15);
+                }
             }
         });
 
