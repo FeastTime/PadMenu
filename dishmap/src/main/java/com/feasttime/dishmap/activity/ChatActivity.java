@@ -33,7 +33,7 @@ import io.reactivex.functions.Consumer;
  * Created by chen on 2017/10/25.
  */
 
-public class ChatActivity extends BaseActivity {
+public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumListener {
     @Bind(R.id.activity_chat_lv)
     ListView contentLv;
 
@@ -111,7 +111,7 @@ public class ChatActivity extends BaseActivity {
         });
 
 
-        MyDialogs.showEatDishPersonNumDialog(this);
+        MyDialogs.showEatDishPersonNumDialog(this,this);
     }
 
 
@@ -126,5 +126,10 @@ public class ChatActivity extends BaseActivity {
         super.onDestroy();
         RxBus.getDefault().unRegister(this);
         stopService(new Intent(this,MyService.class));
+    }
+
+    @Override
+    public void overInput(int personNum) {
+
     }
 }
