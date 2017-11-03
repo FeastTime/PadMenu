@@ -1,13 +1,16 @@
 package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
@@ -37,32 +40,58 @@ public class ScanActivity extends AppCompatActivity {
 
 
                 if (result.startsWith("优先吃：")){
-                    String storeID = result.substring(4);
+                    final String storeID = result.substring(4);
                     Log.d(TAG, storeID);
 
-                    String storeType = PreferenceUtil.getStringKey(PreferenceUtil.USER_TYPE);
-                    if (TextUtils.equals(storeType,"store")) {
+                    String userType = PreferenceUtil.getStringKey(PreferenceUtil.USER_TYPE);
+
+                    // 如果是店家打开店家页面
+                    if (TextUtils.equals(userType,"store")) {
                         Intent intent = new Intent(ScanActivity.this, MerchantActivity.class);
                         intent.putExtra("STORE_ID", storeID);
                         ScanActivity.this.startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
-                        intent.putExtra("STORE_ID", storeID);
-                        ScanActivity.this.startActivity(intent);
+                        ScanActivity.this.finish();
+
+                    } else { // 如果不是店家，弹框输入吃饭人数，打开用户页面
+
+                        MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {
+                            @Override
+                            public void overInput(int personNum) {
+
+                                PreferenceUtil.setIntKey(PreferenceUtil.PERSION_NO, personNum);
+
+                                Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
+                                intent.putExtra("STORE_ID", storeID);
+
+                                ScanActivity.this.startActivity(intent);
+                                ScanActivity.this.finish();
+                            }
+                        };
+
+                        MyDialogs.showEatDishPersonNumDialog(ScanActivity.this, personNumListener);
+
+
                     }
 
-
-                    ScanActivity.this.finish();
                 }
 
-                mQRCodeView.startSpot();
+
+                vibrate();
+
+                mQRCodeView.startSpotDelay(0);
             }
 
             @Override
             public void onScanQRCodeOpenCameraError() {
                 Log.d(TAG, "onScanQRCodeOpenCameraError");
+
             }
         });
+    }
+
+    private void vibrate() {
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(200);
     }
 
 
@@ -70,9 +99,12 @@ public class ScanActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+
         mQRCodeView.startCamera();
-        mQRCodeView.showScanRect();
-        mQRCodeView.startSpot();
+        vibrate();
+        mQRCodeView.startSpotDelay(0);
+
+
     }
 
 
@@ -80,7 +112,6 @@ public class ScanActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        mQRCodeView.stopSpot();
         mQRCodeView.stopCamera();
     }
 

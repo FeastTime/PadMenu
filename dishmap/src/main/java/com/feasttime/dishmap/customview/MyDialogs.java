@@ -14,11 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
-import com.feasttime.dishmap.model.bean.PriceChangeInfo;
-import com.feasttime.dishmap.model.bean.PriceChangeItemInfo;
-import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
@@ -26,37 +22,36 @@ import com.feasttime.dishmap.utils.UtilTools;
 
 import java.util.HashMap;
 
-import io.reactivex.functions.Consumer;
-
 /**
  * Created by chen on 2017/10/25.
  */
 
 public class MyDialogs {
-    public static void showEatDishPersonNumDialog(final Context context) {
-        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+
+    public interface PersonNumListener{
+        void overInput(int personNum);
+    }
+
+    public static void showEatDishPersonNumDialog(Context context, final PersonNumListener personNumListener) {
+        Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
         View contentView = inflater.inflate(R.layout.eat_dish_dialog_layout,null);
         dialog.setContentView(contentView);
 
-        final Button confirm = (Button)contentView.findViewById(R.id.eat_dish_dialog_confirm_btn);
-        final EditText personNumEt = (EditText)contentView.findViewById(R.id.eat_dish_dialog_person_num_et);
+        Button confirm = (Button)contentView.findViewById(R.id.eat_dish_dialog_confirm_btn);
+        EditText personNum = (EditText)contentView.findViewById(R.id.eat_dish_dialog_person_num_et);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String personNum = personNumEt.getText().toString();
-                if (TextUtils.equals(personNum,"0")) {
-                    ToastUtil.showToast(context,"输入有误",Toast.LENGTH_SHORT);
-                    return;
-                }
+//                HashMap<String,String> requestData = new HashMap<String, String>();
+//                requestData.put("",);
+//                UtilTools.requestByWebSocket(v.getContext(),);
 
-                PreferenceUtil.setStringKey(PreferenceUtil.PERSON_NUM,personNum);
-                HashMap<String,String> reuquestData = new HashMap<String,String>();
-                reuquestData.put("type", WebSocketEvent.USER_REACH_STORE + "");
-                UtilTools.requestByWebSocket(context,reuquestData);
-                dialog.dismiss();
+                if (null != personNumListener){
+                    personNumListener.overInput(15);
+                }
             }
         });
 
@@ -84,20 +79,6 @@ public class MyDialogs {
         Button grapBtn = (Button)contentView.findViewById(R.id.dialog_bet_price_grap_btn);
         final EditText numberEt = (EditText)contentView.findViewById(R.id.dialog_bet_price_number_et);
         final TextView timeTv = (TextView)contentView.findViewById(R.id.dialog_bet_price_count_time_tv) ;
-        final TextView highPriceTv = (TextView)contentView.findViewById(R.id.dialog_bet_price_count_high_price_tv);
-
-        RxBus.getDefault().register(dialog, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
-            @Override
-            public void accept(WebSocketEvent orderEvent) throws Exception {
-                if (orderEvent.eventType == WebSocketEvent.PRICE_RANK_CHANGE) {
-                     PriceChangeInfo priceChangeInfo = JSON.parseObject(orderEvent.jsonData,PriceChangeInfo.class);
-                     if (priceChangeInfo.getDetail().size() > 0) {
-                         PriceChangeItemInfo priceChangeItemInfo = priceChangeInfo.getDetail().get(0);
-                         highPriceTv.setText(priceChangeItemInfo.getName() + "  " + priceChangeItemInfo.getPrice());
-                     }
-                }
-            }
-        });
 
         //倒计时部分
         timeCount = 0;
@@ -111,8 +92,6 @@ public class MyDialogs {
                     handler.postDelayed(this, 1000);
                     timeTv.setText(timeCount + "");
                 } else {
-                    RxBus.getDefault().unRegister(dialog);
-
                     //10秒计时结束
                     dialog.dismiss();
                 }
@@ -137,6 +116,8 @@ public class MyDialogs {
 
             }
         });
+
+
 
 
 
