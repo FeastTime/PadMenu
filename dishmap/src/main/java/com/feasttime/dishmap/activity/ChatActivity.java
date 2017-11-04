@@ -117,7 +117,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         });
 
 
-        MyDialogs.showEatDishPersonNumDialog(this,this);
     }
 
 
