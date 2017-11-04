@@ -13,10 +13,12 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
+import com.feasttime.dishmap.model.bean.NewTableNofiticationinfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
 import java.util.ArrayList;
@@ -86,7 +88,11 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
 
                 if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
-                    MyDialogs.showBetPriceDialog(ChatActivity.this,storeId);
+                    NewTableNofiticationinfo newTableNofiticationinfo = JSON.parseObject(orderEvent.jsonData,NewTableNofiticationinfo.class);
+                    int toStorePerson = PreferenceUtil.getIntKey(ChatActivity.this,PreferenceUtil.PERSION_NO);
+                    if (toStorePerson >= Integer.parseInt(newTableNofiticationinfo.getMinPerson()) && toStorePerson <= Integer.parseInt(newTableNofiticationinfo.getMaxPerson())) {
+                        MyDialogs.showBetPriceDialog(ChatActivity.this,storeId);
+                    }
                 } else if (orderEvent.eventType == WebSocketEvent.USER_GRAP_TABLE) {
                     MyDialogs.showGrapTableSeatDialog(ChatActivity.this,storeId);
                 } else if (orderEvent.eventType == WebSocketEvent.PRICE_RANK_CHANGE) {

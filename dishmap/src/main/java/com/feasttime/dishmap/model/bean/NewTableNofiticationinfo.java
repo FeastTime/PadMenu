@@ -1,0 +1,53 @@
+package com.feasttime.dishmap.model.bean;
+
+/**
+ * Created by chen on 2017/11/4.
+ */
+
+public class NewTableNofiticationinfo {
+    String maxPerson;
+    String minPerson;
+    String storeID;
+    String desc;
+    String type;
+
+    public String getMaxPerson() {
+        return maxPerson;
+    }
+
+    public void setMaxPerson(String maxPerson) {
+        this.maxPerson = maxPerson;
+    }
+
+    public String getMinPerson() {
+        return minPerson;
+    }
+
+    public void setMinPerson(String minPerson) {
+        this.minPerson = minPerson;
+    }
+
+    public String getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(String storeID) {
+        this.storeID = storeID;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+}
