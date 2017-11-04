@@ -21,6 +21,7 @@ import com.feasttime.dishmap.model.bean.PriceChangeItemInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.StringUtils;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
@@ -46,7 +47,7 @@ public class MyDialogs {
         dialog.setContentView(contentView);
 
         Button confirm = (Button)contentView.findViewById(R.id.eat_dish_dialog_confirm_btn);
-        EditText personNum = (EditText)contentView.findViewById(R.id.eat_dish_dialog_person_num_et);
+        final EditText personNum = (EditText)contentView.findViewById(R.id.eat_dish_dialog_person_num_et);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +57,7 @@ public class MyDialogs {
 //                UtilTools.requestByWebSocket(v.getContext(),);
 
                 if (null != personNumListener){
-                    personNumListener.overInput(15);
+                    personNumListener.overInput(StringUtils.isEmpty(personNum.getText().toString()) ? 0 : Integer.parseInt(personNum.getText().toString()));
                 }
                 dialog.dismiss();
             }

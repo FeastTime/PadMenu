@@ -80,15 +80,16 @@ public class MyService extends Service {
                             WebSocketConfig.wsRequestUrl = requestUrl;
                         } else {
 
+                            int type = -1;
                             try{
                                 JSONObject jsonObject = JSON.parseObject(s);
-                                String type = jsonObject.getString("type");
-                                RxBus.getDefault().post(new WebSocketEvent(Integer.parseInt(type),s));
+                                type = Integer.parseInt(jsonObject.getString("type"));
 
                             } catch (Exception e){
-                                e.printStackTrace();
-                                LogUtil.d(TAG,"receive json pase exception");
+                                LogUtil.d(TAG,"receive json pase exception , json is : " + s);
                             }
+
+                            RxBus.getDefault().post(new WebSocketEvent(type,s));
                         }
 
                     }});

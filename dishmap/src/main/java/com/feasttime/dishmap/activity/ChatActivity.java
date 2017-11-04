@@ -2,6 +2,7 @@ package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -87,6 +88,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         RxBus.getDefault().register(this, WebSocketEvent.class,  new Consumer<WebSocketEvent>() {
             @Override
             public void accept(WebSocketEvent orderEvent) throws Exception {
+
+
                 //收到信息取出其中的message并显示
                 if (orderEvent.jsonData != null) {
                     JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
@@ -103,11 +106,13 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 }
 
 
-
                 if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
                     NewTableNofiticationinfo newTableNofiticationinfo = JSON.parseObject(orderEvent.jsonData,NewTableNofiticationinfo.class);
+
                     int toStorePerson = PreferenceUtil.getIntKey(ChatActivity.this,PreferenceUtil.PERSION_NO);
+
                     if (toStorePerson >= Integer.parseInt(newTableNofiticationinfo.getMinPerson()) && toStorePerson <= Integer.parseInt(newTableNofiticationinfo.getMaxPerson())) {
+
                         MyDialogs.showBetPriceDialog(ChatActivity.this,storeId);
                     }
                 } else if (orderEvent.eventType == WebSocketEvent.USER_GRAP_TABLE) {

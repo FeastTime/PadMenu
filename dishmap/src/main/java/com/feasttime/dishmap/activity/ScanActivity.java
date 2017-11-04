@@ -78,6 +78,12 @@ public class ScanActivity extends AppCompatActivity {
 
                 vibrate();
 
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 mQRCodeView.startSpotDelay(0);
             }
 
@@ -89,6 +95,7 @@ public class ScanActivity extends AppCompatActivity {
         });
     }
 
+    // 震动
     private void vibrate() {
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         vibrator.vibrate(200);
@@ -102,7 +109,13 @@ public class ScanActivity extends AppCompatActivity {
 
         mQRCodeView.startCamera();
         vibrate();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         mQRCodeView.startSpotDelay(0);
+
 
 
     }
