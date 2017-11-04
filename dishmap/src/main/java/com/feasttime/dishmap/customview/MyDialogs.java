@@ -127,7 +127,7 @@ public class MyDialogs {
                 HashMap<String,String> requestData = new HashMap<String, String>();
                 requestData.put("storeID",storeId);
                 String number = numberEt.getText().toString();
-                if (TextUtils.equals("0",number)) {
+                if (!TextUtils.equals("0",number)) {
                     requestData.put("price",number);
                     requestData.put("type", WebSocketEvent.USER_BET_PRICE + "");
                     UtilTools.requestByWebSocket(v.getContext(),requestData);
