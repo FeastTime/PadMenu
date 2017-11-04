@@ -39,7 +39,7 @@ public class MyDialogs {
     }
 
     public static void showEatDishPersonNumDialog(Context context, final PersonNumListener personNumListener) {
-        Dialog dialog = new Dialog(context,R.style.DialogTheme);
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
         View contentView = inflater.inflate(R.layout.eat_dish_dialog_layout,null);
@@ -58,6 +58,7 @@ public class MyDialogs {
                 if (null != personNumListener){
                     personNumListener.overInput(15);
                 }
+                dialog.dismiss();
             }
         });
 
