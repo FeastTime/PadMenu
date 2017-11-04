@@ -14,13 +14,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.model.bean.PriceChangeInfo;
+import com.feasttime.dishmap.model.bean.PriceChangeItemInfo;
+import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
 import java.util.HashMap;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2017/10/25.
@@ -79,6 +85,20 @@ public class MyDialogs {
         Button grapBtn = (Button)contentView.findViewById(R.id.dialog_bet_price_grap_btn);
         final EditText numberEt = (EditText)contentView.findViewById(R.id.dialog_bet_price_number_et);
         final TextView timeTv = (TextView)contentView.findViewById(R.id.dialog_bet_price_count_time_tv) ;
+        final TextView highPriceTv = (TextView)contentView.findViewById(R.id.dialog_bet_price_count_high_price_tv);
+
+        RxBus.getDefault().register(dialog, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
+            @Override
+            public void accept(WebSocketEvent orderEvent) throws Exception {
+                if (orderEvent.eventType == WebSocketEvent.PRICE_RANK_CHANGE) {
+                    PriceChangeInfo priceChangeInfo = JSON.parseObject(orderEvent.jsonData,PriceChangeInfo.class);
+                    if (priceChangeInfo.getDetail().size() > 0) {
+                        PriceChangeItemInfo priceChangeItemInfo = priceChangeInfo.getDetail().get(0);
+                        highPriceTv.setText(priceChangeItemInfo.getName() + "  " + priceChangeItemInfo.getPrice());
+                    }
+                }
+            }
+        });
 
         //倒计时部分
         timeCount = 0;
@@ -93,6 +113,7 @@ public class MyDialogs {
                     timeTv.setText(timeCount + "");
                 } else {
                     //10秒计时结束
+                    RxBus.getDefault().unRegister(dialog);
                     dialog.dismiss();
                 }
             }
