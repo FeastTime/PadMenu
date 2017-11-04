@@ -60,14 +60,14 @@ public class MyService extends Service {
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
-        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        String phone = PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO);
 
 
         RxWebSocketUtil.getInstance().setClient(okHttpClient);
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
 
-        final String requestUrl = WebSocketConfig.baseWsUrl + "/" + token + "/" + storeId ;
+        final String requestUrl = WebSocketConfig.baseWsUrl + "/" + phone + "/" + storeId ;
 
         LogUtil.d(TAG,"will connect:" + requestUrl);
         //get StringMsg
