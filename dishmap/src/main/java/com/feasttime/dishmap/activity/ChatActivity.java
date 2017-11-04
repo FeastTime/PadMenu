@@ -36,6 +36,8 @@ import io.reactivex.functions.Consumer;
  */
 
 public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumListener {
+    private final String TAG = "ChatActivity";
+
     @Bind(R.id.activity_chat_lv)
     ListView contentLv;
 
@@ -85,6 +87,21 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         RxBus.getDefault().register(this, WebSocketEvent.class,  new Consumer<WebSocketEvent>() {
             @Override
             public void accept(WebSocketEvent orderEvent) throws Exception {
+                //收到信息取出其中的message并显示
+                if (orderEvent.jsonData != null) {
+                    JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
+                    if (jsonObject.containsKey("message")) {
+                        String message = jsonObject.getString("message");
+                        ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+                        chatMsgItemInfo.setIcon(R.mipmap.temp_icon_1);
+                        chatMsgItemInfo.setLeft(true);
+                        chatMsgItemInfo.setMsg(message);
+                        mChatAdapter.addData(chatMsgItemInfo);
+                    } else {
+                        LogUtil.d(TAG,"websocket not has message key");
+                    }
+                }
+
 
 
                 if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
@@ -96,13 +113,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 } else if (orderEvent.eventType == WebSocketEvent.USER_GRAP_TABLE) {
                     MyDialogs.showGrapTableSeatDialog(ChatActivity.this,storeId);
                 } else if (orderEvent.eventType == WebSocketEvent.PRICE_RANK_CHANGE) {
-                    ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                    chatMsgItemInfo.setIcon(R.mipmap.temp_icon_1);
-                    chatMsgItemInfo.setLeft(true);
-                    chatMsgItemInfo.setMsg(orderEvent.jsonData);
-                    mChatAdapter.addData(chatMsgItemInfo);
-
-
 
                 } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) {
                     JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
