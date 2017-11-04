@@ -113,7 +113,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                     if (toStorePerson >= Integer.parseInt(newTableNofiticationinfo.getMinPerson()) && toStorePerson <= Integer.parseInt(newTableNofiticationinfo.getMaxPerson())) {
 
-                        MyDialogs.showBetPriceDialog(ChatActivity.this,storeId);
+                        MyDialogs.showBetPriceDialog(ChatActivity.this,storeId,newTableNofiticationinfo.getBid());
                     }
                 } else if (orderEvent.eventType == WebSocketEvent.USER_GRAP_TABLE) {
                     MyDialogs.showGrapTableSeatDialog(ChatActivity.this,storeId);

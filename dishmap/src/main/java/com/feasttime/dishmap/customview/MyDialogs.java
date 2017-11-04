@@ -76,7 +76,7 @@ public class MyDialogs {
     //抢座位对话框
 
     private static int timeCount = 0;
-    public static void showBetPriceDialog(Context context, final String storeId) {
+    public static void showBetPriceDialog(Context context, final String storeId,final String bid) {
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -132,6 +132,7 @@ public class MyDialogs {
                 if (!TextUtils.equals("0",number)) {
                     requestData.put("price",number);
                     requestData.put("type", WebSocketEvent.USER_BET_PRICE + "");
+                    requestData.put("bid",bid);
                     UtilTools.requestByWebSocket(v.getContext(),requestData);
                 } else {
                     ToastUtil.showToast(v.getContext(),"请输入合法数字", Toast.LENGTH_SHORT);

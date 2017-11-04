@@ -10,6 +10,15 @@ public class NewTableNofiticationinfo {
     String storeID;
     String desc;
     String type;
+    String bid;
+
+    public String getBid() {
+        return bid;
+    }
+
+    public void setBid(String bid) {
+        this.bid = bid;
+    }
 
     public String getMaxPerson() {
         return maxPerson;
