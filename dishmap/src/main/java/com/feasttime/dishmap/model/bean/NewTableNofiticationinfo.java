@@ -11,6 +11,15 @@ public class NewTableNofiticationinfo {
     String desc;
     String type;
     String bid;
+    String timeLimit;
+
+    public String getTimeLimit() {
+        return timeLimit;
+    }
+
+    public void setTimeLimit(String timeLimit) {
+        this.timeLimit = timeLimit;
+    }
 
     public String getBid() {
         return bid;
