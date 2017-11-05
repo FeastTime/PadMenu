@@ -2,7 +2,6 @@ package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,10 +19,8 @@ import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
-import com.feasttime.dishmap.utils.UtilTools;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -121,7 +118,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                 } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) {
                     JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
-                    MyDialogs.showGrapTableResultDialog(ChatActivity.this,jsonObject.getString("name"));
+                    MyDialogs.showGrapTableWinnerDialog(ChatActivity.this,jsonObject.getString("name"));
                 } else if (orderEvent.eventType == WebSocketEvent.BEFORE_TABLES_LIST) {
 
                 }

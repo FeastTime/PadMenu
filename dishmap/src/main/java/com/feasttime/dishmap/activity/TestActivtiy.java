@@ -2,42 +2,25 @@ package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
 import com.dhh.websocket.RxWebSocketUtil;
-import com.dhh.websocket.WebSocketInfo;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.model.WebSocketConfig;
-import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
-import com.feasttime.dishmap.rxbus.RxBus;
-import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.DeviceTool;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
-import com.alibaba.fastjson.JSON;
 import com.jakewharton.rxbinding2.view.RxView;
 
-import org.reactivestreams.Subscriber;
-
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 
 /**
@@ -103,7 +86,7 @@ public class TestActivtiy extends BaseActivity {
 //                        String jsonData = "";
 //                        RxBus.getDefault().post(new WebSocketEvent(WebSocketEvent.PRICE_RANK_CHANGE,jsonData));
 //                        MyDialogs.showBetPriceDialog(TestActivtiy.this,"55","66");
-                        MyDialogs.showGrapTableResultDialog(TestActivtiy.this,"哈哈");
+                        MyDialogs.showGrapTableLoserDialog(TestActivtiy.this,"哈哈");
                     }
                 });
 

@@ -153,18 +153,56 @@ public class MyDialogs {
     }
 
 
-    //抢座位结果
-    public static void showGrapTableResultDialog(Context context,String resultStr) {
+    //抢座位结果 胜利者
+    public static void showGrapTableWinnerDialog(Context context, String resultStr) {
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contentView = inflater.inflate(R.layout.dialog_grap_table_result,null);
+        View contentView = inflater.inflate(R.layout.dialog_grap_table_winner,null);
         dialog.setContentView(contentView);
 
         TextView resultTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_result_tv);
         resultTv.setText(resultStr);
 
         ImageView confirmBtn = (ImageView)contentView.findViewById(R.id.dialog_grap_table_result_close_iv);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.width = (int)context.getResources().getDimension(R.dimen.x615);
+        params.height = (int)context.getResources().getDimension(R.dimen.y981);
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
+
+    }
+
+
+    //抢座位结果 失败者
+    public static void showGrapTableLoserDialog(Context context, String resultStr) {
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View contentView = inflater.inflate(R.layout.dialog_grap_table_loser,null);
+        dialog.setContentView(contentView);
+
+        TextView resultTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_loser_result_tv);
+        resultTv.setText(resultStr);
+
+        ImageView confirmBtn = (ImageView)contentView.findViewById(R.id.dialog_grap_table_loser_close_iv);
+        TextView replayTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_loser_replay_tv);
+
+        replayTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
