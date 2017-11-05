@@ -103,7 +103,7 @@ public class MyDialogs {
                     }
                 } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) {
                     //当收到竞价结束通知后关闭对话框
-                    timeCount = lastTime;
+                    timeCount = (lastTime + 1);
                     dialog.dismiss();
                 }
             }
