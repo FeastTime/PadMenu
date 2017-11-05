@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -163,7 +164,7 @@ public class MyDialogs {
         TextView resultTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_result_tv);
         resultTv.setText(resultStr);
 
-        Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_grap_table_confirm_btn);
+        ImageView confirmBtn = (ImageView)contentView.findViewById(R.id.dialog_grap_table_result_close_iv);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,8 +174,8 @@ public class MyDialogs {
 
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
-        params.width = (int)context.getResources().getDimension(R.dimen.x610);
-        params.height = (int)context.getResources().getDimension(R.dimen.y400);
+        params.width = (int)context.getResources().getDimension(R.dimen.x615);
+        params.height = (int)context.getResources().getDimension(R.dimen.y981);
         dialog.getWindow().setAttributes(params);
         dialog.show();
 

@@ -102,7 +102,8 @@ public class TestActivtiy extends BaseActivity {
 //                        ToastUtil.showToast(TestActivtiy.this,"哈哈",Toast.LENGTH_SHORT);
 //                        String jsonData = "";
 //                        RxBus.getDefault().post(new WebSocketEvent(WebSocketEvent.PRICE_RANK_CHANGE,jsonData));
-                        MyDialogs.showBetPriceDialog(TestActivtiy.this,"55","66");
+//                        MyDialogs.showBetPriceDialog(TestActivtiy.this,"55","66");
+                        MyDialogs.showGrapTableResultDialog(TestActivtiy.this,"哈哈");
                     }
                 });
 

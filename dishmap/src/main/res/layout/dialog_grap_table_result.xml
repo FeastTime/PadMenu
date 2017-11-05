@@ -1,22 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/white_bg_radius_5"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/dialog_grap_table_result_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="结果"
+        android:layout_height="@dimen/x734"
+        android:orientation="vertical"
+        android:background="@mipmap/get_bonus_bg"
+        android:gravity="center_horizontal|bottom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="恭喜您!成功抢到座位"
+            android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/y24"
+            android:textSize="@dimen/big_text_size_2"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y27"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="@dimen/big_text_size_2"
+                android:textColor="@color/white"
+                android:text="号码:"
+                />
+
+            <TextView
+                android:id="@+id/dialog_grap_table_result_tv"
+                android:layout_width="wrap_content"
+                android:includeFontPadding="false"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x20"
+                android:textSize="@dimen/big_text_size_2"
+                android:textColor="@color/white"
+                android:text="结果"
+                />
+        </LinearLayout>
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_red_3"
+            android:textSize="@dimen/normal_text_size"
+            android:layout_marginBottom="@dimen/y70"
+            android:text="座位预留15分钟"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dialog_grap_table_result_close_iv"
+        android:layout_width="@dimen/x70"
+        android:layout_height="@dimen/y227"
+        android:src="@mipmap/grap_table_close"
+        android:scaleType="fitXY"
         />
 
-    <Button
-        android:id="@+id/dialog_grap_table_confirm_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="确定"
-        />
 </LinearLayout>
