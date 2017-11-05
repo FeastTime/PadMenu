@@ -20,6 +20,9 @@
     <color name="text_hint_gray">#999999</color>
     <color name="line_gray">#F2F2F2</color>
     <color name="text_red">#C5474A</color>
+    <color name="text_yellow">#FCFDA4</color>
+    <color name="text_white_2">#FCFFFF</color>
+    <color name="text_red_2">#B90020</color>
 
 
 </resources>

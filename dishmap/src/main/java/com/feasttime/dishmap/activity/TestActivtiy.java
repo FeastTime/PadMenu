@@ -93,17 +93,20 @@ public class TestActivtiy extends BaseActivity {
 
 //        testWebSocket();
 
-        joinStoreBtn.setTag("chen");
+//        joinStoreBtn.setTag("chen");
         RxView.clicks( joinStoreBtn )
                 .throttleFirst( 1 , TimeUnit.SECONDS )   //两秒钟之内只取一个点击事件，防抖操作
                 .subscribe(new Consumer<Object>() {
                     @Override
                     public void accept(Object o) throws Exception {
-                        ToastUtil.showToast(TestActivtiy.this,"哈哈",Toast.LENGTH_SHORT);
-                        String jsonData = "";
-                        RxBus.getDefault().post(new WebSocketEvent(WebSocketEvent.PRICE_RANK_CHANGE,jsonData));
+//                        ToastUtil.showToast(TestActivtiy.this,"哈哈",Toast.LENGTH_SHORT);
+//                        String jsonData = "";
+//                        RxBus.getDefault().post(new WebSocketEvent(WebSocketEvent.PRICE_RANK_CHANGE,jsonData));
+                        MyDialogs.showBetPriceDialog(TestActivtiy.this,"55","66");
                     }
                 });
+
+
     }
 
 

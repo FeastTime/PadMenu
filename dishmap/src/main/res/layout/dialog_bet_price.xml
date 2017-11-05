@@ -2,38 +2,108 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/white_bg_radius_5"
-    android:gravity="center_horizontal"
+    android:background="@mipmap/dialog_bet_price_bg"
+    android:gravity="center_horizontal|bottom"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/dialog_bet_price_count_time_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="@dimen/normal_text_size"
-        android:text="0"
-        />
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/y110"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/y33"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_yellow"
+                android:textSize="@dimen/normal_text_size"
 
-    <TextView
-        android:id="@+id/dialog_bet_price_count_high_price_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="最高价"
-        />
+                android:text="开始倒计时 "
+                />
 
-    <EditText
-        android:id="@+id/dialog_bet_price_number_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:maxLength="2" />
+            <TextView
+                android:id="@+id/dialog_bet_price_count_time_tv"
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/x40"
+                android:gravity="center"
+                android:background="@mipmap/count_time_bg"
+                android:textColor="@color/text_white_2"
+                android:textSize="@dimen/normal_text_size"
+                android:text="0"
+                />
 
-    <Button
-        android:id="@+id/dialog_bet_price_grap_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="抢" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_yellow"
+                android:textSize="@dimen/normal_text_size"
+                android:text="秒"
+                />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/dialog_bet_price_count_high_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_red_2"
+            android:textSize="@dimen/small_text_size"
+            android:layout_marginBottom="@dimen/y26"
+            android:text="最高价"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/y33"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_yellow"
+                android:textSize="@dimen/big_text_size"
+                android:layout_marginRight="@dimen/x10"
+                android:text="我的出价:"
+                />
+
+            <EditText
+                android:id="@+id/dialog_bet_price_number_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textSize="@dimen/big_text_size"
+                android:text="0"
+                android:textColor="@color/text_yellow"
+                android:maxLength="2" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_yellow"
+                android:textSize="@dimen/big_text_size"
+                android:layout_marginLeft="@dimen/x10"
+                android:text="金币 "
+                />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/dialog_bet_price_grap_btn"
+            android:layout_width="@dimen/x145"
+            android:layout_height="@dimen/x145"
+            android:background="@mipmap/yellow_grap_btn_bg"
+            android:text="" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
