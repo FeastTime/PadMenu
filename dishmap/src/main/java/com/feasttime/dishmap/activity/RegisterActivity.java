@@ -16,6 +16,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 
 import java.util.HashMap;
@@ -40,6 +41,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Bind(R.id.activity_register_get_verify_num_btn)
     Button getVerifyNumBtn;
+
+    @Bind(R.id.activity_register_name_et)
+    EditText nameEt;
 
     @Bind(R.id.activity_register_register_btn)
     Button registerBtn;
@@ -99,13 +103,19 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 ToastUtil.showToast(this,"手机号不能为空",Toast.LENGTH_SHORT);
                 return;
             }
-
+            PreferenceUtil.setStringKey(PreferenceUtil.MOBILE_NO,phone);
             step1Ll.setVisibility(View.GONE);
             step2Ll.setVisibility(View.VISIBLE);
             verifyNumSendedTv.setText("验证码已经发送到：" + phone);
         } else if (v == registerBtn) {
             String phone = phoneEt.getText().toString().trim();
             String password = passwordEt.getText().toString().trim();
+            String name = nameEt.getText().toString().trim();
+
+            if (TextUtils.isEmpty(name)) {
+                ToastUtil.showToast(this,"姓名不能为空", Toast.LENGTH_SHORT);
+                return;
+            }
 
             if (TextUtils.isEmpty(phone)) {
                 ToastUtil.showToast(this,"手机号不能为空", Toast.LENGTH_SHORT);
@@ -120,7 +130,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             HashMap<String,Object> infoMap = new HashMap<String,Object>();
             infoMap.put("mobileNO",phone);
             infoMap.put("pwd",password);
-            infoMap.put("name","no name");
+            infoMap.put("name",name);
             if (typeCb.isChecked()) {
                 infoMap.put("userType","customer");
             } else {
