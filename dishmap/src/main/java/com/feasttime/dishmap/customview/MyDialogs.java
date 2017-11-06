@@ -100,11 +100,10 @@ public class MyDialogs {
             public void accept(WebSocketEvent orderEvent) throws Exception {
 
                 if (orderEvent.eventType == WebSocketEvent.PRICE_RANK_CHANGE) {
+
                     PriceChangeInfo priceChangeInfo = JSON.parseObject(orderEvent.jsonData,PriceChangeInfo.class);
-                    if (priceChangeInfo.getDetail().size() > 0) {
-                        PriceChangeItemInfo priceChangeItemInfo = priceChangeInfo.getDetail().get(0);
-                        highPriceTv.setText(priceChangeItemInfo.getName() + "  " + priceChangeItemInfo.getPrice());
-                    }
+                    highPriceTv.setText(priceChangeInfo.getUserID() + "    " + priceChangeInfo.getHighPrice());
+
                 } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) {
                     //当收到竞价结束通知后关闭对话框
                     dialog.dismiss();

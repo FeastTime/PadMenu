@@ -7,17 +7,10 @@ import java.util.List;
  */
 
 public class PriceChangeInfo {
-    String storeID;
+
     String type;
-    List<PriceChangeItemInfo> detail;
-
-    public String getStoreID() {
-        return storeID;
-    }
-
-    public void setStoreID(String storeID) {
-        this.storeID = storeID;
-    }
+    String userID;
+    String highPrice;
 
     public String getType() {
         return type;
@@ -27,11 +20,19 @@ public class PriceChangeInfo {
         this.type = type;
     }
 
-    public List<PriceChangeItemInfo> getDetail() {
-        return detail;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setDetail(List<PriceChangeItemInfo> detail) {
-        this.detail = detail;
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getHighPrice() {
+        return highPrice;
+    }
+
+    public void setHighPrice(String highPrice) {
+        this.highPrice = highPrice;
     }
 }

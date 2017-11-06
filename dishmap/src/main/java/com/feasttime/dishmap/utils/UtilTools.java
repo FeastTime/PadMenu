@@ -60,6 +60,11 @@ public class UtilTools {
         Log.d("lixiaoqing", "wsRequestUrl +     " + WebSocketConfig.wsRequestUrl);
         Log.d("lixiaoqing", "requestJson +     " + requestJson);
 
-        RxWebSocketUtil.getInstance().asyncSend(WebSocketConfig.wsRequestUrl, requestJson);
+        RxWebSocketUtil rxWebSocketUtil = RxWebSocketUtil.getInstance();
+        if (null == rxWebSocketUtil){
+            Log.d("lixiaoqing", "----  rxWebSocketUtil is null ----" );
+        }
+        if (!StringUtils.isEmpty(WebSocketConfig.wsRequestUrl) && !StringUtils.isEmpty(requestJson) && null != rxWebSocketUtil)
+            rxWebSocketUtil.asyncSend(WebSocketConfig.wsRequestUrl, requestJson);
     }
 }

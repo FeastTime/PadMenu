@@ -75,9 +75,11 @@ public class MyService extends Service {
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
+                        Log.d("lixiaoqing", "acceptaccept ------- : " + s);
 
                         if (!TextUtils.isEmpty(s) && s.equals("success666success")){
                             WebSocketConfig.wsRequestUrl = requestUrl;
+                            Log.d("lixiaoqing", "WebSocketConfig.wsRequestUrl ------- : " + WebSocketConfig.wsRequestUrl);
                         } else {
 
                             int type = -1;

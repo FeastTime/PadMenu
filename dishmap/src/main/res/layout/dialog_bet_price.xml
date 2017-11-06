@@ -49,13 +49,22 @@
 
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:textColor="@color/text_white_2"
+            android:textSize="@dimen/big_text_size"
+            android:layout_marginBottom="@dimen/y26"
+            android:text="最高价"
+            />
+        <TextView
             android:id="@+id/dialog_bet_price_count_high_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_red_2"
-            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/text_white_2"
+            android:textSize="@dimen/big_text_size"
             android:layout_marginBottom="@dimen/y26"
-            android:text="最高价"
+
             />
 
         <LinearLayout
