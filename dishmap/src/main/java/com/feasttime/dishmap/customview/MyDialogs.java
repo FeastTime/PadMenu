@@ -243,7 +243,7 @@ public class MyDialogs {
         LayoutInflater inflater = LayoutInflater.from(context);
         View contentView = inflater.inflate(R.layout.dialog_grap_seat,null);
         dialog.setContentView(contentView);
-
+        dialog.setCancelable(false);
 
         Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_grap_seat_grap_btn);
         confirmBtn.setOnClickListener(new View.OnClickListener() {

@@ -86,7 +86,8 @@ public class TestActivtiy extends BaseActivity {
 //                        String jsonData = "";
 //                        RxBus.getDefault().post(new WebSocketEvent(WebSocketEvent.PRICE_RANK_CHANGE,jsonData));
 //                        MyDialogs.showBetPriceDialog(TestActivtiy.this,"55","66");
-                        MyDialogs.showGrapTableLoserDialog(TestActivtiy.this,"哈哈");
+                       // MyDialogs.showGrapTableLoserDialog(TestActivtiy.this,"哈哈");
+                        MyDialogs.showGrapTableSeatDialog(TestActivtiy.this,"2","2");
                     }
                 });
 
