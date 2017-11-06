@@ -10,7 +10,15 @@ public class BidResultInfo {
 
     int resultCode;
     List<BidResultItem> data;
+    String bid;
 
+    public String getBid() {
+        return bid;
+    }
+
+    public void setBid(String bid) {
+        this.bid = bid;
+    }
 
     public int getResultCode() {
         return resultCode;

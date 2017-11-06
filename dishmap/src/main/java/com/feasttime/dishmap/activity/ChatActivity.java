@@ -144,7 +144,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         }
                     } else if (bidResultItemList.size() > 1 || bidResultItemList.size() == 0) {
                         //多人中奖再抢一次
-                        MyDialogs.showGrapTableSeatDialog(ChatActivity.this,storeId,bidResultItemList.get(0).getBidActivityId());
+                        MyDialogs.showGrapTableSeatDialog(ChatActivity.this,storeId,bidResultInfo.getBid());
                     } else {
                         LogUtil.d(TAG,"the server data is error");
                     }

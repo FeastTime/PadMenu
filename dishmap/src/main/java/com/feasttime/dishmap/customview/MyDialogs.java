@@ -236,7 +236,7 @@ public class MyDialogs {
 
 
     //抢座位结果
-    public static void showGrapTableSeatDialog(Context context,final String storeId,final String bidActivityId) {
+    public static void showGrapTableSeatDialog(Context context,final String storeId,final String bid) {
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -253,7 +253,7 @@ public class MyDialogs {
                 requestData.put("name","no name");
                 requestData.put("mobileNo", PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
                 requestData.put("type", WebSocketEvent.USER_GRAP_TABLE + "");
-                requestData.put("bidActivityId",bidActivityId);
+                requestData.put("bid",bid);
                 UtilTools.requestByWebSocket(v.getContext(),requestData);
                 dialog.dismiss();
             }
