@@ -3,6 +3,7 @@ package com.feasttime.dishmap.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -13,7 +14,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
-import com.feasttime.dishmap.model.bean.BidResultItemInfo;
+import com.feasttime.dishmap.model.bean.BidResultInfo;
+import com.feasttime.dishmap.model.bean.BidResultItem;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.model.bean.NewTableNofiticationinfo;
 import com.feasttime.dishmap.rxbus.RxBus;
@@ -91,6 +93,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                 //收到信息取出其中的message并显示
                 if (orderEvent.jsonData != null) {
+                    Log.d("lixiaoqing", "return json is : " + orderEvent.jsonData);
                     JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
                     if (jsonObject.containsKey("message")) {
                         String message = jsonObject.getString("message");
@@ -112,25 +115,36 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                     if (toStorePerson >= Integer.parseInt(newTableNofiticationinfo.getMinPerson()) && toStorePerson <= Integer.parseInt(newTableNofiticationinfo.getMaxPerson())) {
 
-                        MyDialogs.showBetPriceDialog(ChatActivity.this,storeId,newTableNofiticationinfo.getBid(),newTableNofiticationinfo.getTimeLimit());
+                        MyDialogs.showBetPriceDialog(ChatActivity.this,storeId,newTableNofiticationinfo.getBid(),newTableNofiticationinfo.getTimeLimit(), PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
                     }
-                } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) {
+                } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) { // 竞价结果通知
+
+                    Log.d("lixiaoqing", "竞价结果通知");
 //                    JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
-                    List <BidResultItemInfo> bidResultItemInfosList = JSON.parseArray(orderEvent.jsonData,BidResultItemInfo.class);
-                    if (bidResultItemInfosList.size() == 1) {
+                    BidResultInfo bidResultInfo = JSON.parseObject(orderEvent.jsonData,BidResultInfo.class);
+
+                    List<BidResultItem> bidResultItemList = bidResultInfo.getData();
+
+                    Log.d("lixiaoqing", "竞价结果通知 size " + bidResultItemList.size());
+                    if (bidResultItemList.size() == 1) {
                         //仅仅一个人中奖
                         String myPhone = PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO);
-                        BidResultItemInfo bidResultItemInfo = bidResultItemInfosList.get(0);
+                        BidResultItem bidResultItemInfo = bidResultItemList.get(0);
+
+                        Log.d("lixiaoqing", "竞价结果通知 size " + bidResultItemInfo.getUserId()  +"---" + myPhone);
                         if (TextUtils.equals(myPhone,bidResultItemInfo.getUserId())) {
                             //我中奖了
+
+                            Log.d("lixiaoqing", "我中奖了");
                             MyDialogs.showGrapTableWinnerDialog(ChatActivity.this,bidResultItemInfo.getUserId());
                         } else {
                             //我没中奖
+                            Log.d("lixiaoqing", "没中奖");
                             MyDialogs.showGrapTableLoserDialog(ChatActivity.this,bidResultItemInfo.getUserId());
                         }
-                    } else if (bidResultItemInfosList.size() > 1) {
+                    } else if (bidResultItemList.size() > 1 || bidResultItemList.size() == 0) {
                         //多人中奖再抢一次
-                        MyDialogs.showGrapTableSeatDialog(ChatActivity.this,storeId,bidResultItemInfosList.get(0).getBidActivityId());
+                        MyDialogs.showGrapTableSeatDialog(ChatActivity.this,storeId,bidResultItemList.get(0).getBidActivityId());
                     } else {
                         LogUtil.d(TAG,"the server data is error");
                     }

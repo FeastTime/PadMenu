@@ -508,14 +508,21 @@ public class MainActivity extends BaseActivity{
             //构建MarkerOption，用于在地图上添加Marker
             overlayOptions = new MarkerOptions().position(latLng).icon(bitmapDescriptor);
 
-            //在地图上添加Marker，并显示
-            marker = (Marker) mBaiduMap.addOverlay(overlayOptions);
+            try{
+                //在地图上添加Marker，并显示
+                marker = (Marker) mBaiduMap.addOverlay(overlayOptions);
 
-            //使用marker携带info信息，当点击事件的时候可以通过marker获得info信息
-            Bundle bundle = new Bundle();
-            //info必须实现序列化接口
-            bundle.putSerializable("MyMarkerInfo", myMarkerInfo);
-            marker.setExtraInfo(bundle);
+                //使用marker携带info信息，当点击事件的时候可以通过marker获得info信息
+                Bundle bundle = new Bundle();
+                //info必须实现序列化接口
+                bundle.putSerializable("MyMarkerInfo", myMarkerInfo);
+                marker.setExtraInfo(bundle);
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+
         }
 
     }

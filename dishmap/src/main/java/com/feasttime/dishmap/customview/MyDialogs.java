@@ -76,8 +76,8 @@ public class MyDialogs {
 
     //抢座位对话框
 
-    private static long timeCount = 0;
-    public static void showBetPriceDialog(Context context, final String storeId,final String bid,final String timeLimit) {
+    private static long timesCount = 0;
+    public static void showBetPriceDialog(Context context, final String storeId,final String bid,final String timeLimit, final String userId) {
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -90,11 +90,15 @@ public class MyDialogs {
         final TextView timeTv = (TextView)contentView.findViewById(R.id.dialog_bet_price_count_time_tv) ;
         final TextView highPriceTv = (TextView)contentView.findViewById(R.id.dialog_bet_price_count_high_price_tv);
 
-        final long lastTime = (Long.parseLong(timeLimit) - System.currentTimeMillis()) / 1000 + 2; //多2秒，确保服务器已经结束.
+//        final long lastTime = (Long.parseLong(timeLimit) - System.currentTimeMillis()) / 1000 + 2; //多2秒，确保服务器已经结束.
+
+        final int onceTime = 1000;
+        timesCount =  Long.parseLong(timeLimit)/onceTime;
 
         RxBus.getDefault().register(dialog, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
             @Override
             public void accept(WebSocketEvent orderEvent) throws Exception {
+
                 if (orderEvent.eventType == WebSocketEvent.PRICE_RANK_CHANGE) {
                     PriceChangeInfo priceChangeInfo = JSON.parseObject(orderEvent.jsonData,PriceChangeInfo.class);
                     if (priceChangeInfo.getDetail().size() > 0) {
@@ -103,7 +107,6 @@ public class MyDialogs {
                     }
                 } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) {
                     //当收到竞价结束通知后关闭对话框
-                    timeCount = (lastTime + 1);
                     dialog.dismiss();
                 }
             }
@@ -112,25 +115,29 @@ public class MyDialogs {
 
 
         //倒计时部分
-        timeCount = 0;
-        timeTv.setText(timeCount + "");
+
+        timeTv.setText(timesCount + "");
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                timeCount++;
-                if (timeCount <= lastTime) {
-                    handler.postDelayed(this, 1000);
-                    timeTv.setText(timeCount + "");
+
+
+                if (timesCount > 0) {
+
+                    handler.postDelayed(this, onceTime);
+                    timeTv.setText(timesCount + "");
+
                 } else {
-                    //10秒计时结束
                     RxBus.getDefault().unRegister(dialog);
                     dialog.dismiss();
                 }
+
+                timesCount--;
             }
         };
 
-        handler.postDelayed(runnable, 1000);
+        handler.postDelayed(runnable, onceTime);
 
         grapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +149,7 @@ public class MyDialogs {
                     requestData.put("price",number);
                     requestData.put("type", WebSocketEvent.USER_BET_PRICE + "");
                     requestData.put("bid",bid);
+                    requestData.put("userID",userId);
                     UtilTools.requestByWebSocket(v.getContext(),requestData);
                 } else {
                     ToastUtil.showToast(v.getContext(),"请输入合法数字", Toast.LENGTH_SHORT);
