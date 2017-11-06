@@ -237,6 +237,7 @@ public class MyDialogs {
 
     //抢座位结果
     public static void showGrapTableSeatDialog(Context context,final String storeId,final String bid) {
+        final long startTime = System.currentTimeMillis();
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -248,12 +249,16 @@ public class MyDialogs {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                long delayTime = System.currentTimeMillis() - startTime;
+
                 HashMap<String,String> requestData = new HashMap<String, String>();
                 requestData.put("storeID",storeId);
-                requestData.put("name","no name");
+                requestData.put("name","");
                 requestData.put("mobileNo", PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
                 requestData.put("type", WebSocketEvent.USER_GRAP_TABLE + "");
                 requestData.put("bid",bid);
+                requestData.put("actionTime",delayTime + "");
                 UtilTools.requestByWebSocket(v.getContext(),requestData);
                 dialog.dismiss();
             }
