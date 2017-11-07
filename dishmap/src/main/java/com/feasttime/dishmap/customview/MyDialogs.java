@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.bean.PriceChangeInfo;
-import com.feasttime.dishmap.model.bean.PriceChangeItemInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
@@ -102,9 +101,15 @@ public class MyDialogs {
                 if (orderEvent.eventType == WebSocketEvent.PRICE_RANK_CHANGE) {
 
                     PriceChangeInfo priceChangeInfo = JSON.parseObject(orderEvent.jsonData,PriceChangeInfo.class);
-                    highPriceTv.setText(priceChangeInfo.getUserID() + "    " + priceChangeInfo.getHighPrice());
 
-                } else if (orderEvent.eventType == WebSocketEvent.GRAP_TABLE_RESULT_NOTIFICATION) {
+                    if (priceChangeInfo.getUserID().length()>=11){
+
+                        String userID = priceChangeInfo.getUserID().substring(0,3) + "****" + priceChangeInfo.getUserID().substring(7,11);
+                        highPriceTv.setText(userID + "    " + priceChangeInfo.getHighPrice());
+                    }
+
+
+                } else if (orderEvent.eventType == WebSocketEvent.BID_TABLE_RESULT_NOTIFICATION) {
                     //当收到竞价结束通知后关闭对话框
                     dialog.dismiss();
                 }
@@ -235,15 +240,19 @@ public class MyDialogs {
     }
 
 
+    static Dialog cGrapTableDialog;
     //抢座位结果
     public static void showGrapTableSeatDialog(Context context,final String storeId,final String bid) {
         final long startTime = System.currentTimeMillis();
-        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        final Dialog grapTableDialog = new Dialog(context,R.style.DialogTheme);
+        cGrapTableDialog = grapTableDialog;
+
+        grapTableDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
         View contentView = inflater.inflate(R.layout.dialog_grap_seat,null);
-        dialog.setContentView(contentView);
-        dialog.setCancelable(false);
+        grapTableDialog.setContentView(contentView);
+        grapTableDialog.setCancelable(false);
 
         Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_grap_seat_grap_btn);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
@@ -255,24 +264,31 @@ public class MyDialogs {
                 HashMap<String,String> requestData = new HashMap<String, String>();
                 requestData.put("storeID",storeId);
                 requestData.put("name","");
-                requestData.put("mobileNo", PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
+                requestData.put("userID", PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
                 requestData.put("type", WebSocketEvent.USER_GRAP_TABLE + "");
                 requestData.put("bid",bid);
                 requestData.put("actionTime",delayTime + "");
                 UtilTools.requestByWebSocket(v.getContext(),requestData);
-                dialog.dismiss();
+                grapTableDialog.dismiss();
             }
         });
 
-        dialog.dismiss();
+        grapTableDialog.dismiss();
 
-        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        WindowManager.LayoutParams params = grapTableDialog.getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.width = (int)context.getResources().getDimension(R.dimen.x610);
         params.height = (int)context.getResources().getDimension(R.dimen.y400);
-        dialog.getWindow().setAttributes(params);
-        dialog.show();
+        grapTableDialog.getWindow().setAttributes(params);
+        grapTableDialog.show();
 
+    }
+
+    public static void closeGrapTableSeatDialog(){
+
+        if (null != cGrapTableDialog && cGrapTableDialog.isShowing()){
+            cGrapTableDialog.dismiss();
+        }
     }
 
 }

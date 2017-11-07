@@ -12,6 +12,7 @@
         android:layout_width="@dimen/x300"
         android:layout_height="@dimen/x300"
         android:background="@mipmap/grab_dialog_btn_bg"
+        android:clickable="true"
         android:text="" />
 
 </LinearLayout>

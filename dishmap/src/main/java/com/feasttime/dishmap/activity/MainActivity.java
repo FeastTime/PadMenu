@@ -192,6 +192,7 @@ public class MainActivity extends BaseActivity{
                 if (null != result.getAllPoi()){
 
                     List<MyMarkerInfo> list = getMarkerInfos(result.getAllPoi(), FOOD_TYPE_HOT_POT);
+
                     addPoint(list);
                 }
 
@@ -581,7 +582,7 @@ public class MainActivity extends BaseActivity{
 
         //重置浏览节点的路线数据
         //route = null;
-        mBaiduMap.clear();
+//        mBaiduMap.clear();
 
         //设置起终点、途经点信息，对于tranist search 来说，城市名无意义
         PlanNode stNode = PlanNode.withLocation(new LatLng(start.getLatitude(), start.getLongitude()));
