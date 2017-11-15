@@ -10,4 +10,5 @@ public class WebSocketConfig {
 
     public static  String baseWsUrl = "ws://192.168.1.116:8080/websocket";
 
+    public static  boolean WEB_SOCKET_IS_CONNECTED = false; //websoket是否处于连接状态
 }

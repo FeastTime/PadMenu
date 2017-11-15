@@ -79,6 +79,7 @@ public class MyService extends Service {
 
                         if (!TextUtils.isEmpty(s) && s.equals("success666success")){
                             WebSocketConfig.wsRequestUrl = requestUrl;
+                            WebSocketConfig.WEB_SOCKET_IS_CONNECTED = true;
                             Log.d("lixiaoqing", "WebSocketConfig.wsRequestUrl ------- : " + WebSocketConfig.wsRequestUrl);
                         } else {
 
@@ -110,6 +111,7 @@ public class MyService extends Service {
     private void closeWebSocket() {
         if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
+            WebSocketConfig.WEB_SOCKET_IS_CONNECTED = false;
         }
     }
 

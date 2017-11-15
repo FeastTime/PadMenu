@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/fragment_history_table_list_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+
+        <ImageView
+            android:id="@+id/fragment_history_table_list_place_table_iv"
+            android:layout_width="@dimen/x94"
+            android:layout_height="@dimen/x94"
+            android:src="@mipmap/plus_icon"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginBottom="@dimen/y20"
+            />
+    </RelativeLayout>
+</LinearLayout>

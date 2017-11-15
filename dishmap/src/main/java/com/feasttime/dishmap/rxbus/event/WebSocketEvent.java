@@ -5,6 +5,7 @@ package com.feasttime.dishmap.rxbus.event;
  */
 
 public class WebSocketEvent {
+    public static final int WEBSOCKET_CONNECT_SERVER_SUCCESS = 0;  //websocket 连接服务器成功
     public static final int USER_REACH_STORE = 1; //用户进店
     public static final int BOSS_PLACE_TABLE = 2; //老板放桌
     public static final int NEW_TABLE_NOTIFICATION = 3; //新桌位通知
@@ -14,6 +15,7 @@ public class WebSocketEvent {
     public static final int BID_TABLE_RESULT_NOTIFICATION = 7; //竞价桌位结果通知
     public static final int BEFORE_TABLES_LIST = 8; //历史桌位列表接口
     public static final int GROB_RESULT_NOTIFICATION = 9; //桌位结果通知
+    public static final int REQUEST_BEFORE_TABLES_LIST = 10; //请求历史桌位列表
 
     public String jsonData;
 
