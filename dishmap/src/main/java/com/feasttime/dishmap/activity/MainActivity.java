@@ -2,6 +2,7 @@ package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -602,6 +603,19 @@ public class MainActivity extends BaseActivity{
         detailDialog.setVisibility(View.GONE);
         clickMyMarkerInfo = null;
     }
+
+    // 关闭对话框
+    public void doCall(View view){
+        String phoneNO = textViewPhoneNO.getText().toString();
+
+        if (!TextUtils.isEmpty(phoneNO)){
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" + phoneNO));
+            startActivity(intent);
+        }
+    }
+
 
     // 展示详情
     public void showDetail(View view){
