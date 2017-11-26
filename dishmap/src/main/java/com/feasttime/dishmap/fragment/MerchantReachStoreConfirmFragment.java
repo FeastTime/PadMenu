@@ -12,15 +12,14 @@ import com.alibaba.fastjson.JSON;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.HistoryTableListAdapter;
-import com.feasttime.dishmap.adapter.MerchantReachStoreConfirmAdapter;
 import com.feasttime.dishmap.model.WebSocketConfig;
 import com.feasttime.dishmap.model.bean.HistoryTableListInfo;
-import com.feasttime.dishmap.model.bean.ReachStoreConfirmItemInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.UtilTools;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,12 +32,20 @@ import io.reactivex.functions.Consumer;
 public class MerchantReachStoreConfirmFragment extends Fragment{
     private static final String TAG = "MerchantReachStoreConfirmFragment";
 
+    private String storeId;
+
     @Bind(R.id.fragment_merchant_reach_store_confirm_content_lv)
     ListView contentLv;
+
+    private HistoryTableListAdapter merchantReachStoreConfirmAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
     @Nullable
@@ -47,7 +54,6 @@ public class MerchantReachStoreConfirmFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_merchant_reach_store_confirm, container,
                 false);
         ButterKnife.bind(this,view);
-        initView();
         init();
         return view;
     }
@@ -60,8 +66,8 @@ public class MerchantReachStoreConfirmFragment extends Fragment{
                 if (orderEvent.eventType == WebSocketEvent.BEFORE_TABLES_LIST) {
                     LogUtil.d(TAG,"received data:" + orderEvent.jsonData);
                     HistoryTableListInfo historyTableListInfo = JSON.parseObject(orderEvent.jsonData,HistoryTableListInfo.class);
-                    if (historyTableListAdapter != null) {
-                        historyTableListAdapter.addListData(historyTableListInfo.getDeskList());
+                    if (merchantReachStoreConfirmAdapter != null) {
+                        merchantReachStoreConfirmAdapter.addListData(historyTableListInfo.getDeskList());
                     }
                 } else if (orderEvent.eventType == WebSocketEvent.WEBSOCKET_CONNECT_SERVER_SUCCESS) {
                     requestHistoryTableList();
@@ -69,8 +75,8 @@ public class MerchantReachStoreConfirmFragment extends Fragment{
             }
         });
 
-        historyTableListAdapter = new HistoryTableListAdapter(this.getActivity());
-        contentLv.setAdapter(historyTableListAdapter);
+        merchantReachStoreConfirmAdapter = new HistoryTableListAdapter(this.getActivity());
+        contentLv.setAdapter(merchantReachStoreConfirmAdapter);
 
         RxWebSocketUtil.getInstance().getWebSocket(WebSocketConfig.wsRequestUrl);
 
@@ -85,32 +91,19 @@ public class MerchantReachStoreConfirmFragment extends Fragment{
         RxBus.getDefault().unRegister(this);
     }
 
-    private void initView() {
-        ArrayList<ReachStoreConfirmItemInfo> dataList = new ArrayList<ReachStoreConfirmItemInfo>();
-        ReachStoreConfirmItemInfo reachStoreConfirmItemInfo1 = new ReachStoreConfirmItemInfo();
-        reachStoreConfirmItemInfo1.setName("小明");
-        reachStoreConfirmItemInfo1.setType("5-7");
-        reachStoreConfirmItemInfo1.setNumber("665");
-        dataList.add(reachStoreConfirmItemInfo1);
-
-        ReachStoreConfirmItemInfo reachStoreConfirmItemInfo2 = new ReachStoreConfirmItemInfo();
-        reachStoreConfirmItemInfo2.setName("小红");
-        reachStoreConfirmItemInfo2.setType("5-9");
-        reachStoreConfirmItemInfo2.setNumber("665");
-        dataList.add(reachStoreConfirmItemInfo2);
-
-        ReachStoreConfirmItemInfo reachStoreConfirmItemInfo3 = new ReachStoreConfirmItemInfo();
-        reachStoreConfirmItemInfo3.setName("猴塞雷");
-        reachStoreConfirmItemInfo3.setType("8-9");
-        reachStoreConfirmItemInfo3.setNumber("225");
-        dataList.add(reachStoreConfirmItemInfo3);
-
-        MerchantReachStoreConfirmAdapter merchantReachStoreConfirmAdapter = new MerchantReachStoreConfirmAdapter(this.getActivity(),dataList);
-        contentLv.setAdapter(merchantReachStoreConfirmAdapter);
-    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+
+    private void requestHistoryTableList() {
+        HashMap<String,String> requestData = new HashMap<String,String>();
+        requestData.put("pageNo","1");
+        requestData.put("PageNum","10");
+        requestData.put("storeID",this.storeId);
+        requestData.put("type", WebSocketEvent.REQUEST_BEFORE_TABLES_LIST + "");
+        UtilTools.requestByWebSocket(this.getActivity(),requestData);
     }
 }
