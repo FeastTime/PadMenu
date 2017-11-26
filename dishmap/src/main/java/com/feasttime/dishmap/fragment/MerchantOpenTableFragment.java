@@ -1,7 +1,6 @@
 package com.feasttime.dishmap.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -10,18 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.R;
-import com.feasttime.dishmap.activity.BossPlaceTableActivity;
-import com.feasttime.dishmap.adapter.HistoryTableListAdapter;
-import com.feasttime.dishmap.model.WebSocketConfig;
-import com.feasttime.dishmap.model.bean.HistoryTableListInfo;
-import com.feasttime.dishmap.model.bean.NewTableNofiticationinfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.LogUtil;
@@ -42,22 +32,32 @@ import io.reactivex.functions.Consumer;
 public class MerchantOpenTableFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = "MerchantOpenTableFragment";
 
-    @Bind(R.id.fragment_history_table_list_lv)
-    ListView contentLv;
+    @Bind(R.id.fragment_merchant_open_table_place_table_btn)
+    Button placeTableBtn;
 
-    @Bind(R.id.fragment_history_table_list_place_table_iv)
-    ImageView placeTableIv;
+    @Bind(R.id.fragment_merchant_open_table_least_people_et)
+    EditText leastPeopleEt;
+
+    @Bind(R.id.fragment_merchant_open_table_most_people_et)
+    EditText mostPeopleEt;
+
+    @Bind(R.id.fragment_merchant_open_table_time_et)
+    EditText timeEt;
 
     private String storeId = "";
 
-    private HistoryTableListAdapter historyTableListAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_history_table_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_merchant_open_table, container,
+                false);
         ButterKnife.bind(this,view);
         init();
         return view;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
     private void init() {
@@ -66,24 +66,9 @@ public class MerchantOpenTableFragment extends Fragment implements View.OnClickL
             public void accept(WebSocketEvent orderEvent) throws Exception {
                 if (orderEvent.eventType == WebSocketEvent.BEFORE_TABLES_LIST) {
                     LogUtil.d(TAG,"received data:" + orderEvent.jsonData);
-                    HistoryTableListInfo historyTableListInfo = JSON.parseObject(orderEvent.jsonData,HistoryTableListInfo.class);
-                    if (historyTableListAdapter != null) {
-                        historyTableListAdapter.addListData(historyTableListInfo.getDeskList());
-                    }
-                } else if (orderEvent.eventType == WebSocketEvent.WEBSOCKET_CONNECT_SERVER_SUCCESS) {
-                    requestHistoryTableList();
                 }
             }
         });
-
-        historyTableListAdapter = new HistoryTableListAdapter(this.getActivity());
-        contentLv.setAdapter(historyTableListAdapter);
-
-        RxWebSocketUtil.getInstance().getWebSocket(WebSocketConfig.wsRequestUrl);
-
-        if (WebSocketConfig.WEB_SOCKET_IS_CONNECTED) {
-            requestHistoryTableList();
-        }
     }
 
     @Override
@@ -91,9 +76,6 @@ public class MerchantOpenTableFragment extends Fragment implements View.OnClickL
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
-    }
 
     @Override
     public void onDestroy() {
@@ -101,22 +83,28 @@ public class MerchantOpenTableFragment extends Fragment implements View.OnClickL
         RxBus.getDefault().unRegister(this);
     }
 
-    @OnClick({R.id.fragment_history_table_list_place_table_iv})
+    @OnClick({R.id.fragment_merchant_open_table_place_table_btn})
     @Override
     public void onClick(View v) {
-        if (v == placeTableIv) {
-            Intent intent = new Intent(v.getContext(), BossPlaceTableActivity.class);
-            intent.putExtra("STORE_ID",storeId);
-            startActivity(intent);
-        }
-    }
+        if (v == placeTableBtn) {
 
-    private void requestHistoryTableList() {
-        HashMap<String,String> requestData = new HashMap<String,String>();
-        requestData.put("pageNo","1");
-        requestData.put("PageNum","10");
-        requestData.put("storeID",this.storeId);
-        requestData.put("type", WebSocketEvent.REQUEST_BEFORE_TABLES_LIST + "");
-        UtilTools.requestByWebSocket(this.getActivity(),requestData);
+            String minPerson = leastPeopleEt.getText().toString();
+            String maxPerson = mostPeopleEt.getText().toString();
+            String time = timeEt.getText().toString();
+
+            if (TextUtils.equals(minPerson,"0") || TextUtils.equals(maxPerson,"0") || TextUtils.equals(time,"0")) {
+                ToastUtil.showToast(v.getContext(),"参数填入错误", Toast.LENGTH_SHORT);
+                return;
+            }
+
+
+            HashMap<String,String> requestData = new HashMap<String,String>();
+            requestData.put("minPerson",minPerson);
+            requestData.put("maxPerson",maxPerson);
+            requestData.put("storeID",this.storeId);
+            requestData.put("type",WebSocketEvent.BOSS_PLACE_TABLE + "");
+            requestData.put("desc","very nice");
+            UtilTools.requestByWebSocket(v.getContext(),requestData);
+        }
     }
 }
