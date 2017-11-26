@@ -72,7 +72,7 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
         UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine,picSize3,picSize4);
 
         opentTableTv.performClick();
-
+        merchantReachStoreConfirmFragment.setStoreId(storeId);
 //        merchantOpenTableFragment = new MerchantOpenTableFragment();
 //
 //        mFragmentManager = getFragmentManager();
