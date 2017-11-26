@@ -291,4 +291,30 @@ public class MyDialogs {
         }
     }
 
+
+    //延时设置对话框
+    public static void showDelayTimeConfigDialog(Context context) {
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View contentView = inflater.inflate(R.layout.dialog_delay_time_config,null);
+        dialog.setContentView(contentView);
+
+        Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_delay_time_config_confirm_btn);
+
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.width = (int)context.getResources().getDimension(R.dimen.x615);
+        params.height = (int)context.getResources().getDimension(R.dimen.y981);
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
+    }
+
 }
