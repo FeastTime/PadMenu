@@ -8,20 +8,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
+import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.adapter.HistoryTableListAdapter;
 import com.feasttime.dishmap.adapter.MerchantReachStoreConfirmAdapter;
+import com.feasttime.dishmap.model.WebSocketConfig;
+import com.feasttime.dishmap.model.bean.HistoryTableListInfo;
 import com.feasttime.dishmap.model.bean.ReachStoreConfirmItemInfo;
+import com.feasttime.dishmap.rxbus.RxBus;
+import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.utils.LogUtil;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2017/10/28.
  */
 
 public class MerchantReachStoreConfirmFragment extends Fragment{
+    private static final String TAG = "MerchantReachStoreConfirmFragment";
 
     @Bind(R.id.fragment_merchant_reach_store_confirm_content_lv)
     ListView contentLv;
@@ -38,9 +48,42 @@ public class MerchantReachStoreConfirmFragment extends Fragment{
                 false);
         ButterKnife.bind(this,view);
         initView();
+        init();
         return view;
     }
 
+
+    private void init() {
+        RxBus.getDefault().register(this, WebSocketEvent.class, new Consumer<WebSocketEvent>() {
+            @Override
+            public void accept(WebSocketEvent orderEvent) throws Exception {
+                if (orderEvent.eventType == WebSocketEvent.BEFORE_TABLES_LIST) {
+                    LogUtil.d(TAG,"received data:" + orderEvent.jsonData);
+                    HistoryTableListInfo historyTableListInfo = JSON.parseObject(orderEvent.jsonData,HistoryTableListInfo.class);
+                    if (historyTableListAdapter != null) {
+                        historyTableListAdapter.addListData(historyTableListInfo.getDeskList());
+                    }
+                } else if (orderEvent.eventType == WebSocketEvent.WEBSOCKET_CONNECT_SERVER_SUCCESS) {
+                    requestHistoryTableList();
+                }
+            }
+        });
+
+        historyTableListAdapter = new HistoryTableListAdapter(this.getActivity());
+        contentLv.setAdapter(historyTableListAdapter);
+
+        RxWebSocketUtil.getInstance().getWebSocket(WebSocketConfig.wsRequestUrl);
+
+        if (WebSocketConfig.WEB_SOCKET_IS_CONNECTED) {
+            requestHistoryTableList();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RxBus.getDefault().unRegister(this);
+    }
 
     private void initView() {
         ArrayList<ReachStoreConfirmItemInfo> dataList = new ArrayList<ReachStoreConfirmItemInfo>();
