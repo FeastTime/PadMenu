@@ -2,28 +2,159 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ListView
-            android:id="@+id/fragment_history_table_list_lv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-        </ListView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前呼啦圈实时在线人数0人"
+        android:layout_marginTop="@dimen/y68"
+        android:includeFontPadding="false"
+        />
 
 
-        <ImageView
-            android:id="@+id/fragment_history_table_list_place_table_iv"
-            android:layout_width="@dimen/x94"
-            android:layout_height="@dimen/x94"
-            android:src="@mipmap/plus_icon"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/x20"
-            android:layout_marginBottom="@dimen/y20"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/y74"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fragment_merchant_open_table_least_people_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/big_text_size"
+            android:text="最少人数："
             />
-    </RelativeLayout>
+
+        <EditText
+            android:id="@+id/fragment_merchant_open_table_least_people_et"
+            android:layout_width="@dimen/x250"
+            android:layout_height="@dimen/y72"
+            android:gravity="center"
+            android:inputType="number"
+            android:background="@drawable/white_bg_radius_10"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/big_text_size"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="人  "
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y49"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/big_text_size"
+            android:text="最多人数："
+            />
+
+        <EditText
+            android:id="@+id/fragment_merchant_open_table_most_people_et"
+            android:layout_width="@dimen/x250"
+            android:layout_height="@dimen/y72"
+            android:gravity="center"
+            android:inputType="number"
+            android:background="@drawable/white_bg_radius_10"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/big_text_size"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="人  "
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y49"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/x15"
+            android:textColor="@color/black"
+            android:textSize="@dimen/big_text_size"
+            android:text="预留时间："
+            />
+
+        <RelativeLayout
+            android:layout_width="@dimen/x250"
+            android:layout_height="@dimen/y72">
+            <EditText
+                android:id="@+id/fragment_merchant_open_table_time_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:inputType="number"
+                android:background="@drawable/white_bg_radius_10"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/x33"
+                android:layout_height="@dimen/y5"
+                android:src="@mipmap/merchant_reduce"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/x20"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/x35"
+                android:layout_height="@dimen/x35"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x20"
+                android:src="@mipmap/merchant_add"
+                />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/big_text_size"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="分钟"
+            />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/fragment_merchant_open_table_place_table_btn"
+        android:layout_width="@dimen/x691"
+        android:layout_height="@dimen/y89"
+        android:text="放桌"
+        android:textColor="@color/white"
+        android:textSize="@dimen/very_big_text_size"
+        android:background="@mipmap/merchant_open_table_bg"
+        android:layout_marginTop="@dimen/y95"
+        />
+
 </LinearLayout>
