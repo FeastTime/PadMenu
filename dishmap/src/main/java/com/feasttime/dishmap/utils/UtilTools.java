@@ -6,10 +6,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.dhh.websocket.RxWebSocketUtil;
+import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.model.WebSocketConfig;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.HashMap;
 
@@ -66,5 +71,21 @@ public class UtilTools {
         }
         if (!StringUtils.isEmpty(WebSocketConfig.wsRequestUrl) && !StringUtils.isEmpty(requestJson) && null != rxWebSocketUtil)
             rxWebSocketUtil.asyncSend(WebSocketConfig.wsRequestUrl, requestJson);
+    }
+
+    //微信登录
+    public static void loginWithWeChat(Context context) {
+        IWXAPI api = WXAPIFactory.createWXAPI(context, GlobalConfig.WECHAT_APPID, false);
+        api.registerApp(GlobalConfig.WECHAT_APPID);
+
+        if (!api.isWXAppInstalled()) {
+            ToastUtil.showToast(context,"您还未安装微信客户端", Toast.LENGTH_SHORT);
+            return;
+        }
+
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "dishmap_wechat_login";
+        api.sendReq(req);
     }
 }

@@ -15,6 +15,7 @@ import com.feasttime.dishmap.fragment.MerchantMineFragment;
 import com.feasttime.dishmap.fragment.MerchantOpenTableFragment;
 import com.feasttime.dishmap.fragment.MerchantReachStoreConfirmFragment;
 import com.feasttime.dishmap.service.MyService;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
 import butterknife.Bind;
@@ -50,9 +51,14 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_merchant);
         ButterKnife.bind(this);
         storeId = this.getIntent().getStringExtra("STORE_ID");
-
+        testData();
         startService();
         initView();
+    }
+
+    private void testData() {
+        PreferenceUtil.setStringKey(PreferenceUtil.MOBILE_NO,"15810697038");
+        storeId="66668888";
     }
 
     private void startService() {
@@ -72,12 +78,6 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
         UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine,picSize3,picSize4);
 
         opentTableTv.performClick();
-        merchantReachStoreConfirmFragment.setStoreId(storeId);
-//        merchantOpenTableFragment = new MerchantOpenTableFragment();
-//
-//        mFragmentManager = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.activity_merchant_content_fl,merchantOpenTableFragment).commit();
     }
 
 
@@ -103,6 +103,7 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
         } else if (v == reachStoreConfirmTv) {
             if (merchantReachStoreConfirmFragment == null) {
                 merchantReachStoreConfirmFragment = new MerchantReachStoreConfirmFragment();
+                merchantReachStoreConfirmFragment.setStoreId(storeId);
             }
 
             if (merchantReachStoreConfirmFragment.isAdded()) {
