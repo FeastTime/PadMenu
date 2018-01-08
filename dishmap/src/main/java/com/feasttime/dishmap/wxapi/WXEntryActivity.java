@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.TrustAllCerts;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -92,27 +93,46 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        //请求微信token数据
-                        String code = ((SendAuth.Resp) resp).code;
-                        String requestTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + GlobalConfig.WECHAT_APPID + "&secret=" + GlobalConfig.WECHAT_APPSECRET + "&code=" + code + "&grant_type=authorization_code";
-                        String responseStr = requestNet(requestTokenUrl);
-                        LogUtil.d(TAG,"the response" + responseStr);
+                        try {
+                            //请求微信token数据
+                            String code = ((SendAuth.Resp) resp).code;
+                            String requestTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + GlobalConfig.WECHAT_APPID + "&secret=" + GlobalConfig.WECHAT_APPSECRET + "&code=" + code + "&grant_type=authorization_code";
+                            String responseStr = requestNet(requestTokenUrl);
+                            LogUtil.d(TAG,"the response" + responseStr);
 
-                        //请求微信用户数据
-                        JSONObject tokenJsonObj = JSON.parseObject(responseStr);
-                        String openid = tokenJsonObj.getString("openid");
-                        String access_token = tokenJsonObj.getString("access_token");
-                        String requestWeChatUserInfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN";
-                        responseStr = requestNet(requestWeChatUserInfoUrl);
-                        JSONObject userInfoJsonObj = JSON.parseObject(responseStr);
+                            //请求微信用户数据
+                            JSONObject tokenJsonObj = JSON.parseObject(responseStr);
+                            String openid = tokenJsonObj.getString("openid");
+                            String access_token = tokenJsonObj.getString("access_token");
+                            String requestWeChatUserInfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN";
+                            responseStr = requestNet(requestWeChatUserInfoUrl);
+                            JSONObject userInfoJsonObj = JSON.parseObject(responseStr);
 
-                        String nickName = userInfoJsonObj.getString("nickname");
-                        String headimgurl = userInfoJsonObj.getString("headimgurl");
-                        String city = userInfoJsonObj.getString("city");
-                        LogUtil.d(TAG,"geted the wechat userinfo:" + nickName + "-" + city + "-" + headimgurl);
+                            String nickName = userInfoJsonObj.getString("nickname");
+                            String headimgurl = userInfoJsonObj.getString("headimgurl");
+                            String city = userInfoJsonObj.getString("city");
+                            LogUtil.d(TAG,"geted the wechat userinfo:" + nickName + "-" + city + "-" + headimgurl);
 
-                        //上传微信用户数据
+                            //上传微信用户数据
 
+
+
+                            //都完成都结束当前页面
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtil.showToast(WXEntryActivity.this,"登录失败",Toast.LENGTH_SHORT);
+                                }
+                            });
+                        }
                     }
                 }).start();
 
