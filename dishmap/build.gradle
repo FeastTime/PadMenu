@@ -17,8 +17,17 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
 
+      signingConfigs {
+            School {
+                keyPassword '111111'
+                storeFile file('../keystore/school')
+                storePassword '111111'
+                keyAlias 'ParentsCycleSchool'
+            }
+        }
+
     defaultConfig {
-        applicationId "com.feasttime.dishmap"
+        applicationId "com.jgkj.parentscycle.school"
         minSdkVersion 18
         targetSdkVersion 25
         versionCode 1
@@ -31,6 +40,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.School
         }
     }
 

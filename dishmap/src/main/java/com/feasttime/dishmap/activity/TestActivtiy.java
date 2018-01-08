@@ -13,6 +13,7 @@ import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.DeviceTool;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
+import com.feasttime.dishmap.utils.UtilTools;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.concurrent.TimeUnit;
@@ -87,7 +88,8 @@ public class TestActivtiy extends BaseActivity {
 //                        RxBus.getDefault().post(new WebSocketEvent(WebSocketEvent.PRICE_RANK_CHANGE,jsonData));
 //                        MyDialogs.showBetPriceDialog(TestActivtiy.this,"55","66");
                        // MyDialogs.showGrapTableLoserDialog(TestActivtiy.this,"哈哈");
-                        MyDialogs.showGrapTableSeatDialog(TestActivtiy.this,"2","2");
+//                        MyDialogs.showGrapTableSeatDialog(TestActivtiy.this,"2","2");
+                        UtilTools.loginWithWeChat(TestActivtiy.this);
                     }
                 });
 

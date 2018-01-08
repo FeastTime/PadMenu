@@ -77,10 +77,6 @@
         </activity>
         <activity android:name=".activity.SplashActivity" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
@@ -98,11 +94,19 @@
 
         </activity>
 
+        <activity android:name="com.jgkj.parentscycle.school.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+
+        </activity>
 
         <service android:name=".service.MyService"></service>
 
         <activity android:name=".activity.TestActivtiy">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
