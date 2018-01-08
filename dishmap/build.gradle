@@ -20,14 +20,14 @@ android {
       signingConfigs {
             School {
                 keyPassword '111111'
-                storeFile file('../keystore/school')
+                storeFile file('../keystore/menukey')
                 storePassword '111111'
-                keyAlias 'ParentsCycleSchool'
+                keyAlias 'dishmap'
             }
         }
 
     defaultConfig {
-        applicationId "com.jgkj.parentscycle.school"
+        applicationId "com.feasttime.dishmap"
         minSdkVersion 18
         targetSdkVersion 25
         versionCode 1

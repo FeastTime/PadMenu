@@ -94,7 +94,7 @@
 
         </activity>
 
-        <activity android:name="com.jgkj.parentscycle.school.wxapi.WXEntryActivity"
+        <activity android:name="com.feasttime.dishmap.wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop">
 
