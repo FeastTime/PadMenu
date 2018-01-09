@@ -94,7 +94,7 @@ public class MainActivityBak extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_bak);
 
 
         // 初始化基本控件
