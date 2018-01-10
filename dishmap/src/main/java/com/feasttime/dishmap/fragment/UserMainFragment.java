@@ -66,6 +66,7 @@ public class UserMainFragment extends Fragment{
                 topImageRelOnCreateHeight = topImgWrapRel.getHeight();
                 topImageRelFinalHeight = topImageRelOnCreateHeight;
                 topImageRelMaxFinalHeight = (int)UserMainFragment.this.getResources().getDimension(R.dimen.y960);
+                alphaValue = Math.abs(topImageRelOnCreateHeight - topImageRelMaxFinalHeight) / 255f;
             }
         });
 
@@ -90,6 +91,8 @@ public class UserMainFragment extends Fragment{
     private int btmMenuRelOnCreateHeight = 0;
 
     private int touchDownYPosition = 0;
+
+    private float alphaValue = 0;
 
     private ValueAnimator mAnimator;
 
@@ -150,6 +153,7 @@ public class UserMainFragment extends Fragment{
             }
 
             LogUtil.d(TAG,"the top height:" + topHeight);
+            setScanItemsAlpha(topHeight);
             topParams.height = topHeight;
             topImgWrapRel.setLayoutParams(topParams);
 
@@ -193,9 +197,11 @@ public class UserMainFragment extends Fragment{
                 if (direction == 0) {
                     //向上
                     btmParams.height = btmMenuHeight + distance;
+                    scanItemsLL.getBackground().setAlpha(200);
                 } else {
                     //向下
                     btmParams.height = btmMenuHeight - distance;
+                    scanItemsLL.getBackground().setAlpha(50);
                 }
 
                 if (btmParams.height < 0) {
@@ -206,6 +212,8 @@ public class UserMainFragment extends Fragment{
                     btmParams.height = btmMenuRelOnCreateHeight;
                 }
                 btmMenuWrapRel.setLayoutParams(btmParams);
+
+                setScanItemsAlpha(value);
 
                 //动画结束
                 if (value == endY) {
@@ -218,6 +226,25 @@ public class UserMainFragment extends Fragment{
         mAnimator.start();
     }
 
+
+    //设置扫描部分的透明值
+    private void setScanItemsAlpha(int currY) {
+
+        LogUtil.d(TAG,"setScanItemsAlpha  currY:" + currY);
+        if (currY == topImageRelOnCreateHeight) {
+            scanItemsLL.getBackground().setAlpha(255);
+        } else if (currY == topImageRelMaxFinalHeight) {
+            scanItemsLL.getBackground().setAlpha(0);
+        } else {
+            //根据距离设置扫描部分的透明度
+            int distance = topImageRelMaxFinalHeight - topImageRelOnCreateHeight;
+            int currDistance = (currY - topImageRelOnCreateHeight);
+            int finalAlpha = (int)((distance - currDistance) * alphaValue);
+            LogUtil.d(TAG,"setScanItemsAlpha  finalAlpha:" + finalAlpha);
+            scanItemsLL.getBackground().setAlpha(finalAlpha);
+        }
+    }
+
     //============================================================
 
 
@@ -226,5 +253,6 @@ public class UserMainFragment extends Fragment{
         super.onDestroy();
         btmMenuWrapRel = null;
         topImgWrapRel = null;
+        mAnimator = null;
     }
 }
