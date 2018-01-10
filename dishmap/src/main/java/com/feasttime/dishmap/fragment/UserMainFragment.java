@@ -129,8 +129,6 @@ public class UserMainFragment extends Fragment{
                     startAnimator(topImageHeight,topImageRelMaxFinalHeight,1);
                 }
             }
-
-
         } else {
             int currY = (int)event.getY();
             LogUtil.d("result","the current pos:" + currY);
