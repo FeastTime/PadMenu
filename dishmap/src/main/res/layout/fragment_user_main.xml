@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/activity_main_top_img_rel"
+        android:id="@+id/fragment_user_main_top_img_rel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y700">
 
@@ -25,14 +25,61 @@
 
     </RelativeLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/fragment_user_main_scan_items_ll"
+        android:layout_width="@dimen/x605"
+        android:layout_height="@dimen/y514"
+        android:background="@drawable/white_bg_radius_5"
+        android:layout_below="@+id/fragment_user_main_top_img_rel"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/activity_main_top_img_rel"
-        android:layout_marginTop="@dimen/y214"
-        android:textColor="@color/white"
-        android:text="开始扫码"/>
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:layout_marginTop="@dimen/y52"
+            android:background="@drawable/gray_bg_radius_5">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/scan_icon"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/x30"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/y44"
+            android:text="扫码进店"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/x22"
+            android:gravity="center"
+            android:text="扫店铺二维码，进入店铺专属\n呼啦圈，有机会获得座位快速进店吃饭哦！"
+            android:layout_marginTop="@dimen/y37"
+            android:lineSpacingExtra="@dimen/y16"
+            android:textColor="@color/black"
+            />
+
+        <Button
+            android:layout_width="@dimen/x510"
+            android:layout_height="@dimen/y80"
+            android:layout_marginTop="@dimen/y80"
+            android:textColor="@color/white"
+            android:background="@mipmap/scan_btn_bg"
+            android:text="开始扫码"/>
+
+    </LinearLayout>
 
 
 </RelativeLayout>

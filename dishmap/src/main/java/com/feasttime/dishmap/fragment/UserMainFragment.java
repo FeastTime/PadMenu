@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.feasttime.dishmap.R;
-import com.feasttime.dishmap.activity.MainActivity;
 import com.feasttime.dishmap.utils.LogUtil;
 
 import butterknife.Bind;
@@ -24,8 +24,11 @@ import butterknife.ButterKnife;
 public class UserMainFragment extends Fragment{
     private static final String TAG = "UserMainFragment";
 
-    @Bind(R.id.activity_main_top_img_rel)
+    @Bind(R.id.fragment_user_main_top_img_rel)
     RelativeLayout topImgWrapRel;
+
+    @Bind(R.id.fragment_user_main_scan_items_ll)
+    LinearLayout scanItemsLL;
 
     RelativeLayout btmMenuWrapRel;
 
@@ -50,6 +53,12 @@ public class UserMainFragment extends Fragment{
 
     private void initViews() {
         btmMenuWrapRel = (RelativeLayout)this.getActivity().findViewById(R.id.activity_main_btm_menu_rel);
+
+        //设置距顶边距为负值
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)scanItemsLL.getLayoutParams();
+        int marginTop = (int)this.getResources().getDimension(R.dimen.y175) * -1;
+        params.setMargins(0,marginTop,0,0);
+        scanItemsLL.setLayoutParams(params);
 
         topImgWrapRel.post(new Runnable() {
             @Override
@@ -109,6 +118,15 @@ public class UserMainFragment extends Fragment{
                 } else {
                     //动画移动到顶部
                     startAnimator(topImageHeight,topImageRelOnCreateHeight,0);
+                }
+            } else {
+                //如果小于20的距离，那么就返回原来的状态
+                if (distance > 0) {
+                    //动画移动到顶部
+                    startAnimator(topImageHeight,topImageRelOnCreateHeight,0);
+                } else {
+                    //动画移动到底部
+                    startAnimator(topImageHeight,topImageRelMaxFinalHeight,1);
                 }
             }
 
