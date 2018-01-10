@@ -7,8 +7,7 @@
     <FrameLayout
         android:id="@+id/activity_main_content_fl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/y100">
+        android:layout_height="match_parent">
 
     </FrameLayout>
 
