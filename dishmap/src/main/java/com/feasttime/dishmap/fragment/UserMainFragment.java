@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -29,6 +30,9 @@ public class UserMainFragment extends Fragment{
 
     @Bind(R.id.fragment_user_main_scan_items_ll)
     LinearLayout scanItemsLL;
+
+    @Bind(R.id.fragment_user_main_slide_down_iv)
+    ImageView slideDownIv;
 
     RelativeLayout btmMenuWrapRel;
 
@@ -233,8 +237,10 @@ public class UserMainFragment extends Fragment{
         LogUtil.d(TAG,"setScanItemsAlpha  currY:" + currY);
         if (currY == topImageRelOnCreateHeight) {
             scanItemsLL.getBackground().setAlpha(255);
+            slideDownIv.setAlpha(255);
         } else if (currY == topImageRelMaxFinalHeight) {
             scanItemsLL.getBackground().setAlpha(0);
+            slideDownIv.setAlpha(0);
         } else {
             //根据距离设置扫描部分的透明度
             int distance = topImageRelMaxFinalHeight - topImageRelOnCreateHeight;
@@ -242,6 +248,7 @@ public class UserMainFragment extends Fragment{
             int finalAlpha = (int)((distance - currDistance) * alphaValue);
             LogUtil.d(TAG,"setScanItemsAlpha  finalAlpha:" + finalAlpha);
             scanItemsLL.getBackground().setAlpha(finalAlpha);
+            slideDownIv.setAlpha(finalAlpha);
         }
     }
 
