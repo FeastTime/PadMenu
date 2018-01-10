@@ -15,14 +15,20 @@
         android:id="@+id/activity_main_btm_menu_rel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y100"
+        android:paddingBottom="@dimen/y5"
         android:layout_alignParentBottom="true"
-        android:background="#234345">
+        android:background="@mipmap/main_btm_menu_bg">
 
         <TextView
             android:id="@+id/activity_main_home_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:drawableTop="@mipmap/home_no_selet"
+            android:layout_marginLeft="@dimen/x82"
+            android:drawablePadding="@dimen/y8"
+            android:textSize="@dimen/small_text_size"
             android:text="首页"
             />
 
@@ -31,7 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:drawablePadding="@dimen/y8"
+            android:drawableTop="@mipmap/coupon_no_select"
+            android:textSize="@dimen/small_text_size"
             android:text="优惠券"
             />
 
@@ -41,7 +51,12 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_alignParentRight="true"
-            android:text="优惠券"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/x82"
+            android:drawablePadding="@dimen/y8"
+            android:drawableTop="@mipmap/mine_no_select_icon"
+            android:textSize="@dimen/small_text_size"
+            android:text="我的"
             />
 
     </RelativeLayout>

@@ -81,5 +81,23 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="@dimen/x32"
+        android:layout_height="@dimen/y54"
+        android:src="@mipmap/slide_downward"
+        android:layout_below="@+id/fragment_user_main_scan_items_ll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y84"
+        />
 
+    <ImageView
+        android:id="@+id/fragment_user_main_right_menu_iv"
+        android:layout_width="@dimen/x10"
+        android:layout_height="@dimen/y54"
+        android:src="@mipmap/right_menu"
+        android:layout_marginTop="@dimen/y60"
+        android:layout_marginRight="@dimen/x44"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        />
 </RelativeLayout>
