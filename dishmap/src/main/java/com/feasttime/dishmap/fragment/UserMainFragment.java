@@ -70,7 +70,7 @@ public class UserMainFragment extends Fragment{
                 topImageRelOnCreateHeight = topImgWrapRel.getHeight();
                 topImageRelFinalHeight = topImageRelOnCreateHeight;
                 topImageRelMaxFinalHeight = (int)UserMainFragment.this.getResources().getDimension(R.dimen.y960);
-                alphaValue = Math.abs(topImageRelOnCreateHeight - topImageRelMaxFinalHeight) / 255f;
+                alphaValue = 255f / Math.abs(topImageRelOnCreateHeight - topImageRelMaxFinalHeight);
             }
         });
 
@@ -247,6 +247,7 @@ public class UserMainFragment extends Fragment{
             int currDistance = (currY - topImageRelOnCreateHeight);
             int finalAlpha = (int)((distance - currDistance) * alphaValue);
             LogUtil.d(TAG,"setScanItemsAlpha  finalAlpha:" + finalAlpha);
+            LogUtil.d(TAG,"setScanItemsAlpha  finalAlpha detail:" + distance + "-" + currDistance + "-" + topImageRelOnCreateHeight + "-" + alphaValue);
             scanItemsLL.getBackground().setAlpha(finalAlpha);
             slideDownIv.setAlpha(finalAlpha);
         }
