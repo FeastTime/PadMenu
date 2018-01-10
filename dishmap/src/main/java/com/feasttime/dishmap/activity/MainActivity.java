@@ -22,14 +22,6 @@ public class MainActivity extends BaseActivity{
     @Bind(R.id.activity_main_btm_menu_rel)
     RelativeLayout btmMenuWrapRel;
 
-    private int topImageRelFinalHeight = 0;
-    private int btmMenuRelFinalHeight = 0;
-
-    private int topImageRelOnCreateHeight = 0;
-    private int btmMenuRelOnCreateHeight = 0;
-
-    private int touchDownYPosition = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +36,7 @@ public class MainActivity extends BaseActivity{
             public void run() {
                 topImageRelOnCreateHeight = topImgWrapRel.getHeight();
                 topImageRelFinalHeight = topImageRelOnCreateHeight;
+                topImageRelMaxFinalHeight = (int)MainActivity.this.getResources().getDimension(R.dimen.y960);
             }
         });
 
@@ -56,21 +49,54 @@ public class MainActivity extends BaseActivity{
         });
     }
 
+
+    //动画绘制部分====================================
+
+    private int topImageRelFinalHeight = 0;
+    private int topImageRelMaxFinalHeight = 0;
+    private int topImageRelOnCreateHeight = 0;
+
+    private int btmMenuRelFinalHeight = 0;
+    private int btmMenuRelOnCreateHeight = 0;
+
+    private int touchDownYPosition = 0;
+
+    private ValueAnimator mAnimator;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
+        if (mAnimator == null || !mAnimator.isRunning()) {
+            handleTouchEvent(event);
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    //处理动画逻辑
+    private void handleTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             touchDownYPosition = (int)event.getY();
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            int topImageHeight = topImgWrapRel.getHeight();
 
-            int tempY = (int)event.getY();
-//            startAnimation(tempX,tempY,600,600);
+            int currentY = (int)event.getY();
 
-            startAnimator(topImgWrapRel.getHeight(),topImageRelOnCreateHeight);
+            int distance = currentY - touchDownYPosition;
+
+            if (Math.abs(distance) > 20) {
+                if (distance > 0) {
+                    //动画移动到底部
+                    startAnimator(topImageHeight,topImageRelMaxFinalHeight,1);
+                } else {
+                    //动画移动到顶部
+                    startAnimator(topImageHeight,topImageRelOnCreateHeight,0);
+                }
+            }
+
+
         } else {
             int currY = (int)event.getY();
             LogUtil.d("result","the current pos:" + currY);
-
             int distance = (int)event.getY() - touchDownYPosition;
 
             //设置控件高度
@@ -80,6 +106,15 @@ public class MainActivity extends BaseActivity{
                 topHeight = 0;
             }
 
+            if (topHeight > topImageRelMaxFinalHeight) {
+                topHeight = topImageRelMaxFinalHeight;
+            }
+
+            if (topHeight < topImageRelOnCreateHeight) {
+                topHeight = topImageRelOnCreateHeight;
+            }
+
+            LogUtil.d(TAG,"the top height:" + topHeight);
             topParams.height = topHeight;
             topImgWrapRel.setLayoutParams(topParams);
 
@@ -89,33 +124,55 @@ public class MainActivity extends BaseActivity{
                 btmHeight = 0;
             }
 
+            if (btmHeight > btmMenuRelOnCreateHeight) {
+                btmHeight = btmMenuRelOnCreateHeight;
+            }
+
             btmParams.height = btmHeight;
             LogUtil.d(TAG,"the btm height:" + btmParams.height);
             btmMenuWrapRel.setLayoutParams(btmParams);
         }
-        return super.onTouchEvent(event);
     }
 
-    private void startAnimator(int startY, final int endY) {
-        LogUtil.d(TAG,"the start x:" + startY + "-" + endY);
-         final ValueAnimator animator = ValueAnimator.ofInt(startY, endY);
-         animator.setDuration(150);
-         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+    //开始动画
+    private void startAnimator(final int startY, final int endY, final int direction) {
+         LogUtil.d(TAG,"the start x:" + startY + "-" + endY + "-" + direction);
+         mAnimator = ValueAnimator.ofInt(startY, endY);
+         mAnimator.setDuration(150);
+         mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
              public void onAnimationUpdate(ValueAnimator animation) {
-                 Integer value = (Integer) animation.getAnimatedValue();
+                Integer value = (Integer) animation.getAnimatedValue();
                 LogUtil.d(TAG,"the animator height:" + value);
 
-                //设置控件高度
+                //设置顶部图动画
                 ViewGroup.LayoutParams topParams = topImgWrapRel.getLayoutParams();
                 topParams.height = value;
                 topImgWrapRel.setLayoutParams(topParams);
 
+                //设置底部菜单动画
                 ViewGroup.LayoutParams btmParams = btmMenuWrapRel.getLayoutParams();
-                btmParams.height = value;
+                int distance = Math.abs(value - startY);
+                int btmMenuHeight = btmMenuWrapRel.getHeight();
 
+                if (direction == 0) {
+                    //向上
+                    btmParams.height = btmMenuHeight + distance;
+                } else {
+                    //向下
+                    btmParams.height = btmMenuHeight - distance;
+                }
+
+                if (btmParams.height < 0) {
+                    btmParams.height = 0;
+                }
+
+                if (btmParams.height > btmMenuRelOnCreateHeight) {
+                    btmParams.height = btmMenuRelOnCreateHeight;
+                }
                 btmMenuWrapRel.setLayoutParams(btmParams);
 
+                //动画结束
                 if (value == endY) {
                      //动画结束
                      topImageRelFinalHeight = topImgWrapRel.getHeight();
@@ -123,6 +180,8 @@ public class MainActivity extends BaseActivity{
                 }
             }
          });
-        animator.start();
+        mAnimator.start();
      }
+
+    //============================================================
 }
