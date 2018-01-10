@@ -69,6 +69,8 @@ public class UserMainFragment extends Fragment{
         });
     }
 
+
+
     //动画绘制部分====================================
 
     private int topImageRelFinalHeight = 0;
@@ -201,4 +203,12 @@ public class UserMainFragment extends Fragment{
     }
 
     //============================================================
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        btmMenuWrapRel = null;
+        topImgWrapRel = null;
+    }
 }

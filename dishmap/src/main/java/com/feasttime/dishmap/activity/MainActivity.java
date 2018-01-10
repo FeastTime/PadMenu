@@ -68,9 +68,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 fragmentTransaction.show(mUserMainFragment).commitAllowingStateLoss();
             }
         } else if (v == couponTv) {
+            if (mUserCouponFragment == null) {
+                mUserCouponFragment = new UserCouponFragment();
+            }
 
+            if (mUserCouponFragment.isAdded()) {
+                fragmentTransaction.show(mUserCouponFragment).commitAllowingStateLoss();
+            } else {
+                fragmentTransaction.add(R.id.activity_main_content_fl, mUserCouponFragment);
+                fragmentTransaction.show(mUserCouponFragment).commitAllowingStateLoss();
+            }
         } else if (v == mineTv) {
+            if (mUserMineFragment == null) {
+                mUserMineFragment = new UserMineFragment();
+            }
 
+            if (mUserMineFragment.isAdded()) {
+                fragmentTransaction.show(mUserMineFragment).commitAllowingStateLoss();
+            } else {
+                fragmentTransaction.add(R.id.activity_main_content_fl, mUserMineFragment);
+                fragmentTransaction.show(mUserMineFragment).commitAllowingStateLoss();
+            }
         }
     }
 
