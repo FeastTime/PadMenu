@@ -4,30 +4,13 @@
     android:layout_height="match_parent"
     android:background="#EFEFEF">
 
-    <RelativeLayout
-        android:id="@+id/activity_main_top_img_rel"
+    <FrameLayout
+        android:id="@+id/activity_main_content_fl"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y700">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/y100">
 
-        <ImageView
-            android:id="@+id/activity_main_bg_iv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/y3"
-            android:src="@mipmap/main_activity_bg"
-            android:scaleType="centerCrop" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/main_activity_btm_cycle"
-            android:layout_alignParentBottom="true"
-            />
-
-    </RelativeLayout>
-
-
-
+    </FrameLayout>
 
     <RelativeLayout
         android:id="@+id/activity_main_btm_menu_rel"
@@ -37,10 +20,30 @@
         android:background="#234345">
 
         <TextView
+            android:id="@+id/activity_main_home_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="我的"
+            android:text="首页"
             />
+
+        <TextView
+            android:id="@+id/activity_main_coupon_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:text="优惠券"
+            />
+
+        <TextView
+            android:id="@+id/activity_main_mine_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:text="优惠券"
+            />
+
     </RelativeLayout>
 </RelativeLayout>

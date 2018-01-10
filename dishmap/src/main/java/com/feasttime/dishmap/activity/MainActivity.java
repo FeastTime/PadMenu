@@ -1,26 +1,43 @@
 package com.feasttime.dishmap.activity;
 
 import android.animation.ValueAnimator;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.fragment.MerchantOpenTableFragment;
+import com.feasttime.dishmap.fragment.UserCouponFragment;
+import com.feasttime.dishmap.fragment.UserMainFragment;
+import com.feasttime.dishmap.fragment.UserMineFragment;
 import com.feasttime.dishmap.utils.LogUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
     private static final String TAG = "MainActivity";
 
-    @Bind(R.id.activity_main_top_img_rel)
-    RelativeLayout topImgWrapRel;
+    @Bind(R.id.activity_main_home_tv)
+    TextView homeTv;
 
-    @Bind(R.id.activity_main_btm_menu_rel)
-    RelativeLayout btmMenuWrapRel;
+    @Bind(R.id.activity_main_coupon_tv)
+    TextView couponTv;
+
+    @Bind(R.id.activity_main_mine_tv)
+    TextView mineTv;
+
+
+    private UserMainFragment mUserMainFragment;
+    private UserCouponFragment mUserCouponFragment;
+    private UserMineFragment mUserMineFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,157 +48,52 @@ public class MainActivity extends BaseActivity{
     }
 
     private void initViews() {
-        topImgWrapRel.post(new Runnable() {
-            @Override
-            public void run() {
-                topImageRelOnCreateHeight = topImgWrapRel.getHeight();
-                topImageRelFinalHeight = topImageRelOnCreateHeight;
-                topImageRelMaxFinalHeight = (int)MainActivity.this.getResources().getDimension(R.dimen.y960);
-            }
-        });
-
-        btmMenuWrapRel.post(new Runnable() {
-            @Override
-            public void run() {
-                btmMenuRelOnCreateHeight = btmMenuWrapRel.getHeight();
-                btmMenuRelFinalHeight = btmMenuRelOnCreateHeight;
-            }
-        });
+        homeTv.performClick();
     }
 
+    @OnClick({R.id.activity_main_home_tv,R.id.activity_main_coupon_tv,R.id.activity_main_mine_tv})
+    @Override
+    public void onClick(View v) {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        hideAllFragment(fragmentTransaction);
+        if (v == homeTv) {
+            if (mUserMainFragment == null) {
+                mUserMainFragment = new UserMainFragment();
+            }
 
-    //动画绘制部分====================================
+            if (mUserMainFragment.isAdded()) {
+                fragmentTransaction.show(mUserMainFragment).commitAllowingStateLoss();
+            } else {
+                fragmentTransaction.add(R.id.activity_main_content_fl, mUserMainFragment);
+                fragmentTransaction.show(mUserMainFragment).commitAllowingStateLoss();
+            }
+        } else if (v == couponTv) {
 
-    private int topImageRelFinalHeight = 0;
-    private int topImageRelMaxFinalHeight = 0;
-    private int topImageRelOnCreateHeight = 0;
+        } else if (v == mineTv) {
 
-    private int btmMenuRelFinalHeight = 0;
-    private int btmMenuRelOnCreateHeight = 0;
+        }
+    }
 
-    private int touchDownYPosition = 0;
-
-    private ValueAnimator mAnimator;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
-        if (mAnimator == null || !mAnimator.isRunning()) {
-            handleTouchEvent(event);
+        if (mUserMainFragment != null && mUserMainFragment.isVisible()) {
+            mUserMainFragment.handleTouchEvent(event);
         }
 
         return super.onTouchEvent(event);
     }
 
-    //处理动画逻辑
-    private void handleTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            touchDownYPosition = (int)event.getY();
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            int topImageHeight = topImgWrapRel.getHeight();
+    private void hideAllFragment(FragmentTransaction fragmentTransaction) {
+        if (mUserMainFragment != null && mUserMainFragment.isAdded()) {
+            fragmentTransaction.hide(mUserMainFragment);
+        }
 
-            int currentY = (int)event.getY();
+        if (mUserCouponFragment != null && mUserCouponFragment.isAdded()) {
+            fragmentTransaction.hide(mUserCouponFragment);
+        }
 
-            int distance = currentY - touchDownYPosition;
-
-            if (Math.abs(distance) > 20) {
-                if (distance > 0) {
-                    //动画移动到底部
-                    startAnimator(topImageHeight,topImageRelMaxFinalHeight,1);
-                } else {
-                    //动画移动到顶部
-                    startAnimator(topImageHeight,topImageRelOnCreateHeight,0);
-                }
-            }
-
-
-        } else {
-            int currY = (int)event.getY();
-            LogUtil.d("result","the current pos:" + currY);
-            int distance = (int)event.getY() - touchDownYPosition;
-
-            //设置控件高度
-            ViewGroup.LayoutParams topParams = topImgWrapRel.getLayoutParams();
-            int topHeight = topImageRelFinalHeight + distance;
-            if (topHeight < 0) {
-                topHeight = 0;
-            }
-
-            if (topHeight > topImageRelMaxFinalHeight) {
-                topHeight = topImageRelMaxFinalHeight;
-            }
-
-            if (topHeight < topImageRelOnCreateHeight) {
-                topHeight = topImageRelOnCreateHeight;
-            }
-
-            LogUtil.d(TAG,"the top height:" + topHeight);
-            topParams.height = topHeight;
-            topImgWrapRel.setLayoutParams(topParams);
-
-            ViewGroup.LayoutParams btmParams = btmMenuWrapRel.getLayoutParams();
-            int btmHeight = btmMenuRelFinalHeight - distance;
-            if (btmHeight < 0) {
-                btmHeight = 0;
-            }
-
-            if (btmHeight > btmMenuRelOnCreateHeight) {
-                btmHeight = btmMenuRelOnCreateHeight;
-            }
-
-            btmParams.height = btmHeight;
-            LogUtil.d(TAG,"the btm height:" + btmParams.height);
-            btmMenuWrapRel.setLayoutParams(btmParams);
+        if (mUserMineFragment != null && mUserMineFragment.isAdded()) {
+            fragmentTransaction.hide(mUserMineFragment);
         }
     }
-
-    //开始动画
-    private void startAnimator(final int startY, final int endY, final int direction) {
-         LogUtil.d(TAG,"the start x:" + startY + "-" + endY + "-" + direction);
-         mAnimator = ValueAnimator.ofInt(startY, endY);
-         mAnimator.setDuration(150);
-         mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-             public void onAnimationUpdate(ValueAnimator animation) {
-                Integer value = (Integer) animation.getAnimatedValue();
-                LogUtil.d(TAG,"the animator height:" + value);
-
-                //设置顶部图动画
-                ViewGroup.LayoutParams topParams = topImgWrapRel.getLayoutParams();
-                topParams.height = value;
-                topImgWrapRel.setLayoutParams(topParams);
-
-                //设置底部菜单动画
-                ViewGroup.LayoutParams btmParams = btmMenuWrapRel.getLayoutParams();
-                int distance = Math.abs(value - startY);
-                int btmMenuHeight = btmMenuWrapRel.getHeight();
-
-                if (direction == 0) {
-                    //向上
-                    btmParams.height = btmMenuHeight + distance;
-                } else {
-                    //向下
-                    btmParams.height = btmMenuHeight - distance;
-                }
-
-                if (btmParams.height < 0) {
-                    btmParams.height = 0;
-                }
-
-                if (btmParams.height > btmMenuRelOnCreateHeight) {
-                    btmParams.height = btmMenuRelOnCreateHeight;
-                }
-                btmMenuWrapRel.setLayoutParams(btmParams);
-
-                //动画结束
-                if (value == endY) {
-                     //动画结束
-                     topImageRelFinalHeight = topImgWrapRel.getHeight();
-                     btmMenuRelFinalHeight = btmMenuWrapRel.getHeight();
-                }
-            }
-         });
-        mAnimator.start();
-     }
-
-    //============================================================
 }
