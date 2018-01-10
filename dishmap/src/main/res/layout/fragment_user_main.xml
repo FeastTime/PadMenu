@@ -28,8 +28,9 @@
             android:src="@mipmap/main_activity_bg" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/x750"
+            android:layout_height="@dimen/y70"
+            android:scaleType="fitXY"
             android:layout_alignParentBottom="true"
             android:src="@mipmap/main_activity_btm_cycle" />
 
