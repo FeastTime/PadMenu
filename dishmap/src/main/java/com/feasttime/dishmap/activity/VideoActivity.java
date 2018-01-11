@@ -22,7 +22,7 @@ public class VideoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // 设置全透明title
-        super.setTitleBarFullTransparents();
+//        super.setTitleBarFullTransparents();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);

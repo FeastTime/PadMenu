@@ -10,7 +10,7 @@
         <!-- Status Bar -->
         <item name="android:windowTranslucentStatus">true</item>
         <!-- Navigation Bar -->
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
     </style>
 
     <style name="DialogTheme" parent="android:style/Theme.Dialog">
