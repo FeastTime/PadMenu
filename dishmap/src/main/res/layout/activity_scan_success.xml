@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBFCFD"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="@dimen/x512"
+        android:layout_height="@dimen/x512"
+        android:layout_marginTop="@dimen/y70"
+        android:src="@mipmap/big_cycle_icon" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y28"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/right_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:textColor="#D98B8B"
+            android:text="扫码成功" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y56"
+        android:gravity="center"
+        android:textColor="#CD6B6E"
+        android:text="欢迎加入\n全聚德美食呼啦圈" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y62"
+        android:textSize="@dimen/big_text_size_2"
+        android:textColor="@color/text_dark_gray"
+        android:text="请输入" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_dark_gray"
+            android:text="就餐人数" />
+
+        <EditText
+            android:layout_width="@dimen/x177"
+            android:layout_height="@dimen/y62"
+            android:layout_marginLeft="@dimen/x16"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x16"
+            android:textColor="@color/text_dark_gray"
+            android:text="人" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/x458"
+        android:layout_height="@dimen/y110"
+        android:layout_marginTop="@dimen/y70">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@mipmap/radius_btn_bg_shadow" />
+
+        <Button
+            android:layout_width="@dimen/x438"
+            android:layout_height="@dimen/y90"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/radius_btn_bg"
+            android:text="确定"
+            android:textSize="@dimen/big_text_size_2"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
