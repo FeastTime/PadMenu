@@ -88,7 +88,8 @@
         <activity android:name=".activity.RegisterActivity" >
         </activity>
 
-        <activity android:name=".activity.ScanSuccessActivity" >
+        <activity android:name=".activity.ScanSuccessActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

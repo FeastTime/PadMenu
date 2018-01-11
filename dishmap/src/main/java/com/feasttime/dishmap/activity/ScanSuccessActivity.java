@@ -3,6 +3,7 @@ package com.feasttime.dishmap.activity;
 import android.os.Bundle;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,7 +20,6 @@ public class ScanSuccessActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_success);
         ButterKnife.bind(this);
-
-
+        SoftHideKeyBoardUtil.assistActivity(this);
     }
 }
