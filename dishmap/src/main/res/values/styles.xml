@@ -26,4 +26,8 @@
         <!-- 除去背景色 -->
     </style>
 
+    <style name="WelcomeStyle" parent="android:Theme">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

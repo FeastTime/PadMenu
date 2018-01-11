@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF9FF"
-    android:orientation="vertical">
+    android:background="#FAF9FF">
 
     <include
         android:id="@+id/title_layout"
@@ -12,6 +11,8 @@
         android:layout_height="@dimen/y128"></include>
 
     <RelativeLayout
+        android:id="@+id/activity_chat_tips_rel"
+        android:layout_below="@+id/title_layout"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/y84">
 
@@ -61,83 +62,78 @@
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
-    <RelativeLayout
+    <ListView
+        android:id="@+id/activity_chat_lv"
+        android:layout_below="@+id/activity_chat_tips_rel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/y100"
+        android:divider="@null"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        android:layout_marginLeft="@dimen/x35"
+        android:layout_marginRight="@dimen/x35">
+
+    </ListView>
+
+    <TextView
+        android:layout_width="@dimen/x84"
+        android:layout_height="@dimen/x84"
+        android:textSize="@dimen/big_text_size_2"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="催"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/y130"
+        android:layout_marginRight="@dimen/x30"
+        android:background="@drawable/orange_circle" />
 
 
 
-        <RelativeLayout
-            android:id="@+id/activity_chat_btm_chat_rel"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y100"
-            android:background="@color/white">
+    <RelativeLayout
+        android:id="@+id/activity_chat_btm_chat_rel"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical">
 
-                <RelativeLayout
-                    android:layout_width="@dimen/x541"
-                    android:layout_height="@dimen/y57">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/big_text_size"
-                        android:maxLength="30"
-                        android:background="@null"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#D0D0D0"
-                        android:layout_alignParentBottom="true"/>
-                </RelativeLayout>
-
-
-                <Button
-                    android:layout_width="@dimen/x120"
-                    android:layout_height="@dimen/y57"
-                    android:textColor="@color/white"
-                    android:background="@drawable/blue_bg_radius_5"
-                    android:layout_marginLeft="@dimen/x30"
+            <RelativeLayout
+                android:layout_width="@dimen/x541"
+                android:layout_height="@dimen/y57">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:textSize="@dimen/big_text_size"
-                    android:text="发送"
-                    />
-            </LinearLayout>
+                    android:maxLength="30"
+                    android:background="@null"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#D0D0D0"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
 
-        </RelativeLayout>
 
+            <Button
+                android:layout_width="@dimen/x120"
+                android:layout_height="@dimen/y57"
+                android:textColor="@color/white"
+                android:background="@drawable/blue_bg_radius_5"
+                android:layout_marginLeft="@dimen/x30"
+                android:textSize="@dimen/big_text_size"
+                android:text="发送"
+                />
+        </LinearLayout>
 
-        <ListView
-            android:id="@+id/activity_chat_lv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/activity_chat_btm_chat_rel"
-            android:divider="@null"
-            android:stackFromBottom="true"
-            android:transcriptMode="alwaysScroll"
-            android:layout_marginLeft="@dimen/x35"
-            android:layout_marginRight="@dimen/x35">
-
-        </ListView>
-
-        <TextView
-            android:layout_width="@dimen/x84"
-            android:layout_height="@dimen/x84"
-            android:textSize="@dimen/big_text_size_2"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:text="催"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/y130"
-            android:layout_marginRight="@dimen/x30"
-            android:background="@drawable/orange_circle"
-            />
     </RelativeLayout>
 
 
-</LinearLayout>
+
+</RelativeLayout>

@@ -75,7 +75,9 @@
                android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".activity.SplashActivity" >
+        <activity
+            android:theme="@style/WelcomeStyle"
+            android:name=".activity.SplashActivity" >
 
         </activity>
 
@@ -86,7 +88,8 @@
         <activity android:name=".activity.RegisterActivity" >
         </activity>
 
-        <activity android:name=".activity.ChatActivity" >
+        <activity android:name=".activity.ChatActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

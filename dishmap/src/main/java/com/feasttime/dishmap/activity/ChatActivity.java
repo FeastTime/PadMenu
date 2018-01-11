@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
 import com.feasttime.dishmap.utils.StringUtils;
 
 import org.w3c.dom.Text;
@@ -64,6 +66,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
+
+        SoftHideKeyBoardUtil.assistActivity(this);
 
         storeId = this.getIntent().getStringExtra("STORE_ID");
 
