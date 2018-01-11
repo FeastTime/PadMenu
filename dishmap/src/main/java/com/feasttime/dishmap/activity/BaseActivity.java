@@ -20,7 +20,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // 设置标题栏全透明
-        setTitleBarFullTransparents();
+        //setTitleBarFullTransparents();
 
 
     }

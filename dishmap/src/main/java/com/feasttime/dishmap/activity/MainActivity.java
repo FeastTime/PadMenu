@@ -2,6 +2,7 @@ package com.feasttime.dishmap.activity;
 
 import android.animation.ValueAnimator;
 import android.app.FragmentTransaction;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ import com.feasttime.dishmap.fragment.UserCouponFragment;
 import com.feasttime.dishmap.fragment.UserMainFragment;
 import com.feasttime.dishmap.fragment.UserMineFragment;
 import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.UtilTools;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,6 +51,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void initViews() {
         homeTv.performClick();
+
+        //修改底部drawable的图片
+        Resources resources = this.getResources();
+        UtilTools.chenageTextDrawableSize(homeTv,R.mipmap.home_no_selet,(int)resources.getDimension(R.dimen.x45),(int)resources.getDimension(R.dimen.y39));
+        UtilTools.chenageTextDrawableSize(couponTv,R.mipmap.coupon_no_select,(int)resources.getDimension(R.dimen.x50),(int)resources.getDimension(R.dimen.y34));
+        UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine_no_select_icon,(int)resources.getDimension(R.dimen.x35),(int)resources.getDimension(R.dimen.y44));
+
     }
 
     @OnClick({R.id.activity_main_home_tv,R.id.activity_main_coupon_tv,R.id.activity_main_mine_tv})
