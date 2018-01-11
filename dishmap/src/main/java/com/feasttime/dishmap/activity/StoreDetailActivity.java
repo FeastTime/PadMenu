@@ -110,7 +110,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
     private void hideMenu() {
         showMenuIv.setTag(null);
         menuBgRel.setBackgroundColor(Color.parseColor("#00000000"));
-        showMenuIv.setImageResource(R.mipmap.plus_icon);
+        showMenuIv.setImageResource(R.mipmap.blue_plus_icon);
         otherMenuLl.setVisibility(View.GONE);
     }
 }
