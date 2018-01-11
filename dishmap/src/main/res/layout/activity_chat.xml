@@ -11,16 +11,133 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y128"></include>
 
-    <ListView
-        android:id="@+id/activity_chat_lv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll"
-        android:layout_marginLeft="@dimen/x35"
-        android:layout_marginRight="@dimen/x35">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y84">
 
-    </ListView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="付费买座位快速进店享受美食..."
+            android:layout_centerInParent="true"
+            android:textColor="@color/text_dark_gray"
+            android:textSize="@dimen/small_text_size"
+            />
+
+        <RelativeLayout
+            android:layout_width="@dimen/x160"
+            android:layout_height="@dimen/y75"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/vip_icon_bg"
+                android:scaleType="fitXY"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/x132"
+                android:layout_height="@dimen/y47"
+                android:src="@mipmap/vip_icon_btn"
+                android:layout_centerInParent="true"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VIP通道"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/big_text_size"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#DFDDE0"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <RelativeLayout
+            android:id="@+id/activity_chat_btm_chat_rel"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/x541"
+                    android:layout_height="@dimen/y57">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/big_text_size"
+                        android:maxLength="30"
+                        android:background="@null"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D0D0D0"
+                        android:layout_alignParentBottom="true"/>
+                </RelativeLayout>
+
+
+                <Button
+                    android:layout_width="@dimen/x120"
+                    android:layout_height="@dimen/y57"
+                    android:textColor="@color/white"
+                    android:background="@drawable/blue_bg_radius_5"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:textSize="@dimen/big_text_size"
+                    android:text="发送"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <ListView
+            android:id="@+id/activity_chat_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/activity_chat_btm_chat_rel"
+            android:divider="@null"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll"
+            android:layout_marginLeft="@dimen/x35"
+            android:layout_marginRight="@dimen/x35">
+
+        </ListView>
+
+        <TextView
+            android:layout_width="@dimen/x84"
+            android:layout_height="@dimen/x84"
+            android:textSize="@dimen/big_text_size_2"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="催"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/y130"
+            android:layout_marginRight="@dimen/x30"
+            android:background="@drawable/orange_circle"
+            />
+    </RelativeLayout>
+
 
 </LinearLayout>

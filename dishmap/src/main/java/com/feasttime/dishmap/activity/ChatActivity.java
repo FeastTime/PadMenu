@@ -47,8 +47,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     @Bind(R.id.activity_chat_lv)
     ListView contentLv;
 
-    @Bind(R.id.title_bar_persons_iv)
-    ImageView rightPersonsIv;
+    @Bind(R.id.title_bar_right_iv)
+    ImageView rightTitleBarIv;
 
     @Bind(R.id.title_bar_share_iv)
     ImageView shareIv;
@@ -206,7 +206,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
     private void initViews() {
         shareIv.setVisibility(View.GONE);
-        rightPersonsIv.setVisibility(View.VISIBLE);
+        rightTitleBarIv.setVisibility(View.VISIBLE);
         titleTv.setText("全聚德");
     }
 
