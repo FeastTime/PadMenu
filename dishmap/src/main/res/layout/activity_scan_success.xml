@@ -5,7 +5,6 @@
     android:background="#FBFCFD">
 
 
-
     <LinearLayout
         android:id="@+id/activity_scan_success_btm_ll"
         android:layout_width="wrap_content"
