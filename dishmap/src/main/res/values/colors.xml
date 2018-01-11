@@ -18,6 +18,8 @@
     <color name="gray">#E5E6E7</color>
     <color name="text_black">#020202</color>
     <color name="text_hint_gray">#999999</color>
+    <color name="splash_gray">#B8B8B8</color>
+    <color name="splash_blue">#648B88</color>
     <color name="line_gray">#F2F2F2</color>
     <color name="text_red">#C5474A</color>
     <color name="text_yellow">#FCFDA4</color>

@@ -8,30 +8,33 @@
     <ImageView
         android:layout_width="@dimen/x372"
         android:layout_height="@dimen/y126"
-        android:layout_marginTop="@dimen/y300"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/y284"
         android:src="@mipmap/logo" />
 
 
-    <ImageView
-        android:layout_width="@dimen/x80"
-        android:layout_height="@dimen/y8"
-        android:src="@mipmap/black_rectangle"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/y292" />
+        android:text="E T C E 先吃"
+        android:textColor="@color/splash_blue"
+        android:textSize="@dimen/normal_text_size"
+        android:layout_marginBottom="@dimen/y230" />
 
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_black"
+        android:textColor="@color/splash_gray"
         android:text="@string/text_company_name"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/y100"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/text_size_13"
+        android:textSize="@dimen/small_text_size"
         android:gravity="center" />
 
 
