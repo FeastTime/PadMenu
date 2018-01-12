@@ -107,6 +107,14 @@
 
         </activity>
 
+        <activity android:name=".activity.MySeatActivity" >
+
+        </activity>
+
+        <activity android:name=".activity.FeedBackActivity" >
+
+        </activity>
+
         <activity android:name="com.feasttime.dishmap.wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleTop">
