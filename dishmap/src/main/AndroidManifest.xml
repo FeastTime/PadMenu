@@ -104,14 +104,14 @@
         </activity>
 
         <activity android:name=".activity.MySeatActivity" >
-
-        </activity>
-
-        <activity android:name=".activity.FeedBackActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".activity.FeedBackActivity" >
+
         </activity>
 
         <activity android:name="com.feasttime.dishmap.wxapi.WXEntryActivity"
