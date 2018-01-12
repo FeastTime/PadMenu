@@ -39,11 +39,20 @@ public class UtilTools {
     }
 
 
-    public static void chenageTextDrawableSize(TextView textView, int drawableId, int width,int height) {
+    public static void chenageTextDrawableSize(TextView textView, int drawableId, int width,int height,int direction) {
 
         Drawable drawable =  textView.getContext().getResources().getDrawable(drawableId);
         drawable.setBounds(0, 0, width, height);
-        textView.setCompoundDrawables(null,drawable, null, null);
+        if (direction == 1) {
+            textView.setCompoundDrawables(drawable,null, null, null);
+        } else if (direction == 2) {
+            textView.setCompoundDrawables(null,drawable, null, null);
+        } else if (direction == 3) {
+            textView.setCompoundDrawables(null,null, drawable, null);
+        } else if (direction == 4) {
+            textView.setCompoundDrawables(null,null, null, drawable);
+        }
+
     }
 
 

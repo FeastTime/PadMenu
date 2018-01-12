@@ -73,9 +73,9 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
         int picSize2 = (int)this.getResources().getDimension(R.dimen.x36);
         int picSize3 = (int)this.getResources().getDimension(R.dimen.x35);
         int picSize4 = (int)this.getResources().getDimension(R.dimen.y44);
-        UtilTools.chenageTextDrawableSize(opentTableTv,R.mipmap.setting,picSize,picSize);
-        UtilTools.chenageTextDrawableSize(reachStoreConfirmTv,R.mipmap.confirm,picSize2,picSize2);
-        UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine,picSize3,picSize4);
+        UtilTools.chenageTextDrawableSize(opentTableTv,R.mipmap.setting,picSize,picSize,2);
+        UtilTools.chenageTextDrawableSize(reachStoreConfirmTv,R.mipmap.confirm,picSize2,picSize2,2);
+        UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine,picSize3,picSize4,2);
 
         opentTableTv.performClick();
     }

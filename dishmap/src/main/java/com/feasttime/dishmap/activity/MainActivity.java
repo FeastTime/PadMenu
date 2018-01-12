@@ -54,9 +54,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         //修改底部drawable的图片
         Resources resources = this.getResources();
-        UtilTools.chenageTextDrawableSize(homeTv,R.mipmap.home_no_selet,(int)resources.getDimension(R.dimen.x45),(int)resources.getDimension(R.dimen.y39));
-        UtilTools.chenageTextDrawableSize(couponTv,R.mipmap.coupon_no_select,(int)resources.getDimension(R.dimen.x50),(int)resources.getDimension(R.dimen.y34));
-        UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine_no_select_icon,(int)resources.getDimension(R.dimen.x35),(int)resources.getDimension(R.dimen.y44));
+        UtilTools.chenageTextDrawableSize(homeTv,R.mipmap.home_no_selet,(int)resources.getDimension(R.dimen.x45),(int)resources.getDimension(R.dimen.y39),2);
+        UtilTools.chenageTextDrawableSize(couponTv,R.mipmap.coupon_no_select,(int)resources.getDimension(R.dimen.x50),(int)resources.getDimension(R.dimen.y34),2);
+        UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine_no_select_icon,(int)resources.getDimension(R.dimen.x35),(int)resources.getDimension(R.dimen.y44),2);
 
     }
 
