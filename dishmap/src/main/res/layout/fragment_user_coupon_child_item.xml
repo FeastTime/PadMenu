@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@drawable/white_bg_radius_5_with_stroke"
     android:layout_height="@dimen/y200">
 
     <LinearLayout
@@ -21,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/fragment_user_coupon_child_item_price_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/small_text_size"
@@ -28,6 +30,7 @@
                     android:text="0" />
 
                 <TextView
+                    android:id="@+id/fragment_user_coupon_child_item_coupon_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/small_text_size"

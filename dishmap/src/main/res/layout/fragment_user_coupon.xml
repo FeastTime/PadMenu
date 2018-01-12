@@ -2,8 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/normal_bg_gray"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y128"></include>
+
+    <ExpandableListView
+        android:id="@+id/fragment_user_coupon_content_elv"
+        android:layout_marginBottom="@dimen/y100"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginRight="@dimen/x30"
+        android:dividerHeight="0px"
+        android:divider="@null"
+        android:childDivider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ExpandableListView>
 
 
 </LinearLayout>

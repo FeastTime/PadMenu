@@ -27,4 +27,7 @@
     <color name="text_red_2">#B90020</color>
     <color name="text_red_3">#89171B</color>
     <color name="orange_color">#F1511F</color>
+    <color name="normal_bg_gray">#F4F0EF</color>
+
+    <color name="text_gray_1">#7A7A7A</color>
 </resources>

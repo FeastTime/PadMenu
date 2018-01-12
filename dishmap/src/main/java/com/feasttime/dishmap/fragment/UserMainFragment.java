@@ -34,6 +34,7 @@ public class UserMainFragment extends Fragment{
     @Bind(R.id.fragment_user_main_slide_down_iv)
     ImageView slideDownIv;
 
+
     RelativeLayout btmMenuWrapRel;
 
     @Override

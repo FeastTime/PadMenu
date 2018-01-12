@@ -6,22 +6,81 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.adapter.FragmentCouponAdapter;
+import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
+import com.feasttime.dishmap.model.bean.CouponListItemInfo;
+
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by chen on 2018/1/10.
  */
 
 public class UserCouponFragment extends Fragment {
+
+    @Bind(R.id.fragment_user_coupon_content_elv)
+    ExpandableListView mContentElv;
+
+    @Bind(R.id.title_back_iv)
+    ImageView titleBarBackIv;
+
+    @Bind(R.id.title_bar_right_iv)
+    ImageView titleBarRightIv;
+
+    @Bind(R.id.title_center_text_tv)
+    TextView titleCenterTv;
+
+    @Bind(R.id.title_bar_layout_orange_bg_iv)
+    ImageView titleBarOrangeBgIv;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_user_coupon, container, false);
+        ButterKnife.bind(this,view);
+        initViews();
+        return view;
+    }
+
+    private void initViews() {
+        ArrayList<CouponListItemInfo> myTestData = new ArrayList<CouponListItemInfo>();
+        for (int i = 0 ; i < 10 ; i++) {
+            ArrayList<CouponChildListItemInfo> childDatas = new ArrayList<CouponChildListItemInfo>();
+            CouponListItemInfo couponListItemInfo = new CouponListItemInfo();
+            for (int j = 0 ; j < 3 ; j++) {
+                CouponChildListItemInfo couponChildListItemInfo = new CouponChildListItemInfo();
+                couponChildListItemInfo.setCouponName(j * 10 + "");
+                couponChildListItemInfo.setCouponPrice(Math.random() + "");
+                childDatas.add(couponChildListItemInfo);
+                couponListItemInfo.setChildListItemInfos(childDatas);
+            }
+
+
+            couponListItemInfo.setName(i + "");
+            myTestData.add(couponListItemInfo);
+        }
+
+        titleBarBackIv.setVisibility(View.GONE);
+        titleBarRightIv.setVisibility(View.GONE);
+        titleBarOrangeBgIv.setVisibility(View.GONE);
+        titleCenterTv.setText("优惠券");
+        titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
+
+        FragmentCouponAdapter fragmentCouponAdapter = new FragmentCouponAdapter(this.getActivity(),myTestData);
+        mContentElv.setAdapter(fragmentCouponAdapter);
     }
 
     @Override
