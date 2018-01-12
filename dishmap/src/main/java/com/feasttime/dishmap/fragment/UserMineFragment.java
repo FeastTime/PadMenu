@@ -7,6 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.feasttime.dishmap.R;
+
+import butterknife.ButterKnife;
+
 /**
  * Created by chen on 2018/1/10.
  */
@@ -20,7 +24,14 @@ public class UserMineFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_user_mine, container, false);
+        ButterKnife.bind(this,view);
+        initViews();
+        return view;
+    }
+
+    private void initViews(){
+
     }
 
     @Override
