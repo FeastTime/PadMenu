@@ -37,7 +37,7 @@ public class MySeatActivity extends BaseActivity {
 
     private void initViews() {
         titleBarOrangeBgIv.setVisibility(View.GONE);
-        titleCenterTv.setText("意见反馈");
+        titleCenterTv.setText("我的座位");
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
