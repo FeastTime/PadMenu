@@ -2,8 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/title_bar_bg"
+    android:background="@color/white"
     android:layout_centerVertical="true">
+
+    <ImageView
+        android:id="@+id/title_bar_layout_orange_bg_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/title_bar_bg"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
