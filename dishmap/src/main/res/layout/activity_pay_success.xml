@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/normal_bg_gray"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y128"></include>
+
+
+    <ImageView
+        android:layout_width="@dimen/x162"
+        android:layout_height="@dimen/x162"
+        android:layout_marginTop="@dimen/y124"
+        android:src="@mipmap/smile_icon"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="支付成功"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/y52"
+        android:textSize="@dimen/big_text_size"
+        />
+
+    <Button
+        android:layout_width="@dimen/x390"
+        android:layout_height="@dimen/y90"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/y132"
+        android:text="返回"
+        android:background="@mipmap/big_radius_btn_bg"
+        />
+
+
+</LinearLayout>

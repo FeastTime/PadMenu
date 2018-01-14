@@ -27,6 +27,7 @@ public class BaseActivity extends Activity {
         setStatusBarTransparent(this);
     }
 
+
     private void setStatusBarTransparent(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

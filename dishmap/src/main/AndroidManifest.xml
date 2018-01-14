@@ -104,6 +104,10 @@
         </activity>
 
         <activity android:name=".activity.MySeatActivity" >
+
+        </activity>
+
+        <activity android:name=".activity.PaySuccessActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
