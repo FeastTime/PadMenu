@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/normal_bg_gray"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <include
@@ -54,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/big_text_size"
+        android:gravity="center_vertical"
         android:drawableLeft="@mipmap/right_icon"
         android:drawablePadding="@dimen/x10"
         android:textSize="@dimen/small_text_size"
@@ -74,7 +76,57 @@
         android:text="通道费用"/>
 
 
+    <com.feasttime.dishmap.customview.HorizontalListView
+        android:id="@+id/activity_pay_content_hlv"
+        android:layout_marginTop="@dimen/y50"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y160">
+
+    </com.feasttime.dishmap.customview.HorizontalListView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="left"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/big_text_size"
+        android:layout_marginTop="@dimen/y80"
+        android:layout_marginLeft="@dimen/x30"
+        android:textColor="@color/text_gray_1"
+        android:text="支付方式"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x217"
+        android:layout_marginRight="@dimen/x217"
+        android:layout_marginTop="@dimen/y60">
 
 
+        <TextView
+            android:id="@+id/activity_pay_wechat_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:drawableTop="@mipmap/wechat_icon"
+            android:drawablePadding="@dimen/y10"
+            android:text="微信支付"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawableTop="@mipmap/zhifubao_icon"
+            android:drawablePadding="@dimen/y10"
+            android:text="支付宝支付"/>
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="@dimen/x578"
+        android:layout_height="@dimen/y90"
+        android:text="支付"
+        android:layout_marginTop="@dimen/y104"
+        android:background="@mipmap/big_radius_btn_bg"
+        android:textColor="@color/white"/>
 
 </LinearLayout>
