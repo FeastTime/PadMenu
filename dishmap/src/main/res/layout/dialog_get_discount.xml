@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_bg_radius_5"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/dialog_get_discount_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="输入手机号 领优惠"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:drawablePadding="@dimen/x10"
+        android:textSize="@dimen/very_big_text_size"
+        android:layout_marginTop="@dimen/y77"
+        />
+
+    <EditText
+        android:layout_width="@dimen/x490"
+        android:layout_height="@dimen/y85"
+        android:layout_marginLeft="@dimen/x18"
+        android:textColor="@color/black"
+        android:hint="请输入手机号"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_marginTop="@dimen/y47"
+        android:background="@drawable/white_bg_radius_5_with_stroke"
+        android:textSize="@dimen/big_text_size"
+        android:inputType="number"
+        android:maxLength="11"
+        />
+
+    <LinearLayout
+        android:layout_width="@dimen/x490"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y20"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="@dimen/x277"
+            android:layout_height="@dimen/y85"
+            android:layout_marginLeft="@dimen/x18"
+            android:textColor="@color/black"
+            android:hint="输入验证码"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="@dimen/big_text_size"
+            android:background="@drawable/white_bg_radius_5_with_stroke"
+            android:inputType="number"
+            android:maxLength="6"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/big_text_size"
+            android:textColor="#7FDCAB"
+            android:text="发送验证码"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dialog_get_discount_confirm_btn"
+        android:layout_width="@dimen/x438"
+        android:layout_height="@dimen/y88"
+        android:background="@mipmap/radius_btn_bg"
+        android:textColor="@color/white"
+        android:textSize="@dimen/very_big_text_size"
+        android:layout_marginTop="@dimen/y35"
+        android:text="一键领取"
+        />
+
+</LinearLayout>

@@ -93,7 +93,8 @@ public class TestActivtiy extends BaseActivity {
 //                    }
 //                });
 
-        MyDialogs.modifyEatPersonNumber(this);
+//        MyDialogs.modifyEatPersonNumber(this);
+        MyDialogs.getDiscount(this);
     }
 
 

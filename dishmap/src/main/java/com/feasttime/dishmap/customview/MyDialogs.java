@@ -348,4 +348,30 @@ public class MyDialogs {
         dialog.getWindow().setAttributes(params);
         dialog.show();
     }
+
+
+    //修改就餐人数
+    public static void getDiscount(Context context) {
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View contentView = inflater.inflate(R.layout.dialog_get_discount,null);
+        dialog.setContentView(contentView);
+
+        Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_get_discount_confirm_btn);
+
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.width = (int)context.getResources().getDimension(R.dimen.x586);
+        params.height = (int)context.getResources().getDimension(R.dimen.y557);
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
+    }
 }
