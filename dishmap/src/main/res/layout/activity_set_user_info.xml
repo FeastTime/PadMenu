@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y128"></include>
+
+    <ImageView
+        android:layout_width="@dimen/x118"
+        android:layout_height="@dimen/x118"
+        android:src="@mipmap/example_avatar_icon"
+        android:layout_marginTop="@dimen/y50"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y48"
+        android:layout_marginLeft="@dimen/x98"
+        android:layout_marginRight="@dimen/x98"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵　　称"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x14"
+                android:background="@color/bg_gray_2"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y50"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="性　　别"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_gray_2"
+                android:layout_marginLeft="@dimen/x14"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y50"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="出生日期"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x14"
+                android:background="@color/bg_gray_2"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y50"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="账　　号"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x14"
+                android:background="@color/bg_gray_2"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y50"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="地　　区"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x14"
+                android:background="@color/bg_gray_2"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y50"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个人说明"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y233"
+                android:layout_marginLeft="@dimen/x14"
+                android:gravity="top"
+                android:background="@color/bg_gray_2"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="@dimen/x540"
+        android:layout_height="@dimen/y88"
+        android:background="@mipmap/pay_btn_bg"
+        android:text="保存"
+        android:textSize="@dimen/big_text_size"
+        android:layout_marginTop="@dimen/y100"
+        android:textColor="@color/white"
+        />
+
+</LinearLayout>
