@@ -2,6 +2,7 @@ package com.feasttime.dishmap.customview;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -47,8 +48,13 @@ public class MyDialogs {
         dialog.setContentView(contentView);
 
         Button confirm = (Button)contentView.findViewById(R.id.eat_dish_dialog_confirm_btn);
-        final EditText personNum = (EditText)contentView.findViewById(R.id.eat_dish_dialog_person_num_et);
+        TextView topTipsTv = (TextView)contentView.findViewById(R.id.dialog_modify_eat_person_number_top_tips_tv);
 
+        Resources resources = context.getResources();
+        UtilTools.chenageTextDrawableSize(topTipsTv,R.mipmap.right_icon,(int)resources.getDimension(R.dimen.x44),(int)resources.getDimension(R.dimen.x44),1);
+
+
+        final EditText personNum = (EditText)contentView.findViewById(R.id.eat_dish_dialog_person_num_et);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -317,4 +323,29 @@ public class MyDialogs {
         dialog.show();
     }
 
+
+    //修改就餐人数
+    public static void modifyEatPersonNumber(Context context) {
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View contentView = inflater.inflate(R.layout.dialog_modify_eat_person_number,null);
+        dialog.setContentView(contentView);
+
+        Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_modify_eat_person_number_confirm_btn);
+
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.width = (int)context.getResources().getDimension(R.dimen.x711);
+        params.height = (int)context.getResources().getDimension(R.dimen.y454);
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
+    }
 }
