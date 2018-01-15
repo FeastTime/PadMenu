@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y185">
+
+        <ImageView
+            android:id="@+id/activity_had_eated_store_lv_item_store_icon_iv"
+            android:layout_width="@dimen/x120"
+            android:layout_height="@dimen/x120"
+            android:layout_marginLeft="@dimen/x30"
+            android:src="@mipmap/example_store_icon"
+            android:layout_centerVertical="true"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x24"
+            android:layout_toRightOf="@+id/activity_had_eated_store_lv_item_store_icon_iv"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/activity_had_eated_store_lv_item_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/big_text_size"
+                android:textColor="@color/text_gray_design_1"
+                android:text="0"/>
+
+            <TextView
+                android:id="@+id/activity_had_eated_store_lv_item_desc_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/small_text_size"
+                android:textColor="@color/text_gray_design_2"
+                android:text="0"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y8"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x30"
+            android:src="@mipmap/gray_3_cycle_icon"/>
+    </RelativeLayout>
+
+</LinearLayout>
