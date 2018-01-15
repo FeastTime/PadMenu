@@ -137,6 +137,7 @@
         android:layout_height="@dimen/y88"
         android:text="支付"
         android:layout_marginTop="@dimen/y104"
+        android:textSize="@dimen/big_text_size"
         android:background="@mipmap/pay_btn_bg"
         android:textColor="@color/white"/>
 
