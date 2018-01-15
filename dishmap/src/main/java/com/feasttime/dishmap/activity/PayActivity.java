@@ -1,5 +1,6 @@
 package com.feasttime.dishmap.activity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.PayMethodAdapter;
 import com.feasttime.dishmap.customview.HorizontalListView;
 import com.feasttime.dishmap.model.bean.PayMethodItemInfo;
+import com.feasttime.dishmap.utils.UtilTools;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,15 @@ public class PayActivity extends BaseActivity {
 
     @Bind(R.id.title_bar_layout_orange_bg_iv)
     ImageView titleBarOrangeBgIv;
+
+    @Bind(R.id.activity_pay_wechat_tv)
+    TextView wechatTv;
+
+    @Bind(R.id.activity_pay_zhifubao_tv)
+    TextView zhifubaoTv;
+
+    @Bind(R.id.activity_pay_min_fee_tv)
+    TextView minFeeTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,5 +76,10 @@ public class PayActivity extends BaseActivity {
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
+
+        Resources resources = this.getResources();
+        UtilTools.chenageTextDrawableSize(wechatTv,R.mipmap.wechat_icon,(int)resources.getDimension(R.dimen.x100),(int)resources.getDimension(R.dimen.y100),2);
+        UtilTools.chenageTextDrawableSize(zhifubaoTv,R.mipmap.zhifubao_icon,(int)resources.getDimension(R.dimen.x100),(int)resources.getDimension(R.dimen.y100),2);
+        UtilTools.chenageTextDrawableSize(minFeeTv,R.mipmap.right_icon,(int)resources.getDimension(R.dimen.x44),(int)resources.getDimension(R.dimen.x44),1);
     }
 }

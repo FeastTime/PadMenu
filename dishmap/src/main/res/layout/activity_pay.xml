@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y62"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -37,11 +38,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_gary_4"
+                android:layout_marginLeft="@dimen/x14"
                 android:text="通道说明" />
 
             <View
                 android:layout_width="@dimen/x9"
                 android:layout_height="@dimen/x9"
+                android:layout_marginLeft="@dimen/x14"
                 android:background="@drawable/gray_circle"></View>
 
             <TextView
@@ -52,8 +56,10 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/activity_pay_min_fee_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_gary_4"
         android:layout_marginTop="@dimen/big_text_size"
         android:gravity="center_vertical"
         android:drawableLeft="@mipmap/right_icon"
@@ -64,15 +70,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/text_gray_1"
+        android:background="@color/bg_gray_1"
         android:layout_marginTop="@dimen/y62"/>
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/big_text_size"
         android:layout_marginTop="@dimen/y76"
+        android:layout_marginLeft="@dimen/x30"
+        android:textColor="@color/text_gray_1"
         android:text="通道费用"/>
 
 
@@ -80,6 +88,8 @@
         android:id="@+id/activity_pay_content_hlv"
         android:layout_marginTop="@dimen/y50"
         android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginRight="@dimen/x30"
         android:layout_height="@dimen/y160">
 
     </com.feasttime.dishmap.customview.HorizontalListView>
@@ -109,24 +119,25 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:drawableTop="@mipmap/wechat_icon"
-            android:drawablePadding="@dimen/y10"
+            android:textColor="@color/black"
             android:text="微信支付"/>
 
         <TextView
+            android:id="@+id/activity_pay_zhifubao_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:drawableTop="@mipmap/zhifubao_icon"
-            android:drawablePadding="@dimen/y10"
+            android:textColor="@color/black"
             android:text="支付宝支付"/>
     </RelativeLayout>
 
     <Button
-        android:layout_width="@dimen/x578"
-        android:layout_height="@dimen/y90"
+        android:layout_width="@dimen/x539"
+        android:layout_height="@dimen/y88"
         android:text="支付"
         android:layout_marginTop="@dimen/y104"
-        android:background="@mipmap/big_radius_btn_bg"
+        android:background="@mipmap/pay_btn_bg"
         android:textColor="@color/white"/>
 
 </LinearLayout>

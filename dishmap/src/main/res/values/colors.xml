@@ -32,4 +32,7 @@
     <color name="text_gray_1">#7A7A7A</color>
     <color name="text_gray_2">#999996</color>
     <color name="text_gray_3">#898989</color>
+    <color name="text_gary_4">#A6A6A6</color>
+
+    <color name="bg_gray_1">#EFEFEF</color>
 </resources>
