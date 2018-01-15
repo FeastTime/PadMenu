@@ -94,7 +94,7 @@ public class TestActivtiy extends BaseActivity {
 //                });
 
 //        MyDialogs.modifyEatPersonNumber(this);
-        MyDialogs.getDiscount(this);
+        MyDialogs.showGrabRedPacketResult(this);
     }
 
 

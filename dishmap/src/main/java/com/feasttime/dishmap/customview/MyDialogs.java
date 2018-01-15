@@ -350,8 +350,8 @@ public class MyDialogs {
     }
 
 
-    //修改就餐人数
-    public static void getDiscount(Context context) {
+    //领取优惠
+    public static void showGetDiscount(Context context) {
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -371,6 +371,32 @@ public class MyDialogs {
         params.gravity = Gravity.CENTER;
         params.width = (int)context.getResources().getDimension(R.dimen.x586);
         params.height = (int)context.getResources().getDimension(R.dimen.y557);
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
+    }
+
+
+    //抢红包结果对话框
+    public static void showGrabRedPacketResult(Context context) {
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View contentView = inflater.inflate(R.layout.dialog_grab_red_packet_result,null);
+        dialog.setContentView(contentView);
+
+        TextView backChatTv = (TextView)contentView.findViewById(R.id.dialog_grab_red_packet_result_back_to_chat_tv);
+
+        backChatTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.width = (int)context.getResources().getDimension(R.dimen.x650);
+        params.height = (int)context.getResources().getDimension(R.dimen.y331);
         dialog.getWindow().setAttributes(params);
         dialog.show();
     }

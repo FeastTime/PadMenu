@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_bg_radius_5"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/dialog_get_discount_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="领取成功"
+        android:gravity="center_vertical"
+        android:textColor="#D97070"
+        android:drawablePadding="@dimen/x10"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/very_big_text_size"
+        android:layout_marginTop="@dimen/y46"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#D7A1A0"
+        android:includeFontPadding="false"
+        android:layout_marginTop="@dimen/y29"
+        android:text="您的进场时间还有8分钟"
+        android:textSize="@dimen/small_text_size"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#D7A1A0"
+        android:includeFontPadding="false"
+        android:text="请尽快进店就餐"
+        android:layout_marginTop="@dimen/y11"
+        android:textSize="@dimen/small_text_size"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y48"
+        android:layout_marginLeft="@dimen/x132"
+        android:layout_marginRight="@dimen/x132">
+        <TextView
+            android:id="@+id/dialog_grab_red_packet_result_seat_tv"
+            android:layout_width="@dimen/x163"
+            android:layout_height="@dimen/y65"
+            android:text="查看座位"
+            android:background="@drawable/white_bg_radius_5_with_red_stroke"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="#D97070"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/dialog_grab_red_packet_result_back_to_chat_tv"
+            android:layout_width="@dimen/x163"
+            android:layout_height="@dimen/y65"
+            android:text="返回呼啦圈"
+            android:background="@drawable/white_bg_radius_5_with_red_solid"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/small_text_size"
+            android:gravity="center"
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+</LinearLayout>
