@@ -41,4 +41,6 @@
 
     <color name="bg_gray_1">#EFEFEF</color>
     <color name="bg_gray_2">#F5F5F5</color>
+    <color name="bg_gray_3">#25292c</color>
+
 </resources>
