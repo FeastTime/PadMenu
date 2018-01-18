@@ -32,12 +32,15 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/big_text_size"
                 android:textColor="@color/text_gray_design_1"
+                android:includeFontPadding="false"
                 android:text="0"/>
 
             <TextView
                 android:id="@+id/activity_had_eated_store_lv_item_desc_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/y26"
                 android:textSize="@dimen/small_text_size"
                 android:textColor="@color/text_gray_design_2"
                 android:text="0"/>
