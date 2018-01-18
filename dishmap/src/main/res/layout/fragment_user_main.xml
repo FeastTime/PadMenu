@@ -8,11 +8,10 @@
         android:id="@+id/fragment_user_main_slide_down_iv"
         android:layout_width="@dimen/x32"
         android:layout_height="@dimen/y54"
-        android:src="@mipmap/slide_downward"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/y143"
-        />
+        android:src="@mipmap/slide_downward" />
 
     <RelativeLayout
         android:id="@+id/fragment_user_main_top_img_rel"
@@ -30,8 +29,8 @@
         <ImageView
             android:layout_width="@dimen/x750"
             android:layout_height="@dimen/y70"
-            android:scaleType="fitXY"
             android:layout_alignParentBottom="true"
+            android:scaleType="fitXY"
             android:src="@mipmap/main_activity_btm_cycle" />
 
     </RelativeLayout>
@@ -41,9 +40,9 @@
         android:id="@+id/fragment_user_main_scan_items_ll"
         android:layout_width="@dimen/x605"
         android:layout_height="@dimen/y514"
-        android:background="@drawable/white_bg_radius_5"
         android:layout_below="@+id/fragment_user_main_top_img_rel"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/white_bg_radius_5"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -56,8 +55,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/scan_icon"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:src="@mipmap/scan_icon" />
 
         </RelativeLayout>
 
@@ -65,43 +64,50 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/x30"
-            android:textColor="@color/black"
             android:layout_marginTop="@dimen/y44"
             android:text="扫码进店"
-            />
+            android:textColor="@color/black"
+            android:textSize="@dimen/x30" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/x22"
-            android:gravity="center"
-            android:text="扫店铺二维码，进入店铺专属\n呼啦圈，有机会获得座位快速进店吃饭哦！"
             android:layout_marginTop="@dimen/y37"
+            android:gravity="center"
             android:lineSpacingExtra="@dimen/y16"
+            android:text="扫店铺二维码，进入店铺专属\n呼啦圈，有机会获得座位快速进店吃饭哦！"
             android:textColor="@color/black"
-            />
+            android:textSize="@dimen/x22" />
 
         <Button
             android:layout_width="@dimen/x510"
             android:layout_height="@dimen/y80"
             android:layout_marginTop="@dimen/y80"
-            android:textColor="@color/white"
             android:background="@mipmap/scan_btn_bg"
-            android:text="开始扫码"/>
+            android:text="开始扫码"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
 
-
-    <ImageView
-        android:id="@+id/fragment_user_main_right_menu_iv"
-        android:layout_width="@dimen/x10"
-        android:layout_height="@dimen/y54"
-        android:src="@mipmap/right_menu"
-        android:layout_marginTop="@dimen/y60"
-        android:layout_marginRight="@dimen/x44"
+    <LinearLayout
+        android:id="@+id/fragment_user_main_right_menu_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        />
+        android:paddingRight="@dimen/x44"
+        android:paddingLeft="@dimen/x50"
+        android:paddingBottom="@dimen/x50"
+        android:layout_marginTop="@dimen/y60">
+
+        <ImageView
+            android:id="@+id/fragment_user_main_right_menu_iv"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/y54"
+            android:src="@mipmap/right_menu"
+
+            />
+    </LinearLayout>
+
 </RelativeLayout>

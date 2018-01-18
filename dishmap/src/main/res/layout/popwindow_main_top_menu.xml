@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="@dimen/x316"
+        android:layout_height="@dimen/y273"
+        android:background="@drawable/gray_bg_radius_5"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/popwindow_main_top_menu_msg_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="消息"
+            android:textSize="@dimen/small_text_size"
+            android:layout_marginLeft="@dimen/x52"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/text_gray_design_1"/>
+
+        <TextView
+            android:id="@+id/popwindow_main_top_menu_share_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/x52"
+            android:text="分享"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/text_gray_design_1"/>
+
+        <TextView
+            android:id="@+id/popwindow_main_top_menu_about_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/x52"
+            android:text="关于"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/text_gray_design_1"/>
+    </LinearLayout>
+</LinearLayout>

@@ -2,6 +2,8 @@ package com.feasttime.dishmap.fragment;
 
 import android.animation.ValueAnimator;
 import android.app.Fragment;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,19 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.utils.LogUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by chen on 2018/1/10.
  */
 
-public class UserMainFragment extends Fragment{
+public class UserMainFragment extends Fragment implements View.OnClickListener{
     private static final String TAG = "UserMainFragment";
 
     @Bind(R.id.fragment_user_main_top_img_rel)
@@ -34,6 +39,8 @@ public class UserMainFragment extends Fragment{
     @Bind(R.id.fragment_user_main_slide_down_iv)
     ImageView slideDownIv;
 
+    @Bind(R.id.fragment_user_main_right_menu_ll)
+    LinearLayout rightMenuLl;
 
     RelativeLayout btmMenuWrapRel;
 
@@ -82,6 +89,59 @@ public class UserMainFragment extends Fragment{
                 btmMenuRelFinalHeight = btmMenuRelOnCreateHeight;
             }
         });
+    }
+
+    @OnClick({R.id.fragment_user_main_right_menu_ll})
+    @Override
+    public void onClick(View v) {
+        if (v == rightMenuLl) {
+            showTopMenu(v);
+        }
+    }
+
+
+
+    //显示顶部对话框菜单
+    private void showTopMenu(View view) {
+        View menuView = this.getActivity().getLayoutInflater().inflate(R.layout.popwindow_main_top_menu,null);
+
+        TextView msgTv = (TextView) menuView.findViewById(R.id.popwindow_main_top_menu_msg_tv);
+        TextView shareTv = (TextView) menuView.findViewById(R.id.popwindow_main_top_menu_share_tv);
+        TextView aboutTv = (TextView) menuView.findViewById(R.id.popwindow_main_top_menu_about_tv);
+
+        msgTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        shareTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        aboutTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        int xMargin = (int)this.getResources().getDimension(R.dimen.x20);
+        int yMargin = (int)this.getResources().getDimension(R.dimen.x220);
+
+        PopupWindow window = new PopupWindow(this.getActivity());
+        window.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setContentView(menuView);
+        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+        window.setFocusable(true);
+        window.setOutsideTouchable(true);
+        window.update();
+        window.showAsDropDown(view,-yMargin,xMargin);
     }
 
 
