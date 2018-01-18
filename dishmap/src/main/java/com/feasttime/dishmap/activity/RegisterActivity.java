@@ -150,10 +150,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             }, new Consumer<Throwable>() {
                 @Override
                 public void accept(Throwable throwable) throws Exception {
+
                 }
             }, new Action() {
                 @Override
                 public void run() throws Exception {
+
                 }
             });
         } else if (v == backIv) {
