@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.FeedBackActivity;
+import com.feasttime.dishmap.activity.HadEatedStoreActivity;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
@@ -25,15 +26,6 @@ import butterknife.OnClick;
  */
 
 public class UserMineFragment extends Fragment implements View.OnClickListener{
-    @Bind(R.id.fragment_user_mine_my_seat_tv)
-    TextView mySeatTv;
-
-    @Bind(R.id.fragment_user_mine_coupon_tv)
-    TextView couponTv;
-
-    @Bind(R.id.fragment_user_mine_eated_store_tv)
-    TextView eatedStoreTv;
-
     @Bind(R.id.fragment_user_mine_feedback_tv)
     TextView feedbackTv;
 
@@ -45,6 +37,16 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
 
     @Bind(R.id.fragment_user_mine_logout_rel)
     View logoutRel;
+
+    @Bind(R.id.fragment_user_mine_my_seat_tv)
+    TextView mySeatTv;
+
+    @Bind(R.id.fragment_user_mine_coupon_tv)
+    TextView couponTv;
+
+    @Bind(R.id.fragment_user_mine_eated_store_tv)
+    TextView eatedStoreTv;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,14 +76,19 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @OnClick({R.id.fragment_user_mine_feedback_rel,R.id.fragment_user_mine_logout_rel})
+    @OnClick({R.id.fragment_user_mine_feedback_rel,R.id.fragment_user_mine_logout_rel,R.id.fragment_user_mine_my_seat_tv,R.id.fragment_user_mine_coupon_tv,R.id.fragment_user_mine_eated_store_tv})
     @Override
     public void onClick(View v) {
         if (v == feedBackRel) {
             startActivity(new Intent(this.getActivity(), FeedBackActivity.class));
         } else if (v == logoutRel) {
-
             ToastUtil.showToast(this.getActivity(),"退出成功", Toast.LENGTH_SHORT);
+        } else if (v == mySeatTv) {
+
+        } else if (v == couponTv) {
+//            startActivity(new Intent(this.getActivity(),));
+        } else if (v == eatedStoreTv) {
+            startActivity(new Intent(this.getActivity(), HadEatedStoreActivity.class));
         }
     }
 }
