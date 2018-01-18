@@ -23,7 +23,7 @@ public class MyApplication extends Application {
 
         sInstance = this;
 
-        SDKInitializer.initialize(getApplicationContext());
+            //SDKInitializer.initialize(getApplicationContext());
 
         RetrofitService.init(this);
 
