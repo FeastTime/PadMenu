@@ -14,46 +14,139 @@
         android:id="@+id/activity_chat_tips_rel"
         android:layout_below="@+id/title_layout"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/y84">
+        android:layout_height="@dimen/y197">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/activity_chat_remain_time_ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="付费买座位快速进店享受美食..."
-            android:layout_centerInParent="true"
-            android:textColor="@color/text_dark_gray"
-            android:textSize="@dimen/small_text_size"
-            />
+            android:gravity="center_vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/y49"
+            android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="@dimen/x160"
-            android:layout_height="@dimen/y75"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/vip_icon_bg"
-                android:scaleType="fitXY"
-                />
-
-            <ImageView
-                android:layout_width="@dimen/x132"
-                android:layout_height="@dimen/y47"
-                android:src="@mipmap/vip_icon_btn"
-                android:layout_centerInParent="true"
-                />
+            <TextView
+                android:layout_width="@dimen/x49"
+                android:layout_height="@dimen/y46"
+                android:textSize="@dimen/big_text_size"
+                android:textColor="@color/white"
+                android:background="@drawable/red_bg_radius_5_2"
+                android:gravity="center"
+                android:text="00"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="VIP通道"
-                android:layout_centerInParent="true"
+                android:textColor="@color/text_gray_5"
+                android:layout_marginLeft="@dimen/x7"
+                android:layout_marginRight="@dimen/x7"
+                android:textSize="@dimen/small_text_size"
+                android:text="分"/>
+
+            <TextView
+                android:layout_width="@dimen/x49"
+                android:layout_height="@dimen/y46"
+                android:gravity="center"
+                android:background="@drawable/red_bg_radius_5_2"
                 android:textColor="@color/white"
                 android:textSize="@dimen/big_text_size"
+                android:text="00"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x7"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/small_text_size"
+                android:text="秒"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/activity_chat_remain_time_ll"
+            android:layout_marginTop="@dimen/y24"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="@dimen/x90"
+                android:layout_height="1dp"
+                android:background="@color/text_gray_3"/>
+
+            <TextView
+                android:layout_width="@dimen/x10"
+                android:layout_height="@dimen/x10"
+                android:layout_marginLeft="@dimen/x5"
+                android:background="@drawable/gray_circle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_gray_3"
+                android:textSize="@dimen/small_text_size"
+                android:paddingLeft="@dimen/x15"
+                android:paddingRight="@dimen/x15"
+                android:text="距下次抢红包仅剩"/>
+
+            <TextView
+                android:layout_width="@dimen/x10"
+                android:layout_height="@dimen/x10"
+                android:layout_marginRight="@dimen/x5"
+                android:background="@drawable/gray_circle"/>
+
+            <TextView
+                android:layout_width="@dimen/x90"
+                android:layout_height="1dp"
+                android:background="@color/text_gray_3"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="付费买座位快速进店享受美食..."
+                android:layout_centerInParent="true"
+                android:textColor="@color/text_dark_gray"
+                android:textSize="@dimen/small_text_size"
                 />
+
+            <RelativeLayout
+                android:layout_width="@dimen/x160"
+                android:layout_height="@dimen/y75"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/vip_icon_bg"
+                    android:scaleType="fitXY"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/x132"
+                    android:layout_height="@dimen/y47"
+                    android:src="@mipmap/vip_icon_btn"
+                    android:layout_centerInParent="true"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIP通道"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/big_text_size"
+                    />
+            </RelativeLayout>
         </RelativeLayout>
+
 
         <TextView
             android:layout_width="match_parent"
