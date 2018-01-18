@@ -43,4 +43,6 @@ public class FeedBackActivity extends BaseActivity {
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
     }
+
+
 }
