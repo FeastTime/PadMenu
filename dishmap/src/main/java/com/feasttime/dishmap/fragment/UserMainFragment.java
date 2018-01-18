@@ -3,6 +3,7 @@ package com.feasttime.dishmap.fragment;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -104,6 +105,7 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
     //显示顶部对话框菜单
     private void showTopMenu(View view) {
         View menuView = this.getActivity().getLayoutInflater().inflate(R.layout.popwindow_main_top_menu,null);
+        final PopupWindow window = new PopupWindow(this.getActivity());
 
         TextView msgTv = (TextView) menuView.findViewById(R.id.popwindow_main_top_menu_msg_tv);
         TextView shareTv = (TextView) menuView.findViewById(R.id.popwindow_main_top_menu_share_tv);
@@ -112,36 +114,36 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
         msgTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                window.dismiss();
             }
         });
 
         shareTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                window.dismiss();
             }
         });
 
         aboutTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                window.dismiss();
             }
         });
 
-        int xMargin = (int)this.getResources().getDimension(R.dimen.x20);
-        int yMargin = (int)this.getResources().getDimension(R.dimen.x220);
+        int xMargin = (int)this.getResources().getDimension(R.dimen.x250);
+        int yMargin = (int)this.getResources().getDimension(R.dimen.y110);
 
-        PopupWindow window = new PopupWindow(this.getActivity());
+
         window.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         window.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         window.setContentView(menuView);
-        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+        window.setBackgroundDrawable(new BitmapDrawable());
         window.setFocusable(true);
         window.setOutsideTouchable(true);
         window.update();
-        window.showAsDropDown(view,-yMargin,xMargin);
+        window.showAsDropDown(view,-xMargin,-yMargin);
     }
 
 
