@@ -58,8 +58,7 @@ public class AboutActivity extends BaseActivity {
     private String getVersionName() {
         try {
             String pkName = this.getPackageName();
-            String versionName = this.getPackageManager().getPackageInfo(
-                    pkName, 0).versionName;
+            String versionName = this.getPackageManager().getPackageInfo(pkName, 0).versionName;
             return versionName;
         } catch (Exception e) {
         }

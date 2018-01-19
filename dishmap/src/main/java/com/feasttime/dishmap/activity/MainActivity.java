@@ -53,11 +53,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         homeTv.performClick();
 
         //修改底部drawable的图片
-        Resources resources = this.getResources();
-        UtilTools.chenageTextDrawableSize(homeTv,R.mipmap.home_no_selet,(int)resources.getDimension(R.dimen.x45),(int)resources.getDimension(R.dimen.y39),2);
-        UtilTools.chenageTextDrawableSize(couponTv,R.mipmap.coupon_no_select,(int)resources.getDimension(R.dimen.x50),(int)resources.getDimension(R.dimen.y34),2);
-        UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine_no_select_icon,(int)resources.getDimension(R.dimen.x35),(int)resources.getDimension(R.dimen.y44),2);
+        initBtmBar(1);
+    }
 
+    private void initBtmBar(int selectIndex) {
+        Resources resources = this.getResources();
+        UtilTools.chenageTextDrawableSize(homeTv,R.mipmap.home_no_selected_icon,(int)resources.getDimension(R.dimen.x50),(int)resources.getDimension(R.dimen.x50),2);
+        UtilTools.chenageTextDrawableSize(couponTv,R.mipmap.coupon_no_selected_icon,(int)resources.getDimension(R.dimen.x60),(int)resources.getDimension(R.dimen.x60),2);
+        UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine_no_select_icon,(int)resources.getDimension(R.dimen.x60),(int)resources.getDimension(R.dimen.x60),2);
+
+        if (selectIndex == 1) {
+            UtilTools.chenageTextDrawableSize(homeTv,R.mipmap.home_selected_icon,(int)resources.getDimension(R.dimen.x50),(int)resources.getDimension(R.dimen.x50),2);
+        } else if (selectIndex == 2) {
+            UtilTools.chenageTextDrawableSize(couponTv,R.mipmap.coupon_selected_icon,(int)resources.getDimension(R.dimen.x60),(int)resources.getDimension(R.dimen.x60),2);
+        } else if (selectIndex == 3) {
+            UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine_selected_icon,(int)resources.getDimension(R.dimen.x60),(int)resources.getDimension(R.dimen.x60),2);
+        }
     }
 
     @OnClick({R.id.activity_main_home_tv,R.id.activity_main_coupon_tv,R.id.activity_main_mine_tv})
@@ -66,6 +77,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         hideAllFragment(fragmentTransaction);
         if (v == homeTv) {
+            initBtmBar(1);
             if (mUserMainFragment == null) {
                 mUserMainFragment = new UserMainFragment();
             }
@@ -77,6 +89,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 fragmentTransaction.show(mUserMainFragment).commitAllowingStateLoss();
             }
         } else if (v == couponTv) {
+            initBtmBar(2);
             if (mUserCouponFragment == null) {
                 mUserCouponFragment = new UserCouponFragment();
             }
@@ -88,6 +101,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 fragmentTransaction.show(mUserCouponFragment).commitAllowingStateLoss();
             }
         } else if (v == mineTv) {
+            initBtmBar(3);
             if (mUserMineFragment == null) {
                 mUserMineFragment = new UserMineFragment();
             }
