@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y183"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/x70"
+            android:layout_height="@dimen/x70"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x42"
+            android:src="@mipmap/example_avatar_icon" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x144"
+            android:layout_marginTop="@dimen/y51"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/activity_message_lv_item_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="@dimen/normal_text_size" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y25"
+                android:includeFontPadding="false"
+                android:text="0"
+                android:textColor="@color/text_gray_3"
+                android:textSize="@dimen/small_text_size" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/y50"
+            android:includeFontPadding="false"
+            android:text="2018/01/01"
+            android:textColor="@color/text_gary_4"
+            android:textSize="@dimen/small_text_size"
+
+            />
+
+        <ImageView
+            android:id="@+id/activity_message_lv_item_badge_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/y102" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_marginRight="@dimen/x40"
+            android:background="@color/line_gray_1" />
+    </RelativeLayout>
+</LinearLayout>

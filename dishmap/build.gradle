@@ -105,4 +105,7 @@ dependencies {
 
     //微信
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.1.6'
+
+    // 徽标
+    compile 'com.github.nekocode:Badge:2.0'
 }
