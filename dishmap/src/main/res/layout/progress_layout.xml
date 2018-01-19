@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/progress_layout_loading_icon_iv"
-        android:layout_width="@dimen/x42"
-        android:layout_height="@dimen/x42"
+        android:layout_width="@dimen/x80"
+        android:layout_height="@dimen/x80"
         android:src="@mipmap/loading_icon"/>
 
 

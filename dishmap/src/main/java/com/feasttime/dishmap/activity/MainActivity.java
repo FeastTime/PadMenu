@@ -77,9 +77,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 fragmentTransaction.show(mUserMainFragment).commitAllowingStateLoss();
             }
         } else if (v == couponTv) {
-
-            showLoading("bbb");
-
             if (mUserCouponFragment == null) {
                 mUserCouponFragment = new UserCouponFragment();
             }
