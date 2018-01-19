@@ -33,6 +33,19 @@ public class BaseActivity extends Activity {
         setStatusBarTransparent(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ImageView backIv = (ImageView) this.findViewById(R.id.title_back_iv);
+        if (backIv != null) {
+            backIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+    }
 
     private void setStatusBarTransparent(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

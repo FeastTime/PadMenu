@@ -2,6 +2,7 @@ package com.feasttime.dishmap.fragment;
 
 import android.animation.ValueAnimator;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -18,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.activity.AboutActivity;
+import com.feasttime.dishmap.activity.MessageActivity;
 import com.feasttime.dishmap.utils.LogUtil;
 
 import butterknife.Bind;
@@ -114,6 +117,7 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
         msgTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), MessageActivity.class));
                 window.dismiss();
             }
         });
@@ -128,6 +132,7 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
         aboutTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), AboutActivity.class));
                 window.dismiss();
             }
         });
