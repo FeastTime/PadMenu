@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include
@@ -9,5 +11,31 @@
         layout="@layout/title_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y128"></include>
+
+    <ImageView
+        android:layout_width="@dimen/x267"
+        android:layout_height="@dimen/y127"
+        android:layout_marginTop="@dimen/y110"
+        android:src="@mipmap/about_company_flag_icon"
+        />
+
+    <TextView
+        android:id="@+id/activity_about_version_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y44"
+        android:textSize="@dimen/small_text_size"
+        android:textColor="@color/text_gray_3"
+        android:text="V1.0.0"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/splash_gray"
+        android:text="@string/text_company_name"
+        android:layout_marginBottom="@dimen/y100"
+        android:textSize="@dimen/small_text_size"
+        android:layout_marginTop="@dimen/y642"
+        android:gravity="center" />
 
 </LinearLayout>
