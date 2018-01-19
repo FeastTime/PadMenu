@@ -9,6 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+
+import com.feasttime.dishmap.R;
 
 
 public class BaseActivity extends Activity {
@@ -80,13 +86,9 @@ public class BaseActivity extends Activity {
         isShowProgressDialog = true;
 
         //创建ProgressDialog对象
-        m_pDialog = new ProgressDialog(this);
-
-        // 设置进度条风格，风格为圆形，旋转的
-        m_pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        m_pDialog = new ProgressDialog(this,R.style.LoadingDialog);
 
         // 设置ProgressDialog 提示信息
-
         m_pDialog.setMessage(null != message ? message : "请稍等... ...");
 
         // 设置ProgressDialog 的进度条是否不明确
@@ -96,6 +98,25 @@ public class BaseActivity extends Activity {
         m_pDialog.setCancelable(false);
 
         m_pDialog.show();
+
+        View contentView = this.getLayoutInflater().inflate(R.layout.progress_layout,null);
+
+        // 设置ProgressDialog 的布局
+        m_pDialog.setContentView(contentView);
+
+        Animation circle_anim = AnimationUtils.loadAnimation(this, R.anim.rotate_anim);
+
+        //设置匀速旋转，在xml文件中设置会出现卡顿
+        LinearInterpolator interpolator = new LinearInterpolator();
+
+        circle_anim.setInterpolator(interpolator);
+
+        ImageView loadingIcon = (ImageView) contentView.findViewById(R.id.progress_layout_loading_icon_iv);
+
+        //开始动画
+        if (circle_anim != null) {
+            loadingIcon.startAnimation(circle_anim);
+        }
     }
 
 
