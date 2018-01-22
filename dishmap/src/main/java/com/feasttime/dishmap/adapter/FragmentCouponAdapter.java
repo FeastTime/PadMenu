@@ -87,6 +87,13 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
             }
         });
 
+
+        if (isExpanded) {
+            groupViewHolder.arrowIv.setImageResource(R.mipmap.expand_listview_up_arrow);
+        } else {
+            groupViewHolder.arrowIv.setImageResource(R.mipmap.expand_listview_down_arrow);
+        }
+
         return convertView;
     }
 
