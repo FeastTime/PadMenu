@@ -2,6 +2,7 @@ package com.feasttime.dishmap.fragment;
 
 import android.animation.ValueAnimator;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -347,5 +348,40 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
         btmMenuWrapRel = null;
         topImgWrapRel = null;
         mAnimator = null;
+    }
+
+
+    private void showCouponTypeMenu(View view) {
+
+        View menuView = this.getActivity().getLayoutInflater().inflate(R.layout.popwindow_coupon_type,null);
+
+//        TextView couponTv = menuView.findViewById(R.id.popwindow_new_menu_make_coupon_tv);
+//        TextView redPacketTv = menuView.findViewById(R.id.popwindow_new_menu_make_red_packet_tv);
+//        couponTv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+//
+//        redPacketTv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
+        int xMargin = (int)this.getResources().getDimension(R.dimen.x20);
+        int yMargin = (int)this.getResources().getDimension(R.dimen.x220);
+
+        PopupWindow window = new PopupWindow(this.getActivity());
+        window.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setContentView(menuView);
+        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+        window.setFocusable(true);
+        window.setOutsideTouchable(true);
+        window.update();
+        window.showAsDropDown(view,-yMargin,xMargin);
     }
 }
