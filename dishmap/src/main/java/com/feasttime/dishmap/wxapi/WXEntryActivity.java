@@ -9,6 +9,8 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.config.GlobalConfig;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.UniversalInfo;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
@@ -25,6 +27,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.security.SecureRandom;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -33,6 +36,8 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -119,7 +124,37 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                             //上传微信用户数据
 
+                            HashMap<String,Object> infoMap = new HashMap<String,Object>();
+                            infoMap.put("openId",openid);
+                            infoMap.put("mobileNo","");
+                            infoMap.put("nickName",nickName);
+                            infoMap.put("userIcon",headimgurl);
+                            RetrofitService.saveWeChatUserInfo(infoMap).subscribe(new Consumer<UniversalInfo>(){
+                                @Override
+                                public void accept(UniversalInfo universalInfo) throws Exception {
+                                    if (universalInfo.getResultCode() == 0) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ToastUtil.showToast(WXEntryActivity.this,"登录成功",Toast.LENGTH_SHORT);
+                                                finish();
+                                            }
+                                        });
+                                    } else {
 
+                                    }
+                                }
+                            }, new Consumer<Throwable>() {
+                                @Override
+                                public void accept(Throwable throwable) throws Exception {
+                                    //这里接收onError
+                                }
+                            }, new Action() {
+                                @Override
+                                public void run() throws Exception {
+                                    //这里接收onComplete。
+                                }
+                            });
 
                             //都完成都结束当前页面
                             runOnUiThread(new Runnable() {
@@ -134,6 +169,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                 @Override
                                 public void run() {
                                     ToastUtil.showToast(WXEntryActivity.this,"登录失败",Toast.LENGTH_SHORT);
+                                    finish();
                                 }
                             });
                         }
@@ -182,9 +218,11 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         finish();
     }
 
+    private void finishCurrentUi() {
+
+    }
 
     private String requestNet(String url) {
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(30l, TimeUnit.SECONDS);
         builder.sslSocketFactory(createSSLSocketFactory());

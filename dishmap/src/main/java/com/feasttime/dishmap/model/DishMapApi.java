@@ -3,6 +3,7 @@ package com.feasttime.dishmap.model;
 
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
+import com.feasttime.dishmap.model.bean.UniversalInfo;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -19,7 +20,7 @@ public interface DishMapApi {
 
     //保存微信用户信息
     @POST("user/saveWeChatUserInfo")
-    Observable<RegisterInfo> saveWeChatUserInfo(@Body RequestBody route);
+    Observable<UniversalInfo> saveWeChatUserInfo(@Body RequestBody route);
 
     //检查微信用户是否已经绑定过
     @POST("user/checkWeChatUserBindStatus")

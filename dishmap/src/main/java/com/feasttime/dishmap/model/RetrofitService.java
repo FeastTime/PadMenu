@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
+import com.feasttime.dishmap.model.bean.UniversalInfo;
 import com.feasttime.dishmap.utils.DeviceTool;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
@@ -158,7 +159,7 @@ public class RetrofitService {
     }
 
 
-    public static Observable<RegisterInfo> saveWeChatUserInfo(HashMap<String,Object> infoMap){
+    public static Observable<UniversalInfo> saveWeChatUserInfo(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return sMenuService.saveWeChatUserInfo(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
