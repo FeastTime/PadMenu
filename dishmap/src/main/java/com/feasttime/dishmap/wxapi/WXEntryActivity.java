@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.UniversalInfo;
@@ -42,7 +43,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
     public static final String TAG = "WXEntryActivity";
      //https://api.weixin.qq.com/sns/userinfo?access_token=5_4wJeL4gzb2Rocfb1q33SGeNETOJb9H5G0-3aA11nskmj-hwo2tyUD0b05TNbS5vwcNBeygsfHj6daUyDr2WNz538SFtTLjRGe-84UkfX4Bc&openid=oBpDX0atA8qMDbRN28i-fGlqR0cc&lang=zh_CN
     // IWXAPI 是第三方app和微信通信的openapi接口

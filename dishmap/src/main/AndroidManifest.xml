@@ -40,22 +40,23 @@
     <!-- 扫码 -->
 
 
-
-
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        >
+        android:supportsRtl="true">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="Gj9txmT8FiGB9qp79tPwCXGoqcVDGcBd" />
 
-        <meta-data android:name="Mob-AppKey" android:value="moba6b6c6d6"/>
-        <meta-data android:name="Mob-AppSecret" android:value="b89d2427a3bc7ad1aea1e1e8c1d36bf3"/>
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="moba6b6c6d6" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="b89d2427a3bc7ad1aea1e1e8c1d36bf3" />
 
         <activity android:name=".activity.MainActivity">
 
@@ -71,13 +72,14 @@
         <activity android:name=".activity.StoreDetailActivity">
 
         </activity>
-        <activity android:name=".activity.CommentActivity"
-               android:windowSoftInputMode="adjustPan">
+        <activity
+            android:name=".activity.CommentActivity"
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity
-            android:theme="@style/WelcomeStyle"
-            android:name=".activity.SplashActivity" >
+            android:name=".activity.SplashActivity"
+            android:theme="@style/WelcomeStyle">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -86,30 +88,30 @@
 
         </activity>
 
-        <activity android:name=".activity.LoginActivity" >
+        <activity android:name=".activity.LoginActivity">
 
         </activity>
 
-        <activity android:name=".activity.RegisterActivity" >
-        </activity>
+        <activity android:name=".activity.RegisterActivity"></activity>
 
-        <activity android:name=".activity.ScanSuccessActivity"
+        <activity
+            android:name=".activity.ScanSuccessActivity"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
 
-        <activity android:name=".activity.ChatActivity"
+        <activity
+            android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustResize">
 
 
+        </activity>
+
+        <activity android:name=".activity.MerchantActivity">
 
         </activity>
 
-        <activity android:name=".activity.MerchantActivity" >
-
-        </activity>
-
-        <activity android:name=".activity.MySeatActivity" >
+        <activity android:name=".activity.MySeatActivity">
 
         </activity>
 
@@ -125,8 +127,7 @@
 
         </activity>
 
-        <activity android:name=".activity.FeedBackActivity" >
-        </activity>
+        <activity android:name=".activity.FeedBackActivity"></activity>
 
         <activity android:name=".activity.HadEatedStoreActivity">
 
@@ -140,9 +141,10 @@
 
         </activity>
 
-        <activity android:name="com.feasttime.dishmap.wxapi.WXEntryActivity"
+        <activity
+            android:name="com.feasttime.dishmap.wxapi.WXEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop">
+            android:theme="@android:style/Theme.Translucent">
 
         </activity>
 
@@ -154,17 +156,21 @@
 
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:multiprocess="true">
+            android:multiprocess="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <!--
             	AuthorizeAdapter表示一个继承自cn.sharesdk.framework.authorize.AuthorizeAdapter
             	的类，这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。
             	开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
             -->
-            <meta-data android:name="AuthorizeAdapter" android:value="cn.sharesdk.demo.MyAdapter" />
-            <meta-data android:name="FBWebShareAdapter" android:value="cn.sharesdk.demo.FBWebShareAdapter" />
+            <meta-data
+                android:name="AuthorizeAdapter"
+                android:value="cn.sharesdk.demo.MyAdapter" />
+            <meta-data
+                android:name="FBWebShareAdapter"
+                android:value="cn.sharesdk.demo.FBWebShareAdapter" />
             <!--
             	QZoneWebShareAdapter表示一个继承自cn.sharesdk.tencent.qzone.QZoneWebShareAdapter
             	的类，这个类可以监听到页面的生命周期，也可以获QQ空间网页分享权页面的各种UI控件。
@@ -180,7 +186,8 @@
             <intent-filter android:priority="1000">
                 <data android:scheme="db-7janx53ilz11gbs" />
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
@@ -193,8 +200,10 @@
             <!-- 集成Line客户端登录授权，需要添加如下格式的过滤器 -->
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="line.1477692153" />
             </intent-filter>
         </activity>
