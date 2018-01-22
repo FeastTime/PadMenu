@@ -141,13 +141,26 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                             }
                                         });
                                     } else {
-
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ToastUtil.showToast(WXEntryActivity.this,"登录失败",Toast.LENGTH_SHORT);
+                                                finish();
+                                            }
+                                        });
                                     }
                                 }
                             }, new Consumer<Throwable>() {
                                 @Override
                                 public void accept(Throwable throwable) throws Exception {
                                     //这里接收onError
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ToastUtil.showToast(WXEntryActivity.this,"登录失败",Toast.LENGTH_SHORT);
+                                            finish();
+                                        }
+                                    });
                                 }
                             }, new Action() {
                                 @Override

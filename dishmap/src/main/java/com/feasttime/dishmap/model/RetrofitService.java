@@ -65,8 +65,7 @@ public class RetrofitService {
         throw new AssertionError();
     }
 
-    private static String imei = "";
-    private static String androidID = "";
+    private static String deviceID = "";
     private static String ipv4 = "";
     private static String mac = "";
     private static String mobileNO = "";
@@ -75,8 +74,7 @@ public class RetrofitService {
      * 初始化网络通信服务
      */
     public static void init(Context context) {
-        imei = DeviceTool.getIMEI(context);
-        androidID = DeviceTool.getAndroidId(context);
+        deviceID = DeviceTool.getIMEI(context);
         ipv4 = DeviceTool.getIP(context);
         mobileNO = DeviceTool.getPhoneNumber(context);
         mac = DeviceTool.getLocalMacAddress(context);
@@ -146,8 +144,7 @@ public class RetrofitService {
         if (!TextUtils.isEmpty(mobileNO)) {
             infoMap.put("mobileNO",mobileNO);
         }
-        infoMap.put("imei",imei);
-        infoMap.put("androidID",androidID);
+        infoMap.put("deviceID",deviceID);
         infoMap.put("mac",mac);
         infoMap.put("ipv4",ipv4);
     }
