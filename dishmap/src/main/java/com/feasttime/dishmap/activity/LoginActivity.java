@@ -85,35 +85,35 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 return;
             }
 
-            HashMap<String,Object> infoMap = new HashMap<String,Object>();
-            infoMap.put("mobileNO",phone);
-            PreferenceUtil.setStringKey(PreferenceUtil.MOBILE_NO,phone);
-            infoMap.put("pwd",password);
-            RetrofitService.login(infoMap).subscribe(new Consumer<LoginInfo>(){
-                @Override
-                public void accept(LoginInfo loginInfo) throws Exception {
-                    //1成功，非1失败
-                    if (loginInfo.getResultCode() == 0) {
-                        PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,loginInfo.getToken());
-                        PreferenceUtil.setStringKey(PreferenceUtil.STORE_ID,loginInfo.getStoreId());
-                        PreferenceUtil.setStringKey(PreferenceUtil.USER_TYPE,loginInfo.getUserType());
-                        ToastUtil.showToast(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT);
-                        finish();
-                    } else {
-                        ToastUtil.showToast(LoginActivity.this,"登录失败",Toast.LENGTH_SHORT);
-                    }
-                }
-            }, new Consumer<Throwable>() {
-                @Override
-                public void accept(Throwable throwable) throws Exception {
-                    //这里接收onError
-                }
-            }, new Action() {
-                @Override
-                public void run() throws Exception {
-                    //这里接收onComplete。
-                }
-            });
+//            HashMap<String,Object> infoMap = new HashMap<String,Object>();
+//            infoMap.put("mobileNO",phone);
+//            PreferenceUtil.setStringKey(PreferenceUtil.MOBILE_NO,phone);
+//            infoMap.put("pwd",password);
+//            RetrofitService.login(infoMap).subscribe(new Consumer<LoginInfo>(){
+//                @Override
+//                public void accept(LoginInfo loginInfo) throws Exception {
+//                    //1成功，非1失败
+//                    if (loginInfo.getResultCode() == 0) {
+//                        PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,loginInfo.getToken());
+//                        PreferenceUtil.setStringKey(PreferenceUtil.STORE_ID,loginInfo.getStoreId());
+//                        PreferenceUtil.setStringKey(PreferenceUtil.USER_TYPE,loginInfo.getUserType());
+//                        ToastUtil.showToast(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT);
+//                        finish();
+//                    } else {
+//                        ToastUtil.showToast(LoginActivity.this,"登录失败",Toast.LENGTH_SHORT);
+//                    }
+//                }
+//            }, new Consumer<Throwable>() {
+//                @Override
+//                public void accept(Throwable throwable) throws Exception {
+//                    //这里接收onError
+//                }
+//            }, new Action() {
+//                @Override
+//                public void run() throws Exception {
+//                    //这里接收onComplete。
+//                }
+//            });
         } else if (v == registerTv) {
             startActivity(new Intent(this,RegisterActivity.class));
         }

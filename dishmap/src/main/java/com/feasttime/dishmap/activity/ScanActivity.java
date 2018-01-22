@@ -17,7 +17,7 @@ import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zbar.ZBarView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
-public class ScanActivity extends AppCompatActivity {
+public class ScanActivity extends BaseActivity {
 
 
     private static final String TAG = "ScanActivity";

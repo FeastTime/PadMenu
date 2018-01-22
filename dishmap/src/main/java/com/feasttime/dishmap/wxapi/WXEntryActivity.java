@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.TrustAllCerts;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
@@ -112,6 +113,9 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                             String headimgurl = userInfoJsonObj.getString("headimgurl");
                             String city = userInfoJsonObj.getString("city");
                             LogUtil.d(TAG,"geted the wechat userinfo:" + nickName + "-" + city + "-" + headimgurl);
+
+                            //保存微信用户openid
+                            PreferenceUtil.setStringKey(PreferenceUtil.WE_CHAT_OPENID,openid);
 
                             //上传微信用户数据
 

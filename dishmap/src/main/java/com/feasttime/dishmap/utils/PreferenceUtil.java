@@ -18,6 +18,7 @@ public class PreferenceUtil {
 	public static final String TOKEN = "token";
 	public static final String USER_TYPE = "userType";
 	public static final String PERSION_NO = "persionNO";
+	public static final String WE_CHAT_OPENID = "openId";
 
 	private static SharedPreferences mPreference;
 	private static void init(){

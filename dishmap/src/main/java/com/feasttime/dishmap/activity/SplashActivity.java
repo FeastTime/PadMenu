@@ -31,7 +31,6 @@ public class SplashActivity extends BaseActivity {
 
         requestPermission();
 
-
     }
 
 

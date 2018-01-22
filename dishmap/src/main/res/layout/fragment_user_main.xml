@@ -80,6 +80,7 @@
             android:textSize="@dimen/x22" />
 
         <Button
+            android:id="@+id/fragment_user_main_start_scan_btn"
             android:layout_width="@dimen/x510"
             android:layout_height="@dimen/y80"
             android:layout_marginTop="@dimen/y80"

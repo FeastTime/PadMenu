@@ -137,27 +137,27 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 infoMap.put("userType","store");
             }
 
-            RetrofitService.register(infoMap).subscribe(new Consumer<RegisterInfo>(){
-                @Override
-                public void accept(RegisterInfo registerInfo) throws Exception {
-                    if (registerInfo.getResultCode() == 0) {
-                        ToastUtil.showToast(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT);
-                        finish();
-                    } else {
-                        ToastUtil.showToast(RegisterActivity.this,registerInfo.getResultMsg(),Toast.LENGTH_SHORT);
-                    }
-                }
-            }, new Consumer<Throwable>() {
-                @Override
-                public void accept(Throwable throwable) throws Exception {
-
-                }
-            }, new Action() {
-                @Override
-                public void run() throws Exception {
-
-                }
-            });
+//            RetrofitService.register(infoMap).subscribe(new Consumer<RegisterInfo>(){
+//                @Override
+//                public void accept(RegisterInfo registerInfo) throws Exception {
+//                    if (registerInfo.getResultCode() == 0) {
+//                        ToastUtil.showToast(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT);
+//                        finish();
+//                    } else {
+//                        ToastUtil.showToast(RegisterActivity.this,registerInfo.getResultMsg(),Toast.LENGTH_SHORT);
+//                    }
+//                }
+//            }, new Consumer<Throwable>() {
+//                @Override
+//                public void accept(Throwable throwable) throws Exception {
+//
+//                }
+//            }, new Action() {
+//                @Override
+//                public void run() throws Exception {
+//
+//                }
+//            });
         } else if (v == backIv) {
             if (step2Ll.getVisibility() == View.VISIBLE) {
                 step1Ll.setVisibility(View.VISIBLE);

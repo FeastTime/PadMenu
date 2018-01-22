@@ -8,10 +8,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -21,7 +23,10 @@ import android.widget.TextView;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.AboutActivity;
 import com.feasttime.dishmap.activity.MessageActivity;
+import com.feasttime.dishmap.activity.ScanActivity;
 import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.UtilTools;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,6 +50,9 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
 
     @Bind(R.id.fragment_user_main_right_menu_ll)
     LinearLayout rightMenuLl;
+
+    @Bind(R.id.fragment_user_main_start_scan_btn)
+    Button startScanBtn;
 
     RelativeLayout btmMenuWrapRel;
 
@@ -95,11 +103,20 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
         });
     }
 
-    @OnClick({R.id.fragment_user_main_right_menu_ll})
+    @OnClick({R.id.fragment_user_main_right_menu_ll,R.id.fragment_user_main_start_scan_btn})
     @Override
     public void onClick(View v) {
         if (v == rightMenuLl) {
             showTopMenu(v);
+        } else if (v == startScanBtn) {
+            String weChatOpenId = PreferenceUtil.getStringKey(PreferenceUtil.WE_CHAT_OPENID);
+            if (TextUtils.isEmpty(weChatOpenId)) {
+                //去微信登录
+                UtilTools.loginWithWeChat(this.getActivity());
+            } else {
+                //直接去扫描
+                startActivity(new Intent(this.getActivity(),ScanActivity.class));
+            }
         }
     }
 
