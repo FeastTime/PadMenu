@@ -158,22 +158,112 @@ public class RetrofitService {
     }
 
 
-    public static Observable<LoginInfo> login(HashMap<String,Object> infoMap){
+    public static Observable<RegisterInfo> saveWeChatUserInfo(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
-        return sMenuService.login(getRequestBody(infoMap))
+        return sMenuService.saveWeChatUserInfo(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<RegisterInfo> register(HashMap<String,Object> infoMap){
+
+    public static Observable<RegisterInfo> checkWeChatUserBindStatus(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
-        return sMenuService.register(getRequestBody(infoMap))
+        return sMenuService.checkWeChatUserBindStatus(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+
+    public static Observable<RegisterInfo> saveUserPhone(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.saveUserPhone(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<RegisterInfo> queryPayTableDetail(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.queryPayTableDetail(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<RegisterInfo> queryCouponList(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.queryCouponList(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<RegisterInfo> queryMyTableList(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.queryMyTableList(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Observable<RegisterInfo> getStoreInfo(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.getStoreInfo(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<RegisterInfo> setRelationshipWithStore(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.setRelationshipWithStore(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<RegisterInfo> queryUserInfo(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.queryUserInfo(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<RegisterInfo> queryHadEatenStore(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.queryHadEatenStore(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public static Observable<RegisterInfo> feedback(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return sMenuService.feedback(getRequestBody(infoMap))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
 }
