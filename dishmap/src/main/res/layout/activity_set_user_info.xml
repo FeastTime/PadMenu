@@ -41,8 +41,11 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/y57"
+                android:maxLength="30"
                 android:layout_marginLeft="@dimen/x14"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"
                 android:background="@color/bg_gray_2"
                 />
         </LinearLayout>
@@ -63,8 +66,11 @@
                 android:textSize="@dimen/big_text_size"/>
 
             <EditText
+                android:maxLength="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/y57"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"
                 android:background="@color/bg_gray_2"
                 android:layout_marginLeft="@dimen/x14"
                 />
@@ -86,8 +92,11 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/y57"
+                android:maxLength="30"
                 android:layout_marginLeft="@dimen/x14"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"
                 android:background="@color/bg_gray_2"
                 />
         </LinearLayout>
@@ -107,9 +116,12 @@
                 android:textSize="@dimen/big_text_size"/>
 
             <EditText
+                android:maxLength="30"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/y57"
                 android:layout_marginLeft="@dimen/x14"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"
                 android:background="@color/bg_gray_2"
                 />
         </LinearLayout>
@@ -130,8 +142,11 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/y57"
+                android:maxLength="30"
                 android:layout_marginLeft="@dimen/x14"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"
                 android:background="@color/bg_gray_2"
                 />
         </LinearLayout>
@@ -150,10 +165,13 @@
                 android:textSize="@dimen/big_text_size"/>
 
             <EditText
+                android:maxLength="300"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y233"
                 android:layout_marginLeft="@dimen/x14"
                 android:gravity="top"
+                android:textColor="@color/text_gray_5"
+                android:textSize="@dimen/big_text_size"
                 android:background="@color/bg_gray_2"
                 />
         </LinearLayout>
