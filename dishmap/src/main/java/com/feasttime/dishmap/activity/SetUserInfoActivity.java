@@ -10,11 +10,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.QueryUserInfo;
+import com.feasttime.dishmap.model.bean.UniversalInfo;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
+import com.feasttime.dishmap.wxapi.WXEntryActivity;
+
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2018/1/15.
@@ -71,6 +80,36 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
+
+
+        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        infoMap.put("token",token);
+        infoMap.put("userID",userId);
+
+        showLoading(null);
+        RetrofitService.queryUserInfo(infoMap).subscribe(new Consumer<QueryUserInfo>(){
+            @Override
+            public void accept(QueryUserInfo queryUserInfo) throws Exception {
+                if (queryUserInfo.getResultCode() == 0) {
+
+                } else {
+
+                }
+                hideLoading();
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                hideLoading();
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+
+            }
+        });
     }
 
     @OnClick({R.id.activity_set_user_info_nick_save_btn})
@@ -96,27 +135,57 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
                 return;
             }
 
-            if (TextUtils.isEmpty(birthday)) {
-                ToastUtil.showToast(this,"请输入出生日期", Toast.LENGTH_SHORT);
-                return;
-            }
+//            if (TextUtils.isEmpty(birthday)) {
+//                ToastUtil.showToast(this,"请输入出生日期", Toast.LENGTH_SHORT);
+//                return;
+//            }
 
             if (TextUtils.isEmpty(phone)) {
                 ToastUtil.showToast(this,"请输入手机", Toast.LENGTH_SHORT);
                 return;
             }
 
-            if (TextUtils.isEmpty(region)) {
-                ToastUtil.showToast(this,"请输入地区", Toast.LENGTH_SHORT);
-                return;
-            }
+//            if (TextUtils.isEmpty(region)) {
+//                ToastUtil.showToast(this,"请输入地区", Toast.LENGTH_SHORT);
+//                return;
+//            }
+//
+//            if (TextUtils.isEmpty(introduce)) {
+//                ToastUtil.showToast(this,"请输入个人简介", Toast.LENGTH_SHORT);
+//                return;
+//            }
 
-            if (TextUtils.isEmpty(introduce)) {
-                ToastUtil.showToast(this,"请输入个人简介", Toast.LENGTH_SHORT);
-                return;
-            }
+            showLoading(null);
+            HashMap<String,Object> infoMap = new HashMap<String,Object>();
+            String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+            String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+            infoMap.put("token",token);
+            infoMap.put("userID",userId);
+            infoMap.put("mobileNO","");
+            RetrofitService.saveUserPhone(infoMap).subscribe(new Consumer<UniversalInfo>(){
+                @Override
+                public void accept(UniversalInfo universalInfo) throws Exception {
+                    hideLoading();
+                    if (universalInfo.getResultCode() == 0) {
+                        ToastUtil.showToast(SetUserInfoActivity.this,"保存成功",Toast.LENGTH_SHORT);
+                        finish();
+                    } else {
+                        ToastUtil.showToast(SetUserInfoActivity.this,"保存失败",Toast.LENGTH_SHORT);
+                        finish();
+                    }
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+                    ToastUtil.showToast(SetUserInfoActivity.this,"保存失败",Toast.LENGTH_SHORT);
+                    hideLoading();
+                }
+            }, new Action() {
+                @Override
+                public void run() throws Exception {
 
-
+                }
+            });
         }
     }
 

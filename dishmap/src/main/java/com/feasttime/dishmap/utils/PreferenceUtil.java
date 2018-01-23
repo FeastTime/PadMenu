@@ -19,7 +19,7 @@ public class PreferenceUtil {
 	public static final String USER_TYPE = "userType";
 	public static final String PERSION_NO = "persionNO";
 	public static final String WE_CHAT_OPENID = "openId";
-
+	public static final String USER_ID = "userId";
 	private static SharedPreferences mPreference;
 	private static void init(){
 		mPreference = MyApplication.getInstance().getSharedPreferences("sheng_yan_reference", Activity.MODE_PRIVATE);

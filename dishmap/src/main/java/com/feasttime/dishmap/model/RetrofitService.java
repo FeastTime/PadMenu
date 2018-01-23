@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.model.bean.LoginInfo;
+import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
 import com.feasttime.dishmap.model.bean.UniversalInfo;
 import com.feasttime.dishmap.utils.DeviceTool;
@@ -176,7 +177,7 @@ public class RetrofitService {
     }
 
 
-    public static Observable<RegisterInfo> saveUserPhone(HashMap<String,Object> infoMap){
+    public static Observable<UniversalInfo> saveUserPhone(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return sMenuService.saveUserPhone(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())
@@ -234,7 +235,7 @@ public class RetrofitService {
     }
 
 
-    public static Observable<RegisterInfo> queryUserInfo(HashMap<String,Object> infoMap){
+    public static Observable<QueryUserInfo> queryUserInfo(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return sMenuService.queryUserInfo(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())

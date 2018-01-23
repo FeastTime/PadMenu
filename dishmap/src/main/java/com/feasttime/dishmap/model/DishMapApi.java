@@ -2,6 +2,7 @@ package com.feasttime.dishmap.model;
 
 
 import com.feasttime.dishmap.model.bean.LoginInfo;
+import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
 import com.feasttime.dishmap.model.bean.UniversalInfo;
 
@@ -28,7 +29,7 @@ public interface DishMapApi {
 
     //保存用户手机号
     @POST("user/saveUserPhone")
-    Observable<RegisterInfo> saveUserPhone(@Body RequestBody route);
+    Observable<UniversalInfo> saveUserPhone(@Body RequestBody route);
 
     //查询付费桌位详情
     @POST("table/queryPayTableDetail")
@@ -52,7 +53,7 @@ public interface DishMapApi {
 
     //查询用户信息
     @POST("user/queryUserInfo")
-    Observable<RegisterInfo> queryUserInfo(@Body RequestBody route);
+    Observable<QueryUserInfo> queryUserInfo(@Body RequestBody route);
 
     //查询去过的餐厅
     @POST("user/queryHadEatenStore")
