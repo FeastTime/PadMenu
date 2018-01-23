@@ -17,6 +17,7 @@
             android:src="@mipmap/mine_top_bg" />
 
         <ImageView
+            android:id="@+id/fragment_user_mine_setting_iv"
             android:layout_width="@dimen/x47"
             android:layout_height="@dimen/x47"
             android:layout_marginLeft="@dimen/x30"
@@ -24,6 +25,7 @@
             android:src="@mipmap/setting_icon" />
 
         <ImageView
+            android:id="@+id/fragment_user_mine_msg_iv"
             android:layout_width="@dimen/x47"
             android:layout_height="@dimen/x47"
             android:layout_alignParentRight="true"

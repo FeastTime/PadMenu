@@ -8,12 +8,15 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.FeedBackActivity;
 import com.feasttime.dishmap.activity.HadEatedStoreActivity;
+import com.feasttime.dishmap.activity.MessageActivity;
+import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
@@ -47,6 +50,12 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.fragment_user_mine_eated_store_tv)
     TextView eatedStoreTv;
 
+    @Bind(R.id.fragment_user_mine_setting_iv)
+    ImageView settingIv;
+
+    @Bind(R.id.fragment_user_mine_msg_iv)
+    ImageView msgIv;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +85,8 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @OnClick({R.id.fragment_user_mine_feedback_rel,R.id.fragment_user_mine_logout_rel,R.id.fragment_user_mine_my_seat_tv,R.id.fragment_user_mine_coupon_tv,R.id.fragment_user_mine_eated_store_tv})
+    @OnClick({R.id.fragment_user_mine_feedback_rel,R.id.fragment_user_mine_logout_rel,R.id.fragment_user_mine_my_seat_tv,R.id.fragment_user_mine_coupon_tv,R.id.fragment_user_mine_eated_store_tv
+    ,R.id.fragment_user_mine_setting_iv,R.id.fragment_user_mine_msg_iv})
     @Override
     public void onClick(View v) {
         if (v == feedBackRel) {
@@ -89,6 +99,10 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
 //            startActivity(new Intent(this.getActivity(),));
         } else if (v == eatedStoreTv) {
             startActivity(new Intent(this.getActivity(), HadEatedStoreActivity.class));
+        } else if (v == msgIv) {
+            startActivity(new Intent(this.getActivity(), MessageActivity.class));
+        } else if (v == settingIv) {
+            startActivity(new Intent(this.getActivity(), SetUserInfoActivity.class));
         }
     }
 }
