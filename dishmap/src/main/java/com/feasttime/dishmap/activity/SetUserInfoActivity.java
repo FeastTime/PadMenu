@@ -14,6 +14,7 @@ import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.UniversalInfo;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.wxapi.WXEntryActivity;
 
@@ -70,6 +71,7 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_user_info);
         ButterKnife.bind(this);
+        SoftHideKeyBoardUtil.assistActivity(this);
         initViews();
     }
 

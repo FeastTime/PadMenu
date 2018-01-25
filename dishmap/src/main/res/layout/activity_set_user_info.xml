@@ -12,188 +12,203 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y128"></include>
 
-    <ImageView
-        android:layout_width="@dimen/x118"
-        android:layout_height="@dimen/x118"
-        android:src="@mipmap/example_avatar_icon"
-        android:layout_marginTop="@dimen/y50"/>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/y48"
-        android:layout_marginLeft="@dimen/x98"
-        android:layout_marginRight="@dimen/x98"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="昵　　称"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"/>
+            <ImageView
+                android:layout_width="@dimen/x118"
+                android:layout_height="@dimen/x118"
+                android:src="@mipmap/example_avatar_icon"
+                android:layout_marginTop="@dimen/y50"/>
 
-            <EditText
-                android:id="@+id/activity_set_user_info_nick_name_et"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y57"
-                android:maxLength="30"
-                android:layout_marginLeft="@dimen/x14"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"
-                android:background="@color/bg_gray_2"
-                />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y50"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="性　　别"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"/>
+                android:layout_marginTop="@dimen/y48"
+                android:layout_marginLeft="@dimen/x98"
+                android:layout_marginRight="@dimen/x98"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/activity_set_user_info_nick_sex_et"
-                android:maxLength="1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y57"
-                android:textColor="@color/text_gray_5"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="昵　　称"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"/>
+
+                    <EditText
+                        android:id="@+id/activity_set_user_info_nick_name_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y57"
+                        android:maxLength="30"
+                        android:layout_marginLeft="@dimen/x14"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"
+                        android:background="@color/bg_gray_2"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y50"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="性　　别"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"/>
+
+                    <EditText
+                        android:id="@+id/activity_set_user_info_nick_sex_et"
+                        android:maxLength="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y57"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"
+                        android:background="@color/bg_gray_2"
+                        android:layout_marginLeft="@dimen/x14"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y50"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="出生日期"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"/>
+
+                    <EditText
+                        android:id="@+id/activity_set_user_info_nick_birthday_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y57"
+                        android:maxLength="30"
+                        android:layout_marginLeft="@dimen/x14"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"
+                        android:background="@color/bg_gray_2"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y50"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="手　　机"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"/>
+
+                    <EditText
+                        android:id="@+id/activity_set_user_info_nick_phone_et"
+                        android:maxLength="11"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y57"
+                        android:layout_marginLeft="@dimen/x14"
+                        android:inputType="number"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"
+                        android:background="@color/bg_gray_2"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y50"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="地　　区"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"/>
+
+                    <EditText
+                        android:id="@+id/activity_set_user_info_nick_region_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y57"
+                        android:maxLength="30"
+                        android:layout_marginLeft="@dimen/x14"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"
+                        android:background="@color/bg_gray_2"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y50"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个人说明"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"/>
+
+                    <EditText
+                        android:id="@+id/activity_set_user_info_nick_introduce_et"
+                        android:maxLength="300"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y233"
+                        android:layout_marginLeft="@dimen/x14"
+                        android:gravity="top"
+                        android:textColor="@color/text_gray_5"
+                        android:textSize="@dimen/big_text_size"
+                        android:background="@color/bg_gray_2"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/activity_set_user_info_nick_save_btn"
+                android:layout_width="@dimen/x540"
+                android:layout_height="@dimen/y88"
+                android:background="@mipmap/pay_btn_bg"
+                android:text="保存"
                 android:textSize="@dimen/big_text_size"
-                android:background="@color/bg_gray_2"
-                android:layout_marginLeft="@dimen/x14"
+                android:layout_marginTop="@dimen/y100"
+                android:textColor="@color/white"
                 />
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y50"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="出生日期"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"/>
-
-            <EditText
-                android:id="@+id/activity_set_user_info_nick_birthday_et"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y57"
-                android:maxLength="30"
-                android:layout_marginLeft="@dimen/x14"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"
-                android:background="@color/bg_gray_2"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y50"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="手　　机"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"/>
-
-            <EditText
-                android:id="@+id/activity_set_user_info_nick_phone_et"
-                android:maxLength="11"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y57"
-                android:layout_marginLeft="@dimen/x14"
-                android:inputType="number"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"
-                android:background="@color/bg_gray_2"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y50"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="地　　区"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"/>
-
-            <EditText
-                android:id="@+id/activity_set_user_info_nick_region_et"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y57"
-                android:maxLength="30"
-                android:layout_marginLeft="@dimen/x14"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"
-                android:background="@color/bg_gray_2"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y50"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="个人说明"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"/>
-
-            <EditText
-                android:id="@+id/activity_set_user_info_nick_introduce_et"
-                android:maxLength="300"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y233"
-                android:layout_marginLeft="@dimen/x14"
-                android:gravity="top"
-                android:textColor="@color/text_gray_5"
-                android:textSize="@dimen/big_text_size"
-                android:background="@color/bg_gray_2"
-                />
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 
-    <Button
-        android:id="@+id/activity_set_user_info_nick_save_btn"
-        android:layout_width="@dimen/x540"
-        android:layout_height="@dimen/y88"
-        android:background="@mipmap/pay_btn_bg"
-        android:text="保存"
-        android:textSize="@dimen/big_text_size"
-        android:layout_marginTop="@dimen/y100"
-        android:textColor="@color/white"
-        />
 
 </LinearLayout>
