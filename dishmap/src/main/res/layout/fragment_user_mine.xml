@@ -74,8 +74,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/y147"
-            android:layout_marginLeft="@dimen/x70"
-            android:layout_marginRight="@dimen/x70"
+            android:layout_marginLeft="@dimen/x160"
+            android:layout_marginRight="@dimen/x160"
             android:gravity="bottom"
             android:orientation="horizontal">
 
@@ -98,13 +98,14 @@
                 android:text="优惠券"
                 android:layout_alignParentBottom="true"
                 android:drawablePadding="@dimen/y25"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentRight="true"
                 android:textColor="@color/text_gray_1"
                 android:textSize="@dimen/normal_text_size" />
 
 
             <TextView
                 android:id="@+id/fragment_user_mine_eated_store_tv"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableTop="@mipmap/mine_house"
