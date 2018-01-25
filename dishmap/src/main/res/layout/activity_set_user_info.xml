@@ -23,6 +23,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/activity_set_user_info_avatar_iv"
                 android:layout_width="@dimen/x118"
                 android:layout_height="@dimen/x118"
                 android:src="@mipmap/example_avatar_icon"

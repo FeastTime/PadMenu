@@ -13,10 +13,12 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.UniversalInfo;
+import com.feasttime.dishmap.utils.CircleImageTransformation;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.wxapi.WXEntryActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -65,6 +67,8 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
     @Bind(R.id.activity_set_user_info_nick_save_btn)
     Button saveBtn;
 
+    @Bind(R.id.activity_set_user_info_avatar_iv)
+    ImageView avatarIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +99,9 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void accept(QueryUserInfo queryUserInfo) throws Exception {
                 if (queryUserInfo.getResultCode() == 0) {
-
+                    Picasso.with(SetUserInfoActivity.this).load(queryUserInfo.getUserIcon()).transform(new CircleImageTransformation()).into(avatarIv);
+                    nickNameEt.setText(queryUserInfo.getNickName());
+                    phoneEt.setText(queryUserInfo.getMobileNo());
                 } else {
 
                 }
