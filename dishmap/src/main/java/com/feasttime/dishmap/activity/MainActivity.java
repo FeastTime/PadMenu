@@ -112,6 +112,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             }
 
             if (mUserMineFragment.isAdded()) {
+                mUserMineFragment.requestUserInfo();
                 fragmentTransaction.show(mUserMineFragment).commitAllowingStateLoss();
             } else {
                 fragmentTransaction.add(R.id.activity_main_content_fl, mUserMineFragment);

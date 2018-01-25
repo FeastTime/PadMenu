@@ -42,11 +42,13 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/fragment_user_mine_user_icon_iv"
                 android:layout_width="@dimen/x108"
                 android:layout_height="@dimen/x108"
                 android:src="@mipmap/example_avatar_icon" />
 
             <TextView
+                android:id="@+id/fragment_user_mine_nick_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y26"

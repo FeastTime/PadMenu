@@ -20,6 +20,9 @@ public class PreferenceUtil {
 	public static final String PERSION_NO = "persionNO";
 	public static final String WE_CHAT_OPENID = "openId";
 	public static final String USER_ID = "userId";
+	public static final String USER_ICON = "userIcon"; //用户头像
+	public static final String USER_NICK_NAME = "userNickName"; //用户昵称
+
 	private static SharedPreferences mPreference;
 	private static void init(){
 		mPreference = MyApplication.getInstance().getSharedPreferences("sheng_yan_reference", Activity.MODE_PRIVATE);
