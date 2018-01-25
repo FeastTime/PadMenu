@@ -17,9 +17,10 @@
             android:layout_alignParentBottom="true">
                 <ImageView
                     android:id="@+id/title_back_iv"
-                    android:layout_width="@dimen/x54"
+                    android:layout_width="@dimen/x84"
                     android:layout_height="@dimen/y40"
                     android:src="@mipmap/back"
+                    android:paddingRight="@dimen/x30"
                     android:layout_centerVertical="true"
                     android:paddingLeft="@dimen/x30"
                     />

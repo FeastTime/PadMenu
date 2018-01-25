@@ -88,7 +88,7 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
         String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
         infoMap.put("token",token);
-        infoMap.put("userID",userId);
+        infoMap.put("userId",userId);
 
         showLoading(null);
         RetrofitService.queryUserInfo(infoMap).subscribe(new Consumer<QueryUserInfo>(){
