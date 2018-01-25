@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dhh.websocket.RxWebSocketUtil;
+import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
@@ -196,7 +197,7 @@ public class RetrofitService {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static Observable<RegisterInfo> queryCouponList(HashMap<String,Object> infoMap){
+    public static Observable<CouponInfo> queryCouponList(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return sMenuService.queryCouponList(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())

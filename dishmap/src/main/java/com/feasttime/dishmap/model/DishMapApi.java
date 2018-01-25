@@ -1,6 +1,7 @@
 package com.feasttime.dishmap.model;
 
 
+import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
@@ -37,7 +38,7 @@ public interface DishMapApi {
 
     //查询优惠券列表信息
     @POST("coupon/queryCouponList")
-    Observable<RegisterInfo> queryCouponList(@Body RequestBody route);
+    Observable<CouponInfo> queryCouponList(@Body RequestBody route);
 
     //查询已得到桌位列表
     @POST("table/queryMyTableList")

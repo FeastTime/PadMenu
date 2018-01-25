@@ -94,12 +94,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 mUserCouponFragment = new UserCouponFragment();
             }
 
+
+
             if (mUserCouponFragment.isAdded()) {
+                mUserCouponFragment.requestNet();
                 fragmentTransaction.show(mUserCouponFragment).commitAllowingStateLoss();
             } else {
                 fragmentTransaction.add(R.id.activity_main_content_fl, mUserCouponFragment);
                 fragmentTransaction.show(mUserCouponFragment).commitAllowingStateLoss();
             }
+
+
         } else if (v == mineTv) {
             initBtmBar(3);
             if (mUserMineFragment == null) {

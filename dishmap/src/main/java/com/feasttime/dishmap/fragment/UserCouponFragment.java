@@ -11,14 +11,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.activity.BaseActivity;
+import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.adapter.FragmentCouponAdapter;
+import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
+import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.CouponListItemInfo;
+import com.feasttime.dishmap.model.bean.QueryUserInfo;
+import com.feasttime.dishmap.utils.CircleImageTransformation;
+import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2018/1/10.
@@ -55,23 +66,30 @@ public class UserCouponFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
+
     private void initViews() {
-        ArrayList<CouponListItemInfo> myTestData = new ArrayList<CouponListItemInfo>();
-        for (int i = 0 ; i < 10 ; i++) {
-            ArrayList<CouponChildListItemInfo> childDatas = new ArrayList<CouponChildListItemInfo>();
-            CouponListItemInfo couponListItemInfo = new CouponListItemInfo();
-            for (int j = 0 ; j < 3 ; j++) {
-                CouponChildListItemInfo couponChildListItemInfo = new CouponChildListItemInfo();
-                couponChildListItemInfo.setCouponName(j * 10 + "");
-                couponChildListItemInfo.setCouponPrice(Math.random() + "");
-                childDatas.add(couponChildListItemInfo);
-                couponListItemInfo.setChildListItemInfos(childDatas);
-            }
-
-
-            couponListItemInfo.setName(i + "");
-            myTestData.add(couponListItemInfo);
-        }
+//        ArrayList<CouponListItemInfo> myTestData = new ArrayList<CouponListItemInfo>();
+//        for (int i = 0 ; i < 10 ; i++) {
+//            ArrayList<CouponChildListItemInfo> childDatas = new ArrayList<CouponChildListItemInfo>();
+//            CouponListItemInfo couponListItemInfo = new CouponListItemInfo();
+//            for (int j = 0 ; j < 3 ; j++) {
+//                CouponChildListItemInfo couponChildListItemInfo = new CouponChildListItemInfo();
+//                couponChildListItemInfo.setCouponName(j * 10 + "");
+//                couponChildListItemInfo.setCouponPrice(Math.random() + "");
+//                childDatas.add(couponChildListItemInfo);
+//                couponListItemInfo.setChildListItemInfos(childDatas);
+//            }
+//
+//
+//            couponListItemInfo.setName(i + "");
+//            myTestData.add(couponListItemInfo);
+//        }
 
         titleBarBackIv.setVisibility(View.GONE);
         titleBarRightIv.setVisibility(View.GONE);
@@ -79,12 +97,46 @@ public class UserCouponFragment extends Fragment {
         titleCenterTv.setText("优惠券");
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
 
-        FragmentCouponAdapter fragmentCouponAdapter = new FragmentCouponAdapter(this.getActivity(),myTestData);
-        mContentElv.setAdapter(fragmentCouponAdapter);
+//        FragmentCouponAdapter fragmentCouponAdapter = new FragmentCouponAdapter(this.getActivity(),myTestData);
+//        mContentElv.setAdapter(fragmentCouponAdapter);
+
+        requestNet();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    public void requestNet() {
+        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        infoMap.put("token",token);
+        infoMap.put("userId",userId);
+        infoMap.put("flag","0");
+        final BaseActivity baseActivity = ((BaseActivity)this.getActivity());
+        baseActivity.showLoading(null);
+        RetrofitService.queryCouponList(infoMap).subscribe(new Consumer<CouponInfo>(){
+            @Override
+            public void accept(CouponInfo couponInfo) throws Exception {
+                if (couponInfo.getResultCode() == 0) {
+
+                } else {
+
+                }
+                baseActivity.hideLoading();
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                baseActivity.hideLoading();
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+
+            }
+        });
     }
 }
