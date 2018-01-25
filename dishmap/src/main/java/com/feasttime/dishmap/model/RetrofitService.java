@@ -145,7 +145,7 @@ public class RetrofitService {
         if (!TextUtils.isEmpty(mobileNO)) {
             infoMap.put("mobileNO",mobileNO);
         }
-        infoMap.put("deviceID",deviceID);
+        infoMap.put("deviceId",deviceID);
         infoMap.put("mac",mac);
         infoMap.put("ipv4",ipv4);
     }
