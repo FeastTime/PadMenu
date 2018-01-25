@@ -110,8 +110,8 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
         if (v == rightMenuLl) {
             showTopMenu(v);
         } else if (v == startScanBtn) {
-            String weChatOpenId = PreferenceUtil.getStringKey(PreferenceUtil.WE_CHAT_OPENID);
-            if (TextUtils.isEmpty(weChatOpenId)) {
+            String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+            if (TextUtils.isEmpty(token)) {
                 //去微信登录
                 UtilTools.loginWithWeChat(this.getActivity());
             } else {

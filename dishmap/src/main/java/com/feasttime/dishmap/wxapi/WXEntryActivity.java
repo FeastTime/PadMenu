@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.UniversalInfo;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
@@ -130,10 +131,13 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                             infoMap.put("mobileNo","");
                             infoMap.put("nickName",nickName);
                             infoMap.put("userIcon",headimgurl);
-                            RetrofitService.saveWeChatUserInfo(infoMap).subscribe(new Consumer<UniversalInfo>(){
+                            RetrofitService.saveWeChatUserInfo(infoMap).subscribe(new Consumer<LoginInfo>(){
                                 @Override
-                                public void accept(UniversalInfo universalInfo) throws Exception {
-                                    if (universalInfo.getResultCode() == 0) {
+                                public void accept(LoginInfo loginInfo) throws Exception {
+                                    if (loginInfo.getResultCode() == 0) {
+                                        PreferenceUtil.setStringKey(PreferenceUtil.USER_ID,loginInfo.getUserId());
+                                        PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,loginInfo.getToken());
+
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {

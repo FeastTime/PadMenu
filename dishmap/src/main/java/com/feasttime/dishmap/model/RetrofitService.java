@@ -157,7 +157,7 @@ public class RetrofitService {
     }
 
 
-    public static Observable<UniversalInfo> saveWeChatUserInfo(HashMap<String,Object> infoMap){
+    public static Observable<LoginInfo> saveWeChatUserInfo(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return sMenuService.saveWeChatUserInfo(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())

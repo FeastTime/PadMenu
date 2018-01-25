@@ -21,7 +21,7 @@ public interface DishMapApi {
 
     //保存微信用户信息
     @POST("user/saveWeChatUserInfo")
-    Observable<UniversalInfo> saveWeChatUserInfo(@Body RequestBody route);
+    Observable<LoginInfo> saveWeChatUserInfo(@Body RequestBody route);
 
     //检查微信用户是否已经绑定过
     @POST("user/checkWeChatUserBindStatus")
