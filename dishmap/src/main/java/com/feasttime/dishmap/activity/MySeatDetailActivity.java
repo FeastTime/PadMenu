@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.utils.QRCodeUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,6 +28,8 @@ public class MySeatDetailActivity extends BaseActivity {
     @Bind(R.id.title_bar_layout_orange_bg_iv)
     ImageView titleBarOrangeBgIv;
 
+    @Bind(R.id.activity_my_seat_detail_qr_code_iv)
+    ImageView qrCodeIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,5 +45,6 @@ public class MySeatDetailActivity extends BaseActivity {
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
+        qrCodeIv.setImageBitmap(QRCodeUtil.createQRCodeBitmap("baidu.com",300));
     }
 }
