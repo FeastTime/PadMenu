@@ -14,7 +14,7 @@
             android:layout_height="@dimen/x70"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/x42"
-            android:src="@mipmap/example_avatar_icon" />
+            android:src="@mipmap/default_user_icon" />
 
 
         <LinearLayout

@@ -106,7 +106,7 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
             @Override
             public void accept(QueryUserInfo queryUserInfo) throws Exception {
                 if (queryUserInfo.getResultCode() == 0) {
-                    Picasso.with(UserMineFragment.this.getActivity()).load(queryUserInfo.getUserIcon()).transform(new CircleImageTransformation()).into(userIconIv);
+                    Picasso.with(UserMineFragment.this.getActivity()).load(queryUserInfo.getUserIcon()).placeholder(R.mipmap.default_user_icon).transform(new CircleImageTransformation()).into(userIconIv);
                     nickNameTv.setText(queryUserInfo.getNickName());
                 } else {
 

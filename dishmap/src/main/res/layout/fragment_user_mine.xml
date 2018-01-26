@@ -45,7 +45,7 @@
                 android:id="@+id/fragment_user_mine_user_icon_iv"
                 android:layout_width="@dimen/x108"
                 android:layout_height="@dimen/x108"
-                android:src="@mipmap/example_avatar_icon" />
+                android:src="@mipmap/default_user_icon" />
 
             <TextView
                 android:id="@+id/fragment_user_mine_nick_name_tv"
