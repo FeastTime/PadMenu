@@ -4,12 +4,14 @@ import android.animation.ValueAnimator;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.fragment.MerchantOpenTableFragment;
@@ -17,6 +19,8 @@ import com.feasttime.dishmap.fragment.UserCouponFragment;
 import com.feasttime.dishmap.fragment.UserMainFragment;
 import com.feasttime.dishmap.fragment.UserMineFragment;
 import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
 import butterknife.Bind;
@@ -76,6 +80,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         hideAllFragment(fragmentTransaction);
+
+        //验证token
+        if (v != homeTv) {
+            String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+            if (TextUtils.isEmpty(token)) {
+                ToastUtil.showToast(v.getContext(),"请重新登录", Toast.LENGTH_SHORT);
+                homeTv.performClick();
+                return;
+            }
+        }
+
         if (v == homeTv) {
             initBtmBar(1);
             if (mUserMainFragment == null) {
@@ -126,6 +141,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             @Override
             public void run() {
                 couponTv.performClick();
+            }
+        });
+    }
+
+
+    public void toMainFragment() {
+        couponTv.post(new Runnable() {
+            @Override
+            public void run() {
+                homeTv.performClick();
             }
         });
     }

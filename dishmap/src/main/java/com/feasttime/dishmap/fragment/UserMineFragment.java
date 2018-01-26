@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,6 +136,14 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
     ,R.id.fragment_user_mine_setting_iv,R.id.fragment_user_mine_msg_iv})
     @Override
     public void onClick(View v) {
+
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        if (TextUtils.isEmpty(token)) {
+            ToastUtil.showToast(v.getContext(),"请重新登录", Toast.LENGTH_SHORT);
+            ((MainActivity)this.getActivity()).toMainFragment();
+            return;
+        }
+
         if (v == feedBackRel) {
             startActivity(new Intent(this.getActivity(), FeedBackActivity.class));
         } else if (v == logoutRel) {
