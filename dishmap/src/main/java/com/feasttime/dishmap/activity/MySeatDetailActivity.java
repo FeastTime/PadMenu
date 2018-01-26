@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.utils.QRCodeUtil;
 
 import butterknife.Bind;
@@ -31,11 +32,24 @@ public class MySeatDetailActivity extends BaseActivity {
     @Bind(R.id.activity_my_seat_detail_qr_code_iv)
     ImageView qrCodeIv;
 
+    @Bind(R.id.activity_my_seat_detail_store_name_tv)
+    TextView storeNameTv;
+
+    @Bind(R.id.activity_my_seat_detail_expire_tv)
+    TextView expireTv;
+
+    @Bind(R.id.activity_my_seat_detail_description_tv)
+    TextView descriptionTv;
+
+
+    MyTableItemInfo myTableItemInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_seat_detail);
         ButterKnife.bind(this);
+        myTableItemInfo = (MyTableItemInfo)this.getIntent().getSerializableExtra("tablesData");
         initViews();
     }
 
@@ -45,6 +59,8 @@ public class MySeatDetailActivity extends BaseActivity {
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
-        qrCodeIv.setImageBitmap(QRCodeUtil.createQRCodeBitmap("baidu.com",300));
+        qrCodeIv.setImageBitmap(QRCodeUtil.createQRCodeBitmap(myTableItemInfo.getSuportSeatNumber(),300));
+
+        descriptionTv.setText(myTableItemInfo.getDescription());
     }
 }
