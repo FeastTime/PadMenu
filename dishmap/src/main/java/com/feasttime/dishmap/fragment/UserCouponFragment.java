@@ -52,6 +52,9 @@ public class UserCouponFragment extends Fragment {
     @Bind(R.id.title_bar_layout_orange_bg_iv)
     ImageView titleBarOrangeBgIv;
 
+    @Bind(R.id.no_data_layout)
+    View nodataView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,7 +124,9 @@ public class UserCouponFragment extends Fragment {
             @Override
             public void accept(CouponInfo couponInfo) throws Exception {
                 if (couponInfo.getResultCode() == 0) {
-
+                    if (couponInfo.getCouponList().size() == 0) {
+                        nodataView.setVisibility(View.VISIBLE);
+                    }
                 } else {
 
                 }

@@ -11,6 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y128"></include>
 
+    <include
+        android:id="@+id/no_data_layout"
+        layout="@layout/no_data_layout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></include>
+
     <ExpandableListView
         android:id="@+id/fragment_user_coupon_content_elv"
         android:layout_marginBottom="@dimen/y100"

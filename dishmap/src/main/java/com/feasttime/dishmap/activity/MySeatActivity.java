@@ -37,6 +37,9 @@ public class MySeatActivity extends BaseActivity{
     @Bind(R.id.activity_my_seat_content_lv)
     ListView contentLv;
 
+    @Bind(R.id.no_data_layout)
+    View nodataView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
