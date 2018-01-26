@@ -121,6 +121,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
     }
 
+    public void toCouponFragment() {
+        couponTv.post(new Runnable() {
+            @Override
+            public void run() {
+                couponTv.performClick();
+            }
+        });
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (mUserMainFragment != null && mUserMainFragment.isVisible()) {

@@ -15,7 +15,9 @@ import android.widget.Toast;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.FeedBackActivity;
 import com.feasttime.dishmap.activity.HadEatedStoreActivity;
+import com.feasttime.dishmap.activity.MainActivity;
 import com.feasttime.dishmap.activity.MessageActivity;
+import com.feasttime.dishmap.activity.MySeatActivity;
 import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
@@ -139,9 +141,9 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
             PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,"");
             ToastUtil.showToast(this.getActivity(),"退出成功", Toast.LENGTH_SHORT);
         } else if (v == mySeatTv) {
-
+            startActivity(new Intent(this.getActivity(), MySeatActivity.class));
         } else if (v == couponTv) {
-//            startActivity(new Intent(this.getActivity(),));
+            ((MainActivity)this.getActivity()).toCouponFragment();
         } else if (v == eatedStoreTv) {
             startActivity(new Intent(this.getActivity(), HadEatedStoreActivity.class));
         } else if (v == msgIv) {
