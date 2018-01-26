@@ -1,23 +1,20 @@
 package com.feasttime.dishmap.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
- * Created by chen on 2018/1/12.
+ * Created by chen on 2018/1/26.
  */
 
-public class MySeatActivity extends BaseActivity implements View.OnClickListener{
+public class MySeatDetailActivity extends BaseActivity {
     @Bind(R.id.title_back_iv)
     ImageView titleBarBackIv;
 
@@ -30,13 +27,11 @@ public class MySeatActivity extends BaseActivity implements View.OnClickListener
     @Bind(R.id.title_bar_layout_orange_bg_iv)
     ImageView titleBarOrangeBgIv;
 
-    @Bind(R.id.activity_my_seat_detail_content_ll)
-    LinearLayout detailContentLl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_seat);
+        setContentView(R.layout.activity_my_seat_detail);
         ButterKnife.bind(this);
         initViews();
     }
@@ -47,13 +42,5 @@ public class MySeatActivity extends BaseActivity implements View.OnClickListener
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
-    }
-
-    @OnClick({R.id.activity_my_seat_detail_content_ll})
-    @Override
-    public void onClick(View v) {
-        if (v == detailContentLl) {
-            startActivity(new Intent(this,MySeatDetailActivity.class));
-        }
     }
 }

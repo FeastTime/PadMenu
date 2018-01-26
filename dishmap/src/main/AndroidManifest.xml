@@ -133,6 +133,10 @@
 
         </activity>
 
+        <activity android:name=".activity.MySeatDetailActivity">
+
+        </activity>
+
         <activity android:name=".activity.MessageActivity">
 
         </activity>

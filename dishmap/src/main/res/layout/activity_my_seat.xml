@@ -12,6 +12,7 @@
         android:layout_height="@dimen/y128"></include>
 
     <LinearLayout
+        android:id="@+id/activity_my_seat_detail_content_ll"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y273"
         android:layout_marginLeft="@dimen/x30"
