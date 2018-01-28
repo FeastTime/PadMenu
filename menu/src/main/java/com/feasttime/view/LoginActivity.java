@@ -74,6 +74,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     protected void initViews() {
         SMSSDK.initSDK(this.getApplicationContext(), "1c86a24bae7d2", "8f972e6dda3098b8fc3ac38f9304fe6c");
 
+
         //3.0版本之后的初始化看这里（包括3.0）
         EventHandler eh=new EventHandler(){
 
@@ -84,7 +85,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     //回调完成
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         //提交验证码成功
-                        Log.d(TAG, "/提交验证码成功");
+                        Log.d(TAG, "/验证码校验成功");
                         hideLoading();
                         final String phone = phoneEt.getText().toString();
                         userPresenter.login(phone);

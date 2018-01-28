@@ -30,3 +30,6 @@
 -dontwarn com.baidu.**
 
 -keep com.dou361.ijkplayer.** {*;}
+
+-keep class com.mob.**{*;}
+-keep class cn.smssdk.**{*;}
