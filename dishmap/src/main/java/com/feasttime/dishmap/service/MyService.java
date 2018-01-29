@@ -53,21 +53,19 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         //如果多次请求service 那么先结束之前的连接
         closeWebSocket();
 
-        String storeId = intent.getStringExtra("STORE_ID");
-
         OkHttpClient okHttpClient = new OkHttpClient();
 
-        String phone = PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO);
-
+        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
 
         RxWebSocketUtil.getInstance().setClient(okHttpClient);
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
 
-        final String requestUrl = WebSocketConfig.baseWsUrl + "/" + phone + "/" + storeId ;
+        final String requestUrl = WebSocketConfig.baseWsUrl + "/" + userId  ;
 
         LogUtil.d(TAG,"will connect:" + requestUrl);
         //get StringMsg

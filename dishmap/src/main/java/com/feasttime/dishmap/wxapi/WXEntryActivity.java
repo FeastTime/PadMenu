@@ -3,6 +3,7 @@ package com.feasttime.dishmap.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.UniversalInfo;
+import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
@@ -137,6 +139,16 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                     if (loginInfo.getResultCode() == 0) {
                                         PreferenceUtil.setStringKey(PreferenceUtil.USER_ID,loginInfo.getUserId());
                                         PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,loginInfo.getToken());
+
+                                        // 如果已经登录，启动长连接
+                                        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+
+                                        if (!TextUtils.isEmpty(userId)){
+
+                                            Intent intent = new Intent(WXEntryActivity.this, MyService.class);
+                                            startService(intent);
+                                        }
+
 
                                         runOnUiThread(new Runnable() {
                                             @Override

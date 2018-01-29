@@ -97,9 +97,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         initViews();
 
-        Intent intent = new Intent(this, MyService.class);
-        intent.putExtra("STORE_ID",storeId);
-        startService(intent);
 
         RxBus.getDefault().register(this, WebSocketEvent.class,  new Consumer<WebSocketEvent>() {
             @Override
