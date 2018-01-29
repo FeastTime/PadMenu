@@ -62,10 +62,7 @@
 
         </activity>
 
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
+
 
         <activity android:name=".activity.VideoActivity" />
         <activity android:name=".activity.MenuActivity"></activity>
