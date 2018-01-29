@@ -202,6 +202,7 @@
                 android:layout_width="@dimen/x541"
                 android:layout_height="@dimen/y57">
                 <EditText
+                    android:id="@+id/input_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/big_text_size"
@@ -223,6 +224,7 @@
                 android:layout_marginLeft="@dimen/x30"
                 android:textSize="@dimen/big_text_size"
                 android:text="发送"
+                android:onClick="sendMessage"
                 />
         </LinearLayout>
 

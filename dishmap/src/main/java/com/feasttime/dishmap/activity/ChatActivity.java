@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,10 +28,12 @@ import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
 import com.feasttime.dishmap.utils.StringUtils;
+import com.feasttime.dishmap.utils.UtilTools;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -57,6 +60,9 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
     @Bind(R.id.title_center_text_tv)
     TextView titleTv;
+
+    @Bind(R.id.input_message)
+    EditText inputMessage;
 
     ChatAdapter mChatAdapter;
 
@@ -205,6 +211,26 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         });
 
 
+    }
+
+
+    /**
+     * 发送消息
+     *
+     * @param view
+     */
+    public void sendMessage(View view){
+
+        String inputMessageStr = inputMessage.getText().toString();
+        if (TextUtils.isEmpty(inputMessageStr)){
+            return;
+        }
+
+        HashMap<String, String > requestData = new HashMap<>();
+        requestData.put("message", inputMessageStr);
+        requestData.put("type", "1");
+
+        UtilTools.requestByWebSocket(this, requestData);
     }
 
 
