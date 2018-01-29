@@ -1,10 +1,12 @@
 package com.feasttime.dishmap.customview;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,11 @@ import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -399,5 +405,206 @@ public class MyDialogs {
         params.height = (int)context.getResources().getDimension(R.dimen.y331);
         dialog.getWindow().setAttributes(params);
         dialog.show();
+    }
+
+
+    /**
+     * 补充手机号
+     *
+     * @param activity Context
+     */
+    public static void showCheckMobileNODialog(final Activity activity) {
+
+        // 获取手机号
+        String mobileNO = PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO);
+
+        // 如果手机号不为空，不用补充
+        if (!TextUtils.isEmpty(mobileNO)){
+            return ;
+        }
+
+
+        final Dialog dialog = new Dialog(activity, R.style.DialogTheme);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        LayoutInflater inflater = LayoutInflater.from(activity);
+        View contentView = inflater.inflate(R.layout.dialog_check_mobile_number,null);
+        dialog.setContentView(contentView);
+
+        final EditText mobileNo = (EditText)contentView.findViewById(R.id.mobileNumber);
+        final EditText verificationCode = (EditText)contentView.findViewById(R.id.verificationCode);
+        final TextView countdownStr = (TextView)contentView.findViewById(R.id.countdown);
+        final TextView sendVerificationCode  = (TextView)contentView.findViewById(R.id.sendVerificationCode);
+
+        //3.0版本之后的初始化看这里（包括3.0）
+        EventHandler eh = new EventHandler(){
+
+            @Override
+            public void afterEvent(int event, int result, Object data) {
+
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    // 回调完成
+
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+
+                        // 验证码验证成功
+                        Log.d("补充手机号", "1验证码验证成功");
+
+                        dialog.dismiss();
+
+                    }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+
+                        // 获取验证码成功
+                        Log.d("补充手机号", "2获取验证码成功");
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                countdownStr.setVisibility(View.VISIBLE);
+                                sendVerificationCode.setVisibility(View.GONE);
+                                sendVerificationCode.setClickable(true);
+                            }
+                        });
+
+                        countdownStart(activity, sendVerificationCode , countdownStr, 120);
+
+                    }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
+                        //返回支持发送验证码的国家列表
+                        Log.d("补充手机号", "3返回支持发送验证码的国家列表");
+                    }
+
+                } else { // 失败回调
+
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        // 验证码 验证失败
+                        Log.d("补充手机号", "4验证码验证失败");
+                        Toast.makeText(activity, "请输入正确的验证码！", Toast.LENGTH_SHORT).show();
+
+
+                    }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+                        // 验证码 获取失败
+                        Log.d("补充手机号", "5获取验证码失败");
+
+                        Toast.makeText(activity, "请输入正确的手机号！", Toast.LENGTH_SHORT).show();
+                        // 点击后锁住，回调中放开
+                        sendVerificationCode.setClickable(true);
+                    }
+
+                }
+            }
+        };
+
+        SMSSDK.registerEventHandler(eh); //注册短信回调
+
+
+
+        // 对话框取消
+        contentView.findViewById(R.id.dialog_check_mobile_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+
+        // 内部对话框
+        contentView.findViewById(R.id.dialog_check_mobile_inner_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {}
+        });
+
+
+        // 获取验证码按钮
+        sendVerificationCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // 验证手机号
+                String mobileNo_str = mobileNo.getText().toString();
+
+                if (TextUtils.isEmpty(mobileNo_str)
+                        || mobileNo_str.length() != 11
+                        || !TextUtils.isDigitsOnly(mobileNo_str) ){
+                    Toast.makeText(activity, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 点击后锁住，回调中放开
+                sendVerificationCode.setClickable(false);
+                Log.d("发送验证码",mobileNo_str);
+
+
+                SMSSDK.getVerificationCode("86", mobileNo_str);
+
+            }
+        });
+
+        // 确定按钮
+        contentView.findViewById(R.id.dialog_check_mobile_sure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String mobileNo_str = mobileNo.getText().toString();
+                String verificationCode_str = verificationCode.getText().toString();
+
+                if (TextUtils.isEmpty(mobileNo_str)
+                        || mobileNo_str.length() != 11
+                        || !TextUtils.isDigitsOnly(mobileNo_str)
+                        || TextUtils.isEmpty(verificationCode_str)
+                        || verificationCode_str.length() < 4){
+                    Toast.makeText(activity, "请输入正确的手机号和验证码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                verificationCode.setText("");
+                SMSSDK.submitVerificationCode("86", mobileNo_str, verificationCode_str);
+            }
+        });
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.width = (int)activity.getResources().getDimension(R.dimen.x615);
+        params.height = (int)activity.getResources().getDimension(R.dimen.y981);
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
+
+    }
+
+    private static int remainTime;
+    static Timer remainTimer;
+    private static void countdownStart(final Activity activity, final TextView sendVerificationCode, final TextView countdownStr, int seconds){
+
+        remainTime = seconds;
+
+        remainTimer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+
+            @Override
+            public void run() {
+
+                remainTime--;
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        countdownStr.setText("剩余 " + remainTime +" 秒");
+
+                        if (0 == remainTime){
+
+                            countdownStr.setVisibility(View.GONE);
+                            sendVerificationCode.setVisibility(View.VISIBLE);
+
+                            remainTimer.cancel();
+                        }
+                    }
+                });
+
+
+            }
+        };
+
+        remainTimer.schedule(timerTask,0,1000);
+
     }
 }

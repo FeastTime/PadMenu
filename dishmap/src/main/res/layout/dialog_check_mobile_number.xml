@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_check_mobile_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/dialog_check_mobile_inner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_22"
+        android:layout_marginRight="@dimen/dp_22"
+        android:paddingLeft="@dimen/dp_22"
+        android:paddingRight="@dimen/dp_22"
+        android:paddingBottom="@dimen/dp_22"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y68"
+            android:includeFontPadding="false"
+            android:text="请输入手机号"
+            android:textColor="@color/black"
+            android:textSize="@dimen/very_big_text_size_2" />
+
+        <EditText
+            android:id="@+id/mobileNumber"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80"
+            android:layout_marginTop="@dimen/y48"
+            android:textSize="@dimen/normal_text_size"
+            android:textColor="@color/black"
+            android:textColorHint="@color/text_gray_6"
+            android:background="@drawable/white_bg_radius_5_with_stroke"
+            android:hint="  请输入手机号"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y24"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/verificationCode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y80"
+                android:textSize="@dimen/normal_text_size"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:background="@drawable/white_bg_radius_5_with_stroke"
+                android:layout_marginRight="@dimen/y16"
+                android:hint="  请输入验证码"
+                android:textColorHint="@color/text_gray_6"/>
+
+            <TextView
+                android:id="@+id/sendVerificationCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:clickable="true"
+                android:textColor="#6EDBAD"
+                android:textSize="@dimen/normal_text_size"
+                android:text="发送验证码"/>
+
+            <TextView
+                android:id="@+id/countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textColor="#6EDBAD"
+                android:visibility="gone"
+                android:textSize="@dimen/normal_text_size"
+                android:text="发送验证码"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/dialog_check_mobile_sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y38"
+            android:src="@mipmap/check_mobile_number_sure"
+            android:scaleType="fitCenter"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -27,6 +27,7 @@
             android:layout_marginTop="@dimen/y22">
 
             <EditText
+                android:id="@+id/input_message"
                 android:layout_width="@dimen/x552"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
@@ -43,6 +44,7 @@
                 android:layout_alignParentRight="true"
                 android:textColor="@color/white"
                 android:text="发送"
+                android:onClick="sendMessage"
                 android:background="@drawable/btn_bg_blue"
                 />
 
