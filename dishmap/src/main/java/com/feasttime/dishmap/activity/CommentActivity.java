@@ -1,19 +1,33 @@
 package com.feasttime.dishmap.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.CommentListViewAdapter;
+import com.feasttime.dishmap.utils.UtilTools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import butterknife.Bind;
 
 /**
  * Created by chen on 2017/10/8.
  */
 
 public class CommentActivity extends BaseActivity {
+
     ListView contentListView;
+
+    @Bind(R.id.input_message)
+    EditText inputMessage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,5 +43,19 @@ public class CommentActivity extends BaseActivity {
 
         CommentListViewAdapter commentListViewAdapter = new CommentListViewAdapter(this,testData);
         contentListView.setAdapter(commentListViewAdapter);
+    }
+
+    public void sendMessage(View view){
+
+        String inputMessageStr = inputMessage.getText().toString();
+        if (TextUtils.isEmpty(inputMessageStr)){
+            return;
+        }
+
+        HashMap<String, String > requestData = new HashMap<>();
+        requestData.put("message", inputMessageStr);
+        requestData.put("type", "1");
+
+        UtilTools.requestByWebSocket(this, requestData);
     }
 }

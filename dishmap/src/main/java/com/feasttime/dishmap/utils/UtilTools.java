@@ -1,6 +1,7 @@
 package com.feasttime.dishmap.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -17,6 +18,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by chen on 2017/9/20.
@@ -58,18 +60,25 @@ public class UtilTools {
     }
 
 
-    public static void requestByWebSocket(Context context,HashMap<String,String> originRequestDataMap) {
+    /**
+     * 通过websocket 发送消息
+     *
+     * @param context Context
+     * @param originRequestDataMap map
+     */
+    public static void requestByWebSocket(Context context,Map<String,String> originRequestDataMap) {
         String imei = DeviceTool.getIMEI(context);
         String androidID = DeviceTool.getAndroidId(context);
         String ipv4 = DeviceTool.getIP(context);
         String mac = DeviceTool.getLocalMacAddress(context);
 
         HashMap<String,String> requestData = new HashMap<String,String>();
-        requestData.put("imei",imei);
-        requestData.put("androidID",androidID);
-        requestData.put("mac",mac);
-        requestData.put("ipv4",ipv4);
-        requestData.put("mobileNo",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
+        requestData.put("userID", PreferenceUtil.getStringKey(PreferenceUtil.USER_ID));
+        requestData.put("deviceID",imei);
+        requestData.put("storeID",PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID));
+        requestData.put("token",PreferenceUtil.getStringKey(PreferenceUtil.TOKEN));
+
+//        requestData.put("mobileNo",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
         requestData.putAll(originRequestDataMap);
         String requestJson = JSON.toJSONString(requestData);
 
