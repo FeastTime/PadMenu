@@ -2,6 +2,7 @@ package com.feasttime.dishmap.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +27,12 @@ public class ChatAdapter extends BaseAdapter {
 
     private LayoutInflater mLayoutInflater;
 
+    private Context context;
+
     public ChatAdapter(Context context,List<ChatMsgItemInfo> datas) {
         dataList = datas;
         mLayoutInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     public void addData(ChatMsgItemInfo chatMsgItemInfo) {
@@ -74,21 +79,39 @@ public class ChatAdapter extends BaseAdapter {
         }
 
         ChatMsgItemInfo chatMsgItemInfo = dataList.get(position);
+
         if (chatMsgItemInfo.isLeft()) {
+
             holder.rightView.setVisibility(View.GONE);
             holder.leftView.setVisibility(View.VISIBLE);
-
-            holder.leftIconIv.setImageResource(chatMsgItemInfo.getIcon());
             holder.leftMsgTv.setText(chatMsgItemInfo.getMsg());
             holder.leftMsgTv.setTextColor(Color.WHITE);
+
+            if (!TextUtils.isEmpty(chatMsgItemInfo.getIcon())) {
+                Picasso.with(this.context)
+                        .load(chatMsgItemInfo.getIcon())
+                        .into(holder.leftIconIv);
+            } else {
+                holder.leftIconIv.setImageResource(R.mipmap.default_user_icon);
+            }
+
         } else {
+
             holder.leftView.setVisibility(View.GONE);
             holder.rightView.setVisibility(View.VISIBLE);
-
-            holder.rightIconIv.setImageResource(chatMsgItemInfo.getIcon());
             holder.rightMsgTv.setText(chatMsgItemInfo.getMsg());
             holder.rightMsgTv.setTextColor(Color.parseColor("#666666"));
+
+            if (!TextUtils.isEmpty(chatMsgItemInfo.getIcon())) {
+                Picasso.with(this.context)
+                        .load(chatMsgItemInfo.getIcon())
+                        .into(holder.rightIconIv);
+            } else {
+                holder.rightIconIv.setImageResource(R.mipmap.default_user_icon);
+            }
         }
+
+
 
 
         return convertView;

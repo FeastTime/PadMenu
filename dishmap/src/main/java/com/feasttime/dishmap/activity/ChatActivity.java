@@ -47,6 +47,7 @@ import io.reactivex.functions.Consumer;
  */
 
 public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumListener {
+
     private final String TAG = "ChatActivity";
 
     @Bind(R.id.activity_chat_lv)
@@ -78,18 +79,18 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         storeId = this.getIntent().getStringExtra("STORE_ID");
 
         List<ChatMsgItemInfo> datas = new ArrayList<ChatMsgItemInfo>();
-        for (int i = 0; i < 10; i++) {
-            ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-            chatMsgItemInfo.setMsg(Math.random() + "");
-            if (i % 2 == 0) {
-                chatMsgItemInfo.setLeft(true);
-                chatMsgItemInfo.setIcon(R.mipmap.temp_icon_1);
-            } else {
-                chatMsgItemInfo.setIcon(R.mipmap.temp_icon_2);
-                chatMsgItemInfo.setLeft(false);
-            }
-            datas.add(chatMsgItemInfo);
-        }
+//        for (int i = 0; i < 10; i++) {
+//            ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+//            chatMsgItemInfo.setMsg(Math.random() + "");
+//            if (i % 2 == 0) {
+//                chatMsgItemInfo.setLeft(true);
+//                chatMsgItemInfo.setIcon(R.mipmap.temp_icon_1);
+//            } else {
+//                chatMsgItemInfo.setIcon(R.mipmap.temp_icon_2);
+//                chatMsgItemInfo.setLeft(false);
+//            }
+//            datas.add(chatMsgItemInfo);
+//        }
 
         mChatAdapter = new ChatAdapter(this, datas);
         contentLv.setAdapter(mChatAdapter);
@@ -104,25 +105,39 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             @Override
             public void accept(WebSocketEvent orderEvent) throws Exception {
 
-
-                //收到信息取出其中的message并显示
-                if (orderEvent.jsonData != null) {
-                    Log.d("lixiaoqing", "return json is : " + orderEvent.jsonData);
-                    JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
-                    if (jsonObject.containsKey("message")) {
-                        String message = jsonObject.getString("message");
-                        ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                        chatMsgItemInfo.setIcon(R.mipmap.temp_icon_1);
-                        chatMsgItemInfo.setLeft(true);
-                        chatMsgItemInfo.setMsg(message);
-                        mChatAdapter.addData(chatMsgItemInfo);
-                    } else {
-                        LogUtil.d(TAG,"websocket not has message key");
-                    }
+                if (null == orderEvent.jsonData) {
+                    return;
                 }
 
+                // 收到信息取出其中的message并显示
+                Log.d(TAG, "return json is : " + orderEvent.jsonData);
 
-                if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
+                JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
+
+                if (jsonObject.containsKey("withMessage")) {
+
+                    String withMessage = jsonObject.getString("withMessage");
+                    ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+                    chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
+                    chatMsgItemInfo.setLeft(true);
+                    chatMsgItemInfo.setMsg(withMessage);
+
+                    mChatAdapter.addData(chatMsgItemInfo);
+                }
+
+                // 收到新消息
+                if (orderEvent.eventType == WebSocketEvent.RECEIVED_MESSAGE) {
+
+                    String message = jsonObject.getString("message");
+                    ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+                    chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
+                    chatMsgItemInfo.setLeft(true);
+                    chatMsgItemInfo.setMsg(message);
+
+                    mChatAdapter.addData(chatMsgItemInfo);
+
+                } else if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
+
                     NewTableNofiticationinfo newTableNofiticationinfo = JSON.parseObject(orderEvent.jsonData,NewTableNofiticationinfo.class);
 
                     int toStorePerson = PreferenceUtil.getIntKey(ChatActivity.this,PreferenceUtil.PERSION_NO);
@@ -210,7 +225,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             }
         });
 
-
     }
 
 
@@ -228,7 +242,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         HashMap<String, String > requestData = new HashMap<>();
         requestData.put("message", inputMessageStr);
-        requestData.put("type", "1");
+        requestData.put("type", WebSocketEvent.SEND_MESSAGE+"");
 
         UtilTools.requestByWebSocket(this, requestData);
     }

@@ -7,7 +7,7 @@ package com.feasttime.dishmap.model.bean;
 public class ChatMsgItemInfo {
     boolean isLeft;
     String msg;
-    int icon;
+    String icon;
 
     public boolean isLeft() {
         return isLeft;
@@ -25,11 +25,11 @@ public class ChatMsgItemInfo {
         this.msg = msg;
     }
 
-    public int getIcon() {
+    public String getIcon() {
         return icon;
     }
 
-    public void setIcon(int icon) {
+    public void setIcon(String icon) {
         this.icon = icon;
     }
 }

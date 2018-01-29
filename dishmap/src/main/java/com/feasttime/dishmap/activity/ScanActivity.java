@@ -39,52 +39,45 @@ public class ScanActivity extends BaseActivity {
                 Log.d(TAG, result);
 
 
-                if (result.startsWith("优先吃：")){
-                    final String storeID = result.substring(4);
-                    Log.d(TAG, storeID);
+                int start = result.indexOf("storeId=")+ "storeId=".length();
+                int end = result.indexOf("&", start);
+                final String storeID = result.substring(start, end);
 
-                    String userType = PreferenceUtil.getStringKey(PreferenceUtil.USER_TYPE);
+                // 如果没有storeID 重新扫描
+                if (TextUtils.isEmpty(storeID)){
 
-                    // 如果是店家打开店家页面
-                    if (TextUtils.equals(userType,"store")) {
-                        Intent intent = new Intent(ScanActivity.this, MerchantActivity.class);
-                        intent.putExtra("STORE_ID", storeID);
-                        ScanActivity.this.startActivity(intent);
-                        ScanActivity.this.finish();
+                    vibrate();
 
-                    } else { // 如果不是店家，弹框输入吃饭人数，打开用户页面
-
-                        MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {
-                            @Override
-                            public void overInput(int personNum) {
-
-                                PreferenceUtil.setIntKey(PreferenceUtil.PERSION_NO, personNum);
-
-                                Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
-                                intent.putExtra("STORE_ID", storeID);
-
-                                ScanActivity.this.startActivity(intent);
-                                ScanActivity.this.finish();
-                            }
-                        };
-
-                        MyDialogs.showEatDishPersonNumDialog(ScanActivity.this, personNumListener);
-
-
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
 
+                    mQRCodeView.startSpotDelay(0);
                 }
 
+                Log.d(TAG, storeID);
 
-                vibrate();
+                String userType = PreferenceUtil.getStringKey(PreferenceUtil.USER_TYPE);
 
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
-                mQRCodeView.startSpotDelay(0);
+                MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {
+                    @Override
+                    public void overInput(int personNum) {
+
+                        PreferenceUtil.setIntKey(PreferenceUtil.PERSION_NO, personNum);
+
+                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
+                        intent.putExtra("STORE_ID", storeID);
+
+                        ScanActivity.this.startActivity(intent);
+                        ScanActivity.this.finish();
+                    }
+                };
+
+                MyDialogs.showEatDishPersonNumDialog(ScanActivity.this, personNumListener);
+
             }
 
             @Override
