@@ -17,7 +17,6 @@ public class MyApplication extends Application {
 
 
     private static  MyApplication sInstance;
-    public static IWXAPI iwxapi;
 
     @Override
     public void onCreate() {
@@ -40,8 +39,6 @@ public class MyApplication extends Application {
             Intent intent = new Intent(this, MyService.class);
             startService(intent);
         }
-
-        iwxapi = WXAPIFactory.createWXAPI(this, GlobalConfig.WECHAT_APPID, false);
 
     }
 

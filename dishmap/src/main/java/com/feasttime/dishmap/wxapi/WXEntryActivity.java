@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.activity.BaseActivity;
-import com.feasttime.dishmap.application.MyApplication;
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.LoginInfo;
@@ -49,21 +48,21 @@ import okhttp3.Response;
 
 public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
     public static final String TAG = "WXEntryActivity";
-     //https://api.weixin.qq.com/sns/userinfo?access_token=5_4wJeL4gzb2Rocfb1q33SGeNETOJb9H5G0-3aA11nskmj-hwo2tyUD0b05TNbS5vwcNBeygsfHj6daUyDr2WNz538SFtTLjRGe-84UkfX4Bc&openid=oBpDX0atA8qMDbRN28i-fGlqR0cc&lang=zh_CN
+    //https://api.weixin.qq.com/sns/userinfo?access_token=5_4wJeL4gzb2Rocfb1q33SGeNETOJb9H5G0-3aA11nskmj-hwo2tyUD0b05TNbS5vwcNBeygsfHj6daUyDr2WNz538SFtTLjRGe-84UkfX4Bc&openid=oBpDX0atA8qMDbRN28i-fGlqR0cc&lang=zh_CN
     // IWXAPI 是第三方app和微信通信的openapi接口
-
+    private IWXAPI api;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
-
+        api = WXAPIFactory.createWXAPI(this, GlobalConfig.WECHAT_APPID, false);
 
         //注意：
         //第三方开发者如果使用透明界面来实现WXEntryActivity，需要判断handleIntent的返回值，如果返回值为false，则说明入参不合法未被SDK处理，应finish当前透明界面，避免外部通过传递非法参数的Intent导致停留在透明界面，引起用户的疑惑
         try {
-            MyApplication.iwxapi.handleIntent(getIntent(), this);
+            api.handleIntent(getIntent(), this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,8 +72,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-//        setIntent(intent);
-//        api.handleIntent(intent, this);
+        setIntent(intent);
+        api.handleIntent(intent, this);
     }
 
     // 微信发送请求到第三方应用时，会回调到该方法
@@ -106,7 +105,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                         try {
                             //请求微信token数据
                             String code = ((SendAuth.Resp) resp).code;
-                            String requestTokenUrl = "https://iwxapi.weixin.qq.com/sns/oauth2/access_token?appid=" + GlobalConfig.WECHAT_APPID + "&secret=" + GlobalConfig.WECHAT_APPSECRET + "&code=" + code + "&grant_type=authorization_code";
+                            String requestTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + GlobalConfig.WECHAT_APPID + "&secret=" + GlobalConfig.WECHAT_APPSECRET + "&code=" + code + "&grant_type=authorization_code";
                             String responseStr = requestNet(requestTokenUrl);
                             LogUtil.d(TAG,"the response" + responseStr);
 
@@ -114,7 +113,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                             JSONObject tokenJsonObj = JSON.parseObject(responseStr);
                             String openid = tokenJsonObj.getString("openid");
                             String access_token = tokenJsonObj.getString("access_token");
-                            String requestWeChatUserInfoUrl = "https://iwxapi.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN";
+                            String requestWeChatUserInfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid + "&lang=zh_CN";
                             responseStr = requestNet(requestWeChatUserInfoUrl);
                             JSONObject userInfoJsonObj = JSON.parseObject(responseStr);
 
@@ -226,7 +225,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                 break;
         }
 
-        //Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
     }
 
     private void goToGetMsg() {
