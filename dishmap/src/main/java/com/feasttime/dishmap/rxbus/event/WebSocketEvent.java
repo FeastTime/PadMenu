@@ -33,6 +33,8 @@ public class WebSocketEvent {
     // 设置用餐人数
     public static final int SET_NUMBER_OF_USER = 8;
 
+    // 扫码进店
+    public static final int ENTER_STORE = 9;
 
 
 

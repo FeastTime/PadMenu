@@ -11,7 +11,11 @@ import android.util.Log;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
+import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.UtilTools;
+
+import java.util.HashMap;
 
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zbar.ZBarView;
@@ -36,15 +40,15 @@ public class ScanActivity extends BaseActivity {
         mQRCodeView.setDelegate(new QRCodeView.Delegate() {
             @Override
             public void onScanQRCodeSuccess(String result) {
-                Log.d(TAG, result);
 
+                Log.d(TAG, result);
 
                 int start = result.indexOf("storeId=")+ "storeId=".length();
                 int end = result.indexOf("&", start);
-                final String storeID = result.substring(start, end);
+                final String storeId = result.substring(start, end);
 
                 // 如果没有storeID 重新扫描
-                if (TextUtils.isEmpty(storeID)){
+                if (TextUtils.isEmpty(storeId)){
 
                     vibrate();
 
@@ -57,10 +61,7 @@ public class ScanActivity extends BaseActivity {
                     mQRCodeView.startSpotDelay(0);
                 }
 
-                Log.d(TAG, storeID);
-
-                String userType = PreferenceUtil.getStringKey(PreferenceUtil.USER_TYPE);
-
+                Log.d(TAG, "已经获得storeID ： " + storeId);
 
                 MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {
                     @Override
@@ -68,8 +69,16 @@ public class ScanActivity extends BaseActivity {
 
                         PreferenceUtil.setIntKey(PreferenceUtil.PERSION_NO, personNum);
 
+                        // 建立-修改 用户与商户的关系
+                        HashMap<String, String > requestData = new HashMap<>();
+                        requestData.put("storeId", storeId);
+                        requestData.put("type", WebSocketEvent.ENTER_STORE+"");
+
+                        UtilTools.requestByWebSocket(ScanActivity.this, requestData);
+
+
                         Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
-                        intent.putExtra("STORE_ID", storeID);
+                        intent.putExtra("STORE_ID", storeId);
 
                         ScanActivity.this.startActivity(intent);
                         ScanActivity.this.finish();
@@ -77,7 +86,6 @@ public class ScanActivity extends BaseActivity {
                 };
 
                 MyDialogs.showEatDishPersonNumDialog(ScanActivity.this, personNumListener);
-
             }
 
             @Override

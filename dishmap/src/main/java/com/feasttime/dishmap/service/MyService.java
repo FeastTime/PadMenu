@@ -65,7 +65,7 @@ public class MyService extends Service {
         // show log,default false
         RxWebSocketUtil.getInstance().setShowLog(true);
 
-        final String requestUrl = WebSocketConfig.baseWsUrl + "/" + userId  ;
+        final String requestUrl = WebSocketConfig.baseWsUrl + "/" + userId ;
 
         LogUtil.d(TAG,"will connect:" + requestUrl);
         //get StringMsg

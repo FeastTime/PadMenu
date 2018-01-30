@@ -75,7 +75,6 @@ public class UtilTools {
         HashMap<String,String> requestData = new HashMap<String,String>();
         requestData.put("userID", PreferenceUtil.getStringKey(PreferenceUtil.USER_ID));
         requestData.put("deviceID",imei);
-        requestData.put("storeID",PreferenceUtil.getStringKey(PreferenceUtil.STORE_ID));
         requestData.put("token",PreferenceUtil.getStringKey(PreferenceUtil.TOKEN));
 
 //        requestData.put("mobileNo",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
