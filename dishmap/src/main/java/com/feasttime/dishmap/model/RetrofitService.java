@@ -148,7 +148,7 @@ public class RetrofitService {
         }
         infoMap.put("deviceId",deviceID);
         infoMap.put("mac",mac);
-        infoMap.put("ipv4",ipv4);
+        infoMap.put("ipv4","");
     }
 
     private static RequestBody getRequestBody(HashMap<String,Object> infoMap) {

@@ -96,7 +96,6 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     public void onResp(final BaseResp resp) {
         String result = "";
 
-        Toast.makeText(this, "baseresp.getType = " + resp.getType(), Toast.LENGTH_SHORT).show();
 
         switch (resp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
@@ -158,6 +157,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                             }
                                         });
                                     } else {
+                                        LogUtil.d(TAG,"chen 2");
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -171,6 +171,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                 @Override
                                 public void accept(Throwable throwable) throws Exception {
                                     //这里接收onError
+                                    LogUtil.d(TAG,"chen 3" + throwable.getMessage());
+                                    throwable.printStackTrace();
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -195,6 +197,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                             });
                         } catch (Exception e) {
                             e.printStackTrace();
+                            LogUtil.d(TAG,"chen 1");
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
