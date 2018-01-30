@@ -20,13 +20,19 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.activity.BaseActivity;
+import com.feasttime.dishmap.activity.SetUserInfoActivity;
+import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.PriceChangeInfo;
+import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.utils.CircleImageTransformation;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.StringUtils;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Timer;
@@ -34,6 +40,7 @@ import java.util.TimerTask;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -451,8 +458,42 @@ public class MyDialogs {
                         // 验证码验证成功
                         Log.d("补充手机号", "1验证码验证成功");
 
-                        dialog.dismiss();
+                        //保存用户手机号
+                        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+                        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+                        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+                        String openId = PreferenceUtil.getStringKey(PreferenceUtil.WE_CHAT_OPENID);
 
+                        infoMap.put("token",token);
+                        infoMap.put("userId",userId);
+                        infoMap.put("openId",openId);
+                        infoMap.put("mobileNo",mobileNo.getText().toString());
+
+                        ((BaseActivity)activity).showLoading(null);
+
+                        //请求网络
+                        RetrofitService.queryUserInfo(infoMap).subscribe(new Consumer<QueryUserInfo>(){
+                            @Override
+                            public void accept(QueryUserInfo queryUserInfo) throws Exception {
+                                if (queryUserInfo.getResultCode() == 0) {
+                                    dialog.dismiss();
+                                } else {
+
+                                }
+
+                                ((BaseActivity)activity).hideLoading();
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                ToastUtil.showToast(activity,"网络通讯异常，请稍后再试",Toast.LENGTH_SHORT);
+                                ((BaseActivity)activity).hideLoading();
+                            }
+                        }, new Action() {
+                            @Override
+                            public void run() throws Exception {
+                            }
+                        });
                     }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
 
                         // 获取验证码成功
