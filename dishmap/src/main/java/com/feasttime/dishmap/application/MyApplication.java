@@ -4,21 +4,20 @@ import android.app.Application;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.dhh.websocket.RxWebSocketUtil;
+import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.mob.MobSDK;
-
-import cn.smssdk.SMSSDK;
-import okhttp3.OkHttpClient;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 
 public class MyApplication extends Application {
 
 
     private static  MyApplication sInstance;
-
+    public static IWXAPI iwxapi;
 
     @Override
     public void onCreate() {
@@ -41,6 +40,8 @@ public class MyApplication extends Application {
             Intent intent = new Intent(this, MyService.class);
             startService(intent);
         }
+
+        iwxapi = WXAPIFactory.createWXAPI(this, GlobalConfig.WECHAT_APPID, false);
 
     }
 
