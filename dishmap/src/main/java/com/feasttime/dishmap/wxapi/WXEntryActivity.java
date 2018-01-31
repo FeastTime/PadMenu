@@ -127,6 +127,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
 
                             //保存微信用户openid
                             PreferenceUtil.setStringKey(PreferenceUtil.WE_CHAT_OPENID,openid);
+                            PreferenceUtil.setStringKey(PreferenceUtil.USER_ICON,headimgurl);
 
                             //上传微信用户数据
 
