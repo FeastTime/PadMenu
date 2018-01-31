@@ -240,6 +240,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         HashMap<String, String > requestData = new HashMap<>();
         requestData.put("message", inputMessageStr);
         requestData.put("type", WebSocketEvent.SEND_MESSAGE+"");
+        requestData.put("storeId", storeId);
 
         UtilTools.requestByWebSocket(this, requestData);
     }
