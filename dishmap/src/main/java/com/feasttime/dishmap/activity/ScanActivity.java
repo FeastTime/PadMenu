@@ -7,6 +7,9 @@ import android.os.Vibrator;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
@@ -21,9 +24,24 @@ import java.util.HashMap;
 import com.google.zxing.Result;
 import com.mylhyl.zxing.scanner.common.Scanner;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class ScanActivity extends BaseActivity {
 
+public class ScanActivity extends BaseActivity implements View.OnClickListener{
+
+    @Bind(R.id.title_back_iv)
+    ImageView titleBarBackIv;
+
+    @Bind(R.id.title_bar_right_iv)
+    ImageView titleBarRightIv;
+
+    @Bind(R.id.title_center_text_tv)
+    TextView titleCenterTv;
+
+    @Bind(R.id.title_bar_layout_orange_bg_iv)
+    ImageView titleBarOrangeBgIv;
 
     public static final String EXTRA_LASER_LINE_MODE = "extra_laser_line_mode";
     public static final String EXTRA_SCAN_MODE = "extra_scan_mode";
@@ -54,6 +72,8 @@ public class ScanActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
+        ButterKnife.bind(this);
+        initTitleBar();
 
         mScannerView = (ScannerView) findViewById(R.id.scanner_view);
 
@@ -178,6 +198,13 @@ public class ScanActivity extends BaseActivity {
         vibrator.vibrate(200);
     }
 
+    private void initTitleBar() {
+        titleBarOrangeBgIv.setVisibility(View.GONE);
+        titleCenterTv.setText("扫码");
+        titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
+        titleBarRightIv.setVisibility(View.GONE);
+        titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
+    }
 
         @Override
     protected void onResume() {
@@ -192,6 +219,13 @@ public class ScanActivity extends BaseActivity {
         mLastResult = null;
     }
 
+    @OnClick({R.id.title_back_iv})
+    @Override
+    public void onClick(View v) {
+        if (v == titleBarBackIv) {
+            finish();
+        }
+    }
 
     @Override
     protected void onPause() {
