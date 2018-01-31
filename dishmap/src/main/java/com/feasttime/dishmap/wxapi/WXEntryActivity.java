@@ -59,6 +59,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, GlobalConfig.WECHAT_APPID, false);
 
+        LogUtil.d(TAG,"on create");
+
         //注意：
         //第三方开发者如果使用透明界面来实现WXEntryActivity，需要判断handleIntent的返回值，如果返回值为false，则说明入参不合法未被SDK处理，应finish当前透明界面，避免外部通过传递非法参数的Intent导致停留在透明界面，引起用户的疑惑
         try {
@@ -71,7 +73,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
+        LogUtil.d(TAG,"onNewIntent");
         setIntent(intent);
         api.handleIntent(intent, this);
     }
@@ -79,6 +81,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     // 微信发送请求到第三方应用时，会回调到该方法
     @Override
     public void onReq(BaseReq req) {
+
         switch (req.getType()) {
             case ConstantsAPI.COMMAND_GETMESSAGE_FROM_WX:
                 goToGetMsg();
@@ -95,7 +98,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     @Override
     public void onResp(final BaseResp resp) {
         String result = "";
-
+        LogUtil.d(TAG,"chen onResp");
 
         switch (resp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
