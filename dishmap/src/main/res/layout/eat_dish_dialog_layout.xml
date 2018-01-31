@@ -80,6 +80,7 @@
                 />
 
             <TextView
+                android:id="@+id/dialog_modify_eat_person_number_top_tips_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
