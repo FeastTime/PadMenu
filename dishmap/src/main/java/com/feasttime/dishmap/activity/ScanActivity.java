@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
@@ -76,6 +77,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                 if (TextUtils.isEmpty(resultStr) || !resultStr.contains(storeIdSign)){
 
                     mScannerView.onResume();
+                    Toast.makeText(ScanActivity.this, "请扫优先吃二维码", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -84,6 +86,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
 
                 if (start >= end ){
                     mScannerView.onResume();
+                    Toast.makeText(ScanActivity.this, "请扫优先吃二维码", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
