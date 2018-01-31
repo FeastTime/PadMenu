@@ -73,11 +73,11 @@
             android:layout_marginTop="@dimen/y36"
             >
 
-            <ImageView
-                android:layout_width="@dimen/x46"
-                android:layout_height="@dimen/x46"
-                android:src="@mipmap/green_right"
-                />
+            <!--<ImageView-->
+                <!--android:layout_width="@dimen/x46"-->
+                <!--android:layout_height="@dimen/x46"-->
+                <!--android:src="@mipmap/green_right"-->
+                <!--/>-->
 
             <TextView
                 android:id="@+id/dialog_modify_eat_person_number_top_tips_tv"
@@ -118,6 +118,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:textSize="@dimen/big_text_size"
+                android:textColor="@color/black"
                 android:background="@drawable/white_bg_radius_5_with_stroke"
                 />
 

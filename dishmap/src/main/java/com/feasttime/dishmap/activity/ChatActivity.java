@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,10 +26,7 @@ import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
-import com.feasttime.dishmap.utils.StringUtils;
 import com.feasttime.dishmap.utils.UtilTools;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +39,7 @@ import io.reactivex.functions.Consumer;
 
 
 /**
+ *
  * Created by chen on 2017/10/25.
  */
 
@@ -68,6 +65,9 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     ChatAdapter mChatAdapter;
 
     private String storeId = "";
+    private String userId = "";
+    private String userIcon = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +77,11 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         SoftHideKeyBoardUtil.assistActivity(this);
 
         storeId = this.getIntent().getStringExtra("STORE_ID");
+        userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+        userIcon = PreferenceUtil.getStringKey(PreferenceUtil.USER_ICON);
 
-        List<ChatMsgItemInfo> datas = new ArrayList<ChatMsgItemInfo>();
+
+        List<ChatMsgItemInfo> datas = new ArrayList<>();
 //        for (int i = 0; i < 10; i++) {
 //            ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
 //            chatMsgItemInfo.setMsg(Math.random() + "");
@@ -125,6 +128,12 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 // 收到新消息
                 if (orderEvent.eventType == WebSocketEvent.RECEIVED_MESSAGE) {
 
+                    String senderUserId = jsonObject.getString("userId");
+
+                    if (TextUtils.isEmpty(senderUserId) || userId.equals(senderUserId)){
+                        return ;
+                    }
+
                     String message = jsonObject.getString("message");
                     ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
                     chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
@@ -162,8 +171,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         }
                     }
 
-                    Log.d("lixiaoqing", "竞价结果通知 size " + bidResultItemList.size());
-                    if (bidResultItemList.size() == 1) {
+//                    Log.d("lixiaoqing", "竞价结果通知 size " + bidResultItemList.size());
+                    if (null != bidResultItemList && bidResultItemList.size() == 1) {
                         //仅仅一个人中奖
 
                         BidResultItem bidResultItemInfo = bidResultItemList.get(0);
@@ -228,11 +237,12 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     /**
      * 发送消息
      *
-     * @param view
+     * @param view View
      */
     public void sendMessage(View view){
 
         String inputMessageStr = inputMessage.getText().toString();
+        inputMessage.setText("");
         if (TextUtils.isEmpty(inputMessageStr)){
             return;
         }
@@ -243,6 +253,15 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         requestData.put("storeId", storeId);
 
         UtilTools.requestByWebSocket(this, requestData);
+
+        // 添加自己的消息
+
+        ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+        chatMsgItemInfo.setIcon(userIcon);
+        chatMsgItemInfo.setLeft(false);
+        chatMsgItemInfo.setMsg(inputMessageStr);
+
+        mChatAdapter.addData(chatMsgItemInfo);
     }
 
 

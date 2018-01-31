@@ -206,6 +206,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/big_text_size"
+                    android:textColor="@color/black"
                     android:maxLength="30"
                     android:background="@null"/>
                 <TextView

@@ -43,25 +43,9 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
     @Bind(R.id.title_bar_layout_orange_bg_iv)
     ImageView titleBarOrangeBgIv;
 
-    public static final String EXTRA_LASER_LINE_MODE = "extra_laser_line_mode";
-    public static final String EXTRA_SCAN_MODE = "extra_scan_mode";
-    public static final String EXTRA_SHOW_THUMBNAIL = "EXTRA_SHOW_THUMBNAIL";
-    public static final String EXTRA_SCAN_FULL_SCREEN = "EXTRA_SCAN_FULL_SCREEN";
-    public static final String EXTRA_HIDE_LASER_FRAME = "EXTRA_HIDE_LASER_FRAME";
-
-    public static final int EXTRA_LASER_LINE_MODE_0 = 0;
-    public static final int EXTRA_LASER_LINE_MODE_1 = 1;
-    public static final int EXTRA_LASER_LINE_MODE_2 = 2;
-
-    public static final int EXTRA_SCAN_MODE_0 = 0;
-    public static final int EXTRA_SCAN_MODE_1 = 1;
-    public static final int EXTRA_SCAN_MODE_2 = 2;
-
-    public static final int APPLY_READ_EXTERNAL_STORAGE = 0x111;
-
 
     private ScannerView mScannerView;
-    private Result mLastResult;
+//    private Result mLastResult;
 
 
     private static final String TAG = "ScanActivity";
@@ -87,14 +71,23 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
 
                 String resultStr =  rawResult.getText();
 
-                if (TextUtils.isEmpty(resultStr)){
+                String storeIdSign = "syStoreId=";
+
+                if (TextUtils.isEmpty(resultStr) || !resultStr.contains(storeIdSign)){
+
+                    mScannerView.onResume();
                     return;
                 }
 
-                int start = resultStr.indexOf("storeId=")+ "storeId=".length();
+                int start = resultStr.indexOf(storeIdSign)+ storeIdSign.length();
                 int end = resultStr.indexOf("&", start);
-                final String storeId = resultStr.substring(start, end);
 
+                if (start >= end ){
+                    mScannerView.onResume();
+                    return;
+                }
+
+                final String storeId = resultStr.substring(start, end);
 
                 MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {
 
@@ -124,78 +117,21 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
             }
         });
 
+
         mScannerView.setScanMode(Scanner.ScanMode.QR_CODE_MODE);
         //全屏识别
         mScannerView.isScanFullScreen(false);
 
         mScannerView.setLaserLineResId(R.mipmap.custom_grid_scan_line);
 
-
-//        mQRCodeView = (ZBarView) findViewById(R.id.zbarview);
-
-//        mQRCodeView.setDelegate(new QRCodeView.Delegate() {
-//            @Override
-//            public void onScanQRCodeSuccess(String result) {
-//
-//                Log.d(TAG, result);
-//
-//                int start = result.indexOf("storeId=")+ "storeId=".length();
-//                int end = result.indexOf("&", start);
-//                final String storeId = result.substring(start, end);
-//
-//                // 如果没有storeID 重新扫描
-//                if (TextUtils.isEmpty(storeId)){
-//
-//                    vibrate();
-//
-//                    try {
-//                        Thread.sleep(100);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    mQRCodeView.startSpotDelay(0);
-//                }
-//
-//                Log.d(TAG, "已经获得storeID ： " + storeId);
-//
-//                MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {
-//                    @Override
-//                    public void overInput(int personNum) {
-//
-//                        PreferenceUtil.setIntKey(PreferenceUtil.PERSION_NO, personNum);
-//
-//                        // 建立-修改 用户与商户的关系
-//                        HashMap<String, String > requestData = new HashMap<>();
-//                        requestData.put("storeId", storeId);
-//                        requestData.put("type", WebSocketEvent.ENTER_STORE+"");
-//
-//                        UtilTools.requestByWebSocket(ScanActivity.this, requestData);
-//
-//
-//                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
-//                        intent.putExtra("STORE_ID", storeId);
-//
-//                        ScanActivity.this.startActivity(intent);
-//                        ScanActivity.this.finish();
-//                    }
-//                };
-//
-//                MyDialogs.showEatDishPersonNumDialog(ScanActivity.this, personNumListener);
-//            }
-//
-//            @Override
-//            public void onScanQRCodeOpenCameraError() {
-//                Log.d(TAG, "onScanQRCodeOpenCameraError");
-//
-//            }
-//        });
     }
 
     // 震动
     private void vibrate() {
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        vibrator.vibrate(200);
+        if (vibrator != null) {
+            vibrator.vibrate(200);
+        }
     }
 
     private void initTitleBar() {
@@ -209,14 +145,8 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
         @Override
     protected void onResume() {
         mScannerView.onResume();
-        resetStatusView();
-
         super.onResume();
 
-    }
-
-    private void resetStatusView() {
-        mLastResult = null;
     }
 
     @OnClick({R.id.title_back_iv})
