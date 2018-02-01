@@ -22,23 +22,16 @@
             />
 
         <TextView
+            android:id="@+id/eat_dish_dialog_layout_store_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="全聚德"
+            android:text=""
             android:textColor="@color/text_red"
             android:layout_marginTop="@dimen/y15"
             android:includeFontPadding="true"
             android:textSize="@dimen/final_big_text_size"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="中华老字号"
-            android:textColor="@color/text_red"
-            android:includeFontPadding="true"
-            android:textSize="@dimen/final_big_text_size"
-            />
 
         <TextView
             android:layout_width="@dimen/x77"

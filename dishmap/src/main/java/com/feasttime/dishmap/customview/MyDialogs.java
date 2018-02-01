@@ -53,7 +53,7 @@ public class MyDialogs {
         void overInput(int personNum);
     }
 
-    public static void showEatDishPersonNumDialog(Context context, final PersonNumListener personNumListener) {
+    public static void showEatDishPersonNumDialog(Context context, final PersonNumListener personNumListener,String storeName) {
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -62,6 +62,9 @@ public class MyDialogs {
 
         Button confirm = (Button)contentView.findViewById(R.id.eat_dish_dialog_confirm_btn);
         TextView topTipsTv = (TextView)contentView.findViewById(R.id.dialog_modify_eat_person_number_top_tips_tv);
+        TextView storeNameTv = (TextView)contentView.findViewById(R.id.eat_dish_dialog_layout_store_name_tv);
+
+        storeNameTv.setText(storeName);
 
         Resources resources = context.getResources();
         UtilTools.chenageTextDrawableSize(topTipsTv,R.mipmap.right_icon,(int)resources.getDimension(R.dimen.x44),(int)resources.getDimension(R.dimen.x44),1);

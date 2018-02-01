@@ -16,6 +16,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.URLParser;
 import com.feasttime.dishmap.utils.UtilTools;
 import com.google.zxing.client.result.ParsedResult;
 import com.mylhyl.zxing.scanner.OnScannerCompletionListener;
@@ -51,7 +52,8 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
 
     private static final String TAG = "ScanActivity";
 
-
+    private String storeId;
+    private String storeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,25 +74,29 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
 
                 String resultStr =  rawResult.getText();
 
-                String storeIdSign = "syStoreId=";
 
-                if (TextUtils.isEmpty(resultStr) || !resultStr.contains(storeIdSign)){
+
+                if (TextUtils.isEmpty(resultStr)){
 
                     mScannerView.onResume();
                     Toast.makeText(ScanActivity.this, "请扫优先吃二维码", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                int start = resultStr.indexOf(storeIdSign)+ storeIdSign.length();
-                int end = resultStr.indexOf("&", start);
 
-                if (start >= end ){
+                try {
+                    storeId = URLParser.fromURL(resultStr).compile().getParameter("syStoreId");
+                    storeName = URLParser.fromURL(resultStr).compile().getParameter("syStoreName");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (TextUtils.isEmpty(storeId)){
                     mScannerView.onResume();
                     Toast.makeText(ScanActivity.this, "请扫优先吃二维码", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                final String storeId = resultStr.substring(start, end);
 
                 MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {
 
@@ -115,7 +121,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                     }
                 };
 
-                MyDialogs.showEatDishPersonNumDialog(ScanActivity.this, personNumListener);
+                MyDialogs.showEatDishPersonNumDialog(ScanActivity.this, personNumListener,storeName);
 
             }
         });
