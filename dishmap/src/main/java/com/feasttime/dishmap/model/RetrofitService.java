@@ -257,7 +257,7 @@ public class RetrofitService {
     }
 
 
-    public static Observable<RegisterInfo> feedback(HashMap<String,Object> infoMap){
+    public static Observable<UniversalInfo> feedback(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return sMenuService.feedback(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())

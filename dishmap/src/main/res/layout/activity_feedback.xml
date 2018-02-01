@@ -27,6 +27,7 @@
             android:text="请填写您的意见或建议" />
 
         <EditText
+            android:id="@+id/activity_feedback_content_et"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y271"
             android:layout_marginTop="@dimen/y30"
@@ -48,6 +49,7 @@
             android:text="请填写您的联系方式" />
 
         <EditText
+            android:id="@+id/activity_feedback_contact_way_et"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y90"
             android:textColor="@color/black"
@@ -61,6 +63,7 @@
 
 
         <Button
+            android:id="@+id/activity_feedback_submit_btn"
             android:layout_width="@dimen/x690"
             android:layout_height="@dimen/y90"
             android:text="提交"

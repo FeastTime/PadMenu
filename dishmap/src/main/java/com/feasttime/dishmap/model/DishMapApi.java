@@ -63,5 +63,5 @@ public interface DishMapApi {
 
     //意见反馈接口
     @POST("user/feedback")
-    Observable<RegisterInfo> feedback(@Body RequestBody route);
+    Observable<UniversalInfo> feedback(@Body RequestBody route);
 }
