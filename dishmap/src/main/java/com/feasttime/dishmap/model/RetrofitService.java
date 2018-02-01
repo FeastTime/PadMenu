@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.LoginInfo;
+import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
 import com.feasttime.dishmap.model.bean.UniversalInfo;
@@ -207,7 +208,7 @@ public class RetrofitService {
     }
 
 
-    public static Observable<RegisterInfo> queryMyTableList(HashMap<String,Object> infoMap){
+    public static Observable<MyTableInfo> queryMyTableList(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return sMenuService.queryMyTableList(getRequestBody(infoMap))
                 .subscribeOn(Schedulers.io())

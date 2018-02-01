@@ -10,11 +10,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.adapter.MySeatAdapter;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
+import com.feasttime.dishmap.model.bean.QueryUserInfo;
+import com.feasttime.dishmap.utils.CircleImageTransformation;
+import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2018/1/12.
@@ -62,6 +73,35 @@ public class MySeatActivity extends BaseActivity{
                 Intent intent = new Intent(view.getContext(),MySeatDetailActivity.class);
                 intent.putExtra("tablesData",myTableItemInfo);
                 startActivity(intent);
+            }
+        });
+
+        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        infoMap.put("token",token);
+        infoMap.put("userId",userId);
+
+        showLoading(null);
+        RetrofitService.queryMyTableList(infoMap).subscribe(new Consumer<MyTableInfo>(){
+            @Override
+            public void accept(MyTableInfo myTableInfo) throws Exception {
+                if (myTableInfo.getResultCode() == 0) {
+                    MySeatAdapter mySeatAdapter = new MySeatAdapter(MySeatActivity.this,myTableInfo.getTablesList());
+                    contentLv.setAdapter(mySeatAdapter);
+                } else {
+                }
+                hideLoading();
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                hideLoading();
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+                hideLoading();
             }
         });
     }

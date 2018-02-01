@@ -3,6 +3,7 @@ package com.feasttime.dishmap.model;
 
 import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.LoginInfo;
+import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
 import com.feasttime.dishmap.model.bean.UniversalInfo;
@@ -42,7 +43,7 @@ public interface DishMapApi {
 
     //查询已得到桌位列表
     @POST("table/queryMyTableList")
-    Observable<RegisterInfo> queryMyTableList(@Body RequestBody route);
+    Observable<MyTableInfo> queryMyTableList(@Body RequestBody route);
 
     //查询商家详细信息
     @POST("store/getStoreInfo")
