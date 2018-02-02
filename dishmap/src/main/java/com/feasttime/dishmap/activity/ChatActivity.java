@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -18,9 +19,8 @@ import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.model.bean.BidResultInfo;
 import com.feasttime.dishmap.model.bean.BidResultItem;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
-import com.feasttime.dishmap.model.bean.CouponInfo;
+import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.GrobResultInfo;
-import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.model.bean.NewTableNofiticationinfo;
 import com.feasttime.dishmap.rxbus.RxBus;
@@ -188,13 +188,31 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                     String message = jsonObject.getString("message");
 
-                    jsonObject.getString("message");
-
                     MyTableItemInfo tableInfo = jsonObject.getObject("tableInfo", MyTableItemInfo.class);
-                    CouponInfo couponInfo = jsonObject.getObject("couponInfo", CouponInfo.class);
+                    CouponChildListItemInfo couponInfo = jsonObject.getObject("couponInfo", CouponChildListItemInfo.class);
 
 
-                    MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, message);
+                    //  获得桌位
+                    if (null != tableInfo){
+
+                        String title = "座位";
+                        String detail = "恭喜您！\n成功抢到座位\n号码：" + tableInfo.getTableId();
+                        String description = "领取座位后座位预留" + tableInfo.getRecieveTime() + "分钟";
+                        MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, title, detail, description);
+                    }
+                    //  获得优惠券
+                    else if (null != couponInfo){
+
+                        String title = "优惠券";
+                        String detail = "恭喜您！\n抢到"+couponInfo.getCouponTitle()+"一张";
+                        String description = "已放入您的优惠券卡包";
+                        MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, title, detail, description);
+                    }
+                    // 什么也没得到
+                    else {
+                        Toast.makeText(ChatActivity.this, message, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                 }
 
@@ -238,7 +256,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                             //我中奖了
 
                             Log.d("lixiaoqing", "我中奖了");
-                            MyDialogs.showGrapTableWinnerDialog(ChatActivity.this,bidResultItemInfo.getUserId());
+//                            MyDialogs.showGrapTableWinnerDialog(ChatActivity.this,bidResultItemInfo.getUserId());
                         } else {
                             //我没中奖
                             Log.d("lixiaoqing", "没中奖");
@@ -271,7 +289,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                             //我中奖了
 
                             Log.d("lixiaoqing", "我中奖了");
-                            MyDialogs.showGrapTableWinnerDialog(ChatActivity.this,bidResultInfo.getUserID());
+//                            MyDialogs.showGrapTableWinnerDialog(ChatActivity.this,bidResultInfo.getUserID());
                         } else {
                             //我没中奖
                             Log.d("lixiaoqing", "没中奖");
