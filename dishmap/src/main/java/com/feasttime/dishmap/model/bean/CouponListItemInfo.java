@@ -7,23 +7,23 @@ import java.util.List;
  */
 
 public class CouponListItemInfo {
-    private String name;
+    private String storeName;
 
-    private List<CouponChildListItemInfo> childListItemInfos;
+    private List<CouponChildListItemInfo> dataList;
 
-    public String getName() {
-        return name;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
-    public List<CouponChildListItemInfo> getChildListItemInfos() {
-        return childListItemInfos;
+    public List<CouponChildListItemInfo> getDataList() {
+        return dataList;
     }
 
-    public void setChildListItemInfos(List<CouponChildListItemInfo> childListItemInfos) {
-        this.childListItemInfos = childListItemInfos;
+    public void setDataList(List<CouponChildListItemInfo> dataList) {
+        this.dataList = dataList;
     }
 }

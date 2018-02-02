@@ -37,7 +37,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return datasList.get(groupPosition).getChildListItemInfos().size();
+        return datasList.get(groupPosition).getDataList().size();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return datasList.get(groupPosition).getChildListItemInfos().get(childPosition);
+        return datasList.get(groupPosition).getDataList().get(childPosition);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
-        groupViewHolder.nameTv.setText(datasList.get(groupPosition).getName());
+        groupViewHolder.nameTv.setText(datasList.get(groupPosition).getStoreName());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +110,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        CouponChildListItemInfo couponChildListItemInfo = datasList.get(groupPosition).getChildListItemInfos().get(childPosition);
+        CouponChildListItemInfo couponChildListItemInfo = datasList.get(groupPosition).getDataList().get(childPosition);
         childViewHolder.couponNameTv.setText(couponChildListItemInfo.getCouponTitle());
         childViewHolder.couponPriceTv.setText(couponChildListItemInfo.getCouponType());
         return convertView;
