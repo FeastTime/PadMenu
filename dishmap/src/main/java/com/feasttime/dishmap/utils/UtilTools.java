@@ -145,6 +145,23 @@ public class UtilTools {
         return s;
     }
 
+    //根据类型获取券的值
+    public static String getCouponStrByType(int type) {
+        if (type == 1) {
+            return "满减";
+        } else if (type == 2) {
+            return "菜品券";
+        } else {
+            return "";
+        }
+    }
+
+    //计算时间距离现在的天数
+    public static String getDaysFromOtherDate(long time) {
+        long distance = System.currentTimeMillis() - time;
+        return distance/86400000  + "";
+    }
+
     private static double rad(double d) {
         return d * Math.PI / 180.0;
     }

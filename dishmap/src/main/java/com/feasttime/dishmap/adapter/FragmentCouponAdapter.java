@@ -1,6 +1,7 @@
 package com.feasttime.dishmap.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.CouponListItemInfo;
+import com.feasttime.dishmap.utils.UtilTools;
 
 import java.util.ArrayList;
 
@@ -106,13 +108,25 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
             childViewHolder = new ChildViewHolder();
             childViewHolder.couponNameTv = (TextView) convertView.findViewById(R.id.fragment_user_coupon_child_item_coupon_name_tv);
             childViewHolder.couponPriceTv = (TextView)convertView.findViewById(R.id.fragment_user_coupon_child_item_price_tv);
+            childViewHolder.attentionTv = (TextView)convertView.findViewById(R.id.fragment_user_coupon_child_item_attention_tv);
+            childViewHolder.expireTv = (TextView)convertView.findViewById(R.id.fragment_user_coupon_child_item_expire_tv);
             convertView.setTag(childViewHolder);
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
         CouponChildListItemInfo couponChildListItemInfo = datasList.get(groupPosition).getDataList().get(childPosition);
-        childViewHolder.couponNameTv.setText(couponChildListItemInfo.getCouponTitle());
+
+
+
+        String couponType = couponChildListItemInfo.getCouponType();
+        if (!TextUtils.isEmpty(couponType)) {
+            childViewHolder.couponNameTv.setText(UtilTools.getCouponStrByType(Integer.parseInt(couponType)));
+        }
+
         childViewHolder.couponPriceTv.setText(couponChildListItemInfo.getCouponType());
+        childViewHolder.attentionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
+
+        childViewHolder.expireTv.setText("距离现在仅剩" + UtilTools.getDaysFromOtherDate(Long.parseLong(couponChildListItemInfo.getCouponValidity())) + "天");
         return convertView;
     }
 
@@ -135,5 +149,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
     static class ChildViewHolder {
         TextView couponNameTv;
         TextView couponPriceTv;
+        TextView attentionTv;
+        TextView expireTv;
     }
 }

@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y28"
+        android:layout_centerVertical="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -20,25 +21,43 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/fragment_user_coupon_child_item_price_tv"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/small_text_size"
-                    android:textColor="@color/orange_color"
-                    android:text="0" />
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/fragment_user_coupon_child_item_price_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/very_big_text_size_2"
+                        android:textColor="@color/orange_color"
+                        android:includeFontPadding="false"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/normal_text_size"
+                        android:textColor="@color/orange_color"
+                        android:includeFontPadding="false"
+                        android:text="元" />
+
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/fragment_user_coupon_child_item_coupon_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/small_text_size"
+                    android:textSize="@dimen/normal_text_size"
+                    android:includeFontPadding="false"
                     android:textColor="@color/orange_color"
-                    android:layout_marginTop="@dimen/y16"
+                    android:layout_marginTop="@dimen/y10"
                     android:text="0" />
             </LinearLayout>
-
 
 
             <LinearLayout
@@ -47,6 +66,8 @@
                 android:layout_marginLeft="@dimen/x54"
                 android:orientation="vertical">
 
+
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -54,18 +75,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_dark_gray"
-                        android:textSize="@dimen/small_text_size"
-                        android:text="号码:"/>
+                        android:textColor="@color/text_gray_design_1"
+                        android:textSize="@dimen/normal_text_size"
+                        android:text="有效期:"/>
 
                     <TextView
+                        android:id="@+id/fragment_user_coupon_child_item_expire_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_dark_gray"
-                        android:textSize="@dimen/small_text_size"
+                        android:textColor="@color/text_gray_design_1"
+                        android:textSize="@dimen/normal_text_size"
                         android:text="0"/>
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -77,9 +98,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_dark_gray"
                         android:textSize="@dimen/very_small_text_size"
-                        android:text="有效期:"/>
+                        android:text="注意:"/>
 
                     <TextView
+                        android:id="@+id/fragment_user_coupon_child_item_attention_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_dark_gray"
@@ -87,8 +109,10 @@
                         android:text="0"/>
                 </LinearLayout>
 
-
             </LinearLayout>
+
+
+
         </LinearLayout>
     </LinearLayout>
 
@@ -96,20 +120,12 @@
         android:layout_width="@dimen/x120"
         android:layout_height="@dimen/x120"
         android:layout_alignParentRight="true"
+        android:visibility="gone"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/y30"
         android:layout_marginRight="@dimen/x30"
         android:src="@mipmap/qr_code_image"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="注意:"
-        android:textColor="@color/text_hint_gray"
-        android:textSize="@dimen/very_small_text_size"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/y35"
-        android:layout_marginLeft="@dimen/x60"
-        />
+
 
 </RelativeLayout>
