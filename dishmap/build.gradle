@@ -14,7 +14,7 @@ android {
     buildToolsVersion '25.0.2'
 
       signingConfigs {
-            School {
+            release {
                 keyPassword '111111'
                 storeFile file('../keystore/menukey')
                 storePassword '111111'
@@ -36,7 +36,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.School
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            signingConfig signingConfigs.release
         }
     }
 
