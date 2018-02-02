@@ -106,6 +106,13 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                     @Override
                     public void run() {
                         try {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showLoading(null);
+                                }
+                            });
+
                             //请求微信token数据
                             String code = ((SendAuth.Resp) resp).code;
                             String requestTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + GlobalConfig.WECHAT_APPID + "&secret=" + GlobalConfig.WECHAT_APPSECRET + "&code=" + code + "&grant_type=authorization_code";
@@ -157,6 +164,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                             @Override
                                             public void run() {
                                                 ToastUtil.showToast(WXEntryActivity.this,"登录成功",Toast.LENGTH_SHORT);
+                                                hideLoading();
                                                 finish();
                                             }
                                         });
@@ -166,6 +174,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                             @Override
                                             public void run() {
                                                 ToastUtil.showToast(WXEntryActivity.this,"登录失败",Toast.LENGTH_SHORT);
+                                                hideLoading();
                                                 finish();
                                             }
                                         });
@@ -181,6 +190,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                         @Override
                                         public void run() {
                                             ToastUtil.showToast(WXEntryActivity.this,"登录失败",Toast.LENGTH_SHORT);
+                                            hideLoading();
                                             finish();
                                         }
                                     });
@@ -196,6 +206,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    hideLoading();
                                     finish();
                                 }
                             });
@@ -206,6 +217,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                 @Override
                                 public void run() {
                                     ToastUtil.showToast(WXEntryActivity.this,"登录失败",Toast.LENGTH_SHORT);
+                                    hideLoading();
                                     finish();
                                 }
                             });
@@ -229,7 +241,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                 break;
         }
 
-        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, result, Toast.LENGTH_LONG).show();
     }
 
     private void goToGetMsg() {
