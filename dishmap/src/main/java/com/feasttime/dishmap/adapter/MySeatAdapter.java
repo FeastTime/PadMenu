@@ -13,6 +13,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.bean.MessageItemInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import cn.nekocode.badge.BadgeDrawable;
@@ -25,10 +26,12 @@ public class MySeatAdapter extends BaseAdapter {
     private List<MyTableItemInfo> dataList;
     private Context context;
     private LayoutInflater mLayoutInflater;
+    private SimpleDateFormat simpleDateFormat;
 
     public MySeatAdapter(Context context,List<MyTableItemInfo> dataList) {
         mLayoutInflater = LayoutInflater.from(context);
         this.dataList = dataList;
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
     @Override
@@ -65,7 +68,16 @@ public class MySeatAdapter extends BaseAdapter {
 
         MyTableItemInfo myTableItemInfo = dataList.get(position);
         holder.nickNameTv.setText(myTableItemInfo.getUserNickName());
-        holder.storeNameTv.setText(myTableItemInfo.getStoreId());
+        holder.storeNameTv.setText(myTableItemInfo.getStoreName());
+
+        if (myTableItemInfo.getIsCome() == 1) {
+            holder.statusTv.setText("未验证");
+        } else if (myTableItemInfo.getIsCome() == 2) {
+            holder.statusTv.setText("已验证");
+        }
+
+        holder.timeTv.setText(simpleDateFormat.format(myTableItemInfo.getMaketableTime()));
+
         return convertView;
     }
 

@@ -5,7 +5,7 @@
     <LinearLayout
         android:id="@+id/activity_my_seat_detail_content_ll"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y273"
+        android:layout_height="@dimen/y223"
         android:layout_marginLeft="@dimen/x30"
         android:layout_marginRight="@dimen/x30"
         android:paddingLeft="@dimen/x40"

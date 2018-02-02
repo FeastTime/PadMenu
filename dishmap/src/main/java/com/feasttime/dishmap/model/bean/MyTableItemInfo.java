@@ -13,6 +13,8 @@ public class MyTableItemInfo implements Serializable{
 
     int storeId;
 
+    String storeName;
+
     String suportSeatNumber;
 
     int passType;
@@ -36,6 +38,14 @@ public class MyTableItemInfo implements Serializable{
     String userNickName;
 
     String description;
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 
     public String getTableId() {
         return tableId;

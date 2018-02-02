@@ -9,6 +9,8 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.utils.QRCodeUtil;
 
+import java.text.SimpleDateFormat;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -41,6 +43,8 @@ public class MySeatDetailActivity extends BaseActivity {
     @Bind(R.id.activity_my_seat_detail_description_tv)
     TextView descriptionTv;
 
+    @Bind(R.id.activity_my_seat_detail_number_tv)
+    TextView numberTv;
 
     MyTableItemInfo myTableItemInfo;
 
@@ -59,8 +63,11 @@ public class MySeatDetailActivity extends BaseActivity {
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
-        qrCodeIv.setImageBitmap(QRCodeUtil.createQRCodeBitmap(myTableItemInfo.getSuportSeatNumber(),300));
+        qrCodeIv.setImageBitmap(QRCodeUtil.createQRCodeBitmap(myTableItemInfo.getTableId(),300));
 
+        storeNameTv.setText(myTableItemInfo.getStoreName());
         descriptionTv.setText(myTableItemInfo.getDescription());
+        expireTv.setText(myTableItemInfo.getRecieveTime() + "分");
+        numberTv.setText(myTableItemInfo.getTableId());
     }
 }
