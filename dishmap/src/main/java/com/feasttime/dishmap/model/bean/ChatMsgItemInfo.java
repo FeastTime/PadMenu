@@ -5,9 +5,24 @@ package com.feasttime.dishmap.model.bean;
  */
 
 public class ChatMsgItemInfo {
+
+    // 是否左边
     boolean isLeft;
+
+    // 消息内容
     String msg;
+
+    // 用户图标
     String icon;
+
+    // 消息时间
+    String time;
+
+    // 红包id
+    String redPackageId;
+
+    // 是否红包
+    boolean isRedPackage;
 
     public boolean isLeft() {
         return isLeft;
@@ -31,5 +46,29 @@ public class ChatMsgItemInfo {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getRedPackageId() {
+        return redPackageId;
+    }
+
+    public void setRedPackageId(String redPackageId) {
+        this.redPackageId = redPackageId;
+    }
+
+    public boolean isRedPackage() {
+        return isRedPackage;
+    }
+
+    public void setRedPackage(boolean redPackage) {
+        isRedPackage = redPackage;
     }
 }

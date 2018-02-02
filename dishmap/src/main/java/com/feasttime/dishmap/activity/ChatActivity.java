@@ -19,6 +19,8 @@ import com.feasttime.dishmap.model.bean.BidResultInfo;
 import com.feasttime.dishmap.model.bean.BidResultItem;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.model.bean.GrobResultInfo;
+import com.feasttime.dishmap.model.bean.MyTableInfo;
+import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.model.bean.NewTableNofiticationinfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
@@ -95,11 +97,10 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 //            datas.add(chatMsgItemInfo);
 //        }
 
-        mChatAdapter = new ChatAdapter(this, datas);
+        mChatAdapter = new ChatAdapter(this, datas, storeId);
         contentLv.setAdapter(mChatAdapter);
 
         initViews();
-
 
         RxBus.getDefault().register(this, WebSocketEvent.class,  new Consumer<WebSocketEvent>() {
             @Override
@@ -125,24 +126,78 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                     mChatAdapter.addData(chatMsgItemInfo);
                 }
 
+                String senderUserId = jsonObject.getString("userId");
+
+                if (TextUtils.isEmpty(senderUserId)) {
+                    return;
+                }
+
                 // 收到新消息
                 if (orderEvent.eventType == WebSocketEvent.RECEIVED_MESSAGE) {
 
-                    String senderUserId = jsonObject.getString("userId");
-
-                    if (TextUtils.isEmpty(senderUserId) || userId.equals(senderUserId)){
-                        return ;
-                    }
-
                     String message = jsonObject.getString("message");
+
                     ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                    chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
+                    chatMsgItemInfo.setRedPackage(false);
+                    chatMsgItemInfo.setTime(jsonObject.getString("date"));
+
+                    Log.d("lixiaoqing", "time ----time   " + jsonObject.getString("date"));
+
+                    if (userId.equals(senderUserId)) {
+                        // 右边添加自己的消息
+                        chatMsgItemInfo.setIcon(userIcon);
+                        chatMsgItemInfo.setLeft(false);
+                        chatMsgItemInfo.setMsg(message);
+
+                    } else {
+                        // 左边添加别人的消息
+                        chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
+                        chatMsgItemInfo.setLeft(true);
+                        chatMsgItemInfo.setMsg(message);
+                    }
+                    mChatAdapter.addData(chatMsgItemInfo);
+
+                }
+                // 收到红包
+                else if(orderEvent.eventType == WebSocketEvent.RECEIVED_RED_PACKAGE) {
+
+                    // 红包id
+                    String redPackageId = jsonObject.getString("redPackageId");
+//                    String nickname = jsonObject.getString("nickname");
+                    String userIcon = jsonObject.getString("userIcon");
+                    String withMessage = jsonObject.getString("withMessage");
+
+                    ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+                    chatMsgItemInfo.setRedPackage(true);
+                    chatMsgItemInfo.setTime(jsonObject.getString("date"));
+
+                    // 左边添加别人的消息
+                    chatMsgItemInfo.setIcon(userIcon);
                     chatMsgItemInfo.setLeft(true);
-                    chatMsgItemInfo.setMsg(message);
+                    chatMsgItemInfo.setMsg(withMessage);
+                    chatMsgItemInfo.setRedPackageId(redPackageId);
+                    chatMsgItemInfo.setRedPackage(true);
 
                     mChatAdapter.addData(chatMsgItemInfo);
 
-                } else if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
+                }
+
+                // 拆开红包通知
+                else if(orderEvent.eventType == WebSocketEvent.RECEIVED_RED_PACKAGE_SURPRISED) {
+
+                    String message = jsonObject.getString("message");
+
+                    jsonObject.getString("message");
+
+                    MyTableItemInfo tableInfo = jsonObject.getObject("tableInfo", MyTableItemInfo.class);
+                    CouponInfo couponInfo = jsonObject.getObject("couponInfo", CouponInfo.class);
+
+
+                    MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, message);
+
+                }
+
+                else if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
 
                     NewTableNofiticationinfo newTableNofiticationinfo = JSON.parseObject(orderEvent.jsonData,NewTableNofiticationinfo.class);
 
@@ -202,7 +257,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                     Log.d("lixiaoqing", "抢桌位结果通知");
                     GrobResultInfo bidResultInfo = JSON.parseObject(orderEvent.jsonData,GrobResultInfo.class);
 
-
                     Log.d("lixiaoqing", "抢桌位结果通知 : " + bidResultInfo.getBid() + "---" + bidResultInfo.getUserID() +"---"+ bidResultInfo.getResultCode());
 
                     if (null != bidResultInfo && !TextUtils.isEmpty(bidResultInfo.getUserID())){
@@ -254,14 +308,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         UtilTools.requestByWebSocket(this, requestData);
 
-        // 添加自己的消息
 
-        ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-        chatMsgItemInfo.setIcon(userIcon);
-        chatMsgItemInfo.setLeft(false);
-        chatMsgItemInfo.setMsg(inputMessageStr);
-
-        mChatAdapter.addData(chatMsgItemInfo);
     }
 
 

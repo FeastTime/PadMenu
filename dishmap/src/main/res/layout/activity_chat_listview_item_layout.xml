@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/activity_chat_listview_item_layout_time_tv"
-        android:layout_width="@dimen/x85"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
         android:gravity="center"
@@ -31,6 +31,7 @@
             android:layout_width="@dimen/x580"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/activity_chat_listview_item_layout_left_icon_iv"
                 android:layout_width="@dimen/x82"
@@ -38,17 +39,41 @@
                 android:src="@mipmap/ic_launcher"
                 />
 
-            <TextView
-                android:id="@+id/activity_chat_listview_item_layout_left_msg_tv"
+            <RelativeLayout
+                android:id="@+id/activity_chat_listview_item_layout_left_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/x20"
-                android:layout_marginLeft="@dimen/x28"
-                android:textColor="@color/text_hint_gray"
-                android:text="0"
-                android:textSize="@dimen/big_text_size"
-                android:background="@drawable/chat_left_bg"
-                />
+                >
+
+                <TextView
+                    android:id="@+id/activity_chat_listview_item_layout_left_msg_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/x20"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:textColor="@color/black"
+                    android:text="0"
+                    android:textSize="@dimen/big_text_size"
+                    android:background="@drawable/chat_left_bg"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_chat_listview_item_layout_left_red_package"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/activity_chat_listview_item_layout_left_red_package_image"
+                    android:layout_width="@dimen/y400"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitStart"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:src="@mipmap/left_red_package"
+                    />
+            </RelativeLayout>
+
+
         </LinearLayout>
 
     </LinearLayout>
@@ -67,17 +92,39 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:orientation="horizontal">
-            <TextView
-                android:id="@+id/activity_chat_listview_item_layout_right_msg_tv"
+
+            <RelativeLayout
+                android:id="@+id/activity_chat_listview_item_layout_right_red_package"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_hint_gray"
-                android:text="0"
-                android:padding="@dimen/x20"
-                android:background="@drawable/chat_right_bg"
-                android:layout_marginRight="@dimen/x28"
-                android:textSize="@dimen/big_text_size"
-                />
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/activity_chat_listview_item_layout_right_red_package_image"
+                    android:layout_width="@dimen/y400"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x28"
+                    android:scaleType="fitStart"
+                    android:src="@mipmap/right_red_package"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/activity_chat_listview_item_layout_right_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/activity_chat_listview_item_layout_right_msg_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="0"
+                    android:padding="@dimen/x20"
+                    android:background="@drawable/chat_right_bg"
+                    android:layout_marginRight="@dimen/x28"
+                    android:textSize="@dimen/big_text_size"
+                    />
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/activity_chat_listview_item_layout_right_icon_iv"

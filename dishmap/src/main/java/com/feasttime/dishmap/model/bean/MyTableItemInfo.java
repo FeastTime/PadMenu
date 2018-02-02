@@ -7,67 +7,41 @@ import java.io.Serializable;
  */
 
 public class MyTableItemInfo implements Serializable{
-    String description;
-    int isCome;
-    long maketableTime;
-    int passType;
-    int price;
-    long recieveTime;
-    int storeId;
-    String suportSeatNumber;
+
     String tableId;
+
+    int storeId;
+
+    String suportSeatNumber;
+
+    int passType;
+
+    long maketableTime;
+
     long taketableTime;
-    String userIcon;
+
+    long recieveTime;
+
+    int price;
+
+    int isCome;
+
     String userId;
-    String userNickname;
+
     String userPhone;
 
-    public String getDescription() {
-        return description;
+    String userIcon;
+
+    String userNickName;
+
+    String description;
+
+    public String getTableId() {
+        return tableId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getIsCome() {
-        return isCome;
-    }
-
-    public void setIsCome(int isCome) {
-        this.isCome = isCome;
-    }
-
-    public long getMaketableTime() {
-        return maketableTime;
-    }
-
-    public void setMaketableTime(long maketableTime) {
-        this.maketableTime = maketableTime;
-    }
-
-    public int getPassType() {
-        return passType;
-    }
-
-    public void setPassType(int passType) {
-        this.passType = passType;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public long getRecieveTime() {
-        return recieveTime;
-    }
-
-    public void setRecieveTime(long recieveTime) {
-        this.recieveTime = recieveTime;
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
     }
 
     public int getStoreId() {
@@ -86,12 +60,20 @@ public class MyTableItemInfo implements Serializable{
         this.suportSeatNumber = suportSeatNumber;
     }
 
-    public String getTableId() {
-        return tableId;
+    public int getPassType() {
+        return passType;
     }
 
-    public void setTableId(String tableId) {
-        this.tableId = tableId;
+    public void setPassType(int passType) {
+        this.passType = passType;
+    }
+
+    public long getMaketableTime() {
+        return maketableTime;
+    }
+
+    public void setMaketableTime(long maketableTime) {
+        this.maketableTime = maketableTime;
     }
 
     public long getTaketableTime() {
@@ -102,12 +84,28 @@ public class MyTableItemInfo implements Serializable{
         this.taketableTime = taketableTime;
     }
 
-    public String getUserIcon() {
-        return userIcon;
+    public long getRecieveTime() {
+        return recieveTime;
     }
 
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon;
+    public void setRecieveTime(long recieveTime) {
+        this.recieveTime = recieveTime;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getIsCome() {
+        return isCome;
+    }
+
+    public void setIsCome(int isCome) {
+        this.isCome = isCome;
     }
 
     public String getUserId() {
@@ -118,19 +116,35 @@ public class MyTableItemInfo implements Serializable{
         this.userId = userId;
     }
 
-    public String getUserNickname() {
-        return userNickname;
-    }
-
-    public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname;
-    }
-
     public String getUserPhone() {
         return userPhone;
     }
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
+    }
+
+    public String getUserIcon() {
+        return userIcon;
+    }
+
+    public void setUserIcon(String userIcon) {
+        this.userIcon = userIcon;
+    }
+
+    public String getUserNickName() {
+        return userNickName;
+    }
+
+    public void setUserNickName(String userNickName) {
+        this.userNickName = userNickName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
