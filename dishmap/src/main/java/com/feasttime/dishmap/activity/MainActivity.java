@@ -78,15 +78,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @OnClick({R.id.activity_main_home_tv,R.id.activity_main_coupon_tv,R.id.activity_main_mine_tv})
     @Override
     public void onClick(View v) {
+
+
+
+
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         hideAllFragment(fragmentTransaction);
 
         //验证token
         if (v != homeTv) {
-            String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
-            if (TextUtils.isEmpty(token)) {
-                ToastUtil.showToast(v.getContext(),"请重新登录", Toast.LENGTH_SHORT);
-                homeTv.performClick();
+            if (!UtilTools.checkLoginStatusAndRelogin(this)) {
                 return;
             }
         }
@@ -177,6 +178,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             fragmentTransaction.hide(mUserMineFragment);
         }
     }
+
+
 
 
 }

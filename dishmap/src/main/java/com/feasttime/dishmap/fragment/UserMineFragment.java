@@ -136,11 +136,7 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
     ,R.id.fragment_user_mine_setting_iv,R.id.fragment_user_mine_msg_iv})
     @Override
     public void onClick(View v) {
-
-        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
-        if (TextUtils.isEmpty(token)) {
-            ToastUtil.showToast(v.getContext(),"请重新登录", Toast.LENGTH_SHORT);
-            ((MainActivity)this.getActivity()).toMainFragment();
+        if (!UtilTools.checkLoginStatusAndRelogin(v.getContext())) {
             return;
         }
 
