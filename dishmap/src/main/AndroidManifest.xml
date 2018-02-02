@@ -161,6 +161,11 @@
 
         </activity>
 
+        <activity android:name=".activity.ExpireCouponActivity">
+
+        </activity>
+
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

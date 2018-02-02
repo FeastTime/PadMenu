@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y58"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有更多了~"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/text_gray_design_2"/>
+
+        <TextView
+            android:layout_width="@dimen/x33"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/text_gray_design_2"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="|"/>
+
+        <TextView
+            android:id="@+id/fragment_user_coupon_list_footer_view_expire_coupon_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查看过期优惠券"
+            android:includeFontPadding="false"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/blue_2"/>
+
+
+    </LinearLayout>
+</LinearLayout>

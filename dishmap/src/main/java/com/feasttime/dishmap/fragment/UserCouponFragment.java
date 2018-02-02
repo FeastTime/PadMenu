@@ -1,6 +1,7 @@
 package com.feasttime.dishmap.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
+import com.feasttime.dishmap.activity.ExpireCouponActivity;
 import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.adapter.FragmentCouponAdapter;
 import com.feasttime.dishmap.model.RetrofitService;
@@ -99,6 +101,15 @@ public class UserCouponFragment extends Fragment {
         titleBarOrangeBgIv.setVisibility(View.GONE);
         titleCenterTv.setText("优惠券");
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
+
+        View footerView = LayoutInflater.from(this.getActivity()).inflate(R.layout.fragment_user_coupon_list_footer_view,null);
+        TextView expireCouponTv = (TextView) footerView.findViewById(R.id.fragment_user_coupon_list_footer_view_expire_coupon_tv);
+        expireCouponTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), ExpireCouponActivity.class));
+            }
+        });
 
 //        FragmentCouponAdapter fragmentCouponAdapter = new FragmentCouponAdapter(this.getActivity(),myTestData);
 //        mContentElv.setAdapter(fragmentCouponAdapter);
