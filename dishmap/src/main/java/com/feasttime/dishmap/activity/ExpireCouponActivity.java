@@ -7,10 +7,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.adapter.FragmentCouponAdapter;
+import com.feasttime.dishmap.fragment.UserCouponFragment;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.CouponInfo;
+import com.feasttime.dishmap.utils.PreferenceUtil;
+
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2018/2/2.
@@ -33,6 +42,9 @@ public class ExpireCouponActivity extends BaseActivity implements View.OnClickLi
     @Bind(R.id.title_bar_layout_orange_bg_iv)
     ImageView titleBarOrangeBgIv;
 
+    @Bind(R.id.no_data_layout)
+    View nodataView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +60,8 @@ public class ExpireCouponActivity extends BaseActivity implements View.OnClickLi
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
+
+        requestCouponData();
     }
 
 
@@ -57,5 +71,42 @@ public class ExpireCouponActivity extends BaseActivity implements View.OnClickLi
         if (v == titleBarBackIv) {
             finish();
         }
+    }
+
+
+    public void requestCouponData() {
+        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        infoMap.put("token",token);
+        infoMap.put("userId",userId);
+        infoMap.put("flag","2");  //0未过期，1:已过期
+        showLoading(null);
+        RetrofitService.queryCouponList(infoMap).subscribe(new Consumer<CouponInfo>(){
+            @Override
+            public void accept(CouponInfo couponInfo) throws Exception {
+                if (couponInfo.getResultCode() == 0) {
+                    if (couponInfo.getCouponList().size() == 0) {
+                        nodataView.setVisibility(View.VISIBLE);
+                    } else {
+                        FragmentCouponAdapter fragmentCouponAdapter = new FragmentCouponAdapter(ExpireCouponActivity.this,couponInfo.getCouponList());
+                        contentElv.setAdapter(fragmentCouponAdapter);
+                    }
+                } else {
+
+                }
+                hideLoading();
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                hideLoading();
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+
+            }
+        });
     }
 }

@@ -79,23 +79,6 @@ public class UserCouponFragment extends Fragment {
 
 
     private void initViews() {
-//        ArrayList<CouponListItemInfo> myTestData = new ArrayList<CouponListItemInfo>();
-//        for (int i = 0 ; i < 10 ; i++) {
-//            ArrayList<CouponChildListItemInfo> childDatas = new ArrayList<CouponChildListItemInfo>();
-//            CouponListItemInfo couponListItemInfo = new CouponListItemInfo();
-//            for (int j = 0 ; j < 3 ; j++) {
-//                CouponChildListItemInfo couponChildListItemInfo = new CouponChildListItemInfo();
-//                couponChildListItemInfo.setCouponName(j * 10 + "");
-//                couponChildListItemInfo.setCouponPrice(Math.random() + "");
-//                childDatas.add(couponChildListItemInfo);
-//                couponListItemInfo.setChildListItemInfos(childDatas);
-//            }
-//
-//
-//            couponListItemInfo.setName(i + "");
-//            myTestData.add(couponListItemInfo);
-//        }
-
         titleBarBackIv.setVisibility(View.GONE);
         titleBarRightIv.setVisibility(View.GONE);
         titleBarOrangeBgIv.setVisibility(View.GONE);
@@ -110,10 +93,7 @@ public class UserCouponFragment extends Fragment {
                 startActivity(new Intent(v.getContext(), ExpireCouponActivity.class));
             }
         });
-
-//        FragmentCouponAdapter fragmentCouponAdapter = new FragmentCouponAdapter(this.getActivity(),myTestData);
-//        mContentElv.setAdapter(fragmentCouponAdapter);
-
+        mContentElv.addFooterView(footerView);
         requestNet();
     }
 
@@ -128,7 +108,7 @@ public class UserCouponFragment extends Fragment {
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
         infoMap.put("token",token);
         infoMap.put("userId",userId);
-        infoMap.put("flag","2");
+        infoMap.put("flag","0");  //0未过期，1:已过期
         final BaseActivity baseActivity = ((BaseActivity)this.getActivity());
         baseActivity.showLoading(null);
         RetrofitService.queryCouponList(infoMap).subscribe(new Consumer<CouponInfo>(){
