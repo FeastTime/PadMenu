@@ -83,6 +83,7 @@
                         android:id="@+id/fragment_user_coupon_child_item_expire_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x20"
                         android:textColor="@color/text_gray_design_1"
                         android:textSize="@dimen/normal_text_size"
                         android:text="0"/>
@@ -104,6 +105,7 @@
                         android:id="@+id/fragment_user_coupon_child_item_attention_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/x20"
                         android:textColor="@color/text_dark_gray"
                         android:textSize="@dimen/very_small_text_size"
                         android:text="0"/>
