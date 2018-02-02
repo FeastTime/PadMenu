@@ -19,7 +19,7 @@
             android:layout_height="@dimen/x110"
             android:background="@drawable/white_bg_orange_stroke"
             android:gravity="center"
-            android:text="5人\n桌"
+            android:text="座位"
             android:textColor="@color/orange_color"
             android:textSize="@dimen/big_text_size_2" />
 
