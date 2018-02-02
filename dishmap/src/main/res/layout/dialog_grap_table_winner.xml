@@ -6,61 +6,92 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/x606"
         android:layout_height="@dimen/x734"
         android:orientation="vertical"
         android:background="@mipmap/get_bonus_bg"
         android:gravity="center_horizontal|bottom">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:text="恭喜您!成功抢到座位"
-            android:textColor="@color/white"
-            android:layout_marginBottom="@dimen/y24"
-            android:textSize="@dimen/big_text_size_2"
-            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|bottom"
+            >
+
+            <TextView
+                android:id="@+id/dialog_grap_table_result_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text=""
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/y1"
+                android:textSize="@dimen/big_text_size_2"
+                />
+
+        </RelativeLayout>
+
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y27"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:textSize="@dimen/big_text_size_2"
-                android:textColor="@color/white"
-                android:text="号码:"
-                />
+            >
 
-            <TextView
-                android:id="@+id/dialog_grap_table_result_tv"
-                android:layout_width="wrap_content"
-                android:includeFontPadding="false"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x20"
-                android:textSize="@dimen/big_text_size_2"
-                android:textColor="@color/white"
-                android:text="结果"
-                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y0"
+                android:layout_weight="2">
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y0"
+                android:gravity="center"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/dialog_grap_table_result_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/y24"
+                    android:includeFontPadding="false"
+                    android:textSize="@dimen/big_text_size_2"
+                    android:textColor="@color/white"
+                    android:singleLine="false"
+                    android:text="详细信息"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y0"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/dialog_grap_table_describe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/text_red_3"
+                    android:textSize="@dimen/normal_text_size"
+                    android:text=""
+                    />
+
+            </RelativeLayout>
+
+
+
+
         </LinearLayout>
 
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textColor="@color/text_red_3"
-            android:textSize="@dimen/normal_text_size"
-            android:layout_marginBottom="@dimen/y70"
-            android:text="座位预留15分钟"
-            />
 
     </LinearLayout>
 

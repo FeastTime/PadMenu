@@ -184,27 +184,37 @@ public class MyDialogs {
             }
         });
 
-
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.width = (int)context.getResources().getDimension(R.dimen.x657);
         params.height = (int)context.getResources().getDimension(R.dimen.y778);
         dialog.getWindow().setAttributes(params);
         dialog.show();
-
     }
 
+    /**
+     * 展示红包结果
+     * @param context Context
+     * @param title 标题
+     * @param detail 内容
+     * @param description 描述
+     */
+    public static void showGrapTableWinnerDialog(Context context, String title, String detail, String description) {
 
-    //抢座位结果 胜利者
-    public static void showGrapTableWinnerDialog(Context context, String resultStr) {
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
         View contentView = inflater.inflate(R.layout.dialog_grap_table_winner,null);
         dialog.setContentView(contentView);
 
-        TextView resultTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_result_tv);
-        resultTv.setText(resultStr);
+        TextView titleTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_result_title);
+        titleTv.setText(title);
+
+        TextView detailTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_result_detail);
+        detailTv.setText(detail);
+
+        TextView describeTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_describe);
+        describeTv.setText(description);
 
         ImageView confirmBtn = (ImageView)contentView.findViewById(R.id.dialog_grap_table_result_close_iv);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
