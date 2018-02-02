@@ -123,7 +123,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
             childViewHolder.couponNameTv.setText(UtilTools.getCouponStrByType(Integer.parseInt(couponType)));
         }
 
-        childViewHolder.couponPriceTv.setText(couponChildListItemInfo.getCouponType());
+        childViewHolder.couponPriceTv.setText(couponChildListItemInfo.getCouponTitle());
         childViewHolder.attentionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
 
         childViewHolder.expireTv.setText("距离现在仅剩" + UtilTools.getDaysFromOtherDate(Long.parseLong(couponChildListItemInfo.getCouponValidity())) + "天");
