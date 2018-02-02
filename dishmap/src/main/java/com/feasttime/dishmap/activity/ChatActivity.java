@@ -18,6 +18,7 @@ import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.model.bean.BidResultInfo;
 import com.feasttime.dishmap.model.bean.BidResultItem;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
+import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.GrobResultInfo;
 import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;

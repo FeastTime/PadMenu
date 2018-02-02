@@ -64,7 +64,7 @@ public class MySeatAdapter extends BaseAdapter {
 
 
         MyTableItemInfo myTableItemInfo = dataList.get(position);
-        holder.nickNameTv.setText(myTableItemInfo.getUserNickname());
+        holder.nickNameTv.setText(myTableItemInfo.getUserNickName());
         holder.storeNameTv.setText(myTableItemInfo.getStoreId());
         return convertView;
     }

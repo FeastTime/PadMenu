@@ -111,8 +111,8 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
         CouponChildListItemInfo couponChildListItemInfo = datasList.get(groupPosition).getChildListItemInfos().get(childPosition);
-        childViewHolder.couponNameTv.setText(couponChildListItemInfo.getCouponName());
-        childViewHolder.couponPriceTv.setText(couponChildListItemInfo.getCouponPrice());
+        childViewHolder.couponNameTv.setText(couponChildListItemInfo.getCouponTitle());
+        childViewHolder.couponPriceTv.setText(couponChildListItemInfo.getCouponType());
         return convertView;
     }
 
