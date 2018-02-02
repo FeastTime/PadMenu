@@ -137,6 +137,9 @@ public class UserCouponFragment extends Fragment {
                 if (couponInfo.getResultCode() == 0) {
                     if (couponInfo.getCouponList().size() == 0) {
                         nodataView.setVisibility(View.VISIBLE);
+                    } else {
+                        FragmentCouponAdapter fragmentCouponAdapter = new FragmentCouponAdapter(UserCouponFragment.this.getActivity(),couponInfo.getCouponList());
+                        mContentElv.setAdapter(fragmentCouponAdapter);
                     }
                 } else {
 

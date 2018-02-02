@@ -1,5 +1,6 @@
 package com.feasttime.dishmap.model.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
 public class CouponInfo {
     int resultCode;
     String resultMsg;
-    List<CouponListItemInfo> couponList;
+    ArrayList<CouponListItemInfo> couponList;
 
     public int getResultCode() {
         return resultCode;
@@ -27,11 +28,11 @@ public class CouponInfo {
         this.resultMsg = resultMsg;
     }
 
-    public List<CouponListItemInfo> getCouponList() {
+    public ArrayList<CouponListItemInfo> getCouponList() {
         return couponList;
     }
 
-    public void setCouponList(List<CouponListItemInfo> couponList) {
+    public void setCouponList(ArrayList<CouponListItemInfo> couponList) {
         this.couponList = couponList;
     }
 }
