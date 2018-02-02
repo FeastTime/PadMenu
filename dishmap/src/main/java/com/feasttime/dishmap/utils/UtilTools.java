@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -106,6 +107,18 @@ public class UtilTools {
         req.scope = "snsapi_userinfo";
         req.state = "dishmap_wechat_login";
         api.sendReq(req);
+    }
+
+    //检查登录状态如果未登录就去登录
+    public static boolean checkLoginStatusAndRelogin(Context context) {
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        if (TextUtils.isEmpty(token)) {
+            ToastUtil.showToast(context,"请重新登录", Toast.LENGTH_SHORT);
+            loginWithWeChat(context);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static int getStatusBarHeight(Context context) {

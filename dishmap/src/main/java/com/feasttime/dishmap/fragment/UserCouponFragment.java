@@ -117,7 +117,7 @@ public class UserCouponFragment extends Fragment {
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
         infoMap.put("token",token);
         infoMap.put("userId",userId);
-        infoMap.put("flag","0");
+        infoMap.put("flag","2");
         final BaseActivity baseActivity = ((BaseActivity)this.getActivity());
         baseActivity.showLoading(null);
         RetrofitService.queryCouponList(infoMap).subscribe(new Consumer<CouponInfo>(){
