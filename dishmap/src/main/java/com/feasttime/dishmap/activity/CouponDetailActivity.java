@@ -9,6 +9,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.CouponListItemInfo;
 import com.feasttime.dishmap.utils.QRCodeUtil;
+import com.feasttime.dishmap.utils.UtilTools;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,6 +47,9 @@ public class CouponDetailActivity extends BaseActivity {
     @Bind(R.id.activity_coupon_detail_number_tv)
     TextView numberTv;
 
+    @Bind(R.id.activity_coupon_detail_left_title_tv)
+    TextView leftTitleTv;
+
     private CouponChildListItemInfo couponChildListItemInfo;
 
     private String storeName = "";
@@ -63,8 +67,9 @@ public class CouponDetailActivity extends BaseActivity {
 
 
     private void initViews() {
+
         titleBarOrangeBgIv.setVisibility(View.GONE);
-        titleCenterTv.setText("我的座位");
+        titleCenterTv.setText(couponChildListItemInfo.getCouponTitle() + "元" + UtilTools.getCouponStrByType(Integer.parseInt(couponChildListItemInfo.getCouponType())));
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
@@ -74,5 +79,6 @@ public class CouponDetailActivity extends BaseActivity {
         descriptionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
         expireTv.setText(couponChildListItemInfo.getCouponValidity());
         numberTv.setText(couponChildListItemInfo.getCouponCode());
+        leftTitleTv.setText(couponChildListItemInfo.getCouponTitle() + "元\n" + UtilTools.getCouponStrByType(Integer.parseInt(couponChildListItemInfo.getCouponType())));
     }
 }

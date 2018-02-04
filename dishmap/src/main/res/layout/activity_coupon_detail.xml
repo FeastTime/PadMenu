@@ -34,11 +34,12 @@
             android:paddingRight="@dimen/x40">
 
             <TextView
+                android:id="@+id/activity_coupon_detail_left_title_tv"
                 android:layout_width="@dimen/x110"
                 android:layout_height="@dimen/x110"
                 android:background="@drawable/white_bg_orange_stroke"
                 android:gravity="center"
-                android:text="座位"
+                android:text=""
                 android:textColor="@color/orange_color"
                 android:textSize="@dimen/big_text_size_2" />
 
