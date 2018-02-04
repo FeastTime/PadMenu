@@ -1,12 +1,13 @@
 package com.feasttime.dishmap.model.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by chen on 2018/1/12.
  */
 
-public class CouponListItemInfo {
+public class CouponListItemInfo implements Serializable{
     private String storeName;
 
     private List<CouponChildListItemInfo> dataList;

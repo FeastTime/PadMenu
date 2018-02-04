@@ -1,6 +1,7 @@
 package com.feasttime.dishmap.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.activity.CouponDetailActivity;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.CouponListItemInfo;
 import com.feasttime.dishmap.utils.UtilTools;
@@ -100,7 +102,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
         ChildViewHolder childViewHolder;
         if (convertView == null) {
@@ -114,7 +116,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        CouponChildListItemInfo couponChildListItemInfo = datasList.get(groupPosition).getDataList().get(childPosition);
+        final CouponChildListItemInfo couponChildListItemInfo = datasList.get(groupPosition).getDataList().get(childPosition);
 
 
 
@@ -127,6 +129,20 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         childViewHolder.attentionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
 
         childViewHolder.expireTv.setText("距离现在仅剩" + UtilTools.getDaysFromOtherDate(Long.parseLong(couponChildListItemInfo.getCouponValidity())) + "天");
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CouponListItemInfo couponListItemInfo = datasList.get(groupPosition);
+                String storeName = couponListItemInfo.getStoreName();
+
+                Intent intent = new Intent(v.getContext(), CouponDetailActivity.class);
+                intent.putExtra("storeName",storeName);
+                intent.putExtra("couponData",couponChildListItemInfo);
+                v.getContext().startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 
