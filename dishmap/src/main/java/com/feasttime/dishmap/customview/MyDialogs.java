@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
+import com.feasttime.dishmap.activity.ScanActivity;
 import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.PriceChangeInfo;
@@ -53,6 +54,12 @@ public class MyDialogs {
         void overInput(int personNum);
     }
 
+    /**
+     * 进入商家时，设置就餐人数
+     * @param context Context
+     * @param personNumListener PersonNumListener
+     * @param storeName 店铺名称
+     */
     public static void showEatDishPersonNumDialog(Context context, final PersonNumListener personNumListener,String storeName) {
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -350,19 +357,38 @@ public class MyDialogs {
     }
 
 
-    //修改就餐人数
-    public static void modifyEatPersonNumber(Context context) {
+    /**
+     * 修改就餐人数
+     * @param context Context
+     */
+    public static void modifyEatPersonNumber(final Context context, final String storeId) {
+
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
         View contentView = inflater.inflate(R.layout.dialog_modify_eat_person_number,null);
         dialog.setContentView(contentView);
 
+        final EditText dinerCount = (EditText) contentView.findViewById(R.id.dialog_modify_eat_person_number_diner_count);
         Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_modify_eat_person_number_confirm_btn);
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String dinerCountStr = dinerCount.getText().toString();
+
+                if (TextUtils.isEmpty(dinerCountStr)){
+                    dinerCountStr = "0";
+                }
+                // 修改 用餐人数
+                HashMap<String, String > requestData = new HashMap<>();
+                requestData.put("storeId", storeId);
+                requestData.put("dinerCount", dinerCountStr);
+                requestData.put("type", WebSocketEvent.SET_NUMBER_OF_USER+"");
+
+                UtilTools.requestByWebSocket(context, requestData);
                 dialog.dismiss();
             }
         });

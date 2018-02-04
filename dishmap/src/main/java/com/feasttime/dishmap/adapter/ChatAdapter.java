@@ -157,6 +157,13 @@ public class ChatAdapter extends BaseAdapter {
                 holder.rightMessageLayout.setVisibility(View.GONE);
 
                 holder.rightRedPackageImage.setTag(R.id.red_package_id, chatMsgItemInfo.getRedPackageId());
+
+                if (chatMsgItemInfo.isRedPackageUsed()){
+                    holder.rightRedPackageImage.setImageResource(R.mipmap.red_package_png_used);
+                } else {
+                    holder.rightRedPackageImage.setImageResource(R.mipmap.red_package_png);
+                }
+
             } else {
                 holder.rightRedPackageLayout.setVisibility(View.GONE);
                 holder.rightMessageLayout.setVisibility(View.VISIBLE);

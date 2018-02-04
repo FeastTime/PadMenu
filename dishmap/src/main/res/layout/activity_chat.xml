@@ -6,7 +6,7 @@
 
     <include
         android:id="@+id/title_layout"
-        layout="@layout/title_bar_layout"
+        layout="@layout/chat_title_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y128"></include>
 

@@ -75,7 +75,6 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                 String resultStr =  rawResult.getText();
 
 
-
                 if (TextUtils.isEmpty(resultStr)){
 
                     mScannerView.onResume();
@@ -83,45 +82,64 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                     return;
                 }
 
-
                 try {
                     storeId = URLParser.fromURL(resultStr).compile().getParameter("syStoreId");
                     storeName = URLParser.fromURL(resultStr).compile().getParameter("syStoreName");
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+                catch (Exception e) {
 
-                if (TextUtils.isEmpty(storeId)){
+                    e.printStackTrace();
                     mScannerView.onResume();
                     Toast.makeText(ScanActivity.this, "请扫优先吃二维码", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                if (TextUtils.isEmpty(storeId) || TextUtils.isEmpty(storeName)){
+                    mScannerView.onResume();
+                    Toast.makeText(ScanActivity.this, "请扫优先吃二维码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {
+                // 建立-修改 用户与商户的关系
+                HashMap<String, String > requestData = new HashMap<>();
+                requestData.put("storeId", storeId);
+                requestData.put("type", WebSocketEvent.ENTER_STORE+"");
 
-                    @Override
-                    public void overInput(int personNum) {
+                UtilTools.requestByWebSocket(ScanActivity.this, requestData);
 
-                        PreferenceUtil.setIntKey(PreferenceUtil.PERSION_NO, personNum);
+                // 打开聊天页面
+                Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
+                intent.putExtra("STORE_ID", storeId);
 
-                        // 建立-修改 用户与商户的关系
-                        HashMap<String, String > requestData = new HashMap<>();
-                        requestData.put("storeId", storeId);
-                        requestData.put("type", WebSocketEvent.ENTER_STORE+"");
-
-                        UtilTools.requestByWebSocket(ScanActivity.this, requestData);
+                ScanActivity.this.startActivity(intent);
+                ScanActivity.this.finish();
 
 
-                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
-                        intent.putExtra("STORE_ID", storeId);
-
-                        ScanActivity.this.startActivity(intent);
-                        ScanActivity.this.finish();
-                    }
-                };
-
-                MyDialogs.showEatDishPersonNumDialog(ScanActivity.this, personNumListener,storeName);
+//
+//                MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {
+//
+//                    @Override
+//                    public void overInput(int personNum) {
+//
+//                        PreferenceUtil.setIntKey(PreferenceUtil.PERSION_NO, personNum);
+//
+//                        // 建立-修改 用户与商户的关系
+//                        HashMap<String, String > requestData = new HashMap<>();
+//                        requestData.put("storeId", storeId);
+//                        requestData.put("type", WebSocketEvent.ENTER_STORE+"");
+//
+//                        UtilTools.requestByWebSocket(ScanActivity.this, requestData);
+//
+//
+//                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
+//                        intent.putExtra("STORE_ID", storeId);
+//
+//                        ScanActivity.this.startActivity(intent);
+//                        ScanActivity.this.finish();
+//                    }
+//                };
+//
+//                MyDialogs.showEatDishPersonNumDialog(ScanActivity.this, personNumListener,storeName);
 
             }
         });

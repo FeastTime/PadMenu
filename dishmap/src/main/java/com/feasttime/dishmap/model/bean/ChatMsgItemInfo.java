@@ -24,6 +24,9 @@ public class ChatMsgItemInfo {
     // 是否红包
     boolean isRedPackage;
 
+    // 红包是否点击过
+    boolean isRedPackageUsed;
+
     public boolean isLeft() {
         return isLeft;
     }
@@ -70,5 +73,13 @@ public class ChatMsgItemInfo {
 
     public void setRedPackage(boolean redPackage) {
         isRedPackage = redPackage;
+    }
+
+    public boolean isRedPackageUsed() {
+        return isRedPackageUsed;
+    }
+
+    public void setRedPackageUsed(boolean redPackageUsed) {
+        isRedPackageUsed = redPackageUsed;
     }
 }

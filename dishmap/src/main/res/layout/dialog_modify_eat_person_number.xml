@@ -33,9 +33,11 @@
             android:text="就餐人数"/>
 
         <EditText
+            android:id="@+id/dialog_modify_eat_person_number_diner_count"
             android:layout_width="@dimen/x174"
             android:layout_height="@dimen/y58"
             android:layout_marginLeft="@dimen/x18"
+            android:text="0"
             android:gravity="center"
             android:textColor="@color/black"
             android:background="@drawable/white_bg_radius_5_with_stroke"

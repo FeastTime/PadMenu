@@ -37,6 +37,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
 
@@ -64,6 +65,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
     @Bind(R.id.input_message)
     EditText inputMessage;
+
 
     ChatAdapter mChatAdapter;
 
@@ -304,6 +306,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             }
         });
 
+        MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
+
     }
 
 
@@ -335,7 +339,16 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         shareIv.setVisibility(View.GONE);
         rightTitleBarIv.setVisibility(View.VISIBLE);
         titleTv.setText("全聚德");
+
+
+
     }
+
+    @OnClick(R.id.title_bar_right_iv)
+    public void topRightBarClick(View view){
+        MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
+    }
+
 
     @Override
     protected void onDestroy() {
