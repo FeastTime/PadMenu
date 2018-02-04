@@ -50,6 +50,9 @@ public class CouponDetailActivity extends BaseActivity {
     @Bind(R.id.activity_coupon_detail_left_title_tv)
     TextView leftTitleTv;
 
+    @Bind(R.id.activity_coupon_detail_left_price_tv)
+    TextView leftPriceTv;
+
     private CouponChildListItemInfo couponChildListItemInfo;
 
     private String storeName = "";
@@ -79,6 +82,7 @@ public class CouponDetailActivity extends BaseActivity {
         descriptionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
         expireTv.setText(couponChildListItemInfo.getCouponValidity());
         numberTv.setText(couponChildListItemInfo.getCouponCode());
-        leftTitleTv.setText(couponChildListItemInfo.getCouponTitle() + "元\n" + UtilTools.getCouponStrByType(Integer.parseInt(couponChildListItemInfo.getCouponType())));
+        leftTitleTv.setText(couponChildListItemInfo.getCouponTitle() + "元");
+        leftPriceTv.setText(UtilTools.getCouponStrByType(Integer.parseInt(couponChildListItemInfo.getCouponType())));
     }
 }
