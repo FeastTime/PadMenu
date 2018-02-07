@@ -74,6 +74,9 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.fragment_user_mine_nick_name_tv)
     TextView nickNameTv;
 
+    @Bind(R.id.fragment_user_mine_phone_tv)
+    TextView phoneTv;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +114,7 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
                 if (queryUserInfo.getResultCode() == 0) {
                     Picasso.with(UserMineFragment.this.getActivity()).load(queryUserInfo.getUserIcon()).placeholder(R.mipmap.default_user_icon).transform(new CircleImageTransformation()).into(userIconIv);
                     nickNameTv.setText(queryUserInfo.getNickName());
+                    phoneTv.setText(queryUserInfo.getMobileNo());
                 } else {
 
                 }

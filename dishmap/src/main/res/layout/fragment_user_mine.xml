@@ -53,14 +53,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y26"
                 android:text="0"
+                android:includeFontPadding="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/big_text_size" />
 
             <TextView
+                android:id="@+id/fragment_user_mine_phone_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y15"
+                android:paddingTop="@dimen/x3"
+                android:includeFontPadding="false"
+                android:paddingBottom="@dimen/x3"
+                android:paddingLeft="@dimen/x8"
+                android:paddingRight="@dimen/x8"
                 android:text="0"
+                android:background="@drawable/blue_2_bg_radius_5"
                 android:textColor="@color/white"
                 android:textSize="@dimen/small_text_size" />
         </LinearLayout>
