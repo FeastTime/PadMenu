@@ -42,6 +42,7 @@ public class MyService extends Service {
 
         //如果多次请求service 那么先结束之前的连接
 
+        Log.d(TAG, "onStartCommand");
 
         closeWebSocket();
 
