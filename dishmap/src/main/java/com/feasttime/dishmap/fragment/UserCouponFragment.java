@@ -93,7 +93,10 @@ public class UserCouponFragment extends Fragment {
                 startActivity(new Intent(v.getContext(), ExpireCouponActivity.class));
             }
         });
+
         mContentElv.addFooterView(footerView);
+        mContentElv.setGroupIndicator(null);
+
         requestNet();
     }
 
