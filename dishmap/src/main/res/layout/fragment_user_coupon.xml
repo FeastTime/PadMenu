@@ -11,6 +11,65 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y128"></include>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y82"
+        android:background="@mipmap/coupon_management_titlebar_bg"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/fragment_user_coupon_title_no_used_rel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fragment_user_coupon_title_no_used_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/orange_color"
+                android:textSize="@dimen/big_text_size"
+                android:gravity="center"
+                android:text="未使用" />
+
+            <TextView
+                android:id="@+id/fragment_user_coupon_title_no_used_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y3"
+                android:layout_alignParentBottom="true"
+                android:background="@color/red_1" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_user_coupon_title_had_used_rel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fragment_user_coupon_title_had_used_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/text_gray_design_2"
+                android:textSize="@dimen/big_text_size"
+                android:gravity="center"
+                android:text="已使用" />
+
+            <TextView
+                android:id="@+id/fragment_user_coupon_title_had_used_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y3"
+                android:layout_alignParentBottom="true"
+                android:background="@color/red_1"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
     <include
         android:id="@+id/no_data_layout"
         layout="@layout/no_data_layout"

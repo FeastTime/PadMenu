@@ -60,7 +60,7 @@ public class ExpireCouponActivity extends BaseActivity implements View.OnClickLi
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
-
+        contentElv.setGroupIndicator(null);
         requestCouponData();
     }
 

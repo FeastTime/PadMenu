@@ -2,6 +2,7 @@ package com.feasttime.dishmap.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
@@ -30,6 +32,7 @@ import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
@@ -37,7 +40,7 @@ import io.reactivex.functions.Consumer;
  * Created by chen on 2018/1/10.
  */
 
-public class UserCouponFragment extends Fragment {
+public class UserCouponFragment extends Fragment implements View.OnClickListener{
 
     @Bind(R.id.fragment_user_coupon_content_elv)
     ExpandableListView mContentElv;
@@ -57,6 +60,27 @@ public class UserCouponFragment extends Fragment {
     @Bind(R.id.no_data_layout)
     View nodataView;
 
+    @Bind(R.id.fragment_user_coupon_title_no_used_rel)
+    RelativeLayout noUsedCouponRel;
+
+    @Bind(R.id.fragment_user_coupon_title_had_used_rel)
+    RelativeLayout hadUsedCouponRel;
+
+    @Bind(R.id.fragment_user_coupon_title_no_used_tv)
+    TextView noUsedTv;
+
+    @Bind(R.id.fragment_user_coupon_title_no_used_line)
+    TextView noUsedLine;
+
+
+    @Bind(R.id.fragment_user_coupon_title_had_used_tv)
+    TextView hadUsedTv;
+
+    @Bind(R.id.fragment_user_coupon_title_had_used_line)
+    TextView hadUsedLine;
+
+    Resources resources;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +91,7 @@ public class UserCouponFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_coupon, container, false);
         ButterKnife.bind(this,view);
+        resources = this.getActivity().getResources();
         initViews();
         return view;
     }
@@ -77,6 +102,9 @@ public class UserCouponFragment extends Fragment {
     }
 
 
+    public void requestNoUsedCoupon() {
+        noUsedCouponRel.performClick();
+    }
 
     private void initViews() {
         titleBarBackIv.setVisibility(View.GONE);
@@ -93,8 +121,11 @@ public class UserCouponFragment extends Fragment {
                 startActivity(new Intent(v.getContext(), ExpireCouponActivity.class));
             }
         });
+
         mContentElv.addFooterView(footerView);
-        requestNet();
+        mContentElv.setGroupIndicator(null);
+
+        noUsedCouponRel.performClick();
     }
 
     @Override
@@ -102,7 +133,7 @@ public class UserCouponFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void requestNet() {
+    public void requestNet(String flag) {
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
@@ -137,5 +168,27 @@ public class UserCouponFragment extends Fragment {
 
             }
         });
+    }
+
+    @OnClick({R.id.fragment_user_coupon_title_no_used_rel,R.id.fragment_user_coupon_title_had_used_rel})
+    @Override
+    public void onClick(View v) {
+        if (v == hadUsedCouponRel) {
+
+            hadUsedTv.setTextColor(resources.getColor(R.color.orange_color));
+            noUsedTv.setTextColor(resources.getColor(R.color.text_gray_design_2));
+
+            hadUsedLine.setVisibility(View.VISIBLE);
+            noUsedLine.setVisibility(View.INVISIBLE);
+            requestNet("0");
+        } else if (v == noUsedCouponRel) {
+            requestNet("2");
+
+            noUsedTv.setTextColor(resources.getColor(R.color.orange_color));
+            hadUsedTv.setTextColor(resources.getColor(R.color.text_gray_design_2));
+
+            noUsedLine.setVisibility(View.VISIBLE);
+            hadUsedLine.setVisibility(View.INVISIBLE);
+        }
     }
 }
