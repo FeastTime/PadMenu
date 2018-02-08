@@ -158,8 +158,14 @@ public class UtilTools {
 
     //计算时间距离现在的天数
     public static String getDaysFromOtherDate(long time) {
-        long distance = System.currentTimeMillis() - time;
-        return distance/86400000  + "";
+
+        long distance = time - System.currentTimeMillis();
+
+        if(distance <= 0L){
+            return "0";
+        }
+
+        return 1 + distance/86400000  + "";
     }
 
     private static double rad(double d) {

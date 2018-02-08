@@ -385,7 +385,7 @@ public class MyDialogs {
                 // 修改 用餐人数
                 HashMap<String, String > requestData = new HashMap<>();
                 requestData.put("storeId", storeId);
-                requestData.put("dinerCount", dinerCountStr);
+                requestData.put("dinnerCount", dinerCountStr);
                 requestData.put("type", WebSocketEvent.SET_NUMBER_OF_USER+"");
 
                 UtilTools.requestByWebSocket(context, requestData);

@@ -1,6 +1,5 @@
 package com.feasttime.dishmap.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
@@ -25,16 +23,13 @@ import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.model.bean.NewTableNofiticationinfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
-import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
 import com.feasttime.dishmap.utils.UtilTools;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -354,7 +349,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     protected void onDestroy() {
         super.onDestroy();
         RxBus.getDefault().unRegister(this);
-        stopService(new Intent(this,MyService.class));
+
     }
 
     @Override
