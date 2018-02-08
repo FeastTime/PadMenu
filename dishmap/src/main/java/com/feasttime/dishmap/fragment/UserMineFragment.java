@@ -147,6 +147,7 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
         if (v == feedBackRel) {
             startActivity(new Intent(this.getActivity(), FeedBackActivity.class));
         } else if (v == logoutRel) {
+            PreferenceUtil.setStringKey(PreferenceUtil.USER_ID,"");
             PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,"");
             ToastUtil.showToast(this.getActivity(),"退出成功", Toast.LENGTH_SHORT);
         } else if (v == mySeatTv) {
