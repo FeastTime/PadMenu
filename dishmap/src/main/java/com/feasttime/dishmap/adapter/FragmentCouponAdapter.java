@@ -113,7 +113,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
             childViewHolder = new ChildViewHolder();
             childViewHolder.couponNameTv = (TextView) convertView.findViewById(R.id.fragment_user_coupon_child_item_coupon_name_tv);
             childViewHolder.couponPriceTv = (TextView)convertView.findViewById(R.id.fragment_user_coupon_child_item_price_tv);
-            childViewHolder.attentionTv = (TextView)convertView.findViewById(R.id.fragment_user_coupon_child_item_attention_tv);
+            childViewHolder.couponTitleTv = (TextView)convertView.findViewById(R.id.fragment_user_coupon_child_item_coupon_title_tv);
             childViewHolder.expireTv = (TextView)convertView.findViewById(R.id.fragment_user_coupon_child_item_expire_tv);
             childViewHolder.noUsedIconIv = (ImageView)convertView.findViewById(R.id.fragment_user_coupon_child_item_flag_icon_Iv);
             convertView.setTag(childViewHolder);
@@ -128,7 +128,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
 
             childViewHolder.couponNameTv.setTextColor(resources.getColor(R.color.orange_color));
             childViewHolder.couponPriceTv.setTextColor(resources.getColor(R.color.orange_color));
-            childViewHolder.attentionTv.setTextColor(resources.getColor(R.color.text_dark_gray));
+            childViewHolder.couponTitleTv.setTextColor(resources.getColor(R.color.text_dark_gray));
             childViewHolder.expireTv.setTextColor(resources.getColor(R.color.text_gray_design_1));
 
         } else {
@@ -137,7 +137,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
 
             childViewHolder.couponNameTv.setTextColor(resources.getColor(R.color.text_dark_gray));
             childViewHolder.couponPriceTv.setTextColor(resources.getColor(R.color.text_dark_gray));
-            childViewHolder.attentionTv.setTextColor(resources.getColor(R.color.text_dark_gray));
+            childViewHolder.couponTitleTv.setTextColor(resources.getColor(R.color.text_dark_gray));
             childViewHolder.expireTv.setTextColor(resources.getColor(R.color.text_dark_gray));
         }
 
@@ -148,7 +148,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         }
 
         childViewHolder.couponPriceTv.setText(couponChildListItemInfo.getCouponTitle());
-        childViewHolder.attentionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
+        childViewHolder.couponTitleTv.setText(couponChildListItemInfo.getCouponTitle());
 
         childViewHolder.expireTv.setText("距离现在仅剩" + UtilTools.getDaysFromOtherDate(couponChildListItemInfo.getCouponValidity()) + "天");
 
@@ -187,7 +187,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
     static class ChildViewHolder {
         TextView couponNameTv;
         TextView couponPriceTv;
-        TextView attentionTv;
+        TextView couponTitleTv;
         TextView expireTv;
         ImageView noUsedIconIv;
     }
