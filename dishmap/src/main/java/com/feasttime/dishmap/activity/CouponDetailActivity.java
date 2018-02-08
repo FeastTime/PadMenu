@@ -80,7 +80,7 @@ public class CouponDetailActivity extends BaseActivity {
 
         storeNameTv.setText(storeName);
         descriptionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
-        expireTv.setText(UtilTools.getDaysFromOtherDate(couponChildListItemInfo.getCouponValidity()));
+        expireTv.setText(UtilTools.getDaysFromOtherDate(couponChildListItemInfo.getCouponValidity()) + "天");
         numberTv.setText(couponChildListItemInfo.getCouponCode());
 
         String couponTile = couponChildListItemInfo.getCouponTitle();
