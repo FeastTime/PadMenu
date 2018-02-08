@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
@@ -37,7 +39,7 @@ import io.reactivex.functions.Consumer;
  * Created by chen on 2018/1/10.
  */
 
-public class UserCouponFragment extends Fragment {
+public class UserCouponFragment extends Fragment implements View.OnClickListener{
 
     @Bind(R.id.fragment_user_coupon_content_elv)
     ExpandableListView mContentElv;
@@ -56,6 +58,14 @@ public class UserCouponFragment extends Fragment {
 
     @Bind(R.id.no_data_layout)
     View nodataView;
+
+    @Bind(R.id.fragment_user_coupon_title_no_used_rel)
+    RelativeLayout noUsedCouponRel;
+
+    @Bind(R.id.fragment_user_coupon_title_had_used_rel)
+    RelativeLayout hadUsedCouponRel;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +87,9 @@ public class UserCouponFragment extends Fragment {
     }
 
 
+    public void requestNoUsedCoupon() {
+        noUsedCouponRel.performClick();
+    }
 
     private void initViews() {
         titleBarBackIv.setVisibility(View.GONE);
@@ -97,7 +110,7 @@ public class UserCouponFragment extends Fragment {
         mContentElv.addFooterView(footerView);
         mContentElv.setGroupIndicator(null);
 
-        requestNet();
+        hadUsedCouponRel.performClick();
     }
 
     @Override
@@ -105,7 +118,7 @@ public class UserCouponFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void requestNet() {
+    public void requestNet(String flag) {
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
@@ -140,5 +153,15 @@ public class UserCouponFragment extends Fragment {
 
             }
         });
+    }
+
+    @OnClick({R.id.fragment_user_coupon_title_no_used_rel,R.id.fragment_user_coupon_title_had_used_rel})
+    @Override
+    public void onClick(View v) {
+        if (v == hadUsedCouponRel) {
+            requestNet("0");
+        } else if (v == noUsedCouponRel) {
+            requestNet("2");
+        }
     }
 }

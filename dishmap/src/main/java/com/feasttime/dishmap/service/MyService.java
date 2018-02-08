@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.dhh.websocket.WebSocketInfo;
+import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.MerchantActivity;
 import com.feasttime.dishmap.activity.TestActivtiy;
 import com.feasttime.dishmap.model.WebSocketConfig;
@@ -26,8 +27,11 @@ import org.reactivestreams.Subscription;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import okhttp3.OkHttpClient;
 import okhttp3.WebSocket;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by chen on 2017/10/29.
@@ -68,6 +72,7 @@ public class MyService extends Service {
         final String requestUrl = WebSocketConfig.baseWsUrl + "/" + userId ;
 
         LogUtil.d(TAG,"will connect:" + requestUrl);
+
         //get StringMsg
         mDisposable = RxWebSocketUtil.getInstance().getWebSocketString(requestUrl)
                 .subscribe(new Consumer<String>() {
