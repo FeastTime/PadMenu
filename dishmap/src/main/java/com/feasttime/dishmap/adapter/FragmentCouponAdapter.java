@@ -128,7 +128,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         childViewHolder.couponPriceTv.setText(couponChildListItemInfo.getCouponTitle());
         childViewHolder.attentionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
 
-        childViewHolder.expireTv.setText("距离现在仅剩" + UtilTools.getDaysFromOtherDate(Long.parseLong(couponChildListItemInfo.getCouponValidity())) + "天");
+        childViewHolder.expireTv.setText("距离现在仅剩" + UtilTools.getDaysFromOtherDate(couponChildListItemInfo.getCouponValidity()) + "天");
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -80,9 +80,17 @@ public class CouponDetailActivity extends BaseActivity {
 
         storeNameTv.setText(storeName);
         descriptionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
-        expireTv.setText(couponChildListItemInfo.getCouponValidity());
+        expireTv.setText(UtilTools.getDaysFromOtherDate(couponChildListItemInfo.getCouponValidity()));
         numberTv.setText(couponChildListItemInfo.getCouponCode());
-        leftTitleTv.setText(couponChildListItemInfo.getCouponTitle() + "元");
+
+        String couponTile = couponChildListItemInfo.getCouponTitle();
+        if (couponTile.length() > 2) {
+            StringBuilder couponTileSb = new StringBuilder(couponTile);
+            couponTileSb.insert(2,"\n");
+            couponTile = couponTileSb.toString();
+        }
+
+        leftTitleTv.setText(couponTile);
         leftPriceTv.setText(UtilTools.getCouponStrByType(Integer.parseInt(couponChildListItemInfo.getCouponType())));
     }
 }

@@ -62,6 +62,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text=""
+                        android:visibility="gone"
                         android:includeFontPadding="false"
                         android:textColor="@color/orange_color"
                         android:textSize="@dimen/small_text_size" />

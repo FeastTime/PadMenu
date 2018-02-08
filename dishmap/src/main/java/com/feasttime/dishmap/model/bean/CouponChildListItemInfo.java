@@ -19,7 +19,7 @@ public class CouponChildListItemInfo implements Serializable{
 
     String couponType;
 
-    String couponValidity;
+    long couponValidity;
 
     String permissionsDescribed;
 
@@ -69,11 +69,11 @@ public class CouponChildListItemInfo implements Serializable{
         this.couponType = couponType;
     }
 
-    public String getCouponValidity() {
+    public long getCouponValidity() {
         return couponValidity;
     }
 
-    public void setCouponValidity(String couponValidity) {
+    public void setCouponValidity(long couponValidity) {
         this.couponValidity = couponValidity;
     }
 
