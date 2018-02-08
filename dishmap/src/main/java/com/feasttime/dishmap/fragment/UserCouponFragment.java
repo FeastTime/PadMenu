@@ -2,6 +2,7 @@ package com.feasttime.dishmap.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -65,7 +66,20 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
     @Bind(R.id.fragment_user_coupon_title_had_used_rel)
     RelativeLayout hadUsedCouponRel;
 
+    @Bind(R.id.fragment_user_coupon_title_no_used_tv)
+    TextView noUsedTv;
 
+    @Bind(R.id.fragment_user_coupon_title_no_used_line)
+    TextView noUsedLine;
+
+
+    @Bind(R.id.fragment_user_coupon_title_had_used_tv)
+    TextView hadUsedTv;
+
+    @Bind(R.id.fragment_user_coupon_title_had_used_line)
+    TextView hadUsedLine;
+
+    Resources resources;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +91,7 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_coupon, container, false);
         ButterKnife.bind(this,view);
+        resources = this.getActivity().getResources();
         initViews();
         return view;
     }
@@ -110,7 +125,7 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
         mContentElv.addFooterView(footerView);
         mContentElv.setGroupIndicator(null);
 
-        hadUsedCouponRel.performClick();
+        noUsedCouponRel.performClick();
     }
 
     @Override
@@ -159,9 +174,21 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v == hadUsedCouponRel) {
+
+            hadUsedTv.setTextColor(resources.getColor(R.color.orange_color));
+            noUsedTv.setTextColor(resources.getColor(R.color.text_gray_design_2));
+
+            hadUsedLine.setVisibility(View.VISIBLE);
+            noUsedLine.setVisibility(View.INVISIBLE);
             requestNet("0");
         } else if (v == noUsedCouponRel) {
             requestNet("2");
+
+            noUsedTv.setTextColor(resources.getColor(R.color.orange_color));
+            hadUsedTv.setTextColor(resources.getColor(R.color.text_gray_design_2));
+
+            noUsedLine.setVisibility(View.VISIBLE);
+            hadUsedLine.setVisibility(View.INVISIBLE);
         }
     }
 }
