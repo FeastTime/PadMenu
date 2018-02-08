@@ -18,6 +18,7 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -164,5 +165,13 @@ public class UtilTools {
 
     private static double rad(double d) {
         return d * Math.PI / 180.0;
+    }
+
+
+    //格式化日期
+    public static String formateDate(long date) {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy:MM:dd");
+        String resultDate = dateFormater.format(date);
+        return resultDate;
     }
 }
