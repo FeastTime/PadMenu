@@ -133,14 +133,13 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void requestNet(String isUse) {
+    public void requestNet(String flag) {
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
         infoMap.put("token",token);
         infoMap.put("userId",userId);
-        infoMap.put("flag","0");  //0未过期，1:已过期
-        infoMap.put("isUse",isUse);
+        infoMap.put("flag",flag);  //0未过期，1:已过期
         final BaseActivity baseActivity = ((BaseActivity)this.getActivity());
         baseActivity.showLoading(null);
         RetrofitService.queryCouponList(infoMap).subscribe(new Consumer<CouponInfo>(){
@@ -181,9 +180,9 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
 
             hadUsedLine.setVisibility(View.VISIBLE);
             noUsedLine.setVisibility(View.INVISIBLE);
-            requestNet("1");
+            requestNet("2");
         } else if (v == noUsedCouponRel) {
-            requestNet("0");
+            requestNet("1");
 
             noUsedTv.setTextColor(resources.getColor(R.color.orange_color));
             hadUsedTv.setTextColor(resources.getColor(R.color.text_gray_design_2));

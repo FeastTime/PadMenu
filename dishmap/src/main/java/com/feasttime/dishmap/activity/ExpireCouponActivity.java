@@ -80,7 +80,7 @@ public class ExpireCouponActivity extends BaseActivity implements View.OnClickLi
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
         infoMap.put("token",token);
         infoMap.put("userId",userId);
-        infoMap.put("flag","2");  //0:未过期，2:已过期
+        infoMap.put("flag","3");  //0:未过期，2:已过期
         showLoading(null);
         RetrofitService.queryCouponList(infoMap).subscribe(new Consumer<CouponInfo>(){
             @Override
