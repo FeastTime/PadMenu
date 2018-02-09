@@ -52,19 +52,19 @@
             <!--左边文字消息-->
             <RelativeLayout
                 android:id="@+id/activity_chat_listview_item_layout_left_msg"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/y20"
                 >
 
                 <TextView
                     android:id="@+id/activity_chat_listview_item_layout_left_msg_tv"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/x20"
                     android:layout_marginLeft="@dimen/x28"
                     android:textColor="@color/black"
-                    android:text="0"
+                    android:text=""
                     android:textSize="@dimen/big_text_size"
                     android:background="@drawable/chat_left_bg"
                     />
@@ -141,7 +141,7 @@
                     android:layout_marginLeft="@dimen/y100"
                     android:layout_marginRight="@dimen/x28"
                     android:textColor="@color/black"
-                    android:text="123000000000000000000000000000000000000000000000000000000123"
+                    android:text=""
                     android:padding="@dimen/x20"
                     android:singleLine="false"
                     android:background="@drawable/chat_right_bg"
