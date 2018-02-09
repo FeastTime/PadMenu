@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/activity_chat_listview_item_layout_time_tv"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:gravity="center"
-        android:alpha="0.1"
-        android:textSize="@dimen/small_text_size"
-        android:textColor="@color/white"
-        android:layout_marginTop="@dimen/y50"
-        android:background="@color/black"
-        />
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/activity_chat_listview_item_layout_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:gravity="center"
+            android:alpha="0.1"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/y50"
+            android:background="@color/black"
+            />
+
+    </RelativeLayout>
 
 
+    <!--左边消息-->
     <LinearLayout
         android:id="@+id/activity_chat_listview_item_layout_left_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/y100"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/y55"
         >
+
         <LinearLayout
-            android:layout_width="@dimen/x580"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <!--左边用户图标-->
             <ImageView
                 android:id="@+id/activity_chat_listview_item_layout_left_icon_iv"
                 android:layout_width="@dimen/x82"
                 android:layout_height="@dimen/x82"
+                android:scaleType="fitXY"
                 android:src="@mipmap/ic_launcher"
                 />
 
+            <!--左边文字消息-->
             <RelativeLayout
                 android:id="@+id/activity_chat_listview_item_layout_left_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/y20"
                 >
 
                 <TextView
                     android:id="@+id/activity_chat_listview_item_layout_left_msg_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/x20"
                     android:layout_marginLeft="@dimen/x28"
@@ -58,15 +70,17 @@
                     />
             </RelativeLayout>
 
+            <!--左边红包消息-->
             <RelativeLayout
                 android:id="@+id/activity_chat_listview_item_layout_left_red_package"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/activity_chat_listview_item_layout_left_red_package_image"
-                    android:layout_width="@dimen/y400"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y180"
                     android:scaleType="fitStart"
                     android:layout_marginLeft="@dimen/x28"
                     android:src="@mipmap/red_package_png"
@@ -79,49 +93,59 @@
     </LinearLayout>
 
 
+    <!--右边消息-->
     <LinearLayout
         android:id="@+id/activity_chat_listview_item_layout_right_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/y100"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/y55"
-        android:gravity="right"
         >
+
         <LinearLayout
-            android:layout_width="@dimen/x580"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:orientation="horizontal">
 
+            <!--右边红包消息-->
             <RelativeLayout
                 android:id="@+id/activity_chat_listview_item_layout_right_red_package"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/y20"
+                android:gravity="right">
 
                 <ImageView
                     android:id="@+id/activity_chat_listview_item_layout_right_red_package_image"
-                    android:layout_width="@dimen/y400"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y180"
                     android:layout_marginLeft="@dimen/x28"
                     android:scaleType="fitStart"
                     android:src="@mipmap/red_package_png"
                     />
             </RelativeLayout>
 
+            <!--右边文字消息-->
             <RelativeLayout
                 android:id="@+id/activity_chat_listview_item_layout_right_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
 
                 <TextView
                     android:id="@+id/activity_chat_listview_item_layout_right_msg_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="0"
-                    android:padding="@dimen/x20"
-                    android:background="@drawable/chat_right_bg"
+                    android:layout_marginLeft="@dimen/y100"
                     android:layout_marginRight="@dimen/x28"
+                    android:textColor="@color/black"
+                    android:text="123000000000000000000000000000000000000000000000000000000123"
+                    android:padding="@dimen/x20"
+                    android:singleLine="false"
+                    android:background="@drawable/chat_right_bg"
+
                     android:textSize="@dimen/big_text_size"
                     />
             </RelativeLayout>

@@ -10,8 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.activity.ChatActivity;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.UtilTools;
@@ -22,12 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ *
  * Created by chen on 2017/10/25.
  */
 
 public class ChatAdapter extends BaseAdapter {
 
-    private List<ChatMsgItemInfo> dataList = new ArrayList<ChatMsgItemInfo>();
+    private List<ChatMsgItemInfo> dataList = new ArrayList<>();
 
     private LayoutInflater mLayoutInflater;
     private String storeId;
@@ -97,7 +100,7 @@ public class ChatAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ChatMsgItemInfo chatMsgItemInfo = dataList.get(position);
+        final ChatMsgItemInfo chatMsgItemInfo = dataList.get(position);
 
         holder.timeTv.setText(chatMsgItemInfo.getTime());
 
@@ -111,6 +114,14 @@ public class ChatAdapter extends BaseAdapter {
                 holder.leftRedPackageLayout.setVisibility(View.VISIBLE);
                 holder.leftMessageLayout.setVisibility(View.GONE);
 
+                if (chatMsgItemInfo.isRedPackageUsed()){
+
+                    holder.leftRedPackageImage.setImageResource(R.mipmap.red_package_png_used);
+                } else {
+
+                    holder.leftRedPackageImage.setImageResource(R.mipmap.red_package_png);
+                }
+
                 holder.leftRedPackageImage.setTag(R.id.red_package_id, chatMsgItemInfo.getRedPackageId());
 
                 if (null != chatMsgItemInfo.getRedPackageId()){
@@ -120,12 +131,22 @@ public class ChatAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View view) {
 
+                            if (chatMsgItemInfo.isRedPackageUsed()){
+                                Toast.makeText(context, "您已经点过这个优惠券！", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
                             HashMap<String, String > requestData = new HashMap<>();
-                            requestData.put("redPackageId", view.getTag(R.id.red_package_id).toString());
+
+                            requestData.put("redPackageId", chatMsgItemInfo.getRedPackageId().toString());
                             requestData.put("type", WebSocketEvent.OPEN_RED_PACKAGE+"");
                             requestData.put("storeId", storeId);
 
                             UtilTools.requestByWebSocket(context, requestData);
+                            chatMsgItemInfo.setRedPackageUsed(true);
+
+                            ChatAdapter.this.notifyDataSetChanged();
+
                         }
                     });
                 }
