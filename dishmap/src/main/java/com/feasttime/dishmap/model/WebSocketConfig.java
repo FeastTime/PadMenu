@@ -1,6 +1,7 @@
 package com.feasttime.dishmap.model;
 
 /**
+ *
  * Created by chen on 2017/10/29.
  */
 

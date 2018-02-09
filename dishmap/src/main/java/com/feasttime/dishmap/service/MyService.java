@@ -46,6 +46,11 @@ public class MyService extends Service {
 
         closeWebSocket();
 
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         OkHttpClient okHttpClient = new OkHttpClient();
 
         String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
