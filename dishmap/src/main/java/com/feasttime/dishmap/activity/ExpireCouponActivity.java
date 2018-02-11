@@ -10,6 +10,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.FragmentCouponAdapter;
 import com.feasttime.dishmap.fragment.UserCouponFragment;
 import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 

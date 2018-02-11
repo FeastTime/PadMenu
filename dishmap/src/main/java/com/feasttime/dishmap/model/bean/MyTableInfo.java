@@ -6,9 +6,8 @@ import java.util.List;
  * Created by chen on 2018/1/26.
  */
 
-public class MyTableInfo {
-    int resultCode;
-    String resultMsg;
+public class MyTableInfo extends BaseResponseBean{
+
 
     List<MyTableItemInfo> tablesList;
 

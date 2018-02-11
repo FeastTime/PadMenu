@@ -19,6 +19,7 @@ import com.feasttime.dishmap.activity.ExpireCouponActivity;
 import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.adapter.FragmentCouponAdapter;
 import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.CouponListItemInfo;

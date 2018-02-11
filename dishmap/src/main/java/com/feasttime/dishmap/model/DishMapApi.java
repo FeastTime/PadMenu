@@ -1,18 +1,16 @@
 package com.feasttime.dishmap.model;
 
 
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
-import com.feasttime.dishmap.model.bean.UniversalInfo;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 /**
@@ -31,7 +29,7 @@ public interface DishMapApi {
 
     //保存用户手机号
     @POST("user/saveUserPhone")
-    Observable<UniversalInfo> saveUserPhone(@Body RequestBody route);
+    Observable<BaseResponseBean> saveUserPhone(@Body RequestBody route);
 
     //查询付费桌位详情
     @POST("table/queryPayTableDetail")
@@ -63,5 +61,5 @@ public interface DishMapApi {
 
     //意见反馈接口
     @POST("user/feedback")
-    Observable<UniversalInfo> feedback(@Body RequestBody route);
+    Observable<BaseResponseBean> feedback(@Body RequestBody route);
 }

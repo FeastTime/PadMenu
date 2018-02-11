@@ -4,9 +4,8 @@ package com.feasttime.dishmap.model.bean;
  * Created by chen on 2017/10/19.
  */
 
-public class RegisterInfo {
-    int resultCode;
-    String resultMsg;
+public class RegisterInfo  extends BaseResponseBean{
+
     String token;
 
     public int getResultCode() {

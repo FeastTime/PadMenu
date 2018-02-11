@@ -4,9 +4,8 @@
 
 package com.feasttime.dishmap.model.bean;
 
-public class LoginInfo {
-    int resultCode;
-    String resultMsg;
+public class LoginInfo extends BaseResponseBean{
+
     String token;
     String storeId;
     String userType;

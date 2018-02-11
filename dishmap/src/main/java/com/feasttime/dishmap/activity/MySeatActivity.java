@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.MySeatAdapter;
 import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;

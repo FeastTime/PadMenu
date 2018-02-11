@@ -21,6 +21,7 @@ import com.feasttime.dishmap.activity.MessageActivity;
 import com.feasttime.dishmap.activity.MySeatActivity;
 import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.utils.CircleImageTransformation;
 import com.feasttime.dishmap.utils.PreferenceUtil;

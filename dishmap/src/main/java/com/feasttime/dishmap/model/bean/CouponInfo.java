@@ -7,9 +7,8 @@ import java.util.List;
  * Created by chen on 2018/1/25.
  */
 
-public class CouponInfo {
-    int resultCode;
-    String resultMsg;
+public class CouponInfo extends BaseResponseBean{
+
     ArrayList<CouponListItemInfo> couponList;
 
     public int getResultCode() {

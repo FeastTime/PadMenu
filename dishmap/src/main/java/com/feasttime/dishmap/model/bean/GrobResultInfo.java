@@ -6,19 +6,11 @@ package com.feasttime.dishmap.model.bean;
  * Created by chen on 2017/11/5.
  */
 
-public class GrobResultInfo {
+public class GrobResultInfo extends BaseResponseBean{
 
-    int resultCode;
     String userID;
     String bid;
 
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
-    }
 
     public String getUserID() {
         return userID;

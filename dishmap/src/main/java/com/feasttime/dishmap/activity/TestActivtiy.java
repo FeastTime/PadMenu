@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.application.MyApplication;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.model.WebSocketConfig;
 import com.feasttime.dishmap.service.MyService;
@@ -94,7 +95,8 @@ public class TestActivtiy extends BaseActivity {
 //                });
 
 //        MyDialogs.modifyEatPersonNumber(this);
-        MyDialogs.showGrabRedPacketResult(this);
+//        MyDialogs.showGrabRedPacketResult(this);
+        UtilTools.loginWithWeChat(MyApplication.getInstance());
     }
 
 

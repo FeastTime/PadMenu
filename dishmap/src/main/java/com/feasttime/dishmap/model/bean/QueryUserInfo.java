@@ -4,9 +4,8 @@ package com.feasttime.dishmap.model.bean;
  * Created by chen on 2018/1/23.
  */
 
-public class QueryUserInfo {
-    int resultCode;
-    String resultMsg;
+public class QueryUserInfo extends BaseResponseBean{
+
     String nickName;
     String mobileNo;
     String userIcon;

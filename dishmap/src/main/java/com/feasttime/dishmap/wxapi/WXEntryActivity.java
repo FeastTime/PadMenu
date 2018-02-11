@@ -1,10 +1,8 @@
 package com.feasttime.dishmap.wxapi;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -12,8 +10,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.LoginInfo;
-import com.feasttime.dishmap.model.bean.UniversalInfo;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
@@ -147,6 +145,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                 @Override
                                 public void accept(LoginInfo loginInfo) throws Exception {
                                     if (loginInfo.getResultCode() == 0) {
+
                                         PreferenceUtil.setStringKey(PreferenceUtil.USER_ID,loginInfo.getUserId());
                                         PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,loginInfo.getToken());
 

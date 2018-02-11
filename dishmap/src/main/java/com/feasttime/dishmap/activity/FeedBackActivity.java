@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.RetrofitService;
-import com.feasttime.dishmap.model.bean.UniversalInfo;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 
@@ -98,10 +98,10 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
 
         showLoading(null);
 
-        RetrofitService.feedback(infoMap).subscribe(new Consumer<UniversalInfo>(){
+        RetrofitService.feedback(infoMap).subscribe(new Consumer<BaseResponseBean>(){
             @Override
-            public void accept(UniversalInfo universalInfo) throws Exception {
-                if (universalInfo.getResultCode() == 0) {
+            public void accept(BaseResponseBean baseResponseBean) throws Exception {
+                if (baseResponseBean.getResultCode() == 0) {
                     ToastUtil.showToast(FeedBackActivity.this,"成功", Toast.LENGTH_SHORT);
                     finish();
                 } else {

@@ -11,13 +11,12 @@ import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
-import com.feasttime.dishmap.model.bean.UniversalInfo;
 import com.feasttime.dishmap.utils.CircleImageTransformation;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
-import com.feasttime.dishmap.wxapi.WXEntryActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -170,11 +169,11 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
             infoMap.put("token",token);
             infoMap.put("userID",userId);
             infoMap.put("mobileNO","");
-            RetrofitService.saveUserPhone(infoMap).subscribe(new Consumer<UniversalInfo>(){
+            RetrofitService.saveUserPhone(infoMap).subscribe(new Consumer<BaseResponseBean>(){
                 @Override
-                public void accept(UniversalInfo universalInfo) throws Exception {
+                public void accept(BaseResponseBean baseResponseBean) throws Exception {
                     hideLoading();
-                    if (universalInfo.getResultCode() == 0) {
+                    if (baseResponseBean.getResultCode() == 0) {
                         ToastUtil.showToast(SetUserInfoActivity.this,"保存成功",Toast.LENGTH_SHORT);
                         finish();
                     } else {

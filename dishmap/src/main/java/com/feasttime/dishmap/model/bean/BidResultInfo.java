@@ -6,9 +6,8 @@ import java.util.List;
  * Created by chen on 2017/11/5.
  */
 
-public class BidResultInfo {
+public class BidResultInfo extends BaseResponseBean{
 
-    int resultCode;
     List<BidResultItem> data;
     String bid;
 

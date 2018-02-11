@@ -6,8 +6,8 @@ import java.util.List;
  * Created by chen on 2017/11/15.
  */
 
-public class HistoryTableListInfo {
-    int resultCode;
+public class HistoryTableListInfo extends BaseResponseBean{
+
     List<HistoryTableListItemInfo> deskList;
 
     public int getResultCode() {

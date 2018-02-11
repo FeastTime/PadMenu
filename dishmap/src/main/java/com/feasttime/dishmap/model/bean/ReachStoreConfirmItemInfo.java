@@ -4,7 +4,7 @@ package com.feasttime.dishmap.model.bean;
  * Created by chen on 2017/10/29.
  */
 
-public class ReachStoreConfirmItemInfo {
+public class ReachStoreConfirmItemInfo extends BaseResponseBean{
     String name;
     String number;
     String type;

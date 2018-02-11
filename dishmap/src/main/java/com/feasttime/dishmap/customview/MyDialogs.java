@@ -24,6 +24,7 @@ import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.activity.ScanActivity;
 import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.PriceChangeInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
@@ -511,10 +512,10 @@ public class MyDialogs {
                         ((BaseActivity)activity).showLoading(null);
 
                         //请求网络
-                        RetrofitService.queryUserInfo(infoMap).subscribe(new Consumer<QueryUserInfo>(){
+                        RetrofitService.queryUserInfo(infoMap).subscribe(new Consumer<BaseResponseBean>(){
                             @Override
-                            public void accept(QueryUserInfo queryUserInfo) throws Exception {
-                                if (queryUserInfo.getResultCode() == 0) {
+                            public void accept(BaseResponseBean BaseResponseBean) throws Exception {
+                                if (BaseResponseBean.getResultCode() == 0) {
                                     dialog.dismiss();
                                 } else {
 
