@@ -27,7 +27,7 @@ public class CouponChildListItemInfo implements Serializable{
 
     String userId;
 
-    byte isUsed;
+    byte isUse;
 
     public String getCouponId() {
         return couponId;
@@ -101,11 +101,11 @@ public class CouponChildListItemInfo implements Serializable{
         this.userId = userId;
     }
 
-    public byte getIsUsed() {
-        return isUsed;
+    public byte getIsUse() {
+        return isUse;
     }
 
-    public void setIsUsed(byte isUsed) {
-        this.isUsed = isUsed;
+    public void setIsUse(byte isUse) {
+        this.isUse = isUse;
     }
 }

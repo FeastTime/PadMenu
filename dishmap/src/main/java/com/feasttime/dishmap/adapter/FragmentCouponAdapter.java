@@ -122,7 +122,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         }
         final CouponChildListItemInfo couponChildListItemInfo = datasList.get(groupPosition).getDataList().get(childPosition);
 
-        if (couponChildListItemInfo.getIsUsed() == 1) {
+        if (couponChildListItemInfo.getIsUse() == 1) {
             //未使用
             childViewHolder.noUsedIconIv.setVisibility(View.GONE);
 
