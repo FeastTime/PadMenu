@@ -89,6 +89,9 @@ public class UtilTools {
         RxWebSocketUtil rxWebSocketUtil = RxWebSocketUtil.getInstance();
         if (null == rxWebSocketUtil){
             Log.d("lixiaoqing", "----  rxWebSocketUtil is null ----" );
+            ToastUtil.showToast(context,"发送信息失败", Toast.LENGTH_SHORT);
+            return;
+
         }
         if (!StringUtils.isEmpty(WebSocketConfig.wsRequestUrl) && !StringUtils.isEmpty(requestJson) && null != rxWebSocketUtil)
             rxWebSocketUtil.asyncSend(WebSocketConfig.wsRequestUrl, requestJson);
