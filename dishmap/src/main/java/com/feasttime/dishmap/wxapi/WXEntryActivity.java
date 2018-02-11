@@ -228,15 +228,19 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 result = "取消";
+                finish();
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
                 result = "取消";
+                finish();
                 break;
             case BaseResp.ErrCode.ERR_UNSUPPORT:
                 result = "不支持";
+                finish();
                 break;
             default:
                 result = "未知";
+                finish();
                 break;
         }
 
