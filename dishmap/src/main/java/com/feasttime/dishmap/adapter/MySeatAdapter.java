@@ -63,7 +63,6 @@ public class MySeatAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-
         MyTableItemInfo myTableItemInfo = dataList.get(position);
         holder.nickNameTv.setText(myTableItemInfo.getUserNickName());
         holder.storeNameTv.setText(myTableItemInfo.getStoreName());
@@ -80,7 +79,6 @@ public class MySeatAdapter extends BaseAdapter {
 
         return convertView;
     }
-
 
     static class ViewHolder {
         TextView storeNameTv;

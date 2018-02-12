@@ -83,17 +83,20 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             @Override
             public void onSend() {
                 Log.d(TAG, "onSend");
+                ChatActivity.this.showLoading("");
             }
 
             @Override
             public void onResult() {
                 Log.d(TAG, "onResult");
+                ChatActivity.this.hideLoading();
             }
 
             @Override
             public void onError() {
 
                 Log.d(TAG, "onError");
+                ChatActivity.this.hideLoading();
             }
         });
         contentLv.setAdapter(mChatAdapter);
@@ -159,6 +162,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 // 收到红包
                 else if(orderEvent.eventType == WebSocketEvent.RECEIVED_RED_PACKAGE) {
 
+
                     // 红包id
                     String redPackageId = jsonObject.getString("redPackageId");
 //                    String nickname = jsonObject.getString("nickname");
@@ -181,6 +185,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                 // 拆开红包通知
                 else if(orderEvent.eventType == WebSocketEvent.RECEIVED_RED_PACKAGE_SURPRISED) {
+
+                    ChatActivity.this.hideLoading();
 
                     String message = jsonObject.getString("message");
 
