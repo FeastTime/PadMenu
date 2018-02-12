@@ -67,6 +67,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     private String storeId = "";
     private String userId = "";
     private String userIcon = "";
+    private String storeName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         storeId = this.getIntent().getStringExtra("STORE_ID");
         userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
         userIcon = PreferenceUtil.getStringKey(PreferenceUtil.USER_ICON);
-
+        storeName = this.getIntent().getStringExtra("STORE_NAME");
 
         List<ChatMsgItemInfo> datas = new ArrayList<>();
 //        for (int i = 0; i < 10; i++) {
@@ -333,7 +334,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     private void initViews() {
         shareIv.setVisibility(View.GONE);
         rightTitleBarIv.setVisibility(View.VISIBLE);
-        titleTv.setText("全聚德");
+        titleTv.setText(storeName);
 
 
 

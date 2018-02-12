@@ -110,6 +110,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                 // 打开聊天页面
                 Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
                 intent.putExtra("STORE_ID", storeId);
+                intent.putExtra("STORE_NAME",storeName);
 
                 ScanActivity.this.startActivity(intent);
                 ScanActivity.this.finish();
