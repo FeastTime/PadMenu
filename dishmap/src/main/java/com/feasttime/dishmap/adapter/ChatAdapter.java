@@ -141,7 +141,16 @@ public class ChatAdapter extends BaseAdapter {
                             requestData.put("type", WebSocketEvent.OPEN_RED_PACKAGE+"");
                             requestData.put("storeId", storeId);
 
-                            UtilTools.requestByWebSocket(context, requestData);
+                            if (UtilTools.requestByWebSocket(context, requestData)){
+
+                                if (null != openWaitingListener)
+                                    openWaitingListener.onSend();
+
+                            } else {
+
+                                if (null != openWaitingListener)
+                                    openWaitingListener.onError();
+                            }
 
                             chatMsgItemInfo.setRedPackageUsed(true);
 

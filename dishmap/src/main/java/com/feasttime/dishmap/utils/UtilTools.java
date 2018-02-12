@@ -1,15 +1,12 @@
 package com.feasttime.dishmap.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.alibaba.fastjson.JSON;
 import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.config.GlobalConfig;
@@ -17,17 +14,18 @@ import com.feasttime.dishmap.model.WebSocketConfig;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
+ *
  * Created by chen on 2017/9/20.
  */
 
 public class UtilTools {
     private static final double EARTH_RADIUS = 6378137.0;
+    private static final String TAG = "UtilTools";
 
     public static int[] getImageWidthHeight(Context context, int resid){
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -61,40 +59,40 @@ public class UtilTools {
 
     }
 
-
     /**
-     * 通过websocket 发送消息
+     * 通过webSocket 发送消息
      *
      * @param context Context
      * @param originRequestDataMap map
      */
-    public static void requestByWebSocket(Context context,Map<String,String> originRequestDataMap) {
-        String imei = DeviceTool.getIMEI(context);
-        String androidID = DeviceTool.getAndroidId(context);
-        String ipv4 = DeviceTool.getIP(context);
-        String mac = DeviceTool.getLocalMacAddress(context);
+    public static boolean requestByWebSocket(Context context,Map<String,String> originRequestDataMap) {
 
-        HashMap<String,String> requestData = new HashMap<String,String>();
+        HashMap<String, String> requestData = new HashMap<>();
+
         requestData.put("userId", PreferenceUtil.getStringKey(PreferenceUtil.USER_ID));
-        requestData.put("deviceId",imei);
-        requestData.put("token",PreferenceUtil.getStringKey(PreferenceUtil.TOKEN));
-
-//        requestData.put("mobileNo",PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
+        requestData.put("deviceId", DeviceTool.getIMEI(context));
+        requestData.put("token", PreferenceUtil.getStringKey(PreferenceUtil.TOKEN));
         requestData.putAll(originRequestDataMap);
+
         String requestJson = JSON.toJSONString(requestData);
 
-        Log.d("lixiaoqing", "wsRequestUrl +     " + WebSocketConfig.wsRequestUrl);
-        Log.d("lixiaoqing", "requestJson +     " + requestJson);
+        Log.d(TAG, "wsRequestUrl " + WebSocketConfig.wsRequestUrl + "requestJson : ");
+        Log.d(TAG, "requestJson +     " + requestJson);
 
         RxWebSocketUtil rxWebSocketUtil = RxWebSocketUtil.getInstance();
-        if (null == rxWebSocketUtil){
-            Log.d("lixiaoqing", "----  rxWebSocketUtil is null ----" );
-            ToastUtil.showToast(context,"发送信息失败", Toast.LENGTH_SHORT);
-            return;
 
+        if (null == rxWebSocketUtil
+            ||StringUtils.isEmpty(WebSocketConfig.wsRequestUrl)
+            || StringUtils.isEmpty(requestJson)
+            ){
+            Log.d(TAG, "----webSocket  发送信息失败 ----" );
+            ToastUtil.showToast(context,"发送信息失败", Toast.LENGTH_SHORT);
+            return false;
         }
-        if (!StringUtils.isEmpty(WebSocketConfig.wsRequestUrl) && !StringUtils.isEmpty(requestJson) && null != rxWebSocketUtil)
-            rxWebSocketUtil.asyncSend(WebSocketConfig.wsRequestUrl, requestJson);
+
+        rxWebSocketUtil.asyncSend(WebSocketConfig.wsRequestUrl, requestJson);
+
+        return true;
     }
 
     //微信登录

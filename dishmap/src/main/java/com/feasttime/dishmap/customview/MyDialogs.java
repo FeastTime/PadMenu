@@ -26,7 +26,6 @@ import com.feasttime.dishmap.model.bean.PriceChangeInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
-import com.feasttime.dishmap.utils.StringUtils;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 import java.util.HashMap;
@@ -451,7 +450,6 @@ public class MyDialogs {
         dialog.getWindow().setAttributes(params);
         dialog.show();
     }
-
 
     /**
      * 补充手机号
