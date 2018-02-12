@@ -5,8 +5,7 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,12 +13,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-
 import com.feasttime.dishmap.R;
 
 
 public class BaseActivity extends Activity {
 
+    private static final String TAG = "BaseActivity";
     ProgressDialog m_pDialog;
     boolean isShowProgressDialog = false;
 
@@ -125,12 +124,32 @@ public class BaseActivity extends Activity {
 
         circle_anim.setInterpolator(interpolator);
 
-        ImageView loadingIcon = (ImageView) contentView.findViewById(R.id.progress_layout_loading_icon_iv);
+        final ImageView loadingIcon = (ImageView) contentView.findViewById(R.id.progress_layout_loading_icon_iv);
 
         //开始动画
         if (circle_anim != null) {
             loadingIcon.startAnimation(circle_anim);
         }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(700L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                BaseActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingIcon.setVisibility(View.VISIBLE);
+                    }
+                });
+
+                Log.d(TAG, "");
+            }
+        }).start();
     }
 
 

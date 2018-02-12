@@ -1,7 +1,6 @@
 package com.feasttime.dishmap.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +10,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.ChatActivity;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.UtilTools;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,18 +27,18 @@ import java.util.List;
 
 public class ChatAdapter extends BaseAdapter {
 
+    private ChatActivity.OpenWaitingListener openWaitingListener;
     private List<ChatMsgItemInfo> dataList = new ArrayList<>();
-
     private LayoutInflater mLayoutInflater;
     private String storeId;
-
     private Context context;
 
-    public ChatAdapter(Context context,List<ChatMsgItemInfo> datas, String storeId) {
-        dataList = datas;
+    public ChatAdapter(Context context,List<ChatMsgItemInfo> chatMsgItemInfoList, String storeId, ChatActivity.OpenWaitingListener openWaitingListener) {
+        dataList = chatMsgItemInfoList;
         mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.storeId = storeId;
+        this.openWaitingListener = openWaitingListener;
     }
 
     public void addData(ChatMsgItemInfo chatMsgItemInfo) {
@@ -66,6 +63,7 @@ public class ChatAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         ViewHolder holder;
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.activity_chat_listview_item_layout,
@@ -94,9 +92,10 @@ public class ChatAdapter extends BaseAdapter {
             holder.rightMessageLayout = (RelativeLayout) convertView.findViewById(R.id.activity_chat_listview_item_layout_right_msg);
             holder.rightMsgTv = (TextView) convertView.findViewById(R.id.activity_chat_listview_item_layout_right_msg_tv);
 
-
             convertView.setTag(holder);
-        } else {
+        }
+
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -138,11 +137,21 @@ public class ChatAdapter extends BaseAdapter {
 
                             HashMap<String, String > requestData = new HashMap<>();
 
-                            requestData.put("redPackageId", chatMsgItemInfo.getRedPackageId().toString());
+                            requestData.put("redPackageId", chatMsgItemInfo.getRedPackageId());
                             requestData.put("type", WebSocketEvent.OPEN_RED_PACKAGE+"");
                             requestData.put("storeId", storeId);
 
-                            UtilTools.requestByWebSocket(context, requestData);
+                            if (UtilTools.requestByWebSocket(context, requestData)){
+
+                                if (null != openWaitingListener)
+                                    openWaitingListener.onSend();
+
+                            } else {
+
+                                if (null != openWaitingListener)
+                                    openWaitingListener.onError();
+                            }
+
                             chatMsgItemInfo.setRedPackageUsed(true);
 
                             ChatAdapter.this.notifyDataSetChanged();
@@ -157,7 +166,6 @@ public class ChatAdapter extends BaseAdapter {
 
                 holder.leftMsgTv.setText(chatMsgItemInfo.getMsg());
             }
-
 
             if (!TextUtils.isEmpty(chatMsgItemInfo.getIcon())) {
                 Picasso.with(this.context)

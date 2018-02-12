@@ -7,14 +7,14 @@ import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
+import com.feasttime.dishmap.utils.FormatUtil;
 import com.feasttime.dishmap.utils.QRCodeUtil;
-
-import java.text.SimpleDateFormat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ *
  * Created by chen on 2018/1/26.
  */
 
@@ -67,7 +67,13 @@ public class MySeatDetailActivity extends BaseActivity {
 
         storeNameTv.setText(myTableItemInfo.getStoreName());
         descriptionTv.setText(myTableItemInfo.getDescription());
-        expireTv.setText(myTableItemInfo.getRecieveTime() + "分");
+
+        long expireTime = myTableItemInfo.getTaketableTime() + myTableItemInfo.getRecieveTime()*60*1000;
+
+
+        expireTv.setText(FormatUtil.formatDate(expireTime));
+
+
         numberTv.setText(myTableItemInfo.getTableId());
     }
 }

@@ -39,14 +39,6 @@ public class MyTableItemInfo implements Serializable{
 
     String description;
 
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
     public String getTableId() {
         return tableId;
     }
@@ -63,6 +55,14 @@ public class MyTableItemInfo implements Serializable{
         this.storeId = storeId;
     }
 
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
     public String getSuportSeatNumber() {
         return suportSeatNumber;
     }
@@ -77,22 +77,6 @@ public class MyTableItemInfo implements Serializable{
 
     public void setPassType(int passType) {
         this.passType = passType;
-    }
-
-    public long getMaketableTime() {
-        return maketableTime;
-    }
-
-    public void setMaketableTime(long maketableTime) {
-        this.maketableTime = maketableTime;
-    }
-
-    public long getTaketableTime() {
-        return taketableTime;
-    }
-
-    public void setTaketableTime(long taketableTime) {
-        this.taketableTime = taketableTime;
     }
 
     public long getRecieveTime() {
@@ -157,5 +141,21 @@ public class MyTableItemInfo implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public long getMaketableTime() {
+        return maketableTime;
+    }
+
+    public void setMaketableTime(long maketableTime) {
+        this.maketableTime = maketableTime;
+    }
+
+    public long getTaketableTime() {
+        return taketableTime;
+    }
+
+    public void setTaketableTime(long taketableTime) {
+        this.taketableTime = taketableTime;
     }
 }
