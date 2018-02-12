@@ -17,7 +17,7 @@ public class PreferenceUtil {
 	public static final String MOBILE_NO = "mobileNO";
 	public static final String TOKEN = "token";
 	public static final String USER_TYPE = "userType";
-	public static final String PERSION_NO = "persionNO";
+	public static final String PERSON_NO = "personNO";
 	public static final String WE_CHAT_OPENID = "openId";
 	public static final String USER_ID = "userId";
 	public static final String USER_ICON = "userIcon"; //用户头像

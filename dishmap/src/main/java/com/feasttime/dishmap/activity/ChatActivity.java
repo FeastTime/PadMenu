@@ -213,17 +213,18 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                 }
 
-                else if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
-
-                    NewTableNofiticationinfo newTableNofiticationinfo = JSON.parseObject(orderEvent.jsonData,NewTableNofiticationinfo.class);
-
-                    int toStorePerson = PreferenceUtil.getIntKey(ChatActivity.this,PreferenceUtil.PERSION_NO);
-
-                    if (toStorePerson >= Integer.parseInt(newTableNofiticationinfo.getMinPerson()) && toStorePerson <= Integer.parseInt(newTableNofiticationinfo.getMaxPerson())) {
-
-                        MyDialogs.showBetPriceDialog(ChatActivity.this,storeId,newTableNofiticationinfo.getBid(),newTableNofiticationinfo.getTimeLimit(), PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
-                    }
-                } else if (orderEvent.eventType == WebSocketEvent.BID_TABLE_RESULT_NOTIFICATION) { // 竞价结果通知
+//                else if (orderEvent.eventType == WebSocketEvent.NEW_TABLE_NOTIFICATION) {
+//
+//                    NewTableNofiticationinfo newTableNofiticationinfo = JSON.parseObject(orderEvent.jsonData,NewTableNofiticationinfo.class);
+//
+//                    int toStorePerson = PreferenceUtil.getIntKey(ChatActivity.this,PreferenceUtil.PERSION_NO);
+//
+//                    if (toStorePerson >= Integer.parseInt(newTableNofiticationinfo.getMinPerson()) && toStorePerson <= Integer.parseInt(newTableNofiticationinfo.getMaxPerson())) {
+//
+//                        MyDialogs.showBetPriceDialog(ChatActivity.this,storeId,newTableNofiticationinfo.getBid(),newTableNofiticationinfo.getTimeLimit(), PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
+//                    }
+//                }
+                else if (orderEvent.eventType == WebSocketEvent.BID_TABLE_RESULT_NOTIFICATION) { // 竞价结果通知
 
                     String myPhone = PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO);
 

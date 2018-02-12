@@ -361,6 +361,7 @@ public class MyDialogs {
     /**
      * 修改就餐人数
      * @param context Context
+     * @param storeId 店铺Id
      */
     public static void modifyEatPersonNumber(final Context context, final String storeId) {
 
@@ -372,6 +373,8 @@ public class MyDialogs {
         dialog.setContentView(contentView);
 
         final EditText dinerCount = (EditText) contentView.findViewById(R.id.dialog_modify_eat_person_number_diner_count);
+        dinerCount.setText(PreferenceUtil.getStringKey(PreferenceUtil.PERSON_NO));
+
         Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_modify_eat_person_number_confirm_btn);
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
@@ -390,6 +393,8 @@ public class MyDialogs {
                 requestData.put("type", WebSocketEvent.SET_NUMBER_OF_USER+"");
 
                 UtilTools.requestByWebSocket(context, requestData);
+
+                PreferenceUtil.setStringKey(PreferenceUtil.PERSON_NO, dinerCountStr.equals("0") ? "" : dinerCountStr);
                 dialog.dismiss();
             }
         });
