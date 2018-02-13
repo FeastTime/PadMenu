@@ -14,6 +14,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.ChatActivity;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class ChatAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private String storeId;
     private Context context;
+    private String userId;
 
     public ChatAdapter(Context context,List<ChatMsgItemInfo> chatMsgItemInfoList, String storeId, ChatActivity.OpenWaitingListener openWaitingListener) {
         dataList = chatMsgItemInfoList;
@@ -39,6 +41,7 @@ public class ChatAdapter extends BaseAdapter {
         this.context = context;
         this.storeId = storeId;
         this.openWaitingListener = openWaitingListener;
+        userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
     }
 
     public void addData(ChatMsgItemInfo chatMsgItemInfo) {
@@ -140,6 +143,7 @@ public class ChatAdapter extends BaseAdapter {
                             requestData.put("redPackageId", chatMsgItemInfo.getRedPackageId());
                             requestData.put("type", WebSocketEvent.OPEN_RED_PACKAGE+"");
                             requestData.put("storeId", storeId);
+                            requestData.put("userId",userId);
 
                             if (UtilTools.requestByWebSocket(context, requestData)){
 
