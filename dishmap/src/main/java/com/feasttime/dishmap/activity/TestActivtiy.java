@@ -71,6 +71,7 @@ public class TestActivtiy extends BaseActivity {
     private RongIMClient.OnReceiveMessageListener onReceiveMessageListener = new RongIMClient.OnReceiveMessageListener() {
         @Override
         public boolean onReceived(Message message, int i) {
+
             if (message.getContent() instanceof TextMessage) {
                 Log.d(TAG, "收到文本消息: " + ((TextMessage) message.getContent()).getContent());
                 Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
@@ -124,7 +125,7 @@ public class TestActivtiy extends BaseActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextMessage textMessage = TextMessage.obtain("chen");
+                TextMessage textMessage = TextMessage.obtain("{\"name\":\"chen\"}");
                 textMessage.setExtra("guoliang");
                 sendTextMessage(textMessage);
             }
@@ -132,9 +133,32 @@ public class TestActivtiy extends BaseActivity {
 
         RongIMClient.setOnReceiveMessageListener(onReceiveMessageListener);
 
+        RongIMClient.getInstance().joinChatRoom("12",100,new RongIMClient.OperationCallback(){
+            @Override
+            public void onCallback() {
+                super.onCallback();
+            }
 
+            @Override
+            public void onFail(int errorCode) {
+                super.onFail(errorCode);
+            }
 
+            @Override
+            public void onFail(RongIMClient.ErrorCode errorCode) {
+                super.onFail(errorCode);
+            }
 
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
 
 
 

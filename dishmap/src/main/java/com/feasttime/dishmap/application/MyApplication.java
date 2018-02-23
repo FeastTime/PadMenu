@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
+import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.im.message.CustomizeMessage;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.receiver.NetReceiver;
@@ -23,10 +24,6 @@ import io.rong.message.FileMessage;
 
 public class MyApplication extends Application {
 
-    /**
-     * 由"开发者平台"提供的 App Key，
-     */
-    private static final String APP_KEY = "82hegw5uh8ijx";
     private static  MyApplication sInstance;
     private static NetReceiver netReceiver;
 
@@ -91,7 +88,7 @@ public class MyApplication extends Application {
          */
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
-            RongIMClient.init(this, APP_KEY);
+            RongIMClient.init(this, GlobalConfig.IM_RONGYUN_APPKEY);
         }
 
         /**

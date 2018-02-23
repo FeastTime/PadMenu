@@ -10,6 +10,15 @@ public class LoginInfo extends BaseResponseBean{
     String storeId;
     String userType;
     String userId;
+    String imToken;
+
+    public String getImToken() {
+        return imToken;
+    }
+
+    public void setImToken(String imToken) {
+        this.imToken = imToken;
+    }
 
     public String getUserId() {
         return userId;

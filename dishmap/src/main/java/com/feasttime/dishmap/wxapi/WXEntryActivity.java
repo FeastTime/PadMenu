@@ -148,6 +148,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
 
                                         PreferenceUtil.setStringKey(PreferenceUtil.USER_ID,loginInfo.getUserId());
                                         PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,loginInfo.getToken());
+                                        PreferenceUtil.setStringKey(PreferenceUtil.IM_TOKEN,loginInfo.getImToken());
+
 
                                         // 如果已经登录，启动长连接
                                         String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
