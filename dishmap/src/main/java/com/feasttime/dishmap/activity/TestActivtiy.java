@@ -2,6 +2,8 @@ package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -9,6 +11,8 @@ import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.application.MyApplication;
 import com.feasttime.dishmap.customview.MyDialogs;
+import com.feasttime.dishmap.im.FakeServer;
+import com.feasttime.dishmap.im.HttpUtil;
 import com.feasttime.dishmap.model.WebSocketConfig;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.DeviceTool;
@@ -17,12 +21,21 @@ import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 import com.jakewharton.rxbinding2.view.RxView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
+import io.rong.message.TextMessage;
 import okhttp3.OkHttpClient;
 
 /**
@@ -43,7 +56,12 @@ public class TestActivtiy extends BaseActivity {
 
     Disposable disposable;
 
-//    String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket/";
+    private static String mSenderIdTest; //发送信息者ID
+    private static String mSenderNameTest = "Oliver"; //发送信息者的昵称
+    private static String mPortraitUriTest = "http://static.yingyonghui.com/screenshots/1657/1657011_5.jpg"; //获取发送信息者头像的url
+    private static String token = "";
+
+    //    String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket/";
 //    String wsUrl = "ws://192.168.1.101:8081/websocket";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +74,28 @@ public class TestActivtiy extends BaseActivity {
         ipv4 = DeviceTool.getIP(this);
         mobileNO = DeviceTool.getPhoneNumber(this);
         mac = DeviceTool.getLocalMacAddress(this);
+
+
+        Button sendBtn = (Button)this.findViewById(R.id.activity_test_join_store_btn);
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextMessage textMessage = TextMessage.obtain("云中谁寄锦书来");
+                textMessage.setExtra("融云");
+                sendTextMessage(textMessage);
+            }
+        });
+
+
+        Button connectBtn = (Button)this.findViewById(R.id.activity_test_connect);
+        connectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connect(token);
+            }
+        });
+
+        getToken();
 
 //        startService(new Intent(this, MyService.class));
 //        testWebSocket();
@@ -96,7 +136,7 @@ public class TestActivtiy extends BaseActivity {
 
 //        MyDialogs.modifyEatPersonNumber(this);
 //        MyDialogs.showGrabRedPacketResult(this);
-        UtilTools.loginWithWeChat(MyApplication.getInstance());
+        //UtilTools.loginWithWeChat(MyApplication.getInstance());
     }
 
 
@@ -185,5 +225,93 @@ public class TestActivtiy extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         stopService(new Intent(this, MyService.class));
+    }
+
+
+    /**
+     * 发送文本消息
+     */
+    private void sendTextMessage(MessageContent messageContent) {
+        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, "12317",
+                messageContent, null, null, new IRongCallback.ISendMessageCallback() {
+                    @Override
+                    public void onAttached(Message message) {
+                        Log.d(TAG, "发送的文本消息已保存至本地数据库中");
+                    }
+
+                    @Override
+                    public void onSuccess(Message message) {
+                        if (message.getContent() instanceof TextMessage) {
+                            Log.d(TAG, "成功发送文本消息: " + ((TextMessage) message.getContent()).getContent());
+                            Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
+                        }
+                    }
+
+                    @Override
+                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
+                    }
+                });
+    }
+
+
+
+    /**
+     * 通过服务器端请求获取token，客户端不提供获取token的接口
+     */
+    private void getToken() {
+        FakeServer.getToken("12315", mSenderNameTest, mPortraitUriTest, new HttpUtil.OnResponse() {
+            @Override
+            public void onResponse(int code, String body) {
+                if (code == 200) {
+                    JSONObject jsonObj = null;
+                    try {
+                        jsonObj = new JSONObject(body);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    token = jsonObj.optString("token");
+
+
+                    Log.i(TAG, "获取的 token 值为:\n" + token + '\n');
+                } else {
+                    Log.i(TAG, "获取 token 失败" + '\n');
+                }
+            }
+        });
+    }
+
+    /**
+     * 连接融云服务器
+     */
+    private void connect(String token) {
+        RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
+
+            /**
+             * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+             */
+            @Override
+            public void onTokenIncorrect() {
+                Log.d(TAG, "Token 错误---onTokenIncorrect---" + '\n');
+            }
+
+            /**
+             * 连接融云成功
+             * @param userid 当前 token
+             */
+            @Override
+            public void onSuccess(String userid) {
+                Log.d(TAG, "连接融云成功---onSuccess---用户ID:" + userid + '\n');
+            }
+
+            /**
+             * 连接融云失败
+             * @param errorCode 错误码，可到官网 查看错误码对应的注释
+             */
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.d(TAG, "连接融云失败, 错误码: " + errorCode + '\n');
+            }
+        });
     }
 }
