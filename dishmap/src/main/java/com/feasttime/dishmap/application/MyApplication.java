@@ -61,7 +61,7 @@ public class MyApplication extends Application {
         this.registerReceiver(netReceiver, filter);
 
         //注册im融云
-        registerRongYun();
+        registerImRongYun();
     }
 
     @Override
@@ -84,7 +84,7 @@ public class MyApplication extends Application {
 
 
     //注册融云
-    private void registerRongYun() {
+    private void registerImRongYun() {
         /**
          * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIMClient 的进程和 Push 进程执行了 init。
          * io.rong.push 为融云 push 进程名称，不可修改。
@@ -103,9 +103,6 @@ public class MyApplication extends Application {
         } catch (AnnotationNotFoundException e) {
             e.printStackTrace();
         }
-
-        AppContext.getInstance().init(getApplicationContext());
-        AppContext.getInstance().registerReceiveMessageListener();
     }
 
 

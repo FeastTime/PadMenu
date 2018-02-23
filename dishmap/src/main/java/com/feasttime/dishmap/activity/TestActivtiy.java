@@ -13,6 +13,7 @@ import com.feasttime.dishmap.application.MyApplication;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.FakeServer;
 import com.feasttime.dishmap.im.HttpUtil;
+import com.feasttime.dishmap.im.message.CustomizeMessage;
 import com.feasttime.dishmap.model.WebSocketConfig;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.DeviceTool;
@@ -35,7 +36,10 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
+import io.rong.message.FileMessage;
+import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
+import io.rong.message.VoiceMessage;
 import okhttp3.OkHttpClient;
 
 /**
@@ -61,6 +65,46 @@ public class TestActivtiy extends BaseActivity {
     private static String mPortraitUriTest = "http://static.yingyonghui.com/screenshots/1657/1657011_5.jpg"; //获取发送信息者头像的url
     private static String token = "";
 
+    /**
+     * 设置接收消息的监听器
+     */
+    private RongIMClient.OnReceiveMessageListener onReceiveMessageListener = new RongIMClient.OnReceiveMessageListener() {
+        @Override
+        public boolean onReceived(Message message, int i) {
+            if (message.getContent() instanceof TextMessage) {
+                Log.d(TAG, "收到文本消息: " + ((TextMessage) message.getContent()).getContent());
+                Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
+                //setMessageRead(message); //设置收到的消息为已读消息
+            } else if (message.getContent() instanceof ImageMessage) {
+                Log.d(TAG, "收到图片消息, Uri --> " + ((ImageMessage) message.getContent()).getThumUri() + '\n');
+            } else if (message.getContent() instanceof VoiceMessage) {
+                Log.d(TAG, "收到语音消息,Uri --> " + ((VoiceMessage)message.getContent()).getUri());
+                Log.d(TAG, "语音消息时长: " + ((VoiceMessage)message.getContent()).getDuration() + '\n');
+            } else if (message.getContent() instanceof FileMessage) {
+                Log.d(TAG, "服务端 Uri --> " + ((FileMessage)message.getContent()).getFileUrl() + '\n');
+            } else if (message.getContent() instanceof CustomizeMessage) {
+                Log.d(TAG, "成功发送自定义消息，它的时间戳: " + ((CustomizeMessage) message.getContent()).getSendTime());
+                Log.d(TAG, "自定义消息的内容: " + ((CustomizeMessage) message.getContent()).getContent() + '\n');
+            }
+//            setMessageId(message.getMessageId());
+            return false;
+        }
+    };
+
+
+    /**
+     * 设置消息为已读消息
+     */
+    private void setMessageRead(Message message) {
+        if (message.getMessageId() > 0) {
+            Message.ReceivedStatus status = message.getReceivedStatus();
+            status.setRead();
+            message.setReceivedStatus(status);
+            RongIMClient.getInstance().setMessageReceivedStatus(message.getMessageId(), status, null);
+            Toast.makeText(this, "该条消息已设置为已读", Toast.LENGTH_LONG).show();
+        }
+    }
+
     //    String wsUrl = "ws://47.94.16.58:9798/feast-web/websocket/";
 //    String wsUrl = "ws://192.168.1.101:8081/websocket";
     @Override
@@ -80,11 +124,18 @@ public class TestActivtiy extends BaseActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextMessage textMessage = TextMessage.obtain("云中谁寄锦书来");
-                textMessage.setExtra("融云");
+                TextMessage textMessage = TextMessage.obtain("chen");
+                textMessage.setExtra("guoliang");
                 sendTextMessage(textMessage);
             }
         });
+
+        RongIMClient.setOnReceiveMessageListener(onReceiveMessageListener);
+
+
+
+
+
 
 
         Button connectBtn = (Button)this.findViewById(R.id.activity_test_connect);
@@ -232,7 +283,7 @@ public class TestActivtiy extends BaseActivity {
      * 发送文本消息
      */
     private void sendTextMessage(MessageContent messageContent) {
-        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, "12317",
+        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, "12315",
                 messageContent, null, null, new IRongCallback.ISendMessageCallback() {
                     @Override
                     public void onAttached(Message message) {
