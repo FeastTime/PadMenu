@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
+import com.feasttime.dishmap.im.message.CustomizeMessage;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
@@ -30,6 +31,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.FileMessage;
+import io.rong.message.ImageMessage;
+import io.rong.message.TextMessage;
+import io.rong.message.VoiceMessage;
 
 
 /**
@@ -79,6 +88,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         List<ChatMsgItemInfo> chatMsgItemInfoList = new ArrayList<>();
 
+        RongIMClient.setOnReceiveMessageListener(onReceiveMessageListener);
 
         mChatAdapter = new ChatAdapter(this, chatMsgItemInfoList, storeId, new OpenWaitingListener() {
             @Override
@@ -137,27 +147,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 // 收到新消息
                 if (orderEvent.eventType == WebSocketEvent.RECEIVED_MESSAGE) {
 
-                    String message = jsonObject.getString("message");
 
-                    ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                    chatMsgItemInfo.setRedPackage(false);
-                    chatMsgItemInfo.setTime(jsonObject.getString("date"));
-
-                    Log.d(TAG, "time ----time   " + jsonObject.getString("date"));
-
-                    if (userId.equals(senderUserId)) {
-                        // 右边添加自己的消息
-                        chatMsgItemInfo.setIcon(userIcon);
-                        chatMsgItemInfo.setLeft(false);
-                        chatMsgItemInfo.setMsg(message);
-
-                    } else {
-                        // 左边添加别人的消息
-                        chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
-                        chatMsgItemInfo.setLeft(true);
-                        chatMsgItemInfo.setMsg(message);
-                    }
-                    mChatAdapter.addData(chatMsgItemInfo);
 
                 }
                 // 收到红包
@@ -242,13 +232,35 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             return;
         }
 
-        HashMap<String, String > requestData = new HashMap<>();
-        requestData.put("message", inputMessageStr);
-        requestData.put("type", WebSocketEvent.SEND_MESSAGE+"");
-        requestData.put("storeId", storeId);
+//        HashMap<String, String > requestData = new HashMap<>();
+//        requestData.put("message", inputMessageStr);
+//        requestData.put("type", WebSocketEvent.SEND_MESSAGE+"");
+//        requestData.put("storeId", storeId);
+//
+//        UtilTools.requestByWebSocket(this, requestData);
 
-        UtilTools.requestByWebSocket(this, requestData);
+        TextMessage textMessage = TextMessage.obtain(inputMessageStr);
+        textMessage.setExtra("");
+        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, "12315",
+                textMessage, null, null, new IRongCallback.ISendMessageCallback() {
+                    @Override
+                    public void onAttached(Message message) {
+                        Log.d(TAG, "发送的文本消息已保存至本地数据库中");
+                    }
 
+                    @Override
+                    public void onSuccess(Message message) {
+                        if (message.getContent() instanceof TextMessage) {
+                            Log.d(TAG, "成功发送文本消息: " + ((TextMessage) message.getContent()).getContent());
+                            Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
+                        }
+                    }
+
+                    @Override
+                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
+                    }
+                });
 
     }
 
@@ -288,4 +300,55 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         void onError();
     }
+
+
+    /**
+     * 设置接收消息的监听器
+     */
+    private RongIMClient.OnReceiveMessageListener onReceiveMessageListener = new RongIMClient.OnReceiveMessageListener() {
+        @Override
+        public boolean onReceived(Message message, int i) {
+
+            if (message.getContent() instanceof TextMessage) {
+                Log.d(TAG, "收到文本消息: " + ((TextMessage) message.getContent()).getContent());
+                Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
+
+                String receiveMsg = ((TextMessage) message.getContent()).getContent();
+
+                ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+                chatMsgItemInfo.setRedPackage(false);
+                chatMsgItemInfo.setTime(UtilTools.formateDate(message.getReceivedTime()));
+
+//                Log.d(TAG, "time ----time   " + jsonObject.getString("date"));
+
+//                if (userId.equals(senderUserId)) {
+//                    // 右边添加自己的消息
+//                    chatMsgItemInfo.setIcon(userIcon);
+//                    chatMsgItemInfo.setLeft(false);
+//                    chatMsgItemInfo.setMsg(message);
+//
+//                } else {
+                    // 左边添加别人的消息
+                    //chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
+                    chatMsgItemInfo.setLeft(true);
+                    chatMsgItemInfo.setMsg(receiveMsg);
+//                }
+                mChatAdapter.addData(chatMsgItemInfo);
+
+                //setMessageRead(message); //设置收到的消息为已读消息
+            } else if (message.getContent() instanceof ImageMessage) {
+                Log.d(TAG, "收到图片消息, Uri --> " + ((ImageMessage) message.getContent()).getThumUri() + '\n');
+            } else if (message.getContent() instanceof VoiceMessage) {
+                Log.d(TAG, "收到语音消息,Uri --> " + ((VoiceMessage)message.getContent()).getUri());
+                Log.d(TAG, "语音消息时长: " + ((VoiceMessage)message.getContent()).getDuration() + '\n');
+            } else if (message.getContent() instanceof FileMessage) {
+                Log.d(TAG, "服务端 Uri --> " + ((FileMessage)message.getContent()).getFileUrl() + '\n');
+            } else if (message.getContent() instanceof CustomizeMessage) {
+                Log.d(TAG, "成功发送自定义消息，它的时间戳: " + ((CustomizeMessage) message.getContent()).getSendTime());
+                Log.d(TAG, "自定义消息的内容: " + ((CustomizeMessage) message.getContent()).getContent() + '\n');
+            }
+//            setMessageId(message.getMessageId());
+            return false;
+        }
+    };
 }
