@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.URLParser;
 import com.feasttime.dishmap.utils.UtilTools;
@@ -133,6 +134,8 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
 
                         ScanActivity.this.startActivity(intent);
                         ScanActivity.this.finish();
+
+                        LogUtil.d(TAG,"join group success and to chatactivity");
                     }
 
                     @Override

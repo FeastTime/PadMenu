@@ -241,7 +241,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         TextMessage textMessage = TextMessage.obtain(inputMessageStr);
         textMessage.setExtra("");
-        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, "12315",
+        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.GROUP, storeId,
                 textMessage, null, null, new IRongCallback.ISendMessageCallback() {
                     @Override
                     public void onAttached(Message message) {
@@ -251,8 +251,11 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                     @Override
                     public void onSuccess(Message message) {
                         if (message.getContent() instanceof TextMessage) {
+                            String sendMessage = ((TextMessage) message.getContent()).getContent();
                             Log.d(TAG, "成功发送文本消息: " + ((TextMessage) message.getContent()).getContent());
                             Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
+
+                            recevieMessageAndAdd(sendMessage,message.getReceivedTime());
                         }
                     }
 
@@ -301,6 +304,28 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         void onError();
     }
 
+    //收到消息后添加到列表并刷新
+    private void recevieMessageAndAdd(String receiveMsg,long receiveTime) {
+        ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+        chatMsgItemInfo.setRedPackage(false);
+        chatMsgItemInfo.setTime(UtilTools.formateDate(receiveTime));
+
+//                Log.d(TAG, "time ----time   " + jsonObject.getString("date"));
+
+//                if (userId.equals(senderUserId)) {
+//                    // 右边添加自己的消息
+//                    chatMsgItemInfo.setIcon(userIcon);
+//                    chatMsgItemInfo.setLeft(false);
+//                    chatMsgItemInfo.setMsg(message);
+//
+//                } else {
+        // 左边添加别人的消息
+        //chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
+        chatMsgItemInfo.setLeft(true);
+        chatMsgItemInfo.setMsg(receiveMsg);
+//                }
+        mChatAdapter.addData(chatMsgItemInfo);
+    }
 
     /**
      * 设置接收消息的监听器
@@ -314,26 +339,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
 
                 String receiveMsg = ((TextMessage) message.getContent()).getContent();
+                recevieMessageAndAdd(receiveMsg,message.getReceivedTime());
 
-                ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                chatMsgItemInfo.setRedPackage(false);
-                chatMsgItemInfo.setTime(UtilTools.formateDate(message.getReceivedTime()));
-
-//                Log.d(TAG, "time ----time   " + jsonObject.getString("date"));
-
-//                if (userId.equals(senderUserId)) {
-//                    // 右边添加自己的消息
-//                    chatMsgItemInfo.setIcon(userIcon);
-//                    chatMsgItemInfo.setLeft(false);
-//                    chatMsgItemInfo.setMsg(message);
-//
-//                } else {
-                    // 左边添加别人的消息
-                    //chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
-                    chatMsgItemInfo.setLeft(true);
-                    chatMsgItemInfo.setMsg(receiveMsg);
-//                }
-                mChatAdapter.addData(chatMsgItemInfo);
 
                 //setMessageRead(message); //设置收到的消息为已读消息
             } else if (message.getContent() instanceof ImageMessage) {
