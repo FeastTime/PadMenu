@@ -14,12 +14,20 @@ import com.feasttime.dishmap.model.bean.RegisterInfo;
 import com.feasttime.dishmap.utils.DeviceTool;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.TrustAllCerts;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 
 import io.reactivex.Observable;
 import okhttp3.Interceptor;
@@ -49,10 +57,14 @@ public class RetrofitService {
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
-    // 阿里云服务器 http://47.94.16.58:9798/feast-web/PersonalStatistics/getPersonalStatisticsDetail/?token=%22333333%22
+    //小庆mac
+    private static final String BASE_URL = "http://192.168.234.15:8080/";
 
-//    private static final String BASE_URL = "http://shengyan.com/";
-    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
+    //测试服务器
+//    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
+
+    //正式服务器
+    //private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
 
 
     private static DishMapApi sMenuService;
@@ -60,6 +72,9 @@ public class RetrofitService {
     // 递增页码
     private static final int INCREASE_PAGE = 20;
 
+    private static final int CONNECT_TIMEOUT = 10;
+    private static final int READ_TIMEOUT = 20;
+    private static final int WRITE_TIMEOUT = 20;
 
     private RetrofitService() {
         throw new AssertionError();
@@ -69,6 +84,20 @@ public class RetrofitService {
     private static String ipv4 = "";
     private static String mac = "";
     private static String mobileNO = "";
+
+
+    private static SSLSocketFactory createSSLSocketFactory() {
+        SSLSocketFactory ssfFactory = null;
+
+        try {
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
+            ssfFactory = sc.getSocketFactory();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ssfFactory;
+    }
 
     /**
      * 初始化网络通信服务
@@ -81,10 +110,32 @@ public class RetrofitService {
 
         //BasicParamsInterceptor aa;
 
-        OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder()
-                .retryOnConnectionFailure(true)
-                .addInterceptor(sLoggingInterceptor)
-                .connectTimeout(10, TimeUnit.SECONDS);
+        OkHttpClient.Builder okHttpClient = null;
+
+        if (BASE_URL.startsWith("https")) {
+            //构建https 的okhttpclient对象
+            okHttpClient = new OkHttpClient.Builder()
+                    .retryOnConnectionFailure(true)
+                    .addInterceptor(sLoggingInterceptor)
+                    .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                    .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                    .sslSocketFactory(createSSLSocketFactory())
+                    .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+                    .hostnameVerifier(new HostnameVerifier() {
+                        @Override
+                        public boolean verify(String hostname, SSLSession session) {
+                            return true;
+                        }
+                    });
+        } else {
+            //构建http 的okhttpclient对象
+            okHttpClient = new OkHttpClient.Builder()
+                    .retryOnConnectionFailure(true)
+                    .addInterceptor(sLoggingInterceptor)
+                    .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                    .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                    .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS);
+        }
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient.build())

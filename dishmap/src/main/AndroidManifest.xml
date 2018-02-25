@@ -62,6 +62,23 @@
             android:value="e317f3b590f787d7c59b221f7e47ea01" />
 
 
+        <!-- imlib config begin -->
+        <service
+            android:name="io.rong.imlib.ipc.RongService"
+            android:exported="true"
+            android:process=":ipc" />
+
+        <service android:name="io.rong.imlib.ReConnectService"
+            android:exported="true"/>
+
+        <receiver android:name="io.rong.imlib.ConnectChangeReceiver"
+            android:exported="true"/>
+
+        <receiver
+            android:name="io.rong.imlib.HeartbeatReceiver"
+            android:process=":ipc" />
+        <!-- imlib config end -->
+
 
         <activity android:name=".activity.MainActivity">
 

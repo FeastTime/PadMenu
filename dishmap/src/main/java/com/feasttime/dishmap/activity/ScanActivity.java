@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.URLParser;
 import com.feasttime.dishmap.utils.UtilTools;
@@ -29,6 +30,7 @@ import com.mylhyl.zxing.scanner.common.Scanner;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imlib.RongIMClient;
 
 
 public class ScanActivity extends BaseActivity implements View.OnClickListener{
@@ -107,14 +109,40 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
 
                 UtilTools.requestByWebSocket(ScanActivity.this, requestData);
 
-                // 打开聊天页面
-                Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
-                intent.putExtra("STORE_ID", storeId);
-                intent.putExtra("STORE_NAME",storeName);
+                RongIMClient.getInstance().joinGroup(storeId,storeName,new RongIMClient.OperationCallback(){
+                    @Override
+                    public void onCallback() {
+                        super.onCallback();
+                    }
 
-                ScanActivity.this.startActivity(intent);
-                ScanActivity.this.finish();
+                    @Override
+                    public void onFail(int errorCode) {
+                        super.onFail(errorCode);
+                    }
 
+                    @Override
+                    public void onFail(RongIMClient.ErrorCode errorCode) {
+                        super.onFail(errorCode);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        // 打开聊天页面
+                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
+                        intent.putExtra("STORE_ID", storeId);
+                        intent.putExtra("STORE_NAME",storeName);
+
+                        ScanActivity.this.startActivity(intent);
+                        ScanActivity.this.finish();
+
+                        LogUtil.d(TAG,"join group success and to chatactivity");
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                    }
+                });
 
 //
 //                MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {

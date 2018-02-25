@@ -16,6 +16,7 @@ public class PreferenceUtil {
 
 	public static final String MOBILE_NO = "mobileNO";
 	public static final String TOKEN = "token";
+	public static final String IM_TOKEN = "imToken";
 	public static final String USER_TYPE = "userType";
 	public static final String PERSON_NO = "personNO";
 	public static final String WE_CHAT_OPENID = "openId";

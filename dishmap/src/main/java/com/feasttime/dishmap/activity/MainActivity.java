@@ -18,6 +18,7 @@ import com.feasttime.dishmap.fragment.MerchantOpenTableFragment;
 import com.feasttime.dishmap.fragment.UserCouponFragment;
 import com.feasttime.dishmap.fragment.UserMainFragment;
 import com.feasttime.dishmap.fragment.UserMineFragment;
+import com.feasttime.dishmap.im.ImUtils;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
@@ -53,12 +54,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         initViews();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //去连接im服务器
+        ImUtils.connectImServer(this);
+    }
+
     private void initViews() {
         homeTv.performClick();
 
         //修改底部drawable的图片
         initBtmBar(1);
+
     }
+
+
 
     private void initBtmBar(int selectIndex) {
         Resources resources = this.getResources();
