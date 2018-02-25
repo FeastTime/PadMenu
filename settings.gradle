@@ -1,1 +1,1 @@
-include ':menu', ':android_display_sdk', ':dishmap'
+include ':menu', ':android_display_sdk', ':dishmap', ':IMLib'
