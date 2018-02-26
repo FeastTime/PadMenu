@@ -17,6 +17,7 @@ import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.OpenRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
+import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
@@ -363,8 +364,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 chatMsgItemInfo.setRedPackage(true);
 
                 mChatAdapter.addData(chatMsgItemInfo);
-            } else if (message.getContent() instanceof OpenRedPackageMessage) {
-                String receiveMsg = ((OpenRedPackageMessage) message.getContent()).getContent();
+            } else if (message.getContent() instanceof ReceivedRedPackageSurprisedMessage) {
+                String receiveMsg = ((ReceivedRedPackageSurprisedMessage) message.getContent()).getContent();
                 Log.d(TAG, "拆开红包消息: " + receiveMsg);
                 ChatActivity.this.hideLoading();
 
