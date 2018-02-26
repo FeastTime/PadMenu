@@ -12,11 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
+import com.feasttime.dishmap.im.message.EnterStoreMessage;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.URLParser;
 import com.feasttime.dishmap.utils.UtilTools;
 import com.google.zxing.client.result.ParsedResult;
@@ -30,7 +33,11 @@ import com.mylhyl.zxing.scanner.common.Scanner;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.TextMessage;
 
 
 public class ScanActivity extends BaseActivity implements View.OnClickListener{
@@ -102,13 +109,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                     return;
                 }
 
-                // 建立-修改 用户与商户的关系
-                HashMap<String, String > requestData = new HashMap<>();
-                requestData.put("storeId", storeId);
-                requestData.put("type", WebSocketEvent.ENTER_STORE+"");
-
-                UtilTools.requestByWebSocket(ScanActivity.this, requestData);
-
+                //加入聊天群组
                 RongIMClient.getInstance().joinGroup(storeId,storeName,new RongIMClient.OperationCallback(){
                     @Override
                     public void onCallback() {
@@ -127,20 +128,47 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
 
                     @Override
                     public void onSuccess() {
-                        // 打开聊天页面
-                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
-                        intent.putExtra("STORE_ID", storeId);
-                        intent.putExtra("STORE_NAME",storeName);
+                        LogUtil.d(TAG,"加入群组成功");
 
-                        ScanActivity.this.startActivity(intent);
-                        ScanActivity.this.finish();
+                        //发送进店消息
+                        // 建立-修改 用户与商户的关系
+                        HashMap<String, String > requestData = new HashMap<>();
+                        requestData.put("storeId", storeId);
+                        requestData.put("type", WebSocketEvent.ENTER_STORE+"");
 
-                        LogUtil.d(TAG,"join group success and to chatactivity");
+                        EnterStoreMessage enterStoreMessage = EnterStoreMessage.obtain(System.currentTimeMillis(), JSON.toJSONString(requestData));
+                        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.GROUP, storeId,
+                                enterStoreMessage, null, null, new IRongCallback.ISendMessageCallback() {
+                                    @Override
+                                    public void onAttached(Message message) {
+                                        Log.d(TAG, "发送的文本消息已保存至本地数据库中");
+                                    }
+
+                                    @Override
+                                    public void onSuccess(Message message) {
+                                        LogUtil.d(TAG,"进店成功");
+
+                                        // 打开聊天页面
+                                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
+                                        intent.putExtra("STORE_ID", storeId);
+                                        intent.putExtra("STORE_NAME",storeName);
+
+                                        ScanActivity.this.startActivity(intent);
+                                        ScanActivity.this.finish();
+
+                                    }
+
+                                    @Override
+                                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
+                                        ToastUtil.showToast(ScanActivity.this,"进店失败",Toast.LENGTH_SHORT);
+                                    }
+                                });
                     }
 
                     @Override
                     public void onError(RongIMClient.ErrorCode errorCode) {
-
+                        ToastUtil.showToast(ScanActivity.this,"进店失败",Toast.LENGTH_SHORT);
                     }
                 });
 

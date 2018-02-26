@@ -14,7 +14,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
+import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.CustomizeMessage;
+import com.feasttime.dishmap.im.message.OpenRedPacketMessage;
+import com.feasttime.dishmap.im.message.RedPacketMessage;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
@@ -232,15 +235,14 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             return;
         }
 
-//        HashMap<String, String > requestData = new HashMap<>();
-//        requestData.put("message", inputMessageStr);
-//        requestData.put("type", WebSocketEvent.SEND_MESSAGE+"");
-//        requestData.put("storeId", storeId);
-//
+        HashMap<String, String > requestData = new HashMap<>();
+        requestData.put("message", inputMessageStr);
+        requestData.put("type", WebSocketEvent.SEND_MESSAGE+"");
+        requestData.put("storeId", storeId);
+
 //        UtilTools.requestByWebSocket(this, requestData);
 
-        TextMessage textMessage = TextMessage.obtain(inputMessageStr);
-        textMessage.setExtra("");
+        ChatTextMessage textMessage = ChatTextMessage.obtain(System.currentTimeMillis(),JSON.toJSONString(requestData));
         RongIMClient.getInstance().sendMessage(Conversation.ConversationType.GROUP, storeId,
                 textMessage, null, null, new IRongCallback.ISendMessageCallback() {
                     @Override
@@ -253,9 +255,13 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         if (message.getContent() instanceof TextMessage) {
                             String sendMessage = ((TextMessage) message.getContent()).getContent();
                             Log.d(TAG, "成功发送文本消息: " + ((TextMessage) message.getContent()).getContent());
-                            Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
-
+                        } else if (message.getContent() instanceof ChatTextMessage) {
+                            String sendMessage = ((ChatTextMessage) message.getContent()).getContent();
+                            Log.d(TAG, "成功发送文本消息: " + ((ChatTextMessage) message.getContent()).getContent());
                             recevieMessageAndAdd(sendMessage,message.getReceivedTime());
+                        } else if (message.getContent() instanceof RedPacketMessage) {
+                            String sendMessage = ((RedPacketMessage) message.getContent()).getContent();
+                            Log.d(TAG, "成功发送文本消息: " + ((RedPacketMessage) message.getContent()).getContent());
                         }
                     }
 
@@ -334,25 +340,66 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         @Override
         public boolean onReceived(Message message, int i) {
 
-            if (message.getContent() instanceof TextMessage) {
-                Log.d(TAG, "收到文本消息: " + ((TextMessage) message.getContent()).getContent());
-                Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
-
-                String receiveMsg = ((TextMessage) message.getContent()).getContent();
+            if (message.getContent() instanceof ChatTextMessage) {
+                String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
+                Log.d(TAG, "收到文本消息: " + receiveMsg);
                 recevieMessageAndAdd(receiveMsg,message.getReceivedTime());
-
-
                 //setMessageRead(message); //设置收到的消息为已读消息
-            } else if (message.getContent() instanceof ImageMessage) {
-                Log.d(TAG, "收到图片消息, Uri --> " + ((ImageMessage) message.getContent()).getThumUri() + '\n');
-            } else if (message.getContent() instanceof VoiceMessage) {
-                Log.d(TAG, "收到语音消息,Uri --> " + ((VoiceMessage)message.getContent()).getUri());
-                Log.d(TAG, "语音消息时长: " + ((VoiceMessage)message.getContent()).getDuration() + '\n');
-            } else if (message.getContent() instanceof FileMessage) {
-                Log.d(TAG, "服务端 Uri --> " + ((FileMessage)message.getContent()).getFileUrl() + '\n');
-            } else if (message.getContent() instanceof CustomizeMessage) {
-                Log.d(TAG, "成功发送自定义消息，它的时间戳: " + ((CustomizeMessage) message.getContent()).getSendTime());
-                Log.d(TAG, "自定义消息的内容: " + ((CustomizeMessage) message.getContent()).getContent() + '\n');
+            } else if (message.getContent() instanceof RedPacketMessage) {
+                String receiveMsg = ((RedPacketMessage) message.getContent()).getContent();
+                Log.d(TAG, "收到红包消息: " + receiveMsg);
+                JSONObject jsonObject = JSON.parseObject(receiveMsg);
+
+                // 红包id
+                String redPackageId = jsonObject.getString("redPackageId");
+//                    String nickname = jsonObject.getString("nickname");
+                String userIcon = jsonObject.getString("userIcon");
+                String withMessage = jsonObject.getString("withMessage");
+
+                ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+                chatMsgItemInfo.setRedPackage(true);
+                chatMsgItemInfo.setTime(jsonObject.getString("date"));
+
+                // 左边添加别人的消息
+                chatMsgItemInfo.setIcon(userIcon);
+                chatMsgItemInfo.setLeft(true);
+                chatMsgItemInfo.setMsg(withMessage);
+                chatMsgItemInfo.setRedPackageId(redPackageId);
+                chatMsgItemInfo.setRedPackage(true);
+
+                mChatAdapter.addData(chatMsgItemInfo);
+            } else if (message.getContent() instanceof OpenRedPacketMessage) {
+                String receiveMsg = ((OpenRedPacketMessage) message.getContent()).getContent();
+                Log.d(TAG, "拆开红包消息: " + receiveMsg);
+                ChatActivity.this.hideLoading();
+
+                JSONObject jsonObject = JSON.parseObject(receiveMsg);
+                String myMessage = jsonObject.getString("message");
+
+                MyTableItemInfo tableInfo = jsonObject.getObject("tableInfo", MyTableItemInfo.class);
+                CouponChildListItemInfo couponInfo = jsonObject.getObject("couponInfo", CouponChildListItemInfo.class);
+
+
+                //  获得桌位
+                if (null != tableInfo){
+
+                    String title = "座位";
+                    String detail = "恭喜您！\n成功抢到座位\n号码：" + tableInfo.getTableId();
+                    String description = "领取座位后座位预留" + tableInfo.getRecieveTime() + "分钟";
+                    MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, title, detail, description);
+                }
+                //  获得优惠券
+                else if (null != couponInfo){
+
+                    String title = "优惠券";
+                    String detail = "恭喜您！\n抢到"+couponInfo.getCouponTitle()+"一张";
+                    String description = "已放入您的优惠券卡包";
+                    MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, title, detail, description);
+                }
+                // 什么也没得到
+                else {
+                    Toast.makeText(ChatActivity.this, myMessage, Toast.LENGTH_SHORT).show();
+                }
             }
 //            setMessageId(message.getMessageId());
             return false;

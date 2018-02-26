@@ -399,26 +399,26 @@ public class TestActivtiy extends BaseActivity {
     /**
      * 发送自定义消息
      */
-//    public void sendCustomizeMessage(CustomizeMessage customizeMessage) {
-//        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, getReceiverIdTest(),
-//                customizeMessage, null, null, new IRongCallback.ISendMessageCallback() {
-//                    @Override
-//                    public void onAttached(Message message) {
-//                        Log.d(TAG, "发送的自定义消息已保存至本地数据库中");
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(Message message) {
-//                        if (message.getContent() instanceof CustomizeMessage) {
-//                            Log.d(TAG, "成功发送自定义消息，它的时间戳: " + ((CustomizeMessage) message.getContent()).getSendTime());
-//                            Log.d(TAG, "自定义消息的内容: " + ((CustomizeMessage) message.getContent()).getContent() + '\n');
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-//                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
-//                    }
-//                });
-//    }
+    public void sendCustomizeMessage(CustomizeMessage customizeMessage) {
+        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, "22",
+                customizeMessage, null, null, new IRongCallback.ISendMessageCallback() {
+                    @Override
+                    public void onAttached(Message message) {
+                        Log.d(TAG, "发送的自定义消息已保存至本地数据库中");
+                    }
+
+                    @Override
+                    public void onSuccess(Message message) {
+                        if (message.getContent() instanceof CustomizeMessage) {
+                            Log.d(TAG, "成功发送自定义消息，它的时间戳: " + ((CustomizeMessage) message.getContent()).getSendTime());
+                            Log.d(TAG, "自定义消息的内容: " + ((CustomizeMessage) message.getContent()).getContent() + '\n');
+                        }
+                    }
+
+                    @Override
+                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
+                    }
+                });
+    }
 }

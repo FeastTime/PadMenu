@@ -2,6 +2,7 @@ package com.feasttime.dishmap.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.ChatActivity;
+import com.feasttime.dishmap.im.message.ChatTextMessage;
+import com.feasttime.dishmap.im.message.OpenRedPacketMessage;
+import com.feasttime.dishmap.im.message.RedPacketMessage;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
@@ -21,12 +27,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.rong.imlib.IRongCallback;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.message.TextMessage;
+
 /**
  *
  * Created by chen on 2017/10/25.
  */
 
 public class ChatAdapter extends BaseAdapter {
+    private static final String TAG = "ChatAdapter";
 
     private ChatActivity.OpenWaitingListener openWaitingListener;
     private List<ChatMsgItemInfo> dataList = new ArrayList<>();
@@ -145,21 +158,37 @@ public class ChatAdapter extends BaseAdapter {
                             requestData.put("storeId", storeId);
                             requestData.put("userId",userId);
 
-                            if (UtilTools.requestByWebSocket(context, requestData)){
+                            OpenRedPacketMessage openRedPacketMessage = OpenRedPacketMessage.obtain(System.currentTimeMillis(), JSON.toJSONString(requestData));
+                            RongIMClient.getInstance().sendMessage(Conversation.ConversationType.GROUP, storeId,
+                                openRedPacketMessage, null, null, new IRongCallback.ISendMessageCallback() {
+                                    @Override
+                                    public void onAttached(Message message) {
+                                        Log.d(TAG, "发送的文本消息已保存至本地数据库中");
+                                    }
 
-                                if (null != openWaitingListener)
-                                    openWaitingListener.onSend();
+                                    @Override
+                                    public void onSuccess(Message message) {
+                                        if (message.getContent() instanceof OpenRedPacketMessage) {
+                                            String sendMessage = ((OpenRedPacketMessage) message.getContent()).getContent();
+                                            Log.d(TAG, "成功发送文本消息: " + ((OpenRedPacketMessage) message.getContent()).getContent());
 
-                            } else {
+                                            if (null != openWaitingListener)
+                                                openWaitingListener.onSend();
+                                        }
+                                    }
 
-                                if (null != openWaitingListener)
-                                    openWaitingListener.onError();
-                            }
+                                    @Override
+                                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
+
+                                        if (null != openWaitingListener)
+                                            openWaitingListener.onError();
+                                    }
+                                });
 
                             chatMsgItemInfo.setRedPackageUsed(true);
 
                             ChatAdapter.this.notifyDataSetChanged();
-
                         }
                     });
                 }
