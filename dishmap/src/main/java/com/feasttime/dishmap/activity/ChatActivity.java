@@ -254,10 +254,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         } else if (message.getContent() instanceof ChatTextMessage) {
                             String sendMessage = ((ChatTextMessage) message.getContent()).getContent();
                             Log.d(TAG, "成功发送文本消息: " + ((ChatTextMessage) message.getContent()).getContent());
-                            recevieMessageAndAdd(sendMessage,message.getReceivedTime(),false);
-                        } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
-                            String sendMessage = ((ReceiveRedPackageMessage) message.getContent()).getContent();
-                            Log.d(TAG, "成功发送文本消息: " + ((ReceiveRedPackageMessage) message.getContent()).getContent());
+                            JSONObject jsonObject = JSON.parseObject(sendMessage);
+                            recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),false);
                         }
                     }
 
@@ -339,7 +337,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             if (message.getContent() instanceof ChatTextMessage) {
                 String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
                 Log.d(TAG, "收到文本消息: " + receiveMsg);
-                recevieMessageAndAdd(receiveMsg,message.getReceivedTime(),true);
+                JSONObject jsonObject = JSON.parseObject(receiveMsg);
+                recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),true);
                 //setMessageRead(message); //设置收到的消息为已读消息
             } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
                 String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
