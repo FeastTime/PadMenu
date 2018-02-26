@@ -15,7 +15,7 @@ import io.rong.imlib.model.MessageContent;
  * 自定义消息
  */
 
-@MessageTag(value = "CM:redpacket", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+@MessageTag(value = "CM:redPacket", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
 public class RedPacketMessage extends MessageContent {
 
     private long mSendTime;

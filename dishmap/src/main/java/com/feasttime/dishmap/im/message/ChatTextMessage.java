@@ -15,8 +15,8 @@ import io.rong.imlib.model.MessageContent;
  * 自定义消息
  */
 
-@MessageTag(value = "CM:text", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
-public class TextMessage extends MessageContent {
+@MessageTag(value = "CM:chatText", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+public class ChatTextMessage extends MessageContent {
 
     private long mSendTime;
     private String mContent;
@@ -45,14 +45,14 @@ public class TextMessage extends MessageContent {
         return null;
     }
 
-    public TextMessage() {
+    public ChatTextMessage() {
 
     }
 
     /**
      * 将收到的消息进行解析，byte -> json,再将json中的内容取出赋值给消息属性
      */
-    public TextMessage(byte[] data) {
+    public ChatTextMessage(byte[] data) {
         String jsonString = null;
 
         try {
@@ -75,7 +75,7 @@ public class TextMessage extends MessageContent {
     /**
      * @param in 通过初始化传入的Parcel，为消息属性赋值
      */
-    private TextMessage(Parcel in) {
+    private ChatTextMessage(Parcel in) {
         setSendTime(ParcelUtils.readLongFromParcel(in));
         setContent(ParcelUtils.readFromParcel(in));
     }
@@ -83,15 +83,15 @@ public class TextMessage extends MessageContent {
     /**
      * 读取接口，目的是要从Parcel中构造一个实现了Parcelable的类的实例处理
      */
-    public static final Creator<TextMessage> CREATOR = new Creator<TextMessage>() {
+    public static final Creator<ChatTextMessage> CREATOR = new Creator<ChatTextMessage>() {
         @Override
-        public TextMessage createFromParcel(Parcel source) {
-            return new TextMessage(source);
+        public ChatTextMessage createFromParcel(Parcel source) {
+            return new ChatTextMessage(source);
         }
 
         @Override
-        public TextMessage[] newArray(int size) {
-            return new TextMessage[size];
+        public ChatTextMessage[] newArray(int size) {
+            return new ChatTextMessage[size];
         }
     };
 
@@ -114,8 +114,8 @@ public class TextMessage extends MessageContent {
         ParcelUtils.writeToParcel(dest, mContent);
     }
 
-    public static TextMessage obtain(long time, String content) {
-        TextMessage customizeMessage = new TextMessage();
+    public static ChatTextMessage obtain(long time, String content) {
+        ChatTextMessage customizeMessage = new ChatTextMessage();
         customizeMessage.mSendTime = time;
         customizeMessage.mContent = content;
         return customizeMessage;
