@@ -258,7 +258,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         } else if (message.getContent() instanceof ChatTextMessage) {
                             String sendMessage = ((ChatTextMessage) message.getContent()).getContent();
                             Log.d(TAG, "成功发送文本消息: " + ((ChatTextMessage) message.getContent()).getContent());
-                            recevieMessageAndAdd(sendMessage,message.getReceivedTime());
+                            recevieMessageAndAdd(sendMessage,message.getReceivedTime(),false);
                         } else if (message.getContent() instanceof RedPacketMessage) {
                             String sendMessage = ((RedPacketMessage) message.getContent()).getContent();
                             Log.d(TAG, "成功发送文本消息: " + ((RedPacketMessage) message.getContent()).getContent());
@@ -311,7 +311,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     }
 
     //收到消息后添加到列表并刷新
-    private void recevieMessageAndAdd(String receiveMsg,long receiveTime) {
+    private void recevieMessageAndAdd(String receiveMsg,long receiveTime,boolean isLeft) {
         ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
         chatMsgItemInfo.setRedPackage(false);
         chatMsgItemInfo.setTime(UtilTools.formateDate(receiveTime));
@@ -327,7 +327,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 //                } else {
         // 左边添加别人的消息
         //chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
-        chatMsgItemInfo.setLeft(true);
+        chatMsgItemInfo.setLeft(isLeft);
         chatMsgItemInfo.setMsg(receiveMsg);
 //                }
         mChatAdapter.addData(chatMsgItemInfo);
@@ -343,7 +343,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             if (message.getContent() instanceof ChatTextMessage) {
                 String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
                 Log.d(TAG, "收到文本消息: " + receiveMsg);
-                recevieMessageAndAdd(receiveMsg,message.getReceivedTime());
+                recevieMessageAndAdd(receiveMsg,message.getReceivedTime(),true);
                 //setMessageRead(message); //设置收到的消息为已读消息
             } else if (message.getContent() instanceof RedPacketMessage) {
                 String receiveMsg = ((RedPacketMessage) message.getContent()).getContent();
