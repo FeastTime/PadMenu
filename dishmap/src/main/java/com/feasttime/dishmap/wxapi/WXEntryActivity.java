@@ -156,8 +156,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
 
                                         if (!TextUtils.isEmpty(userId)){
 
-                                            Intent intent = new Intent(WXEntryActivity.this, MyService.class);
-                                            startService(intent);
+//                                            Intent intent = new Intent(WXEntryActivity.this, MyService.class);
+//                                            startService(intent);
                                         }
 
 

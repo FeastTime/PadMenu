@@ -62,9 +62,9 @@ public class MerchantActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void startService() {
-        Intent intent = new Intent(this,MyService.class);
-        intent.putExtra("STORE_ID",storeId);
-        startService(intent);
+//        Intent intent = new Intent(this,MyService.class);
+//        intent.putExtra("STORE_ID",storeId);
+//        startService(intent);
     }
 
 

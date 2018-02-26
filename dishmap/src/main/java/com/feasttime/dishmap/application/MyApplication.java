@@ -48,8 +48,8 @@ public class MyApplication extends Application {
 
         if (!TextUtils.isEmpty(userId)){
 
-            Intent intent = new Intent(this, MyService.class);
-            startService(intent);
+//            Intent intent = new Intent(this, MyService.class);
+//            startService(intent);
         }
 
         // 注册wifi监听器
