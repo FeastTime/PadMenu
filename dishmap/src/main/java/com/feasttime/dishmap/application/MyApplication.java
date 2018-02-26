@@ -4,16 +4,13 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.CustomizeMessage;
 import com.feasttime.dishmap.im.message.EnterStoreMessage;
-import com.feasttime.dishmap.im.message.RedPacketMessage;
+import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.receiver.NetReceiver;
 import com.feasttime.dishmap.service.MyService;
@@ -22,7 +19,6 @@ import com.mob.MobSDK;
 
 import io.rong.imlib.AnnotationNotFoundException;
 import io.rong.imlib.RongIMClient;
-import io.rong.message.FileMessage;
 
 
 public class MyApplication extends Application {
@@ -100,7 +96,7 @@ public class MyApplication extends Application {
         try {
             RongIMClient.registerMessageType(CustomizeMessage.class);
             RongIMClient.registerMessageType(EnterStoreMessage.class);
-            RongIMClient.registerMessageType(RedPacketMessage.class);
+            RongIMClient.registerMessageType(ReceiveRedPackageMessage.class);
             RongIMClient.registerMessageType(ChatTextMessage.class);
         } catch (AnnotationNotFoundException e) {
             e.printStackTrace();

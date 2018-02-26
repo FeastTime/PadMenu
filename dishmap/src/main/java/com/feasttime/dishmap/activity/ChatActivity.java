@@ -15,9 +15,8 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
-import com.feasttime.dishmap.im.message.CustomizeMessage;
-import com.feasttime.dishmap.im.message.OpenRedPacketMessage;
-import com.feasttime.dishmap.im.message.RedPacketMessage;
+import com.feasttime.dishmap.im.message.OpenRedPackageMessage;
+import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
@@ -38,10 +37,7 @@ import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
-import io.rong.message.FileMessage;
-import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
-import io.rong.message.VoiceMessage;
 
 
 /**
@@ -259,9 +255,9 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                             String sendMessage = ((ChatTextMessage) message.getContent()).getContent();
                             Log.d(TAG, "成功发送文本消息: " + ((ChatTextMessage) message.getContent()).getContent());
                             recevieMessageAndAdd(sendMessage,message.getReceivedTime(),false);
-                        } else if (message.getContent() instanceof RedPacketMessage) {
-                            String sendMessage = ((RedPacketMessage) message.getContent()).getContent();
-                            Log.d(TAG, "成功发送文本消息: " + ((RedPacketMessage) message.getContent()).getContent());
+                        } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
+                            String sendMessage = ((ReceiveRedPackageMessage) message.getContent()).getContent();
+                            Log.d(TAG, "成功发送文本消息: " + ((ReceiveRedPackageMessage) message.getContent()).getContent());
                         }
                     }
 
@@ -345,8 +341,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 Log.d(TAG, "收到文本消息: " + receiveMsg);
                 recevieMessageAndAdd(receiveMsg,message.getReceivedTime(),true);
                 //setMessageRead(message); //设置收到的消息为已读消息
-            } else if (message.getContent() instanceof RedPacketMessage) {
-                String receiveMsg = ((RedPacketMessage) message.getContent()).getContent();
+            } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
+                String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
                 Log.d(TAG, "收到红包消息: " + receiveMsg);
                 JSONObject jsonObject = JSON.parseObject(receiveMsg);
 
@@ -368,8 +364,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 chatMsgItemInfo.setRedPackage(true);
 
                 mChatAdapter.addData(chatMsgItemInfo);
-            } else if (message.getContent() instanceof OpenRedPacketMessage) {
-                String receiveMsg = ((OpenRedPacketMessage) message.getContent()).getContent();
+            } else if (message.getContent() instanceof OpenRedPackageMessage) {
+                String receiveMsg = ((OpenRedPackageMessage) message.getContent()).getContent();
                 Log.d(TAG, "拆开红包消息: " + receiveMsg);
                 ChatActivity.this.hideLoading();
 

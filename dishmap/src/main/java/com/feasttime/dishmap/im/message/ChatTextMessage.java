@@ -12,7 +12,7 @@ import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
 
 /**
- * 自定义消息
+ * 聊天消息
  */
 
 @MessageTag(value = "CM:chatText", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)

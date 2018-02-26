@@ -12,7 +12,7 @@ import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
 
 /**[
- * 自定义消息
+ * 用户进店
  */
 
 @MessageTag(value = "CM:enterStore", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)

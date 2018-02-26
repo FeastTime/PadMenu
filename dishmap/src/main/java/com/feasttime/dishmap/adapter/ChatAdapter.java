@@ -15,13 +15,10 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.ChatActivity;
-import com.feasttime.dishmap.im.message.ChatTextMessage;
-import com.feasttime.dishmap.im.message.OpenRedPacketMessage;
-import com.feasttime.dishmap.im.message.RedPacketMessage;
+import com.feasttime.dishmap.im.message.OpenRedPackageMessage;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
-import com.feasttime.dishmap.utils.UtilTools;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +28,6 @@ import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
-import io.rong.message.TextMessage;
 
 /**
  *
@@ -158,9 +154,9 @@ public class ChatAdapter extends BaseAdapter {
                             requestData.put("storeId", storeId);
                             requestData.put("userId",userId);
 
-                            OpenRedPacketMessage openRedPacketMessage = OpenRedPacketMessage.obtain(System.currentTimeMillis(), JSON.toJSONString(requestData));
+                            OpenRedPackageMessage openRedPackageMessage = OpenRedPackageMessage.obtain(System.currentTimeMillis(), JSON.toJSONString(requestData));
                             RongIMClient.getInstance().sendMessage(Conversation.ConversationType.GROUP, storeId,
-                                openRedPacketMessage, null, null, new IRongCallback.ISendMessageCallback() {
+                                    openRedPackageMessage, null, null, new IRongCallback.ISendMessageCallback() {
                                     @Override
                                     public void onAttached(Message message) {
                                         Log.d(TAG, "发送的文本消息已保存至本地数据库中");
@@ -168,9 +164,9 @@ public class ChatAdapter extends BaseAdapter {
 
                                     @Override
                                     public void onSuccess(Message message) {
-                                        if (message.getContent() instanceof OpenRedPacketMessage) {
-                                            String sendMessage = ((OpenRedPacketMessage) message.getContent()).getContent();
-                                            Log.d(TAG, "成功发送文本消息: " + ((OpenRedPacketMessage) message.getContent()).getContent());
+                                        if (message.getContent() instanceof OpenRedPackageMessage) {
+                                            String sendMessage = ((OpenRedPackageMessage) message.getContent()).getContent();
+                                            Log.d(TAG, "成功发送文本消息: " + ((OpenRedPackageMessage) message.getContent()).getContent());
 
                                             if (null != openWaitingListener)
                                                 openWaitingListener.onSend();

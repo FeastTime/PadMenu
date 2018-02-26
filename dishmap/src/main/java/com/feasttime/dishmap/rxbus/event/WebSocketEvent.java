@@ -6,6 +6,29 @@ package com.feasttime.dishmap.rxbus.event;
 
 public class WebSocketEvent {
 
+//
+//    // 聊天消息
+//    public static final String CHAT_TEXT = "CM:chatText";
+//
+//    // 发红包
+//    public static final String SEND_RED_PACKAGE = "CM:sendRedPackage";
+//
+//    // 收到红包
+//    public static final String RECEIVED_RED_PACKAGE = "CM:receivedRedPackage";
+//
+//    // 打开红包
+//    public static final String OPEN_RED_PACKAGE = "CM:openRedPackage";
+//
+//    // 获得红包奖励
+//    public static final String RECEIVED_RED_PACKAGE_SURPRISED = "CM:receivedRedPackageSurprised";
+//
+//    // 用餐人数变更通知
+//    public static final String WAITING_USER_CHANGED = "CM:waitingUserChanged";
+//
+//    // 用户进店
+//    public static final String ENTER_STORE = "CM:enterStore";
+
+
     // 目前  PRICE_RANK_CHANGE  与 BEFORE_TABLES_LIST 一样的type,PRICE_RANK_CHANGE可能没用
     public static final int WEBSOCKET_CONNECT_SERVER_SUCCESS = 0;  //websocket 连接服务器成功
 

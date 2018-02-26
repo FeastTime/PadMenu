@@ -12,11 +12,11 @@ import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
 
 /**
- * 自定义消息
+ * 打开红包
  */
 
-@MessageTag(value = "CM:redPacket", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
-public class RedPacketMessage extends MessageContent {
+@MessageTag(value = "CM:openRedPackage", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+public class OpenRedPackageMessage extends MessageContent {
 
     private long mSendTime;
     private String mContent;
@@ -45,14 +45,14 @@ public class RedPacketMessage extends MessageContent {
         return null;
     }
 
-    public RedPacketMessage() {
+    public OpenRedPackageMessage() {
 
     }
 
     /**
      * 将收到的消息进行解析，byte -> json,再将json中的内容取出赋值给消息属性
      */
-    public RedPacketMessage(byte[] data) {
+    public OpenRedPackageMessage(byte[] data) {
         String jsonString = null;
 
         try {
@@ -75,7 +75,7 @@ public class RedPacketMessage extends MessageContent {
     /**
      * @param in 通过初始化传入的Parcel，为消息属性赋值
      */
-    private RedPacketMessage(Parcel in) {
+    private OpenRedPackageMessage(Parcel in) {
         setSendTime(ParcelUtils.readLongFromParcel(in));
         setContent(ParcelUtils.readFromParcel(in));
     }
@@ -83,15 +83,15 @@ public class RedPacketMessage extends MessageContent {
     /**
      * 读取接口，目的是要从Parcel中构造一个实现了Parcelable的类的实例处理
      */
-    public static final Creator<RedPacketMessage> CREATOR = new Creator<RedPacketMessage>() {
+    public static final Creator<OpenRedPackageMessage> CREATOR = new Creator<OpenRedPackageMessage>() {
         @Override
-        public RedPacketMessage createFromParcel(Parcel source) {
-            return new RedPacketMessage(source);
+        public OpenRedPackageMessage createFromParcel(Parcel source) {
+            return new OpenRedPackageMessage(source);
         }
 
         @Override
-        public RedPacketMessage[] newArray(int size) {
-            return new RedPacketMessage[size];
+        public OpenRedPackageMessage[] newArray(int size) {
+            return new OpenRedPackageMessage[size];
         }
     };
 
@@ -114,8 +114,8 @@ public class RedPacketMessage extends MessageContent {
         ParcelUtils.writeToParcel(dest, mContent);
     }
 
-    public static RedPacketMessage obtain(long time, String content) {
-        RedPacketMessage customizeMessage = new RedPacketMessage();
+    public static OpenRedPackageMessage obtain(long time, String content) {
+        OpenRedPackageMessage customizeMessage = new OpenRedPackageMessage();
         customizeMessage.mSendTime = time;
         customizeMessage.mContent = content;
         return customizeMessage;
