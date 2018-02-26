@@ -53,12 +53,12 @@ public class MyApplication extends Application {
         }
 
         // 注册wifi监听器
-        netReceiver = new NetReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        this.registerReceiver(netReceiver, filter);
+//        netReceiver = new NetReceiver();
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+//        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+//        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+//        this.registerReceiver(netReceiver, filter);
 
         //注册im融云
         registerImRongYun();
