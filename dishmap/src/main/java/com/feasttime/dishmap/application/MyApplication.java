@@ -10,7 +10,9 @@ import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.CustomizeMessage;
 import com.feasttime.dishmap.im.message.EnterStoreMessage;
+import com.feasttime.dishmap.im.message.OpenRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
+import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.receiver.NetReceiver;
 import com.feasttime.dishmap.service.MyService;
@@ -98,6 +100,8 @@ public class MyApplication extends Application {
             RongIMClient.registerMessageType(EnterStoreMessage.class);
             RongIMClient.registerMessageType(ReceiveRedPackageMessage.class);
             RongIMClient.registerMessageType(ChatTextMessage.class);
+            RongIMClient.registerMessageType(ReceivedRedPackageSurprisedMessage.class);
+            RongIMClient.registerMessageType(OpenRedPackageMessage.class);
         } catch (AnnotationNotFoundException e) {
             e.printStackTrace();
         }
