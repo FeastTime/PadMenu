@@ -27,6 +27,7 @@ import com.feasttime.dishmap.utils.UtilTools;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imlib.RongIMClient;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -191,6 +192,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RongIMClient.getInstance().logout();
+    }
 }
