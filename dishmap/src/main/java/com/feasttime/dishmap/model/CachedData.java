@@ -6,4 +6,5 @@ package com.feasttime.dishmap.model;
  */
 
 public class CachedData {
+
 }

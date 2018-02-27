@@ -288,7 +288,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     protected void onDestroy() {
         super.onDestroy();
         RxBus.getDefault().unRegister(this);
-
+        RongIMClient.setOnReceiveMessageListener(null);
     }
 
     @Override
