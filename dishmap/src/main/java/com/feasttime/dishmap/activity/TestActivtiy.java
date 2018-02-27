@@ -11,7 +11,6 @@ import com.dhh.websocket.RxWebSocketUtil;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.application.MyApplication;
 import com.feasttime.dishmap.customview.MyDialogs;
-import com.feasttime.dishmap.im.FakeServer;
 import com.feasttime.dishmap.im.HttpUtil;
 import com.feasttime.dishmap.im.message.CustomizeMessage;
 import com.feasttime.dishmap.model.WebSocketConfig;
@@ -339,25 +338,25 @@ public class TestActivtiy extends BaseActivity {
      * 通过服务器端请求获取token，客户端不提供获取token的接口
      */
     private void getToken() {
-        FakeServer.getToken("12315", mSenderNameTest, mPortraitUriTest, new HttpUtil.OnResponse() {
-            @Override
-            public void onResponse(int code, String body) {
-                if (code == 200) {
-                    JSONObject jsonObj = null;
-                    try {
-                        jsonObj = new JSONObject(body);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    token = jsonObj.optString("token");
-
-
-                    Log.i(TAG, "获取的 token 值为:\n" + token + '\n');
-                } else {
-                    Log.i(TAG, "获取 token 失败" + '\n');
-                }
-            }
-        });
+//        FakeServer.getToken("12315", mSenderNameTest, mPortraitUriTest, new HttpUtil.OnResponse() {
+//            @Override
+//            public void onResponse(int code, String body) {
+//                if (code == 200) {
+//                    JSONObject jsonObj = null;
+//                    try {
+//                        jsonObj = new JSONObject(body);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    token = jsonObj.optString("token");
+//
+//
+//                    Log.i(TAG, "获取的 token 值为:\n" + token + '\n');
+//                } else {
+//                    Log.i(TAG, "获取 token 失败" + '\n');
+//                }
+//            }
+//        });
     }
 
     /**
