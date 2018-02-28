@@ -10,6 +10,7 @@ import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
+import com.feasttime.dishmap.model.bean.ReceivedRedPackageInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
 import com.feasttime.dishmap.utils.DeviceTool;
 import com.feasttime.dishmap.utils.LogUtil;
@@ -279,5 +280,10 @@ public class RetrofitService {
     public static Observable<BaseResponseBean> setTheNumberOfDiners(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return new ObjectLoader().observe(sMenuService.setTheNumberOfDiners(getRequestBody(infoMap)));
+    }
+
+    public static Observable<ReceivedRedPackageInfo> takeRedPackage(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return new ObjectLoader().observe(sMenuService.takeRedPackage(getRequestBody(infoMap)));
     }
 }

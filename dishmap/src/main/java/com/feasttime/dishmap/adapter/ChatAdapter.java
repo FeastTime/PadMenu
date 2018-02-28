@@ -13,17 +13,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.activity.ChatActivity;
+import com.feasttime.dishmap.activity.MySeatActivity;
+import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.OpenRedPackageMessage;
+import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
+import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
+import com.feasttime.dishmap.model.bean.MyTableInfo;
+import com.feasttime.dishmap.model.bean.MyTableItemInfo;
+import com.feasttime.dishmap.model.bean.ReceivedRedPackageInfo;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.ToastUtil;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
@@ -147,40 +161,64 @@ public class ChatAdapter extends BaseAdapter {
                                 return;
                             }
 
-                            HashMap<String, String > requestData = new HashMap<>();
+                            HashMap<String, Object > requestData = new HashMap<String, Object>();
+
+                            String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+                            String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
 
                             requestData.put("redPackageId", chatMsgItemInfo.getRedPackageId());
                             requestData.put("type", WebSocketEvent.OPEN_RED_PACKAGE+"");
                             requestData.put("storeId", storeId);
                             requestData.put("userId",userId);
+                            requestData.put("token",token);
 
-                            OpenRedPackageMessage openRedPackageMessage = OpenRedPackageMessage.obtain(System.currentTimeMillis(), JSON.toJSONString(requestData));
-                            RongIMClient.getInstance().sendMessage(Conversation.ConversationType.GROUP, storeId,
-                                    openRedPackageMessage, null, null, new IRongCallback.ISendMessageCallback() {
-                                    @Override
-                                    public void onAttached(Message message) {
-                                        Log.d(TAG, "发送的文本消息已保存至本地数据库中");
-                                    }
+                            final BaseActivity baseActivity = (BaseActivity) context;
 
-                                    @Override
-                                    public void onSuccess(Message message) {
-                                        if (message.getContent() instanceof OpenRedPackageMessage) {
-                                            String sendMessage = ((OpenRedPackageMessage) message.getContent()).getContent();
-                                            Log.d(TAG, "成功发送文本消息: " + ((OpenRedPackageMessage) message.getContent()).getContent());
+                            baseActivity.showLoading(null);
+                            RetrofitService.takeRedPackage(requestData).subscribe(new Consumer<ReceivedRedPackageInfo>(){
+                                @Override
+                                public void accept(ReceivedRedPackageInfo receivedRedPackageInfo) throws Exception {
+                                    if (receivedRedPackageInfo.getResultCode() == 0) {
 
-                                            if (null != openWaitingListener)
-                                                openWaitingListener.onSend();
+                                        MyTableItemInfo tableInfo = receivedRedPackageInfo.getTableInfo();
+                                        CouponChildListItemInfo couponInfo = receivedRedPackageInfo.getCouponInfo();
+
+                                        //  获得桌位
+                                        if (null != tableInfo){
+
+                                            String title = "座位";
+                                            String detail = "恭喜您！\n成功抢到座位\n号码：" + tableInfo.getTableId();
+                                            String description = "领取座位后座位预留" + tableInfo.getRecieveTime() + "分钟";
+                                            MyDialogs.showGrapTableWinnerDialog(context, title, detail, description);
                                         }
-                                    }
+                                        //  获得优惠券
+                                        else if (null != couponInfo){
 
-                                    @Override
-                                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-                                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
-
-                                        if (null != openWaitingListener)
-                                            openWaitingListener.onError();
+                                            String title = "优惠券";
+                                            String detail = "恭喜您！\n抢到"+couponInfo.getCouponTitle()+"一张";
+                                            String description = "已放入您的优惠券卡包";
+                                            MyDialogs.showGrapTableWinnerDialog(context, title, detail, description);
+                                        }
+                                        // 什么也没得到
+                                        else {
+                                            Toast.makeText(context, receivedRedPackageInfo.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        ToastUtil.showToast(context,receivedRedPackageInfo.getResultMsg(),Toast.LENGTH_SHORT);
                                     }
-                                });
+                                    baseActivity.hideLoading();
+                                }
+                            }, new Consumer<Throwable>() {
+                                @Override
+                                public void accept(Throwable throwable) throws Exception {
+                                    baseActivity.hideLoading();
+                                    ToastUtil.showToast(context,"拆开红包失败",Toast.LENGTH_SHORT);
+                                }
+                            }, new Action() {
+                                @Override
+                                public void run() throws Exception {
+                                }
+                            });
 
                             chatMsgItemInfo.setRedPackageUsed(true);
 

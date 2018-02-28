@@ -6,6 +6,7 @@ import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
+import com.feasttime.dishmap.model.bean.ReceivedRedPackageInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
 
 import io.reactivex.Observable;
@@ -70,4 +71,9 @@ public interface DishMapApi {
     //修改就餐人数
     @POST("user/setTheNumberOfDiners")
     Observable<BaseResponseBean> setTheNumberOfDiners(@Body RequestBody route);
+
+    //拆红包
+    @POST("redPackage/takeRedPackage")
+    Observable<ReceivedRedPackageInfo> takeRedPackage(@Body RequestBody route);
+
 }

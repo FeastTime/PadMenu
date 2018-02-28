@@ -259,37 +259,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                         mChatAdapter.addData(chatMsgItemInfo);
                     } else if (message.getContent() instanceof ReceivedRedPackageSurprisedMessage) {
-                        String receiveMsg = ((ReceivedRedPackageSurprisedMessage) message.getContent()).getContent();
-                        Log.d(TAG, "拆开红包消息: " + receiveMsg);
-                        ChatActivity.this.hideLoading();
 
-                        JSONObject jsonObject = JSON.parseObject(receiveMsg);
-                        String myMessage = jsonObject.getString("message");
-
-                        MyTableItemInfo tableInfo = jsonObject.getObject("tableInfo", MyTableItemInfo.class);
-                        CouponChildListItemInfo couponInfo = jsonObject.getObject("couponInfo", CouponChildListItemInfo.class);
-
-
-                        //  获得桌位
-                        if (null != tableInfo){
-
-                            String title = "座位";
-                            String detail = "恭喜您！\n成功抢到座位\n号码：" + tableInfo.getTableId();
-                            String description = "领取座位后座位预留" + tableInfo.getRecieveTime() + "分钟";
-                            MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, title, detail, description);
-                        }
-                        //  获得优惠券
-                        else if (null != couponInfo){
-
-                            String title = "优惠券";
-                            String detail = "恭喜您！\n抢到"+couponInfo.getCouponTitle()+"一张";
-                            String description = "已放入您的优惠券卡包";
-                            MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, title, detail, description);
-                        }
-                        // 什么也没得到
-                        else {
-                            Toast.makeText(ChatActivity.this, myMessage, Toast.LENGTH_SHORT).show();
-                        }
                     }
                 }
             });
