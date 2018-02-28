@@ -396,7 +396,7 @@ public class MyDialogs {
 
 
                 ((BaseActivity)context).showLoading(null);
-                RetrofitService.userComeInProc(infoMap).subscribe(new Consumer<BaseResponseBean>(){
+                RetrofitService.setTheNumberOfDiners(infoMap).subscribe(new Consumer<BaseResponseBean>(){
                     @Override
                     public void accept(BaseResponseBean baseResponseBean) throws Exception {
                         if (baseResponseBean.getResultCode() == 0) {
