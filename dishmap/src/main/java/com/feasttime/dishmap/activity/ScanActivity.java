@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
-import com.feasttime.dishmap.im.message.EnterStoreMessage;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;

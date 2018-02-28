@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.CustomizeMessage;
-import com.feasttime.dishmap.im.message.EnterStoreMessage;
 import com.feasttime.dishmap.im.message.OpenRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
@@ -97,7 +96,6 @@ public class MyApplication extends Application {
          */
         try {
             RongIMClient.registerMessageType(CustomizeMessage.class);
-            RongIMClient.registerMessageType(EnterStoreMessage.class);
             RongIMClient.registerMessageType(ReceiveRedPackageMessage.class);
             RongIMClient.registerMessageType(ChatTextMessage.class);
             RongIMClient.registerMessageType(ReceivedRedPackageSurprisedMessage.class);
