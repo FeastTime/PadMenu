@@ -16,6 +16,8 @@ import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.EnterStoreMessage;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
@@ -33,6 +35,8 @@ import com.mylhyl.zxing.scanner.common.Scanner;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
@@ -132,38 +136,44 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
 
                         //发送进店消息
                         // 建立-修改 用户与商户的关系
-                        HashMap<String, String > requestData = new HashMap<>();
-                        requestData.put("storeId", storeId);
-                        requestData.put("type", WebSocketEvent.ENTER_STORE+"");
+                        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+                        String userID = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
 
-                        EnterStoreMessage enterStoreMessage = EnterStoreMessage.obtain(System.currentTimeMillis(), JSON.toJSONString(requestData));
-                        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.GROUP, storeId,
-                                enterStoreMessage, null, null, new IRongCallback.ISendMessageCallback() {
-                                    @Override
-                                    public void onAttached(Message message) {
-                                        Log.d(TAG, "发送的文本消息已保存至本地数据库中");
-                                    }
+                        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+                        infoMap.put("token",token);
+                        infoMap.put("userId",userID);
+                        infoMap.put("storeId",storeId);
 
-                                    @Override
-                                    public void onSuccess(Message message) {
-                                        LogUtil.d(TAG,"进店成功");
+                        showLoading(null);
+                        RetrofitService.userComeInProc(infoMap).subscribe(new Consumer<BaseResponseBean>(){
+                            @Override
+                            public void accept(BaseResponseBean baseResponseBean) throws Exception {
+                                if (baseResponseBean.getResultCode() == 0) {
+                                    LogUtil.d(TAG,"进店成功");
 
-                                        // 打开聊天页面
-                                        Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
-                                        intent.putExtra("STORE_ID", storeId);
-                                        intent.putExtra("STORE_NAME",storeName);
+                                    // 打开聊天页面
+                                    Intent intent = new Intent(ScanActivity.this, ChatActivity.class);
+                                    intent.putExtra("STORE_ID", storeId);
+                                    intent.putExtra("STORE_NAME",storeName);
 
-                                        ScanActivity.this.startActivity(intent);
-                                        ScanActivity.this.finish();
+                                    ScanActivity.this.startActivity(intent);
+                                    ScanActivity.this.finish();
+                                    finish();
+                                } else {
+                                }
+                                hideLoading();
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                hideLoading();
+                            }
+                        }, new Action() {
+                            @Override
+                            public void run() throws Exception {
 
-                                    }
-
-                                    @Override
-                                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-                                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
-                                        ToastUtil.showToast(ScanActivity.this,"进店失败",Toast.LENGTH_SHORT);
-                                    }
-                                });
+                            }
+                        });
                     }
 
                     @Override

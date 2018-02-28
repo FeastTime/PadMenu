@@ -58,10 +58,10 @@ public class RetrofitService {
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
     //小庆mac
-//    private static final String BASE_URL = "http://192.168.11.98:8080/";
+    private static final String BASE_URL = "http://192.168.11.98:8080/";
 
     //测试服务器
-    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
+//    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
 
     //正式服务器
     //private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
@@ -268,5 +268,11 @@ public class RetrofitService {
     public static Observable<BaseResponseBean> feedback(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return new ObjectLoader().observe(sMenuService.feedback(getRequestBody(infoMap)));
+    }
+
+
+    public static Observable<BaseResponseBean> userComeInProc(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return new ObjectLoader().observe(sMenuService.userComeInProc(getRequestBody(infoMap)));
     }
 }

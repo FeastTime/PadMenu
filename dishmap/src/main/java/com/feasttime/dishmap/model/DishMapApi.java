@@ -62,4 +62,9 @@ public interface DishMapApi {
     //意见反馈接口
     @POST("user/feedback")
     Observable<BaseResponseBean> feedback(@Body RequestBody route);
+
+    //用户进店
+    @POST("user/userComeInProc")
+    Observable<BaseResponseBean> userComeInProc(@Body RequestBody route);
+
 }
