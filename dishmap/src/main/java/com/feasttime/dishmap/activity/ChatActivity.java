@@ -225,45 +225,50 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     private RongIMClient.OnReceiveMessageListener onReceiveMessageListener = new RongIMClient.OnReceiveMessageListener() {
         @Override
         public boolean onReceived(final Message message, int i) {
-            ChatActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d(TAG, "收到融云消息: " + message.getContent());
-                    if (message.getContent() instanceof ChatTextMessage) {
-                        String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
-                        Log.d(TAG, "收到文本消息: " + receiveMsg);
-                        JSONObject jsonObject = JSON.parseObject(receiveMsg);
-                        recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),true,jsonObject.getString("userIcon"));
-                        //setMessageRead(message); //设置收到的消息为已读消息
-                    } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
-                        String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
-                        Log.d(TAG, "收到红包消息: " + receiveMsg);
-                        JSONObject jsonObject = JSON.parseObject(receiveMsg);
 
-                        // 红包id
-                        String redPackageId = jsonObject.getString("redPackageId");
+            try {
+                ChatActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "收到融云消息: " + message.getContent());
+                        if (message.getContent() instanceof ChatTextMessage) {
+                            String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
+                            Log.d(TAG, "收到文本消息: " + receiveMsg);
+                            JSONObject jsonObject = JSON.parseObject(receiveMsg);
+                            recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),true,jsonObject.getString("userIcon"));
+                            //setMessageRead(message); //设置收到的消息为已读消息
+                        } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
+                            String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
+                            Log.d(TAG, "收到红包消息: " + receiveMsg);
+                            JSONObject jsonObject = JSON.parseObject(receiveMsg);
+
+                            // 红包id
+                            String redPackageId = jsonObject.getString("redPackageId");
 //                    String nickname = jsonObject.getString("nickname");
-                        String userIcon = jsonObject.getString("userIcon");
-                        String withMessage = jsonObject.getString("withMessage");
+                            String userIcon = jsonObject.getString("userIcon");
+                            String withMessage = jsonObject.getString("withMessage");
 
-                        ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                        chatMsgItemInfo.setRedPackage(true);
-                        chatMsgItemInfo.setTime(jsonObject.getString("date"));
+                            ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+                            chatMsgItemInfo.setRedPackage(true);
+                            chatMsgItemInfo.setTime(jsonObject.getString("date"));
 
-                        // 左边添加别人的消息
-                        chatMsgItemInfo.setIcon(userIcon);
-                        chatMsgItemInfo.setLeft(true);
-                        chatMsgItemInfo.setMsg(withMessage);
-                        chatMsgItemInfo.setRedPackageId(redPackageId);
-                        chatMsgItemInfo.setRedPackage(true);
+                            // 左边添加别人的消息
+                            chatMsgItemInfo.setIcon(userIcon);
+                            chatMsgItemInfo.setLeft(true);
+                            chatMsgItemInfo.setMsg(withMessage);
+                            chatMsgItemInfo.setRedPackageId(redPackageId);
+                            chatMsgItemInfo.setRedPackage(true);
 
-                        mChatAdapter.addData(chatMsgItemInfo);
-                    } else if (message.getContent() instanceof ReceivedRedPackageSurprisedMessage) {
+                            mChatAdapter.addData(chatMsgItemInfo);
+                        } else if (message.getContent() instanceof ReceivedRedPackageSurprisedMessage) {
 
+                        }
                     }
-                }
-            });
-//            setMessageId(message.getMessageId());
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             return false;
         }
     };
