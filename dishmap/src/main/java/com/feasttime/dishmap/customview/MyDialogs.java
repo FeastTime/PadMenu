@@ -3,6 +3,7 @@ package com.feasttime.dishmap.customview;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -20,11 +21,14 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
+import com.feasttime.dishmap.activity.ChatActivity;
+import com.feasttime.dishmap.activity.ScanActivity;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.PriceChangeInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
@@ -176,7 +180,7 @@ public class MyDialogs {
                     requestData.put("type", WebSocketEvent.USER_BET_PRICE + "");
                     requestData.put("bid",bid);
                     requestData.put("userID",userId);
-                    UtilTools.requestByWebSocket(v.getContext(),requestData);
+                    //UtilTools.requestByWebSocket(v.getContext(),requestData);
                 } else {
                     ToastUtil.showToast(v.getContext(),"请输入合法数字", Toast.LENGTH_SHORT);
                 }
@@ -300,7 +304,7 @@ public class MyDialogs {
                 requestData.put("type", WebSocketEvent.USER_GRAP_TABLE + "");
                 requestData.put("bid",bid);
                 requestData.put("actionTime",delayTime + "");
-                UtilTools.requestByWebSocket(v.getContext(),requestData);
+                //UtilTools.requestByWebSocket(v.getContext(),requestData);
                 grapTableDialog.dismiss();
             }
         });
@@ -378,16 +382,44 @@ public class MyDialogs {
                 if (TextUtils.isEmpty(dinerCountStr)){
                     dinerCountStr = "0";
                 }
+
+                String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+                String userID = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+
                 // 修改 用餐人数
-                HashMap<String, String > requestData = new HashMap<>();
-                requestData.put("storeId", storeId);
-                requestData.put("dinnerCount", dinerCountStr);
-                requestData.put("type", WebSocketEvent.SET_NUMBER_OF_USER+"");
+                HashMap<String,Object> infoMap = new HashMap<String,Object>();
+                infoMap.put("storeId", storeId);
+                infoMap.put("dinnerCount", dinerCountStr);
+                infoMap.put("type", WebSocketEvent.SET_NUMBER_OF_USER+"");
+                infoMap.put("token",token);
+                infoMap.put("userId",userID);
 
-                UtilTools.requestByWebSocket(context, requestData);
 
-                PreferenceUtil.setStringKey(PreferenceUtil.PERSON_NO, dinerCountStr.equals("0") ? "" : dinerCountStr);
-                dialog.dismiss();
+                ((BaseActivity)context).showLoading(null);
+                RetrofitService.userComeInProc(infoMap).subscribe(new Consumer<BaseResponseBean>(){
+                    @Override
+                    public void accept(BaseResponseBean baseResponseBean) throws Exception {
+                        if (baseResponseBean.getResultCode() == 0) {
+                            String dinerStr = dinerCount.getText().toString();
+                            PreferenceUtil.setStringKey(PreferenceUtil.PERSON_NO, dinerStr.equals("0") ? "" : dinerStr);
+                            dialog.dismiss();
+                        } else {
+                            ToastUtil.showToast(context,baseResponseBean.getResultMsg(),Toast.LENGTH_SHORT);
+                        }
+                        ((BaseActivity)context).hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        ((BaseActivity)context).hideLoading();
+                        ToastUtil.showToast(context,"请求失败",Toast.LENGTH_SHORT);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+
+                    }
+                });
             }
         });
 

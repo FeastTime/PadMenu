@@ -114,108 +114,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         initViews();
 
-        RxBus.getDefault().register(this, WebSocketEvent.class,  new Consumer<WebSocketEvent>() {
-            @Override
-            public void accept(WebSocketEvent orderEvent) throws Exception {
-
-                if (null == orderEvent.jsonData) {
-                    return;
-                }
-
-                // 收到信息取出其中的message并显示
-                Log.d(TAG, "return json is : " + orderEvent.jsonData);
-
-                JSONObject jsonObject = JSON.parseObject(orderEvent.jsonData);
-
-                if (jsonObject.containsKey("withMessage")) {
-
-                    String withMessage = jsonObject.getString("withMessage");
-                    ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                    chatMsgItemInfo.setIcon(jsonObject.getString("userIcon"));
-                    chatMsgItemInfo.setLeft(true);
-                    chatMsgItemInfo.setMsg(withMessage);
-
-                    mChatAdapter.addData(chatMsgItemInfo);
-                }
-
-                String senderUserId = jsonObject.getString("userId");
-
-                if (TextUtils.isEmpty(senderUserId)) {
-                    return;
-                }
-
-                // 收到新消息
-                if (orderEvent.eventType == WebSocketEvent.RECEIVED_MESSAGE) {
-
-
-
-                }
-                // 收到红包
-                else if(orderEvent.eventType == WebSocketEvent.RECEIVED_RED_PACKAGE) {
-
-
-                    // 红包id
-                    String redPackageId = jsonObject.getString("redPackageId");
-//                    String nickname = jsonObject.getString("nickname");
-                    String userIcon = jsonObject.getString("userIcon");
-                    String withMessage = jsonObject.getString("withMessage");
-
-                    ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                    chatMsgItemInfo.setRedPackage(true);
-                    chatMsgItemInfo.setTime(jsonObject.getString("date"));
-
-                    // 左边添加别人的消息
-                    chatMsgItemInfo.setIcon(userIcon);
-                    chatMsgItemInfo.setLeft(true);
-                    chatMsgItemInfo.setMsg(withMessage);
-                    chatMsgItemInfo.setRedPackageId(redPackageId);
-                    chatMsgItemInfo.setRedPackage(true);
-
-                    mChatAdapter.addData(chatMsgItemInfo);
-                }
-
-                // 拆开红包通知
-                else if(orderEvent.eventType == WebSocketEvent.RECEIVED_RED_PACKAGE_SURPRISED) {
-
-                    ChatActivity.this.hideLoading();
-
-                    String message = jsonObject.getString("message");
-
-                    MyTableItemInfo tableInfo = jsonObject.getObject("tableInfo", MyTableItemInfo.class);
-                    CouponChildListItemInfo couponInfo = jsonObject.getObject("couponInfo", CouponChildListItemInfo.class);
-
-
-                    //  获得桌位
-                    if (null != tableInfo){
-
-                        String title = "座位";
-                        String detail = "恭喜您！\n成功抢到座位\n号码：" + tableInfo.getTableId();
-                        String description = "领取座位后座位预留" + tableInfo.getRecieveTime() + "分钟";
-                        MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, title, detail, description);
-                    }
-                    //  获得优惠券
-                    else if (null != couponInfo){
-
-                        String title = "优惠券";
-                        String detail = "恭喜您！\n抢到"+couponInfo.getCouponTitle()+"一张";
-                        String description = "已放入您的优惠券卡包";
-                        MyDialogs.showGrapTableWinnerDialog(ChatActivity.this, title, detail, description);
-                    }
-                    // 什么也没得到
-                    else {
-                        Toast.makeText(ChatActivity.this, message, Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                }
-
-                LogUtil.d(TAG, "test activity received data:" + orderEvent.jsonData);
-
-            }
-        });
-
         MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
-
     }
 
 
@@ -287,7 +186,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.getDefault().unRegister(this);
         RongIMClient.setOnReceiveMessageListener(null);
     }
 

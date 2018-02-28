@@ -275,4 +275,9 @@ public class RetrofitService {
         addDeviceInfo(infoMap);
         return new ObjectLoader().observe(sMenuService.userComeInProc(getRequestBody(infoMap)));
     }
+
+    public static Observable<BaseResponseBean> setTheNumberOfDiners(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return new ObjectLoader().observe(sMenuService.setTheNumberOfDiners(getRequestBody(infoMap)));
+    }
 }

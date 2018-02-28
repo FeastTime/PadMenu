@@ -67,4 +67,7 @@ public interface DishMapApi {
     @POST("user/userComeInProc")
     Observable<BaseResponseBean> userComeInProc(@Body RequestBody route);
 
+    //修改就餐人数
+    @POST("user/setTheNumberOfDiners")
+    Observable<BaseResponseBean> setTheNumberOfDiners(@Body RequestBody route);
 }
