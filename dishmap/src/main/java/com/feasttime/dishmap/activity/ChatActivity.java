@@ -256,7 +256,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                             String sendMessage = ((ChatTextMessage) message.getContent()).getContent();
                             Log.d(TAG, "成功发送文本消息: " + ((ChatTextMessage) message.getContent()).getContent());
                             JSONObject jsonObject = JSON.parseObject(sendMessage);
-                            recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),false,jsonObject.getString("userIcon"));
+                            recevieMessageAndAdd(jsonObject.getString("message"),message.getSentTime(),false,jsonObject.getString("userIcon"));
                         }
                     }
 
@@ -330,6 +330,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             ChatActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    Log.d(TAG, "收到融云消息: " + message.getContent());
                     if (message.getContent() instanceof ChatTextMessage) {
                         String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
                         Log.d(TAG, "收到文本消息: " + receiveMsg);
