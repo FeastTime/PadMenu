@@ -35,24 +35,26 @@
 
 
             <TextView
+                android:id="@+id/activity_message_lv_item_desc_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y25"
                 android:includeFontPadding="false"
-                android:text="0"
+                android:text=""
                 android:textColor="@color/text_gray_3"
                 android:textSize="@dimen/small_text_size" />
         </LinearLayout>
 
 
         <TextView
+            android:id="@+id/activity_message_lv_item_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginTop="@dimen/y50"
             android:includeFontPadding="false"
-            android:text="2018/01/01"
+            android:text=""
             android:textColor="@color/text_gary_4"
             android:textSize="@dimen/small_text_size"
 

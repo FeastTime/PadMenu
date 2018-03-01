@@ -55,21 +55,27 @@ public class MessageAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.nameTv = (TextView)convertView.findViewById(R.id.activity_message_lv_item_name_tv);
             holder.badgeIv = (ImageView)convertView.findViewById(R.id.activity_message_lv_item_badge_iv);
+            holder.timeTv = (TextView)convertView.findViewById(R.id.activity_message_lv_item_time_tv);
+            holder.descTv = (TextView)convertView.findViewById(R.id.activity_message_lv_item_desc_tv);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
 
+        MessageItemInfo messageItemInfo = dataList.get(position);
+
         final BadgeDrawable badgeBd =
                 new BadgeDrawable.Builder()
                         .type(BadgeDrawable.TYPE_NUMBER)
                         .badgeColor(Color.parseColor("#E7001E"))
-                        .number(9)
+                        .number(messageItemInfo.getMsgCount())
                         .build();
 
-        MessageItemInfo messageItemInfo = dataList.get(position);
+
         holder.nameTv.setText(messageItemInfo.getName());
         holder.badgeIv.setImageDrawable(badgeBd);
+        holder.descTv.setText(messageItemInfo.getMessage());
+        holder.timeTv.setText(messageItemInfo.getTime());
         return convertView;
     }
 
@@ -78,5 +84,6 @@ public class MessageAdapter extends BaseAdapter {
         TextView nameTv;
         TextView descTv;
         ImageView badgeIv;
+        TextView timeTv;
     }
 }

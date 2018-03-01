@@ -6,6 +6,33 @@ package com.feasttime.dishmap.model.bean;
 
 public class MessageItemInfo {
     String name;
+    String message;
+    String time;
+    int msgCount;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getMsgCount() {
+        return msgCount;
+    }
+
+    public void setMsgCount(int msgCount) {
+        this.msgCount = msgCount;
+    }
 
     public String getName() {
         return name;
