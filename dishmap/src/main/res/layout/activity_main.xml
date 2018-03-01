@@ -43,7 +43,7 @@
             android:textColor="@color/white"
             android:layout_alignParentBottom="true"
             android:drawableTop="@mipmap/conversation_no_selected"
-            android:drawablePadding="@dimen/y3"
+            android:drawablePadding="@dimen/y8"
             android:textSize="@dimen/small_text_size"
             android:text="呼啦圈"
             />
