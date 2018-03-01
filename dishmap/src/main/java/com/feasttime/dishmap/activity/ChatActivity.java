@@ -23,6 +23,7 @@ import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.utils.KeybordS;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
@@ -174,6 +175,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         shareIv.setVisibility(View.GONE);
         rightTitleBarIv.setVisibility(View.VISIBLE);
         titleTv.setText(storeName);
+
+        KeybordS.closeKeybord(inputMessage, this);
 
         //获取远程消息记录
         RongIMClient.getInstance().getHistoryMessages(Conversation.ConversationType.GROUP, storeId, 0, 50, new RongIMClient.ResultCallback<List<Message>>() {
