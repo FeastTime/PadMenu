@@ -49,7 +49,6 @@ public class ImUtils {
                 LogUtil.d(TAG, "连接融云成功---onSuccess---用户ID:" + userid + '\n');
 //                List<Conversation> myList = RongIMClient.getInstance().getConversationList();
 //                LogUtil.d(TAG, "=====================");
-                context.startActivity(new Intent(context, ConversationsListActivity.class));
             }
 
             /**

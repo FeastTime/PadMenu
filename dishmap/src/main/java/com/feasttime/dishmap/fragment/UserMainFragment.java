@@ -55,7 +55,7 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.fragment_user_main_start_scan_btn)
     Button startScanBtn;
 
-    RelativeLayout btmMenuWrapRel;
+    LinearLayout btmMenuWrapRel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
     }
 
     private void initViews() {
-        btmMenuWrapRel = (RelativeLayout)this.getActivity().findViewById(R.id.activity_main_btm_menu_rel);
+        btmMenuWrapRel = (LinearLayout) this.getActivity().findViewById(R.id.activity_main_btm_menu_rel);
 
         //设置距顶边距为负值
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams)scanItemsLL.getLayoutParams();

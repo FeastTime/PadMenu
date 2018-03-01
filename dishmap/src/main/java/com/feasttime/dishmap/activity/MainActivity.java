@@ -1,27 +1,18 @@
 package com.feasttime.dishmap.activity;
 
-import android.animation.ValueAnimator;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.feasttime.dishmap.R;
-import com.feasttime.dishmap.fragment.MerchantOpenTableFragment;
+import com.feasttime.dishmap.fragment.UserConversationFragment;
 import com.feasttime.dishmap.fragment.UserCouponFragment;
 import com.feasttime.dishmap.fragment.UserMainFragment;
 import com.feasttime.dishmap.fragment.UserMineFragment;
 import com.feasttime.dishmap.im.ImUtils;
-import com.feasttime.dishmap.utils.LogUtil;
-import com.feasttime.dishmap.utils.PreferenceUtil;
-import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
 import butterknife.Bind;
@@ -42,10 +33,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Bind(R.id.activity_main_mine_tv)
     TextView mineTv;
 
+    @Bind(R.id.activity_main_conversation_tv)
+    TextView conversationTv;
+
 
     private UserMainFragment mUserMainFragment;
     private UserCouponFragment mUserCouponFragment;
     private UserMineFragment mUserMineFragment;
+    private UserConversationFragment mUserConversationFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,23 +72,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         UtilTools.chenageTextDrawableSize(homeTv,R.mipmap.home_no_selected_icon,(int)resources.getDimension(R.dimen.x50),(int)resources.getDimension(R.dimen.x50),2);
         UtilTools.chenageTextDrawableSize(couponTv,R.mipmap.coupon_no_selected_icon,(int)resources.getDimension(R.dimen.x60),(int)resources.getDimension(R.dimen.x60),2);
         UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine_no_select_icon,(int)resources.getDimension(R.dimen.x60),(int)resources.getDimension(R.dimen.x60),2);
+        UtilTools.chenageTextDrawableSize(conversationTv,R.mipmap.conversation_no_selected,(int)resources.getDimension(R.dimen.x44),(int)resources.getDimension(R.dimen.x44),2);
+
 
         if (selectIndex == 1) {
             UtilTools.chenageTextDrawableSize(homeTv,R.mipmap.home_selected_icon,(int)resources.getDimension(R.dimen.x50),(int)resources.getDimension(R.dimen.x50),2);
         } else if (selectIndex == 2) {
-            UtilTools.chenageTextDrawableSize(couponTv,R.mipmap.coupon_selected_icon,(int)resources.getDimension(R.dimen.x60),(int)resources.getDimension(R.dimen.x60),2);
+            UtilTools.chenageTextDrawableSize(conversationTv,R.mipmap.conversation_seleced,(int)resources.getDimension(R.dimen.x44),(int)resources.getDimension(R.dimen.x44),2);
         } else if (selectIndex == 3) {
+            UtilTools.chenageTextDrawableSize(couponTv,R.mipmap.coupon_selected_icon,(int)resources.getDimension(R.dimen.x60),(int)resources.getDimension(R.dimen.x60),2);
+        } else if (selectIndex == 4) {
             UtilTools.chenageTextDrawableSize(mineTv,R.mipmap.mine_selected_icon,(int)resources.getDimension(R.dimen.x60),(int)resources.getDimension(R.dimen.x60),2);
         }
     }
 
-    @OnClick({R.id.activity_main_home_tv,R.id.activity_main_coupon_tv,R.id.activity_main_mine_tv})
+    @OnClick({R.id.activity_main_home_tv,R.id.activity_main_coupon_tv,R.id.activity_main_mine_tv,R.id.activity_main_conversation_tv})
     @Override
     public void onClick(View v) {
-
-
-
-
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         hideAllFragment(fragmentTransaction);
 
@@ -116,8 +111,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 fragmentTransaction.add(R.id.activity_main_content_fl, mUserMainFragment);
                 fragmentTransaction.show(mUserMainFragment).commitAllowingStateLoss();
             }
-        } else if (v == couponTv) {
+        } else if (v == conversationTv) {
             initBtmBar(2);
+            if (mUserConversationFragment == null) {
+                mUserConversationFragment = new UserConversationFragment();
+            }
+
+
+
+            if (mUserConversationFragment.isAdded()) {
+                fragmentTransaction.show(mUserConversationFragment).commitAllowingStateLoss();
+            } else {
+                fragmentTransaction.add(R.id.activity_main_content_fl, mUserConversationFragment);
+                fragmentTransaction.show(mUserConversationFragment).commitAllowingStateLoss();
+            }
+        } else if (v == couponTv) {
+            initBtmBar(3);
             if (mUserCouponFragment == null) {
                 mUserCouponFragment = new UserCouponFragment();
             }
@@ -134,7 +143,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
 
         } else if (v == mineTv) {
-            initBtmBar(3);
+            initBtmBar(4);
             if (mUserMineFragment == null) {
                 mUserMineFragment = new UserMineFragment();
             }

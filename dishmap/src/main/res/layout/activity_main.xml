@@ -11,11 +11,12 @@
 
     </FrameLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/activity_main_btm_menu_rel"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y100"
         android:paddingBottom="@dimen/y5"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:background="@mipmap/main_btm_menu_bg">
 
@@ -23,26 +24,41 @@
             android:id="@+id/activity_main_home_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:textColor="@color/white"
             android:layout_alignParentBottom="true"
             android:drawableTop="@mipmap/home_no_selected_icon"
-            android:paddingLeft="@dimen/x82"
-            android:paddingRight="@dimen/x20"
             android:drawablePadding="@dimen/y3"
             android:textSize="@dimen/small_text_size"
+            android:gravity="center_horizontal"
             android:text="首页"
             />
+
+        <TextView
+            android:id="@+id/activity_main_conversation_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:drawableTop="@mipmap/conversation_no_selected"
+            android:drawablePadding="@dimen/y3"
+            android:textSize="@dimen/small_text_size"
+            android:text="呼啦圈"
+            />
+
+
 
         <TextView
             android:id="@+id/activity_main_coupon_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:drawablePadding="0dp"
-            android:paddingRight="@dimen/x20"
-            android:paddingLeft="@dimen/x20"
             android:drawableTop="@mipmap/coupon_no_selected_icon"
             android:textSize="@dimen/small_text_size"
             android:text="优惠券"
@@ -52,11 +68,9 @@
             android:id="@+id/activity_main_mine_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:textColor="@color/white"
-            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:paddingRight="@dimen/x82"
-            android:paddingLeft="@dimen/x20"
             android:drawablePadding="0dp"
             android:drawableTop="@mipmap/mine_no_select_icon"
             android:gravity="center_horizontal"
@@ -64,5 +78,5 @@
             android:text="我的"
             />
 
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

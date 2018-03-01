@@ -1,7 +1,6 @@
 package com.feasttime.dishmap.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
@@ -35,7 +34,7 @@ public class ConversationsListActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conversations);
+        setContentView(R.layout.fragment_conversations);
         ButterKnife.bind(this);
 
         //获取融云历史消息
