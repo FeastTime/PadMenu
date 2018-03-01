@@ -117,14 +117,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 mUserConversationFragment = new UserConversationFragment();
             }
 
-
-
             if (mUserConversationFragment.isAdded()) {
                 fragmentTransaction.show(mUserConversationFragment).commitAllowingStateLoss();
+                mUserConversationFragment.loadHistoryMessage();
             } else {
                 fragmentTransaction.add(R.id.activity_main_content_fl, mUserConversationFragment);
                 fragmentTransaction.show(mUserConversationFragment).commitAllowingStateLoss();
             }
+
         } else if (v == couponTv) {
             initBtmBar(3);
             if (mUserCouponFragment == null) {
@@ -138,8 +138,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 fragmentTransaction.add(R.id.activity_main_content_fl, mUserCouponFragment);
                 fragmentTransaction.show(mUserCouponFragment).commitAllowingStateLoss();
             }
-
-
         } else if (v == mineTv) {
             initBtmBar(4);
             if (mUserMineFragment == null) {

@@ -62,7 +62,6 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
         View view = inflater.inflate(R.layout.fragment_conversations, container, false);
         ButterKnife.bind(this,view);
         initViews();
-        loadHistoryMessage();
         return view;
     }
 
@@ -86,6 +85,8 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
                 startActivity(intent);
             }
         });
+
+        loadHistoryMessage();
     }
 
     public void loadHistoryMessage() {
