@@ -28,6 +28,8 @@ import com.mylhyl.zxing.scanner.OnScannerCompletionListener;
 import com.mylhyl.zxing.scanner.ScannerView;
 
 import java.util.HashMap;
+import java.util.List;
+
 import com.google.zxing.Result;
 import com.mylhyl.zxing.scanner.common.Scanner;
 
@@ -133,6 +135,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                     public void onSuccess() {
                         LogUtil.d(TAG,"加入群组成功");
 
+
                         //发送进店消息
                         // 建立-修改 用户与商户的关系
                         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
@@ -180,6 +183,8 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                         ToastUtil.showToast(ScanActivity.this,"进店失败",Toast.LENGTH_SHORT);
                     }
                 });
+
+
 
 //
 //                MyDialogs.PersonNumListener personNumListener = new MyDialogs.PersonNumListener() {

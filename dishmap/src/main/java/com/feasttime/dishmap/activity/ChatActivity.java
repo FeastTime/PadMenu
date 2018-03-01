@@ -88,8 +88,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         List<ChatMsgItemInfo> chatMsgItemInfoList = new ArrayList<>();
 
-        RongIMClient.setOnReceiveMessageListener(onReceiveMessageListener);
-
         mChatAdapter = new ChatAdapter(this, chatMsgItemInfoList, storeId, new OpenWaitingListener() {
             @Override
             public void onSend() {
@@ -115,6 +113,9 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         initViews();
 
         MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
+
+
+//        List<Conversation> myList = RongIMClient.getInstance().getHistoryMessages();
     }
 
 
@@ -173,7 +174,32 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         rightTitleBarIv.setVisibility(View.VISIBLE);
         titleTv.setText(storeName);
 
+        //获取远程消息记录
+        RongIMClient.getInstance().getRemoteHistoryMessages(Conversation.ConversationType.GROUP, storeId, 0, 50, new RongIMClient.ResultCallback<List<Message>>() {
+            @Override
+            public void onSuccess(List<Message> messages) {
+                if (messages != null) {
+                    LogUtil.d(TAG, "远端服务器存储的历史消息个数为 " + messages.size());
 
+                    //处理老的消息
+                    for (Message message: messages) {
+                        handleRongImMessageLogic(message);
+                    }
+                } else
+                    LogUtil.d(TAG, "远端服务器存储的历史消息个数为 0" + '\n');
+
+                //处理完消息后，去接受服务器消息
+                RongIMClient.setOnReceiveMessageListener(onReceiveMessageListener);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                LogUtil.d(TAG, "读取远端服务器存储的历史消息失败，错误码: " + errorCode.getValue() + '\n');
+
+                //报错之后也要去接受历史消息
+                RongIMClient.setOnReceiveMessageListener(onReceiveMessageListener);
+            }
+        });
 
     }
 
@@ -225,51 +251,57 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     private RongIMClient.OnReceiveMessageListener onReceiveMessageListener = new RongIMClient.OnReceiveMessageListener() {
         @Override
         public boolean onReceived(final Message message, int i) {
-
-            try {
-                ChatActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "收到融云消息: " + message.getContent());
-                        if (message.getContent() instanceof ChatTextMessage) {
-                            String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
-                            Log.d(TAG, "收到文本消息: " + receiveMsg);
-                            JSONObject jsonObject = JSON.parseObject(receiveMsg);
-                            recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),true,jsonObject.getString("userIcon"));
-                            //setMessageRead(message); //设置收到的消息为已读消息
-                        } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
-                            String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
-                            Log.d(TAG, "收到红包消息: " + receiveMsg);
-                            JSONObject jsonObject = JSON.parseObject(receiveMsg);
-
-                            // 红包id
-                            String redPackageId = jsonObject.getString("redPackageId");
-//                    String nickname = jsonObject.getString("nickname");
-                            String userIcon = jsonObject.getString("userIcon");
-                            String withMessage = jsonObject.getString("withMessage");
-
-                            ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
-                            chatMsgItemInfo.setRedPackage(true);
-                            chatMsgItemInfo.setTime(jsonObject.getString("date"));
-
-                            // 左边添加别人的消息
-                            chatMsgItemInfo.setIcon(userIcon);
-                            chatMsgItemInfo.setLeft(true);
-                            chatMsgItemInfo.setMsg(withMessage);
-                            chatMsgItemInfo.setRedPackageId(redPackageId);
-                            chatMsgItemInfo.setRedPackage(true);
-
-                            mChatAdapter.addData(chatMsgItemInfo);
-                        } else if (message.getContent() instanceof ReceivedRedPackageSurprisedMessage) {
-
-                        }
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            handleRongImMessageLogic(message);
             return false;
         }
     };
+
+
+    private void handleRongImMessageLogic(final Message message) {
+
+        try {
+            ChatActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "收到融云消息: " + message.getContent());
+                    if (message.getContent() instanceof ChatTextMessage) {
+                        String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
+                        Log.d(TAG, "收到文本消息: " + receiveMsg);
+                        JSONObject jsonObject = JSON.parseObject(receiveMsg);
+                        recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),true,jsonObject.getString("userIcon"));
+                        //setMessageRead(message); //设置收到的消息为已读消息
+                    } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
+                        String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
+                        Log.d(TAG, "收到红包消息: " + receiveMsg);
+                        JSONObject jsonObject = JSON.parseObject(receiveMsg);
+
+                        // 红包id
+                        String redPackageId = jsonObject.getString("redPackageId");
+//                    String nickname = jsonObject.getString("nickname");
+                        String userIcon = jsonObject.getString("userIcon");
+                        String withMessage = jsonObject.getString("withMessage");
+
+                        ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
+                        chatMsgItemInfo.setRedPackage(true);
+                        chatMsgItemInfo.setTime(jsonObject.getString("date"));
+
+                        // 左边添加别人的消息
+                        chatMsgItemInfo.setIcon(userIcon);
+                        chatMsgItemInfo.setLeft(true);
+                        chatMsgItemInfo.setMsg(withMessage);
+                        chatMsgItemInfo.setRedPackageId(redPackageId);
+                        chatMsgItemInfo.setRedPackage(true);
+
+                        mChatAdapter.addData(chatMsgItemInfo);
+                    } else if (message.getContent() instanceof ReceivedRedPackageSurprisedMessage) {
+
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

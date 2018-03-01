@@ -5,10 +5,14 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 
+import java.util.List;
+
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 
 /**
  * Created by chen on 2018/2/23.
@@ -31,7 +35,7 @@ public class ImUtils {
              */
             @Override
             public void onTokenIncorrect() {
-                Log.d(TAG, "Token 错误---onTokenIncorrect---" + '\n');
+                LogUtil.d(TAG, "Token 错误---onTokenIncorrect---" + '\n');
             }
 
             /**
@@ -40,7 +44,9 @@ public class ImUtils {
              */
             @Override
             public void onSuccess(String userid) {
-                Log.d(TAG, "连接融云成功---onSuccess---用户ID:" + userid + '\n');
+                LogUtil.d(TAG, "连接融云成功---onSuccess---用户ID:" + userid + '\n');
+//                List<Conversation> myList = RongIMClient.getInstance().getConversationList();
+//                LogUtil.d(TAG, "=====================");
             }
 
             /**
@@ -49,7 +55,7 @@ public class ImUtils {
              */
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.d(TAG, "连接融云失败, 错误码: " + errorCode + '\n');
+                LogUtil.d(TAG, "连接融云失败, 错误码: " + errorCode + '\n');
             }
         });
     }
