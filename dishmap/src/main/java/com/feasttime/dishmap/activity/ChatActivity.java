@@ -292,7 +292,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                         ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
                         chatMsgItemInfo.setRedPackage(true);
-                        chatMsgItemInfo.setTime(jsonObject.getString("date"));
+                        chatMsgItemInfo.setTime(UtilTools.formateDate(message.getSentTime()));
 
                         // 左边添加别人的消息
                         chatMsgItemInfo.setIcon(userIcon);
