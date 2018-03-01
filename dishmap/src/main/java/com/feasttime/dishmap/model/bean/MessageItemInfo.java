@@ -9,6 +9,15 @@ public class MessageItemInfo {
     String message;
     String time;
     int msgCount;
+    String storeId;
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
 
     public String getMessage() {
         return message;

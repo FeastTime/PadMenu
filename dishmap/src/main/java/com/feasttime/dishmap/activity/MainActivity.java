@@ -131,8 +131,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 mUserCouponFragment = new UserCouponFragment();
             }
 
-
-
             if (mUserCouponFragment.isAdded()) {
                 mUserCouponFragment.requestNoUsedCoupon();
                 fragmentTransaction.show(mUserCouponFragment).commitAllowingStateLoss();
@@ -186,6 +184,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         return super.onTouchEvent(event);
     }
 
+    //隐藏所有fragment
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
         if (mUserMainFragment != null && mUserMainFragment.isAdded()) {
             fragmentTransaction.hide(mUserMainFragment);
@@ -197,6 +196,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         if (mUserMineFragment != null && mUserMineFragment.isAdded()) {
             fragmentTransaction.hide(mUserMineFragment);
+        }
+
+        if (mUserConversationFragment != null && mUserConversationFragment.isAdded()) {
+            fragmentTransaction.hide(mUserConversationFragment);
         }
     }
 
