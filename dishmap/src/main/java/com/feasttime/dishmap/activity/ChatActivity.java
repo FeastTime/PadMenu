@@ -264,8 +264,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     };
 
 
+    //处理融云收到消息逻辑
     private void handleRongImMessageLogic(final Message message) {
-
         try {
             ChatActivity.this.runOnUiThread(new Runnable() {
                 @Override
@@ -276,7 +276,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         Log.d(TAG, "收到文本消息: " + receiveMsg);
                         JSONObject jsonObject = JSON.parseObject(receiveMsg);
                         recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),jsonObject.getString("userId"),jsonObject.getString("userIcon"));
-                        //setMessageRead(message); //设置收到的消息为已读消息
                     } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
                         String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
                         Log.d(TAG, "收到红包消息: " + receiveMsg);
@@ -303,12 +302,30 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                     } else if (message.getContent() instanceof ReceivedRedPackageSurprisedMessage) {
 
                     }
+
+                    LogUtil.d(TAG,"the message status:" + message.getReceivedStatus().isRead());
+
+                    //如果消息未读过就设置为已读
+                    if (!message.getReceivedStatus().isRead()) {
+                        setMessageRead(message); //设置收到的消息为已读消息
+                    }
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
 
+    /**
+     * 设置消息为已读消息
+     */
+    private void setMessageRead(Message message) {
+        if (message.getMessageId() > 0) {
+            io.rong.imlib.model.Message.ReceivedStatus status = message.getReceivedStatus();
+            status.setRead();
+            message.setReceivedStatus(status);
+            RongIMClient.getInstance().setMessageReceivedStatus(message.getMessageId(), status, null);
+        }
     }
 }

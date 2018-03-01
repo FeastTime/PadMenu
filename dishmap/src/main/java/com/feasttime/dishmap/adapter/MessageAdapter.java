@@ -64,16 +64,24 @@ public class MessageAdapter extends BaseAdapter {
 
         MessageItemInfo messageItemInfo = dataList.get(position);
 
-        final BadgeDrawable badgeBd =
-                new BadgeDrawable.Builder()
-                        .type(BadgeDrawable.TYPE_NUMBER)
-                        .badgeColor(Color.parseColor("#E7001E"))
-                        .number(messageItemInfo.getMsgCount())
-                        .build();
+        int msgCount = messageItemInfo.getMsgCount();
+
+        if (msgCount > 0 ) {
+            holder.badgeIv.setVisibility(View.VISIBLE);
+            final BadgeDrawable badgeBd =
+                    new BadgeDrawable.Builder()
+                            .type(BadgeDrawable.TYPE_NUMBER)
+                            .badgeColor(Color.parseColor("#E7001E"))
+                            .number(msgCount)
+                            .build();
+            holder.badgeIv.setImageDrawable(badgeBd);
+        } else {
+            holder.badgeIv.setVisibility(View.GONE);
+        }
 
 
         holder.nameTv.setText(messageItemInfo.getName());
-        holder.badgeIv.setImageDrawable(badgeBd);
+
         holder.descTv.setText(messageItemInfo.getMessage());
         holder.timeTv.setText(messageItemInfo.getTime());
         return convertView;
