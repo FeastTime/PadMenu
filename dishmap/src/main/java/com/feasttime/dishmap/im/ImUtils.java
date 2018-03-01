@@ -1,10 +1,12 @@
 package com.feasttime.dishmap.im;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.feasttime.dishmap.activity.ConversationsListActivity;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
@@ -21,7 +23,7 @@ import io.rong.imlib.model.Conversation;
 public class ImUtils {
     private static final String TAG = "ImUtils";
 
-    public static void connectImServer(Context context) {
+    public static void connectImServer(final Context context) {
         String imToken = PreferenceUtil.getStringKey(PreferenceUtil.IM_TOKEN);
         if (TextUtils.isEmpty(imToken)) {
             ToastUtil.showToast(context,"获得的im的token为空", Toast.LENGTH_SHORT);
@@ -47,6 +49,7 @@ public class ImUtils {
                 LogUtil.d(TAG, "连接融云成功---onSuccess---用户ID:" + userid + '\n');
 //                List<Conversation> myList = RongIMClient.getInstance().getConversationList();
 //                LogUtil.d(TAG, "=====================");
+                context.startActivity(new Intent(context, ConversationsListActivity.class));
             }
 
             /**
