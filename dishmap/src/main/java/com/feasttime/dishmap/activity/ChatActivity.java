@@ -136,6 +136,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         requestData.put("message", inputMessageStr);
         requestData.put("type", WebSocketEvent.SEND_MESSAGE+"");
         requestData.put("storeId", storeId);
+        requestData.put("userId",userId);
 
 //        UtilTools.requestByWebSocket(this, requestData);
 
@@ -156,7 +157,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                             String sendMessage = ((ChatTextMessage) message.getContent()).getContent();
                             Log.d(TAG, "成功发送文本消息: " + ((ChatTextMessage) message.getContent()).getContent());
                             JSONObject jsonObject = JSON.parseObject(sendMessage);
-                            recevieMessageAndAdd(jsonObject.getString("message"),message.getSentTime(),false,jsonObject.getString("userIcon"));
+                            recevieMessageAndAdd(jsonObject.getString("message"),message.getSentTime(),jsonObject.getString("userId"),jsonObject.getString("userIcon"));
                         }
                     }
 
@@ -175,14 +176,15 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         titleTv.setText(storeName);
 
         //获取远程消息记录
-        RongIMClient.getInstance().getRemoteHistoryMessages(Conversation.ConversationType.GROUP, storeId, 0, 50, new RongIMClient.ResultCallback<List<Message>>() {
+        RongIMClient.getInstance().getHistoryMessages(Conversation.ConversationType.GROUP, storeId, 0, 50, new RongIMClient.ResultCallback<List<Message>>() {
             @Override
             public void onSuccess(List<Message> messages) {
                 if (messages != null) {
                     LogUtil.d(TAG, "远端服务器存储的历史消息个数为 " + messages.size());
 
                     //处理老的消息
-                    for (Message message: messages) {
+                    for (int i = messages.size() - 1 ; i >= 0 ; i-- ) {
+                        Message message = messages.get(i);
                         handleRongImMessageLogic(message);
                     }
                 } else
@@ -230,7 +232,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     }
 
     //收到消息后添加到列表并刷新
-    private void recevieMessageAndAdd(String receiveMsg,long receiveTime,boolean isLeft,String userIcon) {
+    private void recevieMessageAndAdd(String receiveMsg,long receiveTime,String imUserId,String userIcon) {
         ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
         chatMsgItemInfo.setRedPackage(false);
         chatMsgItemInfo.setTime(UtilTools.formateDate(receiveTime));
@@ -240,7 +242,12 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             chatMsgItemInfo.setIcon(userIcon);
         }
 
-        chatMsgItemInfo.setLeft(isLeft);
+        if (TextUtils.equals(imUserId,userId)) {
+            chatMsgItemInfo.setLeft(false);
+        } else {
+            chatMsgItemInfo.setLeft(true);
+        }
+
         chatMsgItemInfo.setMsg(receiveMsg);
         mChatAdapter.addData(chatMsgItemInfo);
     }
@@ -268,7 +275,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
                         Log.d(TAG, "收到文本消息: " + receiveMsg);
                         JSONObject jsonObject = JSON.parseObject(receiveMsg);
-                        recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),true,jsonObject.getString("userIcon"));
+                        recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),jsonObject.getString("userId"),jsonObject.getString("userIcon"));
                         //setMessageRead(message); //设置收到的消息为已读消息
                     } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
                         String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
