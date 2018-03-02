@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -98,7 +99,7 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
     private SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
         @Override
         public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
-            int width = 150;
+            int width = (int)UserConversationFragment.this.getResources().getDimension(R.dimen.x150);
 
             // 1. MATCH_PARENT 自适应高度，保持和Item一样高;
             // 2. 指定具体的高，比如80;
@@ -144,21 +145,6 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
         conversationsSmrv.addItemDecoration(createItemDecoration());
 
         conversationsSmrv.setLongPressDragEnabled(true); // 长按拖拽，默认关闭。
-
-//        conversationsSmrv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                MessageAdapter messageAdapter =  (MessageAdapter) parent.getAdapter();
-//                MessageItemInfo messageItemInfo = (MessageItemInfo) messageAdapter.getItem(position);
-//
-//                //跳转到聊天页面
-//                Context context = UserConversationFragment.this.getActivity();
-//                Intent intent = new Intent(context, ChatActivity.class);
-//                intent.putExtra("STORE_ID", messageItemInfo.getStoreId());
-//                intent.putExtra("STORE_NAME",messageItemInfo.getName());
-//                startActivity(intent);
-//            }
-//        });
 
         loadHistoryMessage();
     }
