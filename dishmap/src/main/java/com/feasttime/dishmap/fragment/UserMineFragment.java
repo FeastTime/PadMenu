@@ -22,6 +22,7 @@ import com.feasttime.dishmap.activity.MySeatActivity;
 import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
+import com.feasttime.dishmap.model.bean.QueryUserDetailInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.utils.CircleImageTransformation;
 import com.feasttime.dishmap.utils.PreferenceUtil;
@@ -113,9 +114,10 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
             @Override
             public void accept(QueryUserInfo queryUserInfo) throws Exception {
                 if (queryUserInfo.getResultCode() == 0) {
-                    Picasso.with(UserMineFragment.this.getActivity()).load(queryUserInfo.getUserIcon()).placeholder(R.mipmap.default_user_icon).transform(new CircleImageTransformation()).into(userIconIv);
-                    nickNameTv.setText(queryUserInfo.getNickName());
-                    phoneTv.setText(queryUserInfo.getMobileNo());
+                    QueryUserDetailInfo queryUserDetailInfo = queryUserInfo.getUser();
+                    Picasso.with(UserMineFragment.this.getActivity()).load(queryUserDetailInfo.getUserIcon()).placeholder(R.mipmap.default_user_icon).transform(new CircleImageTransformation()).into(userIconIv);
+                    nickNameTv.setText(queryUserDetailInfo.getNickName());
+                    phoneTv.setText(queryUserDetailInfo.getMobileNo());
                 } else {
 
                 }

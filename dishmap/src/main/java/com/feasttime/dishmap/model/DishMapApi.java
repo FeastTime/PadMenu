@@ -81,4 +81,7 @@ public interface DishMapApi {
     @POST("store/getStoreInfoList")
     Observable<StoreInfo> getStoreInfoList(@Body RequestBody route);
 
+    //保存用户信息
+    @POST("user/saveUserInfo")
+    Observable<StoreInfo> saveUserInfo(@Body RequestBody route);
 }

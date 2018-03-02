@@ -6,9 +6,15 @@ package com.feasttime.dishmap.model.bean;
 
 public class QueryUserInfo extends BaseResponseBean{
 
-    String nickName;
-    String mobileNo;
-    String userIcon;
+    QueryUserDetailInfo user;
+
+    public QueryUserDetailInfo getUser() {
+        return user;
+    }
+
+    public void setUser(QueryUserDetailInfo user) {
+        this.user = user;
+    }
 
     public int getResultCode() {
         return resultCode;
@@ -26,27 +32,5 @@ public class QueryUserInfo extends BaseResponseBean{
         this.resultMsg = resultMsg;
     }
 
-    public String getNickName() {
-        return nickName;
-    }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getMobileNo() {
-        return mobileNo;
-    }
-
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
-    }
-
-    public String getUserIcon() {
-        return userIcon;
-    }
-
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon;
-    }
 }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
+import com.feasttime.dishmap.model.bean.QueryUserDetailInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.utils.CircleImageTransformation;
 import com.feasttime.dishmap.utils.PreferenceUtil;
@@ -98,9 +99,10 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void accept(QueryUserInfo queryUserInfo) throws Exception {
                 if (queryUserInfo.getResultCode() == 0) {
-                    Picasso.with(SetUserInfoActivity.this).load(queryUserInfo.getUserIcon()).transform(new CircleImageTransformation()).into(avatarIv);
-                    nickNameEt.setText(queryUserInfo.getNickName());
-                    phoneEt.setText(queryUserInfo.getMobileNo());
+                    QueryUserDetailInfo queryUserDetailInfo = queryUserInfo.getUser();
+                    Picasso.with(SetUserInfoActivity.this).load(queryUserDetailInfo.getUserIcon()).transform(new CircleImageTransformation()).into(avatarIv);
+                    nickNameEt.setText(queryUserDetailInfo.getNickName());
+                    phoneEt.setText(queryUserDetailInfo.getMobileNo());
                 } else {
 
                 }
@@ -122,45 +124,34 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
     @OnClick({R.id.activity_set_user_info_nick_save_btn})
     @Override
     public void onClick(View v) {
-
-
         if (v == saveBtn) {
             String nickName = nickNameEt.getText().toString();
-            String sex = sexEt.getText().toString();
+            //Object sex = sexEt.getTag();  // 1:男  2：女
+            Object sex = "1";  // 1:男  2：女
             String birthday = birthdayEt.getText().toString();
             String phone = phoneEt.getText().toString();
             String region = regionEt.getText().toString();
             String introduce = introduceEt.getText().toString();
 
-            if (TextUtils.isEmpty(nickName)) {
-                ToastUtil.showToast(this,"请输入昵称", Toast.LENGTH_SHORT);
-                return;
-            }
-
-            if (TextUtils.isEmpty(sex)) {
+            if (sex == null) {
                 ToastUtil.showToast(this,"请输入性别", Toast.LENGTH_SHORT);
                 return;
             }
 
-//            if (TextUtils.isEmpty(birthday)) {
-//                ToastUtil.showToast(this,"请输入出生日期", Toast.LENGTH_SHORT);
-//                return;
-//            }
-
-            if (TextUtils.isEmpty(phone)) {
-                ToastUtil.showToast(this,"请输入手机", Toast.LENGTH_SHORT);
+            if (TextUtils.isEmpty(birthday)) {
+                ToastUtil.showToast(this,"请输入出生日期", Toast.LENGTH_SHORT);
                 return;
             }
 
-//            if (TextUtils.isEmpty(region)) {
-//                ToastUtil.showToast(this,"请输入地区", Toast.LENGTH_SHORT);
-//                return;
-//            }
-//
-//            if (TextUtils.isEmpty(introduce)) {
-//                ToastUtil.showToast(this,"请输入个人简介", Toast.LENGTH_SHORT);
-//                return;
-//            }
+            if (TextUtils.isEmpty(region)) {
+                ToastUtil.showToast(this,"请输入地区", Toast.LENGTH_SHORT);
+                return;
+            }
+
+            if (TextUtils.isEmpty(introduce)) {
+                ToastUtil.showToast(this,"请输入个人简介", Toast.LENGTH_SHORT);
+                return;
+            }
 
             showLoading(null);
             HashMap<String,Object> infoMap = new HashMap<String,Object>();
@@ -168,8 +159,12 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
             String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
             infoMap.put("token",token);
             infoMap.put("userID",userId);
-            infoMap.put("mobileNO","");
-            RetrofitService.saveUserPhone(infoMap).subscribe(new Consumer<BaseResponseBean>(){
+            infoMap.put("area",region);
+            infoMap.put("sex",sex.toString());
+            infoMap.put("birthday",birthday);
+            infoMap.put("personalExplanation",introduce);
+
+            RetrofitService.saveUserInfo(infoMap).subscribe(new Consumer<BaseResponseBean>(){
                 @Override
                 public void accept(BaseResponseBean baseResponseBean) throws Exception {
                     hideLoading();
@@ -190,7 +185,6 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
             }, new Action() {
                 @Override
                 public void run() throws Exception {
-
                 }
             });
         }

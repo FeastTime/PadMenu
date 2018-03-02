@@ -293,4 +293,8 @@ public class RetrofitService {
         return new ObjectLoader().observe(sMenuService.getStoreInfoList(getRequestBody(infoMap)));
     }
 
+    public static Observable<StoreInfo> saveUserInfo(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return new ObjectLoader().observe(sMenuService.saveUserInfo(getRequestBody(infoMap)));
+    }
 }
