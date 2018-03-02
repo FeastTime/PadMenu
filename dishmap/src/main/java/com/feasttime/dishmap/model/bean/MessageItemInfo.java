@@ -10,6 +10,15 @@ public class MessageItemInfo {
     String time;
     int msgCount;
     String storeId;
+    String iconUrl;
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
+    }
 
     public String getStoreId() {
         return storeId;

@@ -8,6 +8,7 @@ import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.ReceivedRedPackageInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
+import com.feasttime.dishmap.model.bean.StoreInfo;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -75,5 +76,9 @@ public interface DishMapApi {
     //拆红包
     @POST("redPackage/takeRedPackage")
     Observable<ReceivedRedPackageInfo> takeRedPackage(@Body RequestBody route);
+
+    //查询多个店铺信息
+    @POST("store/getStoreInfoList")
+    Observable<StoreInfo> getStoreInfoList(@Body RequestBody route);
 
 }

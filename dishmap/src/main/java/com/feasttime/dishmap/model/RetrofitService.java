@@ -12,6 +12,7 @@ import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.ReceivedRedPackageInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
+import com.feasttime.dishmap.model.bean.StoreInfo;
 import com.feasttime.dishmap.utils.DeviceTool;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
@@ -59,13 +60,13 @@ public class RetrofitService {
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
     //小庆mac
-//    private static final String BASE_URL = "http://192.168.11.98:8080/";
+    private static final String BASE_URL = "http://192.168.11.98:8080/";
 
     //研发服务器
-    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
+//    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
 
     //正式服务器
-    //private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
+//    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
 
 
     private static DishMapApi sMenuService;
@@ -286,4 +287,10 @@ public class RetrofitService {
         addDeviceInfo(infoMap);
         return new ObjectLoader().observe(sMenuService.takeRedPackage(getRequestBody(infoMap)));
     }
+
+    public static Observable<StoreInfo> getStoreInfoList(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return new ObjectLoader().observe(sMenuService.getStoreInfoList(getRequestBody(infoMap)));
+    }
+
 }

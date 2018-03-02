@@ -33,7 +33,11 @@ import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.MessageItemInfo;
+import com.feasttime.dishmap.model.bean.StoreInfo;
+import com.feasttime.dishmap.model.bean.StoreItemInfo;
+import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
@@ -236,9 +240,13 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
 
                 List<Conversation> resultList = (List<Conversation>)o;
                 ArrayList<MessageItemInfo> datasItemList = new ArrayList<MessageItemInfo>();
+                ArrayList<String> storeIdsArray = new ArrayList<String>();
+
                 for(int i = 0 ; i < resultList.size() ; i++) {
                     Conversation conversation = resultList.get(i);
                     MessageContent messageContent = conversation.getLatestMessage();
+
+                    storeIdsArray.add(conversation.getTargetId());
 
                     MessageItemInfo messageItemInfo = new MessageItemInfo();
 
@@ -260,8 +268,11 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
                     datasItemList.add(messageItemInfo);
                 }
 
+
                 conversationsSmrv.setAdapter(conversationsAdapter);
                 conversationsAdapter.notifyDataSetChanged(datasItemList);
+
+                getStoresInfo(storeIdsArray);
             }
 
             @Override
@@ -271,6 +282,47 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
         }, Conversation.ConversationType.GROUP);
     }
 
+    //获取店铺列表信息
+    private void getStoresInfo(ArrayList<String> storeIdsArray) {
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        String userID = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+
+        // 修改 用餐人数
+        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+        infoMap.put("storeId", storeIdsArray);
+        infoMap.put("token",token);
+        infoMap.put("userId",userID);
+
+        RetrofitService.getStoreInfoList(infoMap).subscribe(new Consumer<StoreInfo>(){
+            @Override
+            public void accept(StoreInfo storeInfo) throws Exception {
+                if (storeInfo.getResultCode() == 0) {
+                    HashMap<String,StoreItemInfo> stringStoreItemInfoHashMap = new HashMap<String, StoreItemInfo>();
+
+                    List<StoreItemInfo> storeItemInfos = storeInfo.getStores();
+                    for (int i = 0 ; i < storeItemInfos.size() ; i++) {
+                        StoreItemInfo storeItemInfo = storeItemInfos.get(i);
+                        stringStoreItemInfoHashMap.put(storeItemInfo.getStoreId(),storeItemInfo);
+                    }
+
+                    conversationsAdapter.setStoresInfoMap(stringStoreItemInfoHashMap);
+                    conversationsAdapter.notifyDataSetChanged();
+                } else {
+
+                }
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+
+            }
+        });
+    }
 
     @Override
     public void onClick(View v) {
