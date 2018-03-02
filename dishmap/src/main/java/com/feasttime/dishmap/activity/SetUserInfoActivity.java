@@ -158,10 +158,10 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
             String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
             String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
             infoMap.put("token",token);
-            infoMap.put("userID",userId);
+            infoMap.put("userId",userId);
             infoMap.put("area",region);
             infoMap.put("sex",sex.toString());
-            infoMap.put("birthday",birthday);
+            infoMap.put("birthday",System.currentTimeMillis());
             infoMap.put("personalExplanation",introduce);
 
             RetrofitService.saveUserInfo(infoMap).subscribe(new Consumer<BaseResponseBean>(){
@@ -173,7 +173,6 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
                         finish();
                     } else {
                         ToastUtil.showToast(SetUserInfoActivity.this,"保存失败",Toast.LENGTH_SHORT);
-                        finish();
                     }
                 }
             }, new Consumer<Throwable>() {

@@ -9,6 +9,9 @@ public class QueryUserDetailInfo extends BaseResponseBean{
     String nickName;
     String mobileNo;
     String userIcon;
+    String personalExplanation;
+    String area;
+    long birthday;
 
 
     public int getResultCode() {
