@@ -48,6 +48,10 @@ public class ConversationsAdapter extends RecyclerViewBaseAdapter<ConversationsA
         super.notifyDataSetChanged();
     }
 
+    public MessageItemInfo getItem(int position) {
+        return mDataList.get(position);
+    }
+
     @Override
     public int getItemCount() {
         return mDataList == null ? 0 : mDataList.size();

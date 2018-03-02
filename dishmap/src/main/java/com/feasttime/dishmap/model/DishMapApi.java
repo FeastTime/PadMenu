@@ -50,7 +50,7 @@ public interface DishMapApi {
 
     //设置用户与商家关系（设置免打扰，设置关注&聊天，设置不再关注）
     @POST("user/setRelationshipWithStore")
-    Observable<RegisterInfo> setRelationshipWithStore(@Body RequestBody route);
+    Observable<BaseResponseBean> setRelationshipWithStore(@Body RequestBody route);
 
     //查询用户信息
     @POST("user/queryUserInfo")

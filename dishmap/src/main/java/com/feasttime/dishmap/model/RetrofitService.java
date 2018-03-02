@@ -248,7 +248,7 @@ public class RetrofitService {
     }
 
 
-    public static Observable<RegisterInfo> setRelationshipWithStore(HashMap<String,Object> infoMap){
+    public static Observable<BaseResponseBean> setRelationshipWithStore(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return new ObjectLoader().observe(sMenuService.setRelationshipWithStore(getRequestBody(infoMap)));
     }

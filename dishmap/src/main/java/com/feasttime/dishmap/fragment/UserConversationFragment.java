@@ -23,11 +23,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.activity.ChatActivity;
+import com.feasttime.dishmap.activity.ExpireCouponActivity;
 import com.feasttime.dishmap.adapter.ConversationsAdapter;
+import com.feasttime.dishmap.adapter.FragmentCouponAdapter;
 import com.feasttime.dishmap.adapter.MessageAdapter;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
+import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.MessageItemInfo;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
@@ -38,10 +44,13 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import com.yanzhenjie.recyclerview.swipe.widget.DefaultItemDecoration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.MessageContent;
@@ -85,10 +94,75 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
             int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
             int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
 
+
+
+
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                //Toast.makeText(UserConversationFragment.this.getActivity(), "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+                //右侧菜单
+                final BaseActivity baseActivity = (BaseActivity) UserConversationFragment.this.getActivity();
+
+                MessageItemInfo messageItemInfo = conversationsAdapter.getItem(menuBridge.getAdapterPosition());
+                String storeId = messageItemInfo.getStoreId();
+
+                RongIMClient.getInstance().quitGroup(storeId,new RongIMClient.OperationCallback(){
+                    @Override
+                    public void onCallback() {
+                        super.onCallback();
+                    }
+
+                    @Override
+                    public void onFail(int errorCode) {
+                        super.onFail(errorCode);
+                    }
+
+                    @Override
+                    public void onFail(RongIMClient.ErrorCode errorCode) {
+                        super.onFail(errorCode);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                    }
+                });
+
+                //取消用户关系
+                HashMap<String,Object> infoMap = new HashMap<String,Object>();
+                String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+                String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+                infoMap.put("token",token);
+                infoMap.put("userId",userId);
+                baseActivity.showLoading(null);
+                RetrofitService.setRelationshipWithStore(infoMap).subscribe(new Consumer<BaseResponseBean>(){
+                    @Override
+                    public void accept(BaseResponseBean baseResponseBean) throws Exception {
+                        if (baseResponseBean.getResultCode() == 0) {
+
+                        } else {
+
+                        }
+                        baseActivity.hideLoading();
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        baseActivity.hideLoading();
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+
+                    }
+                });
+
             } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
-                //Toast.makeText(MainActivity.this, "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+                //左侧菜单
+
             }
         }
     };
