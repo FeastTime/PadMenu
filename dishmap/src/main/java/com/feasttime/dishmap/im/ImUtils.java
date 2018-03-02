@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.feasttime.dishmap.activity.ConversationsListActivity;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;

@@ -12,13 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y128"></include>
 
-    <ListView
-        android:id="@+id/activity_conversations_lv"
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:id="@+id/activity_conversations_smrv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
-    </ListView>
+    </com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
 
 </LinearLayout>

@@ -3,27 +3,38 @@ package com.feasttime.dishmap.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.activity.ChatActivity;
-import com.feasttime.dishmap.activity.ScanActivity;
+import com.feasttime.dishmap.adapter.ConversationsAdapter;
 import com.feasttime.dishmap.adapter.MessageAdapter;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
 import com.feasttime.dishmap.model.bean.MessageItemInfo;
 import com.feasttime.dishmap.utils.UtilTools;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+import com.yanzhenjie.recyclerview.swipe.widget.DefaultItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +59,63 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
     @Bind(R.id.title_center_text_tv)
     TextView titleCenterTv;
 
-    @Bind(R.id.activity_conversations_lv)
-    ListView conversationsLv;
+    @Bind(R.id.activity_conversations_smrv)
+    SwipeMenuRecyclerView conversationsSmrv;
+
+    ConversationsAdapter conversationsAdapter;
+
+    protected RecyclerView.LayoutManager createLayoutManager() {
+        return new LinearLayoutManager(this.getActivity());
+    }
+
+    protected RecyclerView.ItemDecoration createItemDecoration() {
+        return new DefaultItemDecoration(ContextCompat.getColor(this.getActivity(), R.color.divider_color));
+    }
+
+    /**
+     * RecyclerView的Item的Menu点击监听。
+     */
+    private SwipeMenuItemClickListener mMenuItemClickListener = new SwipeMenuItemClickListener() {
+        @Override
+        public void onItemClick(SwipeMenuBridge menuBridge) {
+            menuBridge.closeMenu();
+
+            int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
+            int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+            int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
+
+            if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
+                //Toast.makeText(UserConversationFragment.this.getActivity(), "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+            } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
+                //Toast.makeText(MainActivity.this, "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+    /**
+     * 菜单创建器。
+     */
+    private SwipeMenuCreator mSwipeMenuCreator = new SwipeMenuCreator() {
+        @Override
+        public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
+            int width = 150;
+
+            // 1. MATCH_PARENT 自适应高度，保持和Item一样高;
+            // 2. 指定具体的高，比如80;
+            // 3. WRAP_CONTENT，自身高度，不推荐;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            // 添加右侧的，如果不添加，则右侧不会出现菜单。
+            {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(UserConversationFragment.this.getActivity())
+                        .setBackground(R.drawable.selector_green)
+                        .setText("删除")
+                        .setTextColor(Color.WHITE)
+                        .setWidth(width)
+                        .setHeight(height);
+                swipeRightMenu.addMenuItem(deleteItem);// 添加一个按钮到右侧侧菜单。
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,22 +135,30 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
         titleBarBackIv.setVisibility(View.GONE);
         titleBarRightIv.setVisibility(View.GONE);
         titleCenterTv.setText("呼啦圈");
+        conversationsAdapter = new ConversationsAdapter(this.getActivity());
 
+        conversationsSmrv.setSwipeMenuCreator(mSwipeMenuCreator);
+        conversationsSmrv.setSwipeMenuItemClickListener(mMenuItemClickListener); // Item的Menu点击。
 
-        conversationsLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MessageAdapter messageAdapter =  (MessageAdapter) parent.getAdapter();
-                MessageItemInfo messageItemInfo = (MessageItemInfo) messageAdapter.getItem(position);
+        conversationsSmrv.setLayoutManager(createLayoutManager());
+        conversationsSmrv.addItemDecoration(createItemDecoration());
 
-                //跳转到聊天页面
-                Context context = UserConversationFragment.this.getActivity();
-                Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("STORE_ID", messageItemInfo.getStoreId());
-                intent.putExtra("STORE_NAME",messageItemInfo.getName());
-                startActivity(intent);
-            }
-        });
+        conversationsSmrv.setLongPressDragEnabled(true); // 长按拖拽，默认关闭。
+
+//        conversationsSmrv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                MessageAdapter messageAdapter =  (MessageAdapter) parent.getAdapter();
+//                MessageItemInfo messageItemInfo = (MessageItemInfo) messageAdapter.getItem(position);
+//
+//                //跳转到聊天页面
+//                Context context = UserConversationFragment.this.getActivity();
+//                Intent intent = new Intent(context, ChatActivity.class);
+//                intent.putExtra("STORE_ID", messageItemInfo.getStoreId());
+//                intent.putExtra("STORE_NAME",messageItemInfo.getName());
+//                startActivity(intent);
+//            }
+//        });
 
         loadHistoryMessage();
     }
@@ -101,7 +175,7 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
                 baseActivity.hideLoading();
 
                 List<Conversation> resultList = (List<Conversation>)o;
-                ArrayList<MessageItemInfo> testDatasItemList = new ArrayList<MessageItemInfo>();
+                ArrayList<MessageItemInfo> datasItemList = new ArrayList<MessageItemInfo>();
                 for(int i = 0 ; i < resultList.size() ; i++) {
                     Conversation conversation = resultList.get(i);
                     MessageContent messageContent = conversation.getLatestMessage();
@@ -123,11 +197,11 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
                     messageItemInfo.setMsgCount(conversation.getUnreadMessageCount());
                     messageItemInfo.setTime(UtilTools.formateDate(conversation.getSentTime()));
                     messageItemInfo.setStoreId(conversation.getTargetId());
-                    testDatasItemList.add(messageItemInfo);
+                    datasItemList.add(messageItemInfo);
                 }
 
-                MessageAdapter messageAdapter = new MessageAdapter(UserConversationFragment.this.getActivity(),testDatasItemList);
-                conversationsLv.setAdapter(messageAdapter);
+                conversationsSmrv.setAdapter(conversationsAdapter);
+                conversationsAdapter.notifyDataSetChanged(datasItemList);
             }
 
             @Override

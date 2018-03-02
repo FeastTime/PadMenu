@@ -101,4 +101,6 @@ dependencies {
     compile 'com.github.nekocode:Badge:2.0'
     //融云lib工程
     compile project(':IMLib')
+    //对recyclerview的封装
+    compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
 }

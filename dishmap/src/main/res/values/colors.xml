@@ -50,4 +50,7 @@
     <color name="green_1">#7983AF</color>
 
     <color name="red_1">#DF9595</color>
+
+    <color name="green_normal">#37C000</color>
+    <color name="green_pressed">#30A070</color>
 </resources>
