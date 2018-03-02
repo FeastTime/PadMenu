@@ -176,6 +176,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         rightTitleBarIv.setVisibility(View.VISIBLE);
         titleTv.setText(storeName);
 
+        rightTitleBarIv.requestFocus();
+
         KeybordS.closeKeybord(inputMessage, this);
 
         //获取远程消息记录
