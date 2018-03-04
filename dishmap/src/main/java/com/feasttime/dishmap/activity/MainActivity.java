@@ -8,16 +8,26 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.fragment.UserConversationFragment;
 import com.feasttime.dishmap.fragment.UserCouponFragment;
 import com.feasttime.dishmap.fragment.UserMainFragment;
 import com.feasttime.dishmap.fragment.UserMineFragment;
 import com.feasttime.dishmap.im.ImUtils;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
+import com.feasttime.dishmap.model.bean.DownloadInfo;
+import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.UtilTools;
+
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.rong.imlib.RongIMClient;
 
 
@@ -63,8 +73,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         //修改底部drawable的图片
         initBtmBar(1);
 
+        requestUpgrade();
     }
 
+    private void requestUpgrade() {
+        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        infoMap.put("token",token);
+        infoMap.put("userId",userId);
+        infoMap.put("clientType","android-diner");
+        infoMap.put("versionNumber",UtilTools.getVersionCode(this));
+
+        RetrofitService.upgradeReminding(infoMap).subscribe(new Consumer<DownloadInfo>(){
+            @Override
+            public void accept(DownloadInfo downloadInfo) throws Exception {
+                if (downloadInfo.getResultCode() == 0) {
+                    if (downloadInfo.isUpgrade()) {
+                        MyDialogs.showDownloadDialog(MainActivity.this,downloadInfo.getDownloadAddress());
+                    }
+                } else {
+
+                }
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+
+            }
+        });
+    }
 
 
     private void initBtmBar(int selectIndex) {

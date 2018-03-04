@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.utils.ActivityCollector;
 
 
 public class BaseActivity extends Activity {
@@ -25,6 +26,7 @@ public class BaseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCollector.addActivity(this);
         init();
     }
 
@@ -162,4 +164,10 @@ public class BaseActivity extends Activity {
         }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
 }

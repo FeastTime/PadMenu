@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.CouponInfo;
+import com.feasttime.dishmap.model.bean.DownloadInfo;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
@@ -65,11 +66,11 @@ public class RetrofitService {
     //研发服务器
     //    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
 
-    //正式服务器
-//    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
+    //测试服务器
+    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
 
     //测试服务器
-    private static final String BASE_URL = "http://47.94.93.94:8080/feast-web/";
+//    private static final String BASE_URL = "http://47.94.93.94:8080/feast-web/";
 
     private static DishMapApi sMenuService;
 
@@ -299,4 +300,10 @@ public class RetrofitService {
         addDeviceInfo(infoMap);
         return new ObjectLoader().observe(sMenuService.saveUserInfo(getRequestBody(infoMap)));
     }
+
+    public static Observable<DownloadInfo> upgradeReminding(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return new ObjectLoader().observe(sMenuService.upgradeReminding(getRequestBody(infoMap)));
+    }
+
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_bg_radius_5"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/dialog_get_discount_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发现新版本"
+        android:gravity="center_vertical"
+        android:textColor="#D97070"
+        android:drawablePadding="@dimen/x10"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/very_big_text_size"
+        android:layout_marginTop="@dimen/y46"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#D7A1A0"
+        android:includeFontPadding="false"
+        android:layout_marginTop="@dimen/y29"
+        android:text=""
+        android:textSize="@dimen/small_text_size"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#D7A1A0"
+        android:includeFontPadding="false"
+        android:text="发现新的版本，是否下载"
+        android:layout_marginTop="@dimen/y11"
+        android:textSize="@dimen/small_text_size"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y48"
+        android:layout_marginLeft="@dimen/x132"
+        android:layout_marginRight="@dimen/x132">
+        <TextView
+            android:id="@+id/dialog_download_ok_tv"
+            android:layout_width="@dimen/x163"
+            android:layout_height="@dimen/y65"
+            android:text="下载"
+            android:background="@drawable/white_bg_radius_5_with_red_stroke"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="#D97070"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/dialog_download_cancel_tv"
+            android:layout_width="@dimen/x163"
+            android:layout_height="@dimen/y65"
+            android:text="取消"
+            android:background="@drawable/white_bg_radius_5_with_red_solid"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/small_text_size"
+            android:gravity="center"
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+</LinearLayout>

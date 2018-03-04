@@ -3,6 +3,7 @@ package com.feasttime.dishmap.model;
 
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.CouponInfo;
+import com.feasttime.dishmap.model.bean.DownloadInfo;
 import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
@@ -84,4 +85,8 @@ public interface DishMapApi {
     //保存用户信息
     @POST("user/saveUserInfo")
     Observable<StoreInfo> saveUserInfo(@Body RequestBody route);
+
+    //版本升级
+    @POST("version/upgradeReminding")
+    Observable<DownloadInfo> upgradeReminding(@Body RequestBody route);
 }

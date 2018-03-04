@@ -28,6 +28,8 @@ import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.PriceChangeInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.service.MyService;
+import com.feasttime.dishmap.utils.ActivityCollector;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
@@ -716,5 +718,44 @@ public class MyDialogs {
 
         remainTimer.schedule(timerTask,0,1000);
 
+    }
+
+
+    //显示发现新版本对话框
+    public static void showDownloadDialog(final Context context, final String url) {
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View contentView = inflater.inflate(R.layout.dialog_download,null);
+        dialog.setContentView(contentView);
+
+        TextView dialogOkTv = (TextView)contentView.findViewById(R.id.dialog_download_ok_tv);
+        TextView dialogCancelTv = (TextView)contentView.findViewById(R.id.dialog_download_cancel_tv);
+
+        dialogOkTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MyService.class);
+                intent.putExtra("url",url);
+                context.startService(intent);
+
+                //退出应用
+                ActivityCollector.finishAllActivity();
+            }
+        });
+
+        dialogCancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.width = (int)context.getResources().getDimension(R.dimen.x650);
+        params.height = (int)context.getResources().getDimension(R.dimen.y331);
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
     }
 }
