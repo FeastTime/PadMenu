@@ -36,6 +36,7 @@ import com.feasttime.dishmap.model.bean.MessageItemInfo;
 import com.feasttime.dishmap.model.bean.StoreInfo;
 import com.feasttime.dishmap.model.bean.StoreItemInfo;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
+import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
@@ -64,6 +65,8 @@ import io.rong.imlib.model.MessageContent;
  */
 
 public class UserConversationFragment extends Fragment implements View.OnClickListener {
+    private static final String TAG = "UserConversationFragment";
+
     @Bind(R.id.title_back_iv)
     ImageView titleBarBackIv;
 
@@ -106,7 +109,7 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
                 final BaseActivity baseActivity = (BaseActivity) UserConversationFragment.this.getActivity();
 
                 MessageItemInfo messageItemInfo = conversationsAdapter.getItem(menuBridge.getAdapterPosition());
-                String storeId = messageItemInfo.getStoreId();
+                final String storeId = messageItemInfo.getStoreId();
 
                 RongIMClient.getInstance().quitGroup(storeId,new RongIMClient.OperationCallback(){
                     @Override
@@ -126,6 +129,40 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
 
                     @Override
                     public void onSuccess() {
+                        LogUtil.d(TAG,"quit rongim group success");
+
+                        //取消用户关系
+                        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+                        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+                        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+                        infoMap.put("token",token);
+                        infoMap.put("userId",userId);
+                        infoMap.put("storeId",storeId);
+                        infoMap.put("status",0);
+
+                        baseActivity.showLoading(null);
+                        RetrofitService.setRelationshipWithStore(infoMap).subscribe(new Consumer<BaseResponseBean>(){
+                            @Override
+                            public void accept(BaseResponseBean baseResponseBean) throws Exception {
+                                if (baseResponseBean.getResultCode() == 0) {
+                                    LogUtil.d(TAG,"cancel user relationship success");
+                                    loadHistoryMessage();
+                                } else {
+
+                                }
+                                baseActivity.hideLoading();
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                baseActivity.hideLoading();
+                            }
+                        }, new Action() {
+                            @Override
+                            public void run() throws Exception {
+
+                            }
+                        });
 
                     }
 
@@ -134,36 +171,6 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
 
                     }
                 });
-
-                //取消用户关系
-                HashMap<String,Object> infoMap = new HashMap<String,Object>();
-                String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
-                String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
-                infoMap.put("token",token);
-                infoMap.put("userId",userId);
-                baseActivity.showLoading(null);
-                RetrofitService.setRelationshipWithStore(infoMap).subscribe(new Consumer<BaseResponseBean>(){
-                    @Override
-                    public void accept(BaseResponseBean baseResponseBean) throws Exception {
-                        if (baseResponseBean.getResultCode() == 0) {
-
-                        } else {
-
-                        }
-                        baseActivity.hideLoading();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        baseActivity.hideLoading();
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-
-                    }
-                });
-
             } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
                 //左侧菜单
 
@@ -241,6 +248,20 @@ public class UserConversationFragment extends Fragment implements View.OnClickLi
                 List<Conversation> resultList = (List<Conversation>)o;
                 ArrayList<MessageItemInfo> datasItemList = new ArrayList<MessageItemInfo>();
                 ArrayList<String> storeIdsArray = new ArrayList<String>();
+
+                if (resultList == null) {
+                    baseActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (conversationsAdapter != null) {
+                                conversationsAdapter.clearAllData();
+                            }
+                        }
+                    });
+
+                    //没有会话列表
+                    return;
+                }
 
                 for(int i = 0 ; i < resultList.size() ; i++) {
                     Conversation conversation = resultList.get(i);

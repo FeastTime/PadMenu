@@ -53,6 +53,13 @@ public class ConversationsAdapter extends RecyclerViewBaseAdapter<ConversationsA
         this.context = context;
     }
 
+    public void clearAllData() {
+        if (this.mDataList != null) {
+            this.mDataList.clear();
+            this.notifyDataSetChanged();
+        }
+    }
+
     public void notifyDataSetChanged(List<MessageItemInfo> dataList) {
         this.mDataList = dataList;
         super.notifyDataSetChanged();
@@ -105,7 +112,10 @@ public class ConversationsAdapter extends RecyclerViewBaseAdapter<ConversationsA
         }
 
         public void initData(final MessageItemInfo messageItemInfo,final StoreItemInfo storeItemInfo) {
-            this.nameTv.setText(messageItemInfo.getName());
+
+            if (storeItemInfo != null)
+                this.nameTv.setText(storeItemInfo.getStoreName());
+
             this.lastMsgTv.setText(messageItemInfo.getMessage());
             this.timeTv.setText(messageItemInfo.getTime());
 

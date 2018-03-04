@@ -8,7 +8,7 @@ public class StoreItemInfo {
     String locate;
     String phone;
     String latitude;
-    String name;
+    String storeName;
     String storeId;
     String storeIcon;
     String longitude;
@@ -37,12 +37,12 @@ public class StoreItemInfo {
         this.latitude = latitude;
     }
 
-    public String getName() {
-        return name;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getStoreId() {
