@@ -88,7 +88,13 @@ public class MyApplication extends Application {
          */
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
-            RongIMClient.init(this, GlobalConfig.IM_RONGYUN_APPKEY);
+            if (GlobalConfig.APP_STATUS == 0) {
+                RongIMClient.init(this, GlobalConfig.RELEASE_IM_RONGYUN_APPKEY);
+            } else if (GlobalConfig.APP_STATUS == 1){
+                RongIMClient.init(this, GlobalConfig.TEST_IM_RONGYUN_APPKEY);
+            } else {
+                RongIMClient.init(this, GlobalConfig.DEVELOPMENT_IM_RONGYUN_APPKEY);
+            }
         }
 
         /**
