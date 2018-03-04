@@ -25,7 +25,8 @@ public class ImUtils {
     public static void connectImServer(final Context context) {
         String imToken = PreferenceUtil.getStringKey(PreferenceUtil.IM_TOKEN);
         if (TextUtils.isEmpty(imToken)) {
-            ToastUtil.showToast(context,"获得的im的token为空", Toast.LENGTH_SHORT);
+            //ToastUtil.showToast(context,"获得的im的token为空", Toast.LENGTH_SHORT);
+            LogUtil.d(TAG,"获得的im的token为空");
             return;
         }
 
