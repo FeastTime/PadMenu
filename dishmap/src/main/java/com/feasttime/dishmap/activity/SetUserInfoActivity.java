@@ -111,6 +111,33 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
                     Picasso.with(SetUserInfoActivity.this).load(queryUserDetailInfo.getUserIcon()).transform(new CircleImageTransformation()).into(avatarIv);
                     nickNameEt.setText(queryUserDetailInfo.getNickName());
                     phoneEt.setText(queryUserDetailInfo.getMobileNo());
+
+                    long birthday = queryUserDetailInfo.getBirthday();
+                    if (birthday != 0) {
+                        birthdayTv.setText(UtilTools.formateDateForChinese(birthday));
+                        birthdayTv.setTag(birthday);
+                    }
+
+                    String gender = queryUserDetailInfo.getSex();
+                    if (!TextUtils.isEmpty(gender)) {
+                        genderTv.setTag(gender);
+                        if (TextUtils.equals(gender,"1")) {
+                            genderTv.setText("男");
+                        } else if (TextUtils.equals(gender,"2")) {
+                            genderTv.setText("女");
+                        }
+                    }
+
+                    String area = queryUserDetailInfo.getArea();
+                    if (!TextUtils.isEmpty(area)) {
+                        regionEt.setText(area);
+                    }
+
+                    String introduce = queryUserDetailInfo.getPersonalExplanation();
+                    if (!TextUtils.isEmpty(introduce)) {
+                        introduceEt.setText(introduce);
+                    }
+
                 } else {
 
                 }
@@ -212,7 +239,7 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
                     LogUtil.d(TAG,"the selected date:" + date.getTime());
                     long birghday = date.getTime();
                     birthdayTv.setTag(String.valueOf(birghday));
-                    birthdayTv.setText(UtilTools.formateDate(birghday));
+                    birthdayTv.setText(UtilTools.formateDateForChinese(birghday));
                 }
             });
             dialog.show();

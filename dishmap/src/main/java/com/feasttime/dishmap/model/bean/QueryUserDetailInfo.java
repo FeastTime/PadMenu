@@ -12,7 +12,15 @@ public class QueryUserDetailInfo extends BaseResponseBean{
     String personalExplanation;
     String area;
     long birthday;
+    String sex;
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public int getResultCode() {
         return resultCode;
@@ -52,5 +60,29 @@ public class QueryUserDetailInfo extends BaseResponseBean{
 
     public void setUserIcon(String userIcon) {
         this.userIcon = userIcon;
+    }
+
+    public String getPersonalExplanation() {
+        return personalExplanation;
+    }
+
+    public void setPersonalExplanation(String personalExplanation) {
+        this.personalExplanation = personalExplanation;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public long getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(long birthday) {
+        this.birthday = birthday;
     }
 }

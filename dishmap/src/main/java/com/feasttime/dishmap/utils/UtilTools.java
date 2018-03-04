@@ -181,4 +181,11 @@ public class UtilTools {
         String resultDate = dateFormater.format(date);
         return resultDate;
     }
+
+
+    public static String formateDateForChinese(long date) {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy年MM月dd日");
+        String resultDate = dateFormater.format(date);
+        return resultDate;
+    }
 }
