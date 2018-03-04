@@ -51,53 +51,54 @@ public class MyDialogs {
         void overInput(int personNum);
     }
 
-//    /**
-//     * 进入商家时，设置就餐人数
-//     * @param context Context
-//     * @param personNumListener PersonNumListener
-//     * @param storeName 店铺名称
-//     */
-//    public static void showEatDishPersonNumDialog(Context context, final PersonNumListener personNumListener,String storeName) {
-//        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        LayoutInflater inflater = LayoutInflater.from(context);
-//        View contentView = inflater.inflate(R.layout.eat_dish_dialog_layout,null);
-//        dialog.setContentView(contentView);
-//
-//        Button confirm = (Button)contentView.findViewById(R.id.eat_dish_dialog_confirm_btn);
-//        TextView topTipsTv = (TextView)contentView.findViewById(R.id.dialog_modify_eat_person_number_top_tips_tv);
-//        TextView storeNameTv = (TextView)contentView.findViewById(R.id.eat_dish_dialog_layout_store_name_tv);
-//
-//        storeNameTv.setText(storeName);
-//
-//        Resources resources = context.getResources();
-//        UtilTools.chenageTextDrawableSize(topTipsTv,R.mipmap.right_icon,(int)resources.getDimension(R.dimen.x44),(int)resources.getDimension(R.dimen.x44),1);
-//
-//
-//        final EditText personNum = (EditText)contentView.findViewById(R.id.eat_dish_dialog_person_num_et);
-//        confirm.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                HashMap<String,String> requestData = new HashMap<String, String>();
-////                requestData.put("",);
-////                UtilTools.requestByWebSocket(v.getContext(),);
-//
-//                if (null != personNumListener){
-//                    personNumListener.overInput(StringUtils.isEmpty(personNum.getText().toString()) ? 0 : Integer.parseInt(personNum.getText().toString()));
-//                }
-//                dialog.dismiss();
-//            }
-//        });
-//
-//
-//        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-//        params.gravity = Gravity.CENTER;
-//        params.width = (int)context.getResources().getDimension(R.dimen.x610);
-////        params.height = (int)context.getResources().getDimension(R.dimen.y810);
-//        dialog.getWindow().setAttributes(params);
-//        dialog.show();
-//
-//    }
+    public interface GenderListener{
+        void overInput(int gender); //1:女 2：男
+    }
+
+
+    /**
+     * 性别选择
+     * @param context Context
+     * @param genderListener genderListener
+     *
+     */
+    public static void showGenderDialog(Context context, final GenderListener genderListener) {
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View contentView = inflater.inflate(R.layout.dialog_gender,null);
+        dialog.setContentView(contentView);
+
+        TextView manTv = (TextView)contentView.findViewById(R.id.dialog_gender_man_tv);
+        TextView womanTv = (TextView)contentView.findViewById(R.id.dialog_gender_woman_tv);
+
+        manTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //男
+                genderListener.overInput(1);
+                dialog.dismiss();
+            }
+        });
+
+        womanTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //女
+                genderListener.overInput(2);
+                dialog.dismiss();
+            }
+        });
+
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.width = (int)context.getResources().getDimension(R.dimen.x610);
+//        params.height = (int)context.getResources().getDimension(R.dimen.y810);
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
+
+    }
 
     //抢座位对话框
 

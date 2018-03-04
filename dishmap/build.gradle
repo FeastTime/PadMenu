@@ -103,4 +103,6 @@ dependencies {
     compile project(':IMLib')
     //对recyclerview的封装
     compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+    //日期选择
+     compile 'com.github.codbking:PickTime:v1.0.1'
 }
