@@ -18,8 +18,8 @@ public class GlobalConfig {
     public static final String DEVELOPMENT_IM_RONGYUN_APPSECRET = "ttdtrxl5FT4W"; //融云appsecret
 
     //开发融云数据
-    public static final String TEST_IM_RONGYUN_APPKEY = "cpj2xarlc7sun";  //融云appkey
-    public static final String TEST_IM_RONGYUN_APPSECRET = "ttdtrxl5FT4W"; //融云appsecret
+    public static final String TEST_IM_RONGYUN_APPKEY = "cpj2xarlc7pgn";  //融云appkey
+    public static final String TEST_IM_RONGYUN_APPSECRET = "9XBLUGM7sNx9u"; //融云appsecret
     //
     //release版融云数据
     public static final String RELEASE_IM_RONGYUN_APPKEY = "cpj2xarlc7sun";  //融云appkey
