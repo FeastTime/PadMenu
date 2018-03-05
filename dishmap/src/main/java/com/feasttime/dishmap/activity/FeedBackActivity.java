@@ -73,12 +73,12 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
             String contentStr = conentEt.getText().toString();
             String contactWayStr = contactWayEt.getText().toString();
 
-            if (TextUtils.isEmpty(contentStr)) {
+            if (TextUtils.isEmpty(contentStr.trim())) {
                 ToastUtil.showToast(this,"请输入内容",Toast.LENGTH_SHORT);
                 return;
             }
 
-            if (TextUtils.isEmpty(contactWayStr)) {
+            if (TextUtils.isEmpty(contactWayStr.trim())) {
                 ToastUtil.showToast(this,"请输入联系方式",Toast.LENGTH_SHORT);
                 return;
             }
