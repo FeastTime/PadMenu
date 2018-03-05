@@ -13,13 +13,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
+import com.feasttime.dishmap.adapter.MySeatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.OpenRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
+import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
@@ -34,6 +38,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
@@ -117,6 +122,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
 
 //        List<Conversation> myList = RongIMClient.getInstance().getHistoryMessages();
+
+        requestCounDownData(); //请求倒计时数据
     }
 
 
@@ -332,5 +339,34 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             message.setReceivedStatus(status);
             RongIMClient.getInstance().setMessageReceivedStatus(message.getMessageId(), status, null);
         }
+    }
+
+    //请求倒计时数据
+    private void requestCounDownData() {
+        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        infoMap.put("token",token);
+        infoMap.put("userId",userId);
+        infoMap.put("storeId",storeId);
+
+        RetrofitService.countDown(infoMap).subscribe(new Consumer<BaseResponseBean>(){
+            @Override
+            public void accept(BaseResponseBean baseResponseBean) throws Exception {
+                if (baseResponseBean.getResultCode() == 0) {
+
+                } else {
+
+                }
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+            }
+        });
     }
 }

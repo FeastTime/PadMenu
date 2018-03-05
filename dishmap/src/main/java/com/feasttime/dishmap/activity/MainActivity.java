@@ -64,8 +64,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onResume() {
         super.onResume();
-        //去连接im服务器
-        ImUtils.connectImServer(this);
     }
 
     private void initViews() {
@@ -75,6 +73,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         initBtmBar(1);
 
         requestUpgrade();
+
+        //去连接im服务器
+        ImUtils.connectImServer(this);
     }
 
     private void requestUpgrade() {

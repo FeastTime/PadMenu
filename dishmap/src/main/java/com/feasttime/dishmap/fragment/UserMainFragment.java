@@ -115,6 +115,7 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
             if (TextUtils.isEmpty(token)) {
                 //去微信登录
                 //UtilTools.loginWithWeChat(this.getActivity());
+
                 startActivity(new Intent(this.getActivity(),WeChatLoginActivity.class));
             } else {
                 //直接去扫描

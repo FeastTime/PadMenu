@@ -89,4 +89,8 @@ public interface DishMapApi {
     //版本升级
     @POST("version/upgradeReminding")
     Observable<DownloadInfo> upgradeReminding(@Body RequestBody route);
+
+    //红包倒计时
+    @POST("redPackage/countDown")
+    Observable<BaseResponseBean> countDown(@Body RequestBody route);
 }

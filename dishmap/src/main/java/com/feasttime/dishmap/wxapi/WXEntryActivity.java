@@ -40,6 +40,7 @@ import javax.net.ssl.TrustManager;
 
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.rong.imlib.RongIMClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -161,14 +162,46 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                         }
 
 
-                                        runOnUiThread(new Runnable() {
+                                        RongIMClient.connect(loginInfo.getImToken(), new RongIMClient.ConnectCallback() {
+
+                                            /**
+                                             * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+                                             */
                                             @Override
-                                            public void run() {
-                                                ToastUtil.showToast(WXEntryActivity.this,"登录成功",Toast.LENGTH_SHORT);
-                                                hideLoading();
-                                                finish();
+                                            public void onTokenIncorrect() {
+                                                LogUtil.d(TAG, "Token 错误---onTokenIncorrect---" + '\n');
+                                            }
+
+                                            /**
+                                             * 连接融云成功
+                                             * @param userid 当前 token
+                                             */
+                                            @Override
+                                            public void onSuccess(String userid) {
+                                                LogUtil.d(TAG, "连接融云成功---onSuccess---用户ID:" + userid + '\n');
+                                                //                List<Conversation> myList = RongIMClient.getInstance().getConversationList();
+                                                //                LogUtil.d(TAG, "=====================");
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ToastUtil.showToast(WXEntryActivity.this,"登录成功",Toast.LENGTH_SHORT);
+                                                        hideLoading();
+                                                        finish();
+                                                    }
+                                                });
+                                            }
+
+                                            /**
+                                             * 连接融云失败
+                                             * @param errorCode 错误码，可到官网 查看错误码对应的注释
+                                             */
+                                            @Override
+                                            public void onError(RongIMClient.ErrorCode errorCode) {
+                                                LogUtil.d(TAG, "连接融云失败, 错误码: " + errorCode + '\n');
                                             }
                                         });
+
+
                                     } else {
                                         LogUtil.d(TAG,"chen 2");
                                         runOnUiThread(new Runnable() {

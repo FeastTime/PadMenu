@@ -109,6 +109,8 @@ public class UtilTools {
             return;
         }
 
+
+
         final SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
         req.state = "dishmap_wechat_login";
