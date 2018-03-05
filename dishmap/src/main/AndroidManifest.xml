@@ -186,6 +186,10 @@
         <activity android:name=".activity.CouponDetailActivity">
         </activity>
 
+        <activity android:name=".activity.WeChatLoginActivity"></activity>
+
+        <activity android:name=".activity.UserAgreementActivity"></activity>
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

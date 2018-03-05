@@ -25,6 +25,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.AboutActivity;
 import com.feasttime.dishmap.activity.MessageActivity;
 import com.feasttime.dishmap.activity.ScanActivity;
+import com.feasttime.dishmap.activity.WeChatLoginActivity;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.UtilTools;
@@ -113,7 +114,8 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
             String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
             if (TextUtils.isEmpty(token)) {
                 //去微信登录
-                UtilTools.loginWithWeChat(this.getActivity());
+                //UtilTools.loginWithWeChat(this.getActivity());
+                startActivity(new Intent(this.getActivity(),WeChatLoginActivity.class));
             } else {
                 //直接去扫描
                 startActivity(new Intent(this.getActivity(),ScanActivity.class));

@@ -1,6 +1,7 @@
 package com.feasttime.dishmap.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.dhh.websocket.RxWebSocketUtil;
+import com.feasttime.dishmap.activity.WeChatLoginActivity;
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.model.WebSocketConfig;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -118,7 +120,8 @@ public class UtilTools {
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
         if (TextUtils.isEmpty(token)) {
             ToastUtil.showToast(context,"请重新登录", Toast.LENGTH_SHORT);
-            loginWithWeChat(context);
+//            loginWithWeChat(context);
+            context.startActivity(new Intent(context, WeChatLoginActivity.class));
             return false;
         } else {
             return true;

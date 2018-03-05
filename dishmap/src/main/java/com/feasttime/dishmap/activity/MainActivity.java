@@ -3,6 +3,7 @@ package com.feasttime.dishmap.activity;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -80,6 +81,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         HashMap<String,Object> infoMap = new HashMap<String,Object>();
         String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+
+        if (TextUtils.isEmpty(token)) {
+            return;
+        }
+
         infoMap.put("token",token);
         infoMap.put("userId",userId);
         infoMap.put("clientType","android-diner");
