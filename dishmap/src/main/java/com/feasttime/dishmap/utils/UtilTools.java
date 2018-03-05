@@ -119,7 +119,7 @@ public class UtilTools {
     public static boolean checkLoginStatusAndRelogin(Context context) {
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
         if (TextUtils.isEmpty(token)) {
-            ToastUtil.showToast(context,"请重新登录", Toast.LENGTH_SHORT);
+            //ToastUtil.showToast(context,"请重新登录", Toast.LENGTH_SHORT);
 //            loginWithWeChat(context);
             context.startActivity(new Intent(context, WeChatLoginActivity.class));
             return false;
