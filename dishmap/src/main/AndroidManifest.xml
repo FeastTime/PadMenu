@@ -142,7 +142,8 @@
 
         </activity>
 
-        <activity android:name=".activity.SetUserInfoActivity">
+        <activity android:name=".activity.SetUserInfoActivity"
+            android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
 
