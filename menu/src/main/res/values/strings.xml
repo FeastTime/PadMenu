@@ -26,5 +26,6 @@
     <string name="wait_time_text_three">代金券</string>
     <string name="heathText">健康评估</string>
     <string name="waiting_page_text">候餐页</string>
+    <string name="internet_disconnected_toast">请检查您的网络是否畅通！</string>
 
 </resources>

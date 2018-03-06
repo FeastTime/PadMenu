@@ -211,7 +211,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBaseView
 
     @Override
     public void showNetError() {
-        ToastUtil.showToast(this,"请求失败", Toast.LENGTH_SHORT);
+        ToastUtil.showToast(this, this.getString(R.string.internet_disconnected_toast), Toast.LENGTH_SHORT);
     }
 
     @Override

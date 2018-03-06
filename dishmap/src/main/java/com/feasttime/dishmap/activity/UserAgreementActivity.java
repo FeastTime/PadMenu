@@ -38,7 +38,7 @@ public class UserAgreementActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initView() {
-        titleCenterTv.setText("优先吃用户协议");
+        titleCenterTv.setText(this.getString(R.string.user_agreement_title));
         titleBarOrangeBgIv.setVisibility(View.GONE);
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);

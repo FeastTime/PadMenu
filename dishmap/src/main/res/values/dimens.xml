@@ -18,4 +18,5 @@
     <dimen name="small_text_size_2">@dimen/x17</dimen>
     <dimen name="very_small_text_size">@dimen/x20</dimen>
     <dimen name="final_big_text_size">@dimen/x76</dimen>
+
 </resources>

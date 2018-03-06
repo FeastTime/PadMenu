@@ -415,7 +415,7 @@ public class MyDialogs {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         ((BaseActivity)context).hideLoading();
-                        ToastUtil.showToast(context,"请求失败",Toast.LENGTH_SHORT);
+                        ToastUtil.showToast(context, context.getString(R.string.internet_disconnected_toast),Toast.LENGTH_SHORT);
                     }
                 }, new Action() {
                     @Override

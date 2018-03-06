@@ -2,6 +2,7 @@ package com.feasttime.dishmap.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 
@@ -11,38 +12,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
-import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
-import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.URLParser;
-import com.feasttime.dishmap.utils.UtilTools;
 import com.google.zxing.client.result.ParsedResult;
 import com.mylhyl.zxing.scanner.OnScannerCompletionListener;
 import com.mylhyl.zxing.scanner.ScannerView;
-
 import java.util.HashMap;
-import java.util.List;
-
 import com.google.zxing.Result;
 import com.mylhyl.zxing.scanner.common.Scanner;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.Message;
-import io.rong.message.TextMessage;
 
 
 public class ScanActivity extends BaseActivity implements View.OnClickListener{
@@ -220,7 +208,13 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
         //全屏识别
         mScannerView.isScanFullScreen(false);
 
-        mScannerView.setLaserLineResId(R.mipmap.custom_grid_scan_line);
+//        mScannerView.setLaserLineResId(R.mipmap.custom_grid_scan_line);
+
+        mScannerView.setLaserColor(Color.argb(255,248,149,40));
+
+        mScannerView.setLaserFrameBoundColor(Color.BLUE);
+
+
 
     }
 
