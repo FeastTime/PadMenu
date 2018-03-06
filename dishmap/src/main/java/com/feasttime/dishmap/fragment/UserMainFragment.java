@@ -23,16 +23,26 @@ import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.AboutActivity;
+import com.feasttime.dishmap.activity.BaseActivity;
+import com.feasttime.dishmap.activity.ExpireCouponActivity;
 import com.feasttime.dishmap.activity.MessageActivity;
 import com.feasttime.dishmap.activity.ScanActivity;
 import com.feasttime.dishmap.activity.WeChatLoginActivity;
+import com.feasttime.dishmap.adapter.FragmentCouponAdapter;
+import com.feasttime.dishmap.model.RetrofitService;
+import com.feasttime.dishmap.model.bean.BaseResponseBean;
+import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
+import java.util.HashMap;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by chen on 2018/1/10.
@@ -114,9 +124,44 @@ public class UserMainFragment extends Fragment implements View.OnClickListener{
             String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
             if (TextUtils.isEmpty(token)) {
                 //去微信登录
-                //UtilTools.loginWithWeChat(this.getActivity());
+                UtilTools.loginWithWeChat(this.getActivity());
 
-                startActivity(new Intent(this.getActivity(),WeChatLoginActivity.class));
+//                final BaseActivity baseActivity = (BaseActivity) this.getActivity();
+//                HashMap<String,Object> infoMap = new HashMap<String,Object>();
+//                String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+//                infoMap.put("token",token);
+//                infoMap.put("userId",userId);
+//                infoMap.put("flag","3");  //0:未过期，2:已过期
+//                baseActivity.showLoading(null);
+//                RetrofitService.queryCouponList(infoMap).subscribe(new Consumer<BaseResponseBean>(){
+//                    @Override
+//                    public void accept(BaseResponseBean baseResponseBean) throws Exception {
+//                        if (baseResponseBean.getResultCode() == 0) {
+//                            if (baseResponseBean.getStatus() == 0) {
+//                                //已经绑定
+//                                startActivity(new Intent(baseActivity,WeChatLoginActivity.class));
+//                            } else {
+//                                //未绑定
+//                                UtilTools.loginWithWeChat(baseActivity);
+//                            }
+//                        } else {
+//
+//                        }
+//                        baseActivity.hideLoading();
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        baseActivity.hideLoading();
+//                    }
+//                }, new Action() {
+//                    @Override
+//                    public void run() throws Exception {
+//
+//                    }
+//                });
+
+
             } else {
                 //直接去扫描
                 startActivity(new Intent(this.getActivity(),ScanActivity.class));

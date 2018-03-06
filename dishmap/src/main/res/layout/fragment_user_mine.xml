@@ -187,7 +187,7 @@
                 android:layout_marginLeft="@dimen/x30"
                 android:layout_centerVertical="true"
                 android:textColor="@color/text_black"
-                android:text="退出"
+                android:text="退出登录"
                 />
 
             <ImageView

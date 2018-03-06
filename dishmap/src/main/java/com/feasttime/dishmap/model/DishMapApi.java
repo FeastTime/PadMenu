@@ -28,7 +28,7 @@ public interface DishMapApi {
 
     //检查微信用户是否已经绑定过
     @POST("user/checkWeChatUserBindStatus")
-    Observable<RegisterInfo> checkWeChatUserBindStatus(@Body RequestBody route);
+    Observable<BaseResponseBean> checkWeChatUserBindStatus(@Body RequestBody route);
 
     //保存用户手机号
     @POST("user/saveUserPhone")
