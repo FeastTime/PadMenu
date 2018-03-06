@@ -184,7 +184,14 @@ public class UtilTools {
 
     //格式化日期
     public static String formateDate(long date) {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy:MM:dd");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
+        String resultDate = dateFormater.format(date);
+        return resultDate;
+    }
+
+    //格式化日期
+    public static String formateDateForChat(long date) {
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String resultDate = dateFormater.format(date);
         return resultDate;
     }

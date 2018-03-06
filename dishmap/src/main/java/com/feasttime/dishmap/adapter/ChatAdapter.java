@@ -31,6 +31,7 @@ import com.feasttime.dishmap.model.bean.ReceivedRedPackageInfo;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.ToastUtil;
+import com.feasttime.dishmap.utils.UtilTools;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -127,7 +128,7 @@ public class ChatAdapter extends BaseAdapter {
 
         final ChatMsgItemInfo chatMsgItemInfo = dataList.get(position);
 
-        holder.timeTv.setText(chatMsgItemInfo.getTime());
+        holder.timeTv.setText(UtilTools.formateDateForChat(chatMsgItemInfo.getTime()));
 
         if (chatMsgItemInfo.isLeft()) {
 

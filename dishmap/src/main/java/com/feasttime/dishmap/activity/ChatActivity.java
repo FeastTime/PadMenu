@@ -247,7 +247,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     private void recevieMessageAndAdd(String receiveMsg,long receiveTime,String imUserId,String userIcon) {
         ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
         chatMsgItemInfo.setRedPackage(false);
-        chatMsgItemInfo.setTime(UtilTools.formateDate(receiveTime));
+        chatMsgItemInfo.setTime(receiveTime);
 
         //头像不为空添加头像数据
         if (!TextUtils.isEmpty(userIcon)) {
@@ -301,7 +301,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                         ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
                         chatMsgItemInfo.setRedPackage(true);
-                        chatMsgItemInfo.setTime(UtilTools.formateDate(message.getSentTime()));
+                        chatMsgItemInfo.setTime(message.getSentTime());
 
                         // 左边添加别人的消息
                         chatMsgItemInfo.setIcon(userIcon);
