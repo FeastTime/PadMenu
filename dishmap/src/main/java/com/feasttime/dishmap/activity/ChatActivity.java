@@ -8,30 +8,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
-import com.feasttime.dishmap.adapter.MySeatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
-import com.feasttime.dishmap.im.message.OpenRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
-import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
-import com.feasttime.dishmap.model.bean.MyTableInfo;
-import com.feasttime.dishmap.model.bean.MyTableItemInfo;
-import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.KeybordS;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
-import com.feasttime.dishmap.utils.UtilTools;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +67,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
     private String storeId = "";
     private String userId = "";
-    private String userIcon = "";
     private String storeName = "";
 
     @Override
@@ -89,7 +80,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         storeId = this.getIntent().getStringExtra("STORE_ID");
         userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
-        userIcon = PreferenceUtil.getStringKey(PreferenceUtil.USER_ICON);
         storeName = this.getIntent().getStringExtra("STORE_NAME");
 
         List<ChatMsgItemInfo> chatMsgItemInfoList = new ArrayList<>();
@@ -118,7 +108,12 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         initViews();
 
-        MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
+        long lastChangeTime = PreferenceUtil.getLongKey(PreferenceUtil.DINER_COUNT_TIME + storeId);
+        if (System.currentTimeMillis() - lastChangeTime > 45 * 60 * 1000){
+
+            MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
+        }
+
 
 
 //        List<Conversation> myList = RongIMClient.getInstance().getHistoryMessages();
@@ -145,6 +140,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         requestData.put("type", WebSocketEvent.SEND_MESSAGE+"");
         requestData.put("storeId", storeId);
         requestData.put("userId",userId);
+        requestData.put("userIcon",PreferenceUtil.getStringKey(PreferenceUtil.USER_ICON));
+
 
 //        UtilTools.requestByWebSocket(this, requestData);
 
@@ -287,7 +284,10 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
                         Log.d(TAG, "收到文本消息: " + receiveMsg);
                         JSONObject jsonObject = JSON.parseObject(receiveMsg);
-                        recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime(),jsonObject.getString("userId"),jsonObject.getString("userIcon"));
+                        recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime()
+                                ,   jsonObject.getString("userId")
+                                , jsonObject.getString("userIcon"));
+
                     } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
                         String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
                         Log.d(TAG, "收到红包消息: " + receiveMsg);

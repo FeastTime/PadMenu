@@ -150,6 +150,8 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                                     ScanActivity.this.finish();
                                     finish();
                                 } else {
+                                    mScannerView.onResume();
+
                                 }
                                 hideLoading();
                             }
@@ -169,6 +171,7 @@ public class ScanActivity extends BaseActivity implements View.OnClickListener{
                     @Override
                     public void onError(RongIMClient.ErrorCode errorCode) {
                         ToastUtil.showToast(ScanActivity.this,"进店失败",Toast.LENGTH_SHORT);
+                        mScannerView.onResume();
                     }
                 });
 

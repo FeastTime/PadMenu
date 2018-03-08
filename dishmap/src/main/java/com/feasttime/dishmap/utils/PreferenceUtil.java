@@ -23,6 +23,8 @@ public class PreferenceUtil {
 	public static final String USER_ID = "userId";
 	public static final String USER_ICON = "userIcon"; //用户头像
 	public static final String USER_NICK_NAME = "userNickName"; //用户昵称
+	public static final String DINER_COUNT = "DinerCount"; // 用餐人数
+	public static final String DINER_COUNT_TIME = "DinerCountTime"; // 设置用餐人数的时间
 
 	private static SharedPreferences mPreference;
 	private static void init(){
@@ -59,14 +61,30 @@ public class PreferenceUtil {
 	}
 	
 	
-	public static int getIntKey(Context context,String key){
+	public static int getIntKey(String key){
 		if(mPreference == null){
 			init();
 		}
 		return mPreference.getInt(key, 0);
 	}
+
+
+	public static void setLongKey(String key ,long value){
+		if(mPreference == null){
+			init();
+		}
+		mPreference.edit().putLong(key, value).commit();
+	}
+
+
+	public static long getLongKey(String key){
+		if(mPreference == null){
+			init();
+		}
+		return mPreference.getLong(key, 0L);
+	}
 	
-	public static boolean getBooleanKey(Context context,String key){
+	public static boolean getBooleanKey(String key){
 		if(mPreference == null){
 			init();
 		}

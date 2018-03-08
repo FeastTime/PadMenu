@@ -8,6 +8,7 @@ import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.ReceivedRedPackageInfo;
+import com.feasttime.dishmap.model.bean.RedPackageDetailItemInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
 import com.feasttime.dishmap.model.bean.StoreInfo;
 
@@ -93,4 +94,8 @@ public interface DishMapApi {
     //红包倒计时
     @POST("redPackage/countDown")
     Observable<BaseResponseBean> countDown(@Body RequestBody route);
+
+    //查询红包详情
+    @POST("redPackage/queryRedPackageDetail")
+    Observable<RedPackageDetailItemInfo> queryRedPackageDetail(@Body RequestBody route);
 }

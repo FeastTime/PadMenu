@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_layout"
+        layout="@layout/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y128"></include>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FAF7F2"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_marginTop="@dimen/y60"
+            android:layout_width="@dimen/y150"
+            android:layout_height="@dimen/y150" />
+        
+        <TextView
+            android:id="@+id/whos_package"
+            android:layout_marginTop="@dimen/y50"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/big_text_size_2"
+            android:textColor="@color/text_black"
+            android:text="whos_package"
+            />
+
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray_6"
+            android:textSize="@dimen/big_text_size_2"
+            android:text="恭喜发财，大吉大利！"
+            />
+
+        <TextView
+            android:id="@+id/lucky_title"
+            android:layout_marginTop="@dimen/y20"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/very_big_text_size"
+            android:text="lucky_title"
+            />
+
+        <ImageView
+            android:src="@mipmap/opened_red_package_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"/>
+
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/activity_message_lv"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+</LinearLayout>

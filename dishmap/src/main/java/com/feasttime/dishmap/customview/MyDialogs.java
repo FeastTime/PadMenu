@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,15 +16,19 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.activity.ChatActivity;
+import com.feasttime.dishmap.activity.OpenedRedPackageActivity;
 import com.feasttime.dishmap.activity.ScanActivity;
+import com.feasttime.dishmap.activity.SplashActivity;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.PriceChangeInfo;
@@ -30,10 +36,16 @@ import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.ActivityCollector;
+import com.feasttime.dishmap.utils.CircleImageTransformation;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.StringUtils;
 import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -356,13 +368,64 @@ public class MyDialogs {
         dialog.show();
     }
 
+    /**
+     * 红包被抢光提示
+     * @param context Context
+     * @param redPackageId 红包Id
+     */
+    public static void showEmptyRedPackage(final Context context, final String redPackageId, String userIconStr) {
+
+        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View contentView = inflater.inflate(R.layout.dialog_empty_red_package,null);
+        dialog.setContentView(contentView);
+
+        ImageView userIcon = (ImageView) contentView.findViewById(R.id.user_icon);
+
+        if (!StringUtils.isEmpty(userIconStr)){
+
+            Picasso.with(context).load(userIconStr).transform(new CircleImageTransformation()).into(userIcon);
+        }
+
+        TextView textView = (TextView) contentView.findViewById(R.id.show_others_luck);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+
+                Intent intent = new Intent(context, OpenedRedPackageActivity.class);
+                intent.putExtra("redPackageId", redPackageId);
+                context.startActivity(intent);
+            }
+        });
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.width = (int)context.getResources().getDimension(R.dimen.x550);
+        params.height = (int)context.getResources().getDimension(R.dimen.y600);
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
+    }
 
     /**
      * 修改就餐人数
      * @param context Context
      * @param storeId 店铺Id
      */
+    private static String beforeDinerCount;
     public static void modifyEatPersonNumber(final Context context, final String storeId) {
+
+
+
+        beforeDinerCount = PreferenceUtil.getStringKey(PreferenceUtil.DINER_COUNT + storeId);
+
+        if (StringUtils.isEmpty(beforeDinerCount)){
+            beforeDinerCount = "0";
+        }
 
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
 
@@ -371,10 +434,77 @@ public class MyDialogs {
         View contentView = inflater.inflate(R.layout.dialog_modify_eat_person_number,null);
         dialog.setContentView(contentView);
 
+        final Switch onlyGetCoupon = (Switch) contentView.findViewById(R.id.only_get_coupon_Sw);
+
         final EditText dinerCount = (EditText) contentView.findViewById(R.id.dialog_modify_eat_person_number_diner_count);
+
         dinerCount.setText(PreferenceUtil.getStringKey(PreferenceUtil.PERSON_NO));
+        dinerCount.setSelection(dinerCount.getText().length());
 
         Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_modify_eat_person_number_confirm_btn);
+
+        beforeDinerCount = "0";
+        onlyGetCoupon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (b){
+                    beforeDinerCount = dinerCount.getText().toString();
+
+                    if (!TextUtils.equals("0", dinerCount.getText().toString())){
+
+                        dinerCount.setText("0");
+                        dinerCount.setSelection(dinerCount.getText().length());
+                    }
+
+                } else {
+
+                    if (!TextUtils.equals(beforeDinerCount, "0")){
+
+                        dinerCount.setText(beforeDinerCount);
+                        dinerCount.setSelection(dinerCount.getText().length());
+                    }
+                }
+            }
+        });
+
+        dinerCount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                String nowText = dinerCount.getText().toString();
+
+
+
+//                if (nowText.length() == 0){
+////                    beforeDinerCount = "0";
+//                }
+
+                if (nowText.length() > 0){
+
+                    if (TextUtils.equals(nowText, "0")){
+
+                        onlyGetCoupon.setChecked(true);
+
+                    } else {
+
+                        beforeDinerCount = nowText;
+                        onlyGetCoupon.setChecked(false);
+
+                    }
+                }
+            }
+        });
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -390,7 +520,8 @@ public class MyDialogs {
                 String userID = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
 
                 // 修改 用餐人数
-                HashMap<String,Object> infoMap = new HashMap<String,Object>();
+                HashMap<String,Object> infoMap = new HashMap<>();
+
                 infoMap.put("storeId", storeId);
                 infoMap.put("dinnerCount", dinerCountStr);
                 infoMap.put("type", WebSocketEvent.SET_NUMBER_OF_USER+"");
@@ -399,16 +530,25 @@ public class MyDialogs {
 
 
                 ((BaseActivity)context).showLoading(null);
+                final String finalDinerCountStr = dinerCountStr;
+
                 RetrofitService.setTheNumberOfDiners(infoMap).subscribe(new Consumer<BaseResponseBean>(){
                     @Override
                     public void accept(BaseResponseBean baseResponseBean) throws Exception {
+
                         if (baseResponseBean.getResultCode() == 0) {
+
+                            PreferenceUtil.setStringKey(PreferenceUtil.DINER_COUNT + storeId, finalDinerCountStr);
+                            PreferenceUtil.setLongKey(PreferenceUtil.DINER_COUNT_TIME + storeId, System.currentTimeMillis());
+
                             String dinerStr = dinerCount.getText().toString();
                             PreferenceUtil.setStringKey(PreferenceUtil.PERSON_NO, dinerStr.equals("0") ? "" : dinerStr);
                             dialog.dismiss();
+
                         } else {
                             ToastUtil.showToast(context,baseResponseBean.getResultMsg(),Toast.LENGTH_SHORT);
                         }
+
                         ((BaseActivity)context).hideLoading();
                     }
                 }, new Consumer<Throwable>() {

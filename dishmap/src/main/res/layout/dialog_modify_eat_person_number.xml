@@ -7,18 +7,36 @@
     android:orientation="vertical">
 
 
-    <TextView
-        android:id="@+id/dialog_modify_eat_person_number_top_tips_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="您好！请输入"
-        android:gravity="center_vertical"
-        android:drawableLeft="@mipmap/right_icon"
-        android:textColor="@color/black"
-        android:drawablePadding="@dimen/x10"
-        android:textSize="@dimen/normal_text_size"
         android:layout_marginTop="@dimen/y85"
-        />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <Switch
+            android:id="@+id/only_get_coupon_Sw"
+            android:shadowColor="@color/blue"
+            android:thumb="@drawable/thumb"
+            android:track="@drawable/track"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="只抢优惠券"
+
+            android:textColor="@color/text_gray_1"
+            android:drawablePadding="@dimen/x10"
+            android:textSize="@dimen/very_big_text_size"
+
+            />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -29,7 +47,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/text_gray_1"
+            android:textSize="@dimen/big_text_size"
             android:text="就餐人数"/>
 
         <EditText
@@ -55,6 +74,17 @@
 
     </LinearLayout>
 
+    <TextView
+
+
+        android:layout_marginTop="@dimen/y40"
+        android:textColor="@color/splash_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/big_text_size"
+        android:text="“只抢优惠券”为打开状态，将无法抢到座位"/>
+
+
     <Button
         android:id="@+id/dialog_modify_eat_person_number_confirm_btn"
         android:layout_width="@dimen/x438"
@@ -62,7 +92,7 @@
         android:background="@mipmap/radius_btn_bg"
         android:textColor="@color/white"
         android:textSize="@dimen/very_big_text_size"
-        android:layout_marginTop="@dimen/y69"
+        android:layout_marginTop="@dimen/y40"
         android:text="确定"
         />
 

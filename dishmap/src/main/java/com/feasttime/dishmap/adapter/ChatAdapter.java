@@ -1,6 +1,8 @@
 package com.feasttime.dishmap.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.preference.Preference;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.activity.ChatActivity;
 import com.feasttime.dishmap.activity.MySeatActivity;
+import com.feasttime.dishmap.activity.OpenedRedPackageActivity;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.OpenRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
@@ -158,7 +161,8 @@ public class ChatAdapter extends BaseAdapter {
                         public void onClick(View view) {
 
                             if (chatMsgItemInfo.isRedPackageUsed()){
-                                Toast.makeText(context, "您已经点过这个优惠券！", Toast.LENGTH_SHORT).show();
+
+                                openRedPackageDetail(chatMsgItemInfo.getRedPackageId());
                                 return;
                             }
 
@@ -181,29 +185,49 @@ public class ChatAdapter extends BaseAdapter {
                                 public void accept(ReceivedRedPackageInfo receivedRedPackageInfo) throws Exception {
                                     if (receivedRedPackageInfo.getResultCode() == 0) {
 
-                                        MyTableItemInfo tableInfo = receivedRedPackageInfo.getTableInfo();
-                                        CouponChildListItemInfo couponInfo = receivedRedPackageInfo.getCouponInfo();
+                                        switch (receivedRedPackageInfo.getTakeRedPackageResultType()){
 
-                                        //  获得桌位
-                                        if (null != tableInfo){
+                                            case ReceivedRedPackageInfo.RESULT_TYPE_EMPTY :
+                                                MyDialogs.showEmptyRedPackage(context, chatMsgItemInfo.getRedPackageId()+"", PreferenceUtil.getStringKey(PreferenceUtil.USER_ICON));
+                                                break;
 
-                                            String title = "座位";
-                                            String detail = "恭喜您！\n成功抢到座位\n号码：" + tableInfo.getTableId();
-                                            String description = "领取座位后座位预留" + tableInfo.getRecieveTime() + "分钟";
-                                            MyDialogs.showGrapTableWinnerDialog(context, title, detail, description);
-                                        }
-                                        //  获得优惠券
-                                        else if (null != couponInfo){
+                                            case ReceivedRedPackageInfo.RESULT_TYPE_LUCKY :
 
-                                            String title = "优惠券";
-                                            String detail = "恭喜您！\n抢到"+couponInfo.getCouponTitle()+"一张";
-                                            String description = "已放入您的优惠券卡包";
-                                            MyDialogs.showGrapTableWinnerDialog(context, title, detail, description);
+                                                MyTableItemInfo tableInfo = receivedRedPackageInfo.getTableInfo();
+                                                CouponChildListItemInfo couponInfo = receivedRedPackageInfo.getCouponInfo();
+
+                                                //  获得桌位
+                                                if (null != tableInfo){
+
+                                                    String title = "座位";
+                                                    String detail = "恭喜您！\n成功抢到座位\n号码：" + tableInfo.getTableId();
+                                                    String description = "领取座位后座位预留" + tableInfo.getRecieveTime() + "分钟";
+                                                    MyDialogs.showGrapTableWinnerDialog(context, title, detail, description);
+                                                }
+                                                //  获得优惠券
+                                                else if (null != couponInfo){
+
+                                                    String title = "优惠券";
+                                                    String detail = "恭喜您！\n抢到"+couponInfo.getCouponTitle()+"一张";
+                                                    String description = "已放入您的优惠券卡包";
+                                                    MyDialogs.showGrapTableWinnerDialog(context, title, detail, description);
+                                                } else {
+                                                    Toast.makeText(context, receivedRedPackageInfo.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+
+                                                break;
+                                            case ReceivedRedPackageInfo.RESULT_TYPE_UN_LUCKY :
+
+                                                Toast.makeText(context, receivedRedPackageInfo.getMessage(), Toast.LENGTH_SHORT).show();
+                                                MyDialogs.showGrabRedPacketResult(context);
+                                                break;
+                                            case ReceivedRedPackageInfo.RESULT_TYPE_TAKED :
+
+                                                openRedPackageDetail(chatMsgItemInfo.getRedPackageId());
+                                                break;
                                         }
-                                        // 什么也没得到
-                                        else {
-                                            Toast.makeText(context, receivedRedPackageInfo.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
+
+
                                     } else {
                                         ToastUtil.showToast(context,receivedRedPackageInfo.getResultMsg(),Toast.LENGTH_SHORT);
                                     }
@@ -212,6 +236,10 @@ public class ChatAdapter extends BaseAdapter {
                             }, new Consumer<Throwable>() {
                                 @Override
                                 public void accept(Throwable throwable) throws Exception {
+
+                                    Log.d("aaaa", throwable.getMessage());
+                                    throwable.printStackTrace();
+
                                     baseActivity.hideLoading();
                                     ToastUtil.showToast(context,"拆开红包失败",Toast.LENGTH_SHORT);
                                 }
@@ -284,6 +312,12 @@ public class ChatAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private void openRedPackageDetail(String redPackageId){
+
+        Intent intent = new Intent(context, OpenedRedPackageActivity.class);
+        intent.putExtra("redPackageId", redPackageId);
+        context.startActivity(intent);
+    }
 
     static class ViewHolder {
         TextView timeTv;

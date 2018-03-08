@@ -243,7 +243,12 @@
                 <data android:scheme="line.1477692153" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.ScanActivity">
+
+        </activity>
+
+        <activity android:name=".activity.OpenedRedPackageActivity">
 
         </activity>
 
