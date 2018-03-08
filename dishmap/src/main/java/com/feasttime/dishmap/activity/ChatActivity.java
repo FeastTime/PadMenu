@@ -92,6 +92,9 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         userIcon = PreferenceUtil.getStringKey(PreferenceUtil.USER_ICON);
         storeName = this.getIntent().getStringExtra("STORE_NAME");
 
+        //清除所有未读消息状态
+        RongIMClient.getInstance().clearMessagesUnreadStatus(Conversation.ConversationType.GROUP,storeId);
+
         List<ChatMsgItemInfo> chatMsgItemInfoList = new ArrayList<>();
 
         mChatAdapter = new ChatAdapter(this, chatMsgItemInfoList, storeId, new OpenWaitingListener() {
@@ -317,10 +320,10 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                     LogUtil.d(TAG,"the message status:" + message.getReceivedStatus().isRead());
 
-                    //如果消息未读过就设置为已读
-                    if (!message.getReceivedStatus().isRead()) {
-                        setMessageRead(message); //设置收到的消息为已读消息
-                    }
+//                    //如果消息未读过就设置为已读
+//                    if (!message.getReceivedStatus().isRead()) {
+//                        setMessageRead(message); //设置收到的消息为已读消息
+//                    }
                 }
             });
         } catch (Exception e) {
