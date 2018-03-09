@@ -26,11 +26,16 @@ import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.activity.ChatActivity;
+import com.feasttime.dishmap.activity.CouponDetailActivity;
+import com.feasttime.dishmap.activity.MySeatDetailActivity;
 import com.feasttime.dishmap.activity.OpenedRedPackageActivity;
 import com.feasttime.dishmap.activity.ScanActivity;
 import com.feasttime.dishmap.activity.SplashActivity;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
+import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
+import com.feasttime.dishmap.model.bean.CouponListItemInfo;
+import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.model.bean.PriceChangeInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
@@ -218,7 +223,7 @@ public class MyDialogs {
      * @param detail 内容
      * @param description 描述
      */
-    public static void showGrapTableWinnerDialog(Context context, String title, String detail, String description) {
+    public static void showGrapTableWinnerDialog(final Context context, String title, String detail, String description, final MyTableItemInfo myTableItemInfo, final CouponChildListItemInfo couponChildListItemInfo) {
 
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -242,6 +247,30 @@ public class MyDialogs {
                 dialog.dismiss();
             }
         });
+
+
+        ImageView useNowBtn = (ImageView)contentView.findViewById(R.id.dialog_grap_table_result_use_now_iv);
+        useNowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (null != couponChildListItemInfo){
+
+                    Intent intent = new Intent(context, CouponDetailActivity.class);
+
+                    intent.putExtra("couponData",couponChildListItemInfo);
+                    context.startActivity(intent);
+
+                } else if (null != myTableItemInfo){
+
+                    Intent intent = new Intent(context, MySeatDetailActivity.class);
+                    intent.putExtra("tablesData", myTableItemInfo);
+                    context.startActivity(intent);
+                }
+            }
+        });
+
+
 
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.gravity = Gravity.CENTER;

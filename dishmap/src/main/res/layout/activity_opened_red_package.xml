@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/big_text_size_2"
             android:textColor="@color/text_black"
-            android:text="whos_package"
             />
 
         <TextView
@@ -53,7 +52,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/text_black"
             android:textSize="@dimen/very_big_text_size"
-            android:text="lucky_title"
             />
 
         <ImageView

@@ -29,6 +29,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 /**
+ *
  * Created by chen on 2018/1/12.
  */
 
@@ -71,13 +72,13 @@ public class MySeatActivity extends BaseActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MyTableItemInfo myTableItemInfo = (MyTableItemInfo)parent.getAdapter().getItem(position);
-                Intent intent = new Intent(view.getContext(),MySeatDetailActivity.class);
+                Intent intent = new Intent(view.getContext(), MySeatDetailActivity.class);
                 intent.putExtra("tablesData",myTableItemInfo);
                 startActivity(intent);
             }
         });
 
-        HashMap<String,Object> infoMap = new HashMap<String,Object>();
+        HashMap<String,Object> infoMap = new HashMap<>();
         String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
         infoMap.put("token",token);

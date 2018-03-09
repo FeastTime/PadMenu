@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.RedPackageDetailAdapter;
 import com.feasttime.dishmap.model.RetrofitService;
@@ -16,7 +15,6 @@ import com.feasttime.dishmap.utils.CircleImageTransformation;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.StringUtils;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import butterknife.Bind;
@@ -64,8 +62,6 @@ public class OpenedRedPackageActivity extends BaseActivity {
         ButterKnife.bind(this);
         redPackageId = this.getIntent().getStringExtra("redPackageId");
         initViews();
-
-
     }
 
     private void initViews() {
@@ -107,6 +103,13 @@ public class OpenedRedPackageActivity extends BaseActivity {
                             Picasso.with(OpenedRedPackageActivity.this).load(myRedPackageDetail.getUserIcon()).transform(new CircleImageTransformation()).into(userIcon);
                         }
 
+                    } else {
+
+                        whosPackage.setText(PreferenceUtil.getStringKey(PreferenceUtil.USER_NICK_NAME) + "的红包");
+                        luckyTitle.setText("抱歉！您未中奖");
+                        if (!StringUtils.isEmpty(PreferenceUtil.getStringKey(PreferenceUtil.USER_ICON))){
+                            Picasso.with(OpenedRedPackageActivity.this).load(PreferenceUtil.getStringKey(PreferenceUtil.USER_ICON)).transform(new CircleImageTransformation()).into(userIcon);
+                        }
                     }
 
                     ArrayList<RedPackageDetail> redPackageDetailList = new ArrayList<>();

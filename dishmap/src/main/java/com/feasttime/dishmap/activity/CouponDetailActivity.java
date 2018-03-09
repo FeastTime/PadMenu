@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
-import com.feasttime.dishmap.model.bean.CouponListItemInfo;
 import com.feasttime.dishmap.utils.QRCodeUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
@@ -15,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ *
  * Created by chen on 2018/2/4.
  */
 
@@ -55,14 +55,12 @@ public class CouponDetailActivity extends BaseActivity {
 
     private CouponChildListItemInfo couponChildListItemInfo;
 
-    private String storeName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon_detail);
         ButterKnife.bind(this);
 
-        storeName = this.getIntent().getStringExtra("storeName");
         couponChildListItemInfo = (CouponChildListItemInfo)this.getIntent().getSerializableExtra("couponData");
 
         initViews();
@@ -78,7 +76,7 @@ public class CouponDetailActivity extends BaseActivity {
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
         qrCodeIv.setImageBitmap(QRCodeUtil.createQRCodeBitmap(couponChildListItemInfo.getCouponCode(),300));
 
-        storeNameTv.setText(storeName);
+        storeNameTv.setText(couponChildListItemInfo.getStoreName());
         descriptionTv.setText(couponChildListItemInfo.getPermissionsDescribed());
         expireTv.setText(UtilTools.getDaysFromOtherDate(couponChildListItemInfo.getCouponValidity()) + "天");
         numberTv.setText(couponChildListItemInfo.getCouponCode());

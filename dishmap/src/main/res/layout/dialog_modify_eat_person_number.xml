@@ -18,8 +18,8 @@
         <Switch
             android:id="@+id/only_get_coupon_Sw"
             android:shadowColor="@color/blue"
-            android:thumb="@drawable/thumb"
-            android:track="@drawable/track"
+            android:thumb="@drawable/dishmap_thumb"
+            android:track="@drawable/dishmap_track"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

@@ -13,6 +13,8 @@ public class CouponChildListItemInfo implements Serializable{
 
     String storeId;
 
+    String storeName;
+
     String couponCode;
 
     String couponTitle;
@@ -107,5 +109,13 @@ public class CouponChildListItemInfo implements Serializable{
 
     public void setIsUse(byte isUse) {
         this.isUse = isUse;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 }

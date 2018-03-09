@@ -202,7 +202,8 @@ public class ChatAdapter extends BaseAdapter {
                                                     String title = "座位";
                                                     String detail = "恭喜您！\n成功抢到座位\n号码：" + tableInfo.getTableId();
                                                     String description = "领取座位后座位预留" + tableInfo.getRecieveTime() + "分钟";
-                                                    MyDialogs.showGrapTableWinnerDialog(context, title, detail, description);
+                                                    MyDialogs.showGrapTableWinnerDialog(context, title, detail, description, tableInfo, couponInfo);
+
                                                 }
                                                 //  获得优惠券
                                                 else if (null != couponInfo){
@@ -210,7 +211,7 @@ public class ChatAdapter extends BaseAdapter {
                                                     String title = "优惠券";
                                                     String detail = "恭喜您！\n抢到"+couponInfo.getCouponTitle()+"一张";
                                                     String description = "已放入您的优惠券卡包";
-                                                    MyDialogs.showGrapTableWinnerDialog(context, title, detail, description);
+                                                    MyDialogs.showGrapTableWinnerDialog(context, title, detail, description, tableInfo, couponInfo);
                                                 } else {
                                                     Toast.makeText(context, receivedRedPackageInfo.getMessage(), Toast.LENGTH_SHORT).show();
                                                 }

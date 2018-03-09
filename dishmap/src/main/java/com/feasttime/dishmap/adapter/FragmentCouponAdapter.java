@@ -21,40 +21,40 @@ import com.feasttime.dishmap.utils.UtilTools;
 import java.util.ArrayList;
 
 /**
+ *
  * Created by chen on 2018/1/12.
  */
 
 public class FragmentCouponAdapter extends BaseExpandableListAdapter {
 
-    private ArrayList<CouponListItemInfo> datasList;
-
+    private ArrayList<CouponListItemInfo> dataList;
     private Context context;
     private Resources resources;
 
-    public FragmentCouponAdapter(Context context,ArrayList<CouponListItemInfo> datasList) {
-        this.datasList = datasList;
+    public FragmentCouponAdapter(Context context,ArrayList<CouponListItemInfo> dataList) {
+        this.dataList = dataList;
         this.context = context;
         resources = context.getResources();
     }
 
     @Override
     public int getGroupCount() {
-        return datasList.size();
+        return dataList.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return datasList.get(groupPosition).getDataList().size();
+        return dataList.get(groupPosition).getDataList().size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return datasList.get(groupPosition);
+        return dataList.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return datasList.get(groupPosition).getDataList().get(childPosition);
+        return dataList.get(groupPosition).getDataList().get(childPosition);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
-        groupViewHolder.nameTv.setText(datasList.get(groupPosition).getStoreName());
+        groupViewHolder.nameTv.setText(dataList.get(groupPosition).getStoreName());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +120,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        final CouponChildListItemInfo couponChildListItemInfo = datasList.get(groupPosition).getDataList().get(childPosition);
+        final CouponChildListItemInfo couponChildListItemInfo = dataList.get(groupPosition).getDataList().get(childPosition);
 
         if (couponChildListItemInfo.getIsUse() == 1) {
             //未使用
@@ -155,12 +155,12 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CouponListItemInfo couponListItemInfo = datasList.get(groupPosition);
-                String storeName = couponListItemInfo.getStoreName();
+
+                CouponListItemInfo couponListItemInfo = dataList.get(groupPosition);
 
                 Intent intent = new Intent(v.getContext(), CouponDetailActivity.class);
-                intent.putExtra("storeName",storeName);
                 intent.putExtra("couponData",couponChildListItemInfo);
+
                 v.getContext().startActivity(intent);
             }
         });

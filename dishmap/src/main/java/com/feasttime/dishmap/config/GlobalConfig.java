@@ -6,7 +6,7 @@ package com.feasttime.dishmap.config;
  */
 
 public class GlobalConfig {
-    public static final int APP_STATUS = 2;  // 0:release , 1: test , 2: development
+    public static final int APP_STATUS = 1;  // 0:release , 1: test , 2: development
 
     //微信appid
     public static final String WECHAT_APPID = "wx4878444a41f6c706";
