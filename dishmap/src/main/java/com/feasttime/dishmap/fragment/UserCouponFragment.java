@@ -99,6 +99,8 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onResume() {
+
+        noUsedCouponRel.performClick();
         super.onResume();
     }
 
@@ -126,7 +128,7 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
         mContentElv.addFooterView(footerView);
         mContentElv.setGroupIndicator(null);
 
-        noUsedCouponRel.performClick();
+//        noUsedCouponRel.performClick();
     }
 
     @Override

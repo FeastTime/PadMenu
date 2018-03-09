@@ -3,14 +3,15 @@ package com.feasttime.dishmap.customview;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -25,16 +26,12 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
-import com.feasttime.dishmap.activity.ChatActivity;
 import com.feasttime.dishmap.activity.CouponDetailActivity;
 import com.feasttime.dishmap.activity.MySeatDetailActivity;
 import com.feasttime.dishmap.activity.OpenedRedPackageActivity;
-import com.feasttime.dishmap.activity.ScanActivity;
-import com.feasttime.dishmap.activity.SplashActivity;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
-import com.feasttime.dishmap.model.bean.CouponListItemInfo;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.model.bean.PriceChangeInfo;
 import com.feasttime.dishmap.rxbus.RxBus;
@@ -42,15 +39,10 @@ import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.service.MyService;
 import com.feasttime.dishmap.utils.ActivityCollector;
 import com.feasttime.dishmap.utils.CircleImageTransformation;
-import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.StringUtils;
 import com.feasttime.dishmap.utils.ToastUtil;
-import com.feasttime.dishmap.utils.UtilTools;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -267,125 +259,9 @@ public class MyDialogs {
                     intent.putExtra("tablesData", myTableItemInfo);
                     context.startActivity(intent);
                 }
-            }
-        });
 
-
-
-        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.width = (int)context.getResources().getDimension(R.dimen.x615);
-        params.height = (int)context.getResources().getDimension(R.dimen.y981);
-        dialog.getWindow().setAttributes(params);
-        dialog.show();
-
-    }
-
-
-    //抢座位结果 失败者
-    public static void showGrapTableLoserDialog(Context context, String resultStr) {
-        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View contentView = inflater.inflate(R.layout.dialog_grap_table_loser,null);
-        dialog.setContentView(contentView);
-
-        TextView resultTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_loser_result_tv);
-        resultTv.setText(resultStr);
-
-        ImageView confirmBtn = (ImageView)contentView.findViewById(R.id.dialog_grap_table_loser_close_iv);
-        TextView replayTv = (TextView)contentView.findViewById(R.id.dialog_grap_table_loser_replay_tv);
-
-        replayTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 dialog.dismiss();
-            }
-        });
 
-        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.width = (int)context.getResources().getDimension(R.dimen.x615);
-        params.height = (int)context.getResources().getDimension(R.dimen.y981);
-        dialog.getWindow().setAttributes(params);
-        dialog.show();
-
-    }
-
-
-    static Dialog cGrapTableDialog;
-    //抢座位结果
-    public static void showGrapTableSeatDialog(Context context,final String storeId,final String bid) {
-        final long startTime = System.currentTimeMillis();
-
-        final Dialog grapTableDialog = new Dialog(context,R.style.DialogTheme);
-        cGrapTableDialog = grapTableDialog;
-
-        grapTableDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View contentView = inflater.inflate(R.layout.dialog_grap_seat,null);
-        grapTableDialog.setContentView(contentView);
-        grapTableDialog.setCancelable(false);
-
-        Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_grap_seat_grap_btn);
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                long delayTime = System.currentTimeMillis() - startTime;
-
-                HashMap<String,String> requestData = new HashMap<String, String>();
-                requestData.put("storeID",storeId);
-                requestData.put("name","");
-                requestData.put("userID", PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO));
-                requestData.put("type", WebSocketEvent.USER_GRAP_TABLE + "");
-                requestData.put("bid",bid);
-                requestData.put("actionTime",delayTime + "");
-                //UtilTools.requestByWebSocket(v.getContext(),requestData);
-                grapTableDialog.dismiss();
-            }
-        });
-
-        grapTableDialog.dismiss();
-
-        WindowManager.LayoutParams params = grapTableDialog.getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.width = (int)context.getResources().getDimension(R.dimen.x610);
-        params.height = (int)context.getResources().getDimension(R.dimen.y400);
-        grapTableDialog.getWindow().setAttributes(params);
-        grapTableDialog.show();
-
-    }
-
-    public static void closeGrapTableSeatDialog(){
-
-        if (null != cGrapTableDialog && cGrapTableDialog.isShowing()){
-            cGrapTableDialog.dismiss();
-        }
-    }
-
-
-    //延时设置对话框
-    public static void showDelayTimeConfigDialog(Context context) {
-        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View contentView = inflater.inflate(R.layout.dialog_delay_time_config,null);
-        dialog.setContentView(contentView);
-
-        Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_delay_time_config_confirm_btn);
-
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
             }
         });
 
@@ -440,12 +316,13 @@ public class MyDialogs {
         dialog.show();
     }
 
+    private static String beforeDinerCount;
+
     /**
      * 修改就餐人数
      * @param context Context
      * @param storeId 店铺Id
      */
-    private static String beforeDinerCount;
     public static void modifyEatPersonNumber(final Context context, final String storeId) {
 
 
@@ -512,8 +389,6 @@ public class MyDialogs {
             public void afterTextChanged(Editable editable) {
 
                 String nowText = dinerCount.getText().toString();
-
-
 
 //                if (nowText.length() == 0){
 ////                    beforeDinerCount = "0";
@@ -603,33 +478,6 @@ public class MyDialogs {
         dialog.show();
     }
 
-
-    //领取优惠
-    public static void showGetDiscount(Context context) {
-        final Dialog dialog = new Dialog(context,R.style.DialogTheme);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View contentView = inflater.inflate(R.layout.dialog_get_discount,null);
-        dialog.setContentView(contentView);
-
-        Button confirmBtn = (Button)contentView.findViewById(R.id.dialog_get_discount_confirm_btn);
-
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.width = (int)context.getResources().getDimension(R.dimen.x586);
-        params.height = (int)context.getResources().getDimension(R.dimen.y557);
-        dialog.getWindow().setAttributes(params);
-        dialog.show();
-    }
-
-
     //抢红包结果对话框
     public static void showGrabRedPacketResult(Context context) {
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
@@ -670,8 +518,24 @@ public class MyDialogs {
             return ;
         }
 
-
         final Dialog dialog = new Dialog(activity, R.style.DialogTheme);
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+
+                if (i == KeyEvent.KEYCODE_BACK
+                        && keyEvent.getRepeatCount() == 0) {
+                    //Log.d("")
+                    activity.finish();
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+        dialog.setCancelable(false);
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -695,8 +559,11 @@ public class MyDialogs {
 
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
 
+
                         // 验证码验证成功
                         Log.d("补充手机号", "1验证码验证成功");
+
+                        PreferenceUtil.setStringKey(PreferenceUtil.MOBILE_NO, mobileNo.getText().toString());
 
                         //保存用户手机号
                         HashMap<String,Object> infoMap = new HashMap<String,Object>();
@@ -709,7 +576,13 @@ public class MyDialogs {
                         infoMap.put("openId",openId);
                         infoMap.put("mobileNo",mobileNo.getText().toString());
 
-                        ((BaseActivity)activity).showLoading(null);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                ((BaseActivity)activity).showLoading(null);
+                            }
+                        });
 
                         //请求网络
                         RetrofitService.queryUserInfo(infoMap).subscribe(new Consumer<BaseResponseBean>(){
@@ -717,11 +590,16 @@ public class MyDialogs {
                             public void accept(BaseResponseBean BaseResponseBean) throws Exception {
                                 if (BaseResponseBean.getResultCode() == 0) {
                                     dialog.dismiss();
-                                } else {
-
                                 }
 
-                                ((BaseActivity)activity).hideLoading();
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        ((BaseActivity)activity).hideLoading();
+                                    }
+                                });
+
                             }
                         }, new Consumer<Throwable>() {
                             @Override
@@ -759,16 +637,29 @@ public class MyDialogs {
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         // 验证码 验证失败
                         Log.d("补充手机号", "4验证码验证失败");
-                        Toast.makeText(activity, "请输入正确的验证码！", Toast.LENGTH_SHORT).show();
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, "请输入正确的验证码！", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
 
 
                     }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                         // 验证码 获取失败
                         Log.d("补充手机号", "5获取验证码失败");
 
-                        Toast.makeText(activity, "请输入正确的手机号！", Toast.LENGTH_SHORT).show();
-                        // 点击后锁住，回调中放开
-                        sendVerificationCode.setClickable(true);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, "请输入正确的手机号！", Toast.LENGTH_SHORT).show();
+                                // 点击后锁住，回调中放开
+                                sendVerificationCode.setClickable(true);
+                            }
+                        });
+
+
                     }
 
                 }
@@ -784,7 +675,7 @@ public class MyDialogs {
             @Override
             public void onClick(View v) {
 
-                dialog.dismiss();
+//                dialog.dismiss();
             }
         });
 

@@ -98,6 +98,9 @@ public class ChatAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.activity_chat_listview_item_layout,
                     parent, false);
+
+            convertView.setOnLongClickListener(null);
+
             holder = new ViewHolder();
             // 时间
             holder.timeTv = (TextView) convertView.findViewById(R.id.activity_chat_listview_item_layout_time_tv);

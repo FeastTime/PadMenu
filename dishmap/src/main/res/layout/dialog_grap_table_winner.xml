@@ -103,8 +103,8 @@
         android:id="@+id/dialog_grap_table_result_use_now_iv"
         android:layout_marginTop="@dimen/y80"
         android:layout_width="@dimen/x254"
-        android:layout_height="@dimen/y84"
-        android:src="@mipmap/dishmap_use_now"
+        android:layout_height="@dimen/y100"
+        android:src="@mipmap/dishmap_now_use"
         android:scaleType="fitXY"
         />
 
