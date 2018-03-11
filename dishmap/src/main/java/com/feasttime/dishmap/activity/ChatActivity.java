@@ -12,7 +12,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
-import com.feasttime.dishmap.adapter.MySeatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
@@ -20,7 +19,6 @@ import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
-import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.RedPackageCountDown;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.KeybordS;
@@ -30,6 +28,9 @@ import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -114,13 +115,11 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         initViews();
 
-        long lastChangeTime = PreferenceUtil.getLongKey(PreferenceUtil.DINER_COUNT_TIME + storeId);
-        if (System.currentTimeMillis() - lastChangeTime > 45 * 60 * 1000){
-
-            MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
-        }
 
 
+
+
+        MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
 
 //        List<Conversation> myList = RongIMClient.getInstance().getHistoryMessages();
 
@@ -181,6 +180,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     }
 
 
+    Timer countDownTimer ;
     private void initViews() {
 
         contentLv.setOnLongClickListener(null);
@@ -229,27 +229,50 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         infoMap.put("userId",userId);
         infoMap.put("storeId",storeId);
 
-//        RetrofitService.queryRedPackageCountDown(infoMap).subscribe(new Consumer<RedPackageCountDown>(){
-//            @Override
-//            public void accept(RedPackageCountDown redPackageCountDown) throws Exception {
-//
-//                if (redPackageCountDown.getResultCode() == 0) {
-////                    MySeatAdapter mySeatAdapter = new MySeatAdapter(ChatActivity.this,myTableInfo.getTablesList());
-////                    contentLv.setAdapter(mySeatAdapter);
-//                } else {
-//                }
-//
-//                hideLoading();
-//            }
-//        }, new Consumer<Throwable>() {
-//            @Override
-//            public void accept(Throwable throwable) throws Exception {
-//            }
-//        }, new Action() {
-//            @Override
-//            public void run() throws Exception {
-//            }
-//        });
+        RetrofitService.queryRedPackageCountDown(infoMap).subscribe(new Consumer<RedPackageCountDown>(){
+            @Override
+            public void accept(RedPackageCountDown redPackageCountDown) throws Exception {
+
+                if (null != countDownTimer){
+
+                    countDownTimer.cancel();
+                    countDownTimer = null;
+                }
+
+                if (redPackageCountDown.getResultCode() == 0) {
+
+                    countDownTimer = new Timer();
+
+                    countDownTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+
+                            ChatActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // 更新倒计时时间。
+                                }
+                            });
+                        }
+                    }, 2);
+
+
+                } else {
+
+                }
+
+
+                hideLoading();
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+            }
+        }, new Action() {
+            @Override
+            public void run() throws Exception {
+            }
+        });
 
 
     }

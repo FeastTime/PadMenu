@@ -326,6 +326,12 @@ public class MyDialogs {
     public static void modifyEatPersonNumber(final Context context, final String storeId) {
 
 
+        long lastChangeTime = PreferenceUtil.getLongKey(PreferenceUtil.DINER_COUNT_TIME + storeId);
+
+        // 如果45分钟内进入不 弹窗，只设置历史数据到服务端
+        if (System.currentTimeMillis() - lastChangeTime < 45 * 60 * 1000){
+            return;
+        }
 
         beforeDinerCount = PreferenceUtil.getStringKey(PreferenceUtil.DINER_COUNT + storeId);
 

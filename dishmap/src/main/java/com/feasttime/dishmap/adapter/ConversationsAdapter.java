@@ -1,18 +1,3 @@
-/*
- * Copyright 2016 Yan Zhenjie
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.feasttime.dishmap.adapter;
 
 import android.content.Context;
@@ -38,6 +23,7 @@ import java.util.List;
 import cn.nekocode.badge.BadgeDrawable;
 
 /**
+ *
  * Created by YOLANDA on 2016/7/22.
  */
 public class ConversationsAdapter extends RecyclerViewBaseAdapter<ConversationsAdapter.ViewHolder> {
@@ -111,7 +97,7 @@ public class ConversationsAdapter extends RecyclerViewBaseAdapter<ConversationsA
             iconIv = (ImageView) itemView.findViewById(R.id.activity_message_lv_item_icon_iv);
         }
 
-        public void initData(final MessageItemInfo messageItemInfo,final StoreItemInfo storeItemInfo) {
+        private void initData(final MessageItemInfo messageItemInfo,final StoreItemInfo storeItemInfo) {
 
             if (storeItemInfo != null)
                 this.nameTv.setText(storeItemInfo.getStoreName());
@@ -154,8 +140,13 @@ public class ConversationsAdapter extends RecyclerViewBaseAdapter<ConversationsA
                     //跳转到聊天页面
                     Context context = v.getContext();
                     Intent intent = new Intent(context, ChatActivity.class);
-                    intent.putExtra("STORE_ID", messageItemInfo.getStoreId());
-                    intent.putExtra("STORE_NAME",messageItemInfo.getName());
+
+                    if (null != storeItemInfo){
+
+                        intent.putExtra("STORE_ID", storeItemInfo.getStoreId());
+                        intent.putExtra("STORE_NAME",storeItemInfo.getStoreName());
+                    }
+
                     v.getContext().startActivity(intent);
                 }
             });
