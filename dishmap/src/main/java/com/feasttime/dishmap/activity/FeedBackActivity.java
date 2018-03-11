@@ -78,10 +78,10 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
                 return;
             }
 
-            if (TextUtils.isEmpty(contactWayStr.trim())) {
-                ToastUtil.showToast(this,"请输入联系方式",Toast.LENGTH_SHORT);
-                return;
-            }
+//            if (TextUtils.isEmpty(contactWayStr.trim())) {
+//                ToastUtil.showToast(this,"请输入联系方式",Toast.LENGTH_SHORT);
+//                return;
+//            }
 
             requestFeedBack(contentStr,contactWayStr);
         }
