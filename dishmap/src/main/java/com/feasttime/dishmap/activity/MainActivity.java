@@ -64,6 +64,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onResume() {
         super.onResume();
+        if (mUserConversationFragment != null) {
+            mUserConversationFragment.loadHistoryMessage();
+        }
     }
 
     private void initViews() {
