@@ -157,9 +157,9 @@ public class UtilTools {
     //根据类型获取券的值
     public static String getCouponStrByType(int type) {
         if (type == 1) {
-            return "满减";
+            return "满减券";
         } else if (type == 2) {
-            return "菜品券";
+            return "单品券";
         } else {
             return "";
         }
