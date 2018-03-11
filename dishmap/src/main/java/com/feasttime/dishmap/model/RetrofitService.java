@@ -65,10 +65,10 @@ public class RetrofitService {
   //  private static final String BASE_URL = "http://192.168.11.98:8080/";
 
     //研发服务器
-//    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
+    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
 
     //测试服务器
-    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
+//    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
 
 
     private static DishMapApi sMenuService;

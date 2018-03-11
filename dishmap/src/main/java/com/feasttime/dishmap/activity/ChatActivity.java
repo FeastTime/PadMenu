@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.adapter.ChatAdapter;
+import com.feasttime.dishmap.adapter.MySeatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
@@ -19,6 +20,8 @@ import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
+import com.feasttime.dishmap.model.bean.MyTableInfo;
+import com.feasttime.dishmap.model.bean.RedPackageCountDown;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
 import com.feasttime.dishmap.utils.KeybordS;
 import com.feasttime.dishmap.utils.LogUtil;
@@ -179,6 +182,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
 
     private void initViews() {
+
+        contentLv.setOnLongClickListener(null);
         shareIv.setVisibility(View.GONE);
         rightTitleBarIv.setVisibility(View.VISIBLE);
         titleTv.setText(storeName);
@@ -187,7 +192,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         KeybordS.closeKeybord(inputMessage, this);
 
-        //获取远程消息记录
+        // 获取远程消息记录
         RongIMClient.getInstance().getHistoryMessages(Conversation.ConversationType.GROUP, storeId, 0, 50, new RongIMClient.ResultCallback<List<Message>>() {
             @Override
             public void onSuccess(List<Message> messages) {
@@ -195,7 +200,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                     LogUtil.d(TAG, "远端服务器存储的历史消息个数为 " + messages.size());
 
                     //处理老的消息
-                    for (int i = messages.size() - 1 ; i >= 0 ; i-- ) {
+                    for (int i = messages.size() - 1; i >= 0; i--) {
                         Message message = messages.get(i);
                         handleRongImMessageLogic(message);
                     }
@@ -214,6 +219,38 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 RongIMClient.setOnReceiveMessageListener(onReceiveMessageListener);
             }
         });
+
+        // 获取倒计时数据
+
+        HashMap<String,Object> infoMap = new HashMap<>();
+        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
+        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+        infoMap.put("token",token);
+        infoMap.put("userId",userId);
+        infoMap.put("storeId",storeId);
+
+//        RetrofitService.queryRedPackageCountDown(infoMap).subscribe(new Consumer<RedPackageCountDown>(){
+//            @Override
+//            public void accept(RedPackageCountDown redPackageCountDown) throws Exception {
+//
+//                if (redPackageCountDown.getResultCode() == 0) {
+////                    MySeatAdapter mySeatAdapter = new MySeatAdapter(ChatActivity.this,myTableInfo.getTablesList());
+////                    contentLv.setAdapter(mySeatAdapter);
+//                } else {
+//                }
+//
+//                hideLoading();
+//            }
+//        }, new Consumer<Throwable>() {
+//            @Override
+//            public void accept(Throwable throwable) throws Exception {
+//            }
+//        }, new Action() {
+//            @Override
+//            public void run() throws Exception {
+//            }
+//        });
+
 
     }
 

@@ -27,6 +27,8 @@ public class CouponChildListItemInfo implements Serializable{
 
     String useTime;
 
+    long startTime;
+
     String userId;
 
     byte isUse;
@@ -117,5 +119,13 @@ public class CouponChildListItemInfo implements Serializable{
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 }

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.model.bean.MyTableItemInfo;
 import com.feasttime.dishmap.utils.FormatUtil;
 import com.feasttime.dishmap.utils.QRCodeUtil;
@@ -58,22 +59,21 @@ public class MySeatDetailActivity extends BaseActivity {
     }
 
     private void initViews() {
+
+        MyDialogs.showCheckMobileNODialog(MySeatDetailActivity.this);
+
         titleBarOrangeBgIv.setVisibility(View.GONE);
         titleCenterTv.setText("我的座位");
         titleCenterTv.setTextColor(this.getResources().getColor(R.color.text_gray_1));
         titleBarRightIv.setVisibility(View.GONE);
         titleBarBackIv.setImageResource(R.mipmap.gray_back_icon);
         qrCodeIv.setImageBitmap(QRCodeUtil.createQRCodeBitmap(myTableItemInfo.getTableId(),300));
-
         storeNameTv.setText(myTableItemInfo.getStoreName());
         descriptionTv.setText(myTableItemInfo.getDescription());
 
         long expireTime = myTableItemInfo.getTaketableTime() + myTableItemInfo.getRecieveTime()*60*1000;
 
-
         expireTv.setText(FormatUtil.formatDate(expireTime));
-
-
         numberTv.setText(myTableItemInfo.getTableId());
     }
 }

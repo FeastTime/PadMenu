@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.feasttime.dishmap.R;
+import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.utils.QRCodeUtil;
 import com.feasttime.dishmap.utils.UtilTools;
@@ -68,6 +69,8 @@ public class CouponDetailActivity extends BaseActivity {
 
 
     private void initViews() {
+
+        MyDialogs.showCheckMobileNODialog(CouponDetailActivity.this);
 
         titleBarOrangeBgIv.setVisibility(View.GONE);
         titleCenterTv.setText(couponChildListItemInfo.getCouponTitle() + "元" + UtilTools.getCouponStrByType(Integer.parseInt(couponChildListItemInfo.getCouponType())));
