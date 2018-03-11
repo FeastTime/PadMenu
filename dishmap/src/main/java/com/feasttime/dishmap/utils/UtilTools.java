@@ -191,7 +191,7 @@ public class UtilTools {
 
     //格式化日期
     public static String formateDateForChat(long date) {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String resultDate = dateFormater.format(date);
         return resultDate;
     }
