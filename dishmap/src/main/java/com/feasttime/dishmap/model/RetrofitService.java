@@ -12,6 +12,7 @@ import com.feasttime.dishmap.model.bean.LoginInfo;
 import com.feasttime.dishmap.model.bean.MyTableInfo;
 import com.feasttime.dishmap.model.bean.QueryUserInfo;
 import com.feasttime.dishmap.model.bean.ReceivedRedPackageInfo;
+import com.feasttime.dishmap.model.bean.RedPackageCountDown;
 import com.feasttime.dishmap.model.bean.RedPackageDetailItemInfo;
 import com.feasttime.dishmap.model.bean.RegisterInfo;
 import com.feasttime.dishmap.model.bean.StoreInfo;
@@ -65,10 +66,10 @@ public class RetrofitService {
   //  private static final String BASE_URL = "http://192.168.11.98:8080/";
 
     //研发服务器
-    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
+//    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
 
     //测试服务器
-//    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
+    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
 
 
     private static DishMapApi sMenuService;
@@ -314,6 +315,11 @@ public class RetrofitService {
     public static Observable<RedPackageDetailItemInfo> queryRedPackageDetail(HashMap<String,Object> infoMap){
         addDeviceInfo(infoMap);
         return new ObjectLoader().observe(sMenuService.queryRedPackageDetail(getRequestBody(infoMap)));
+    }
+
+    public static Observable<RedPackageCountDown> queryRedPackageCountDown(HashMap<String,Object> infoMap){
+        addDeviceInfo(infoMap);
+        return new ObjectLoader().observe(sMenuService.queryRedPackageCountDown(getRequestBody(infoMap)));
     }
 
 }

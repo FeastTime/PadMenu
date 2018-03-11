@@ -152,6 +152,7 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
                     if (couponInfo.getCouponList().size() == 0) {
                         nodataView.setVisibility(View.VISIBLE);
                     } else {
+                        nodataView.setVisibility(View.GONE);
                         FragmentCouponAdapter fragmentCouponAdapter = new FragmentCouponAdapter(UserCouponFragment.this.getActivity(),couponInfo.getCouponList());
                         mContentElv.setAdapter(fragmentCouponAdapter);
                     }
