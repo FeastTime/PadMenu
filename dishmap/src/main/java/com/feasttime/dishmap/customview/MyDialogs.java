@@ -426,6 +426,11 @@ public class MyDialogs {
                     dinerCountStr = "0";
                 }
 
+                if (Integer.parseInt(dinerCountStr) > 20) {
+                    ToastUtil.showToast(v.getContext(),"请输入小于20的人数",Toast.LENGTH_SHORT);
+                    return;
+                }
+
                 String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
                 String userID = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
 
