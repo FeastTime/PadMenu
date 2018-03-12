@@ -157,9 +157,9 @@ public class UtilTools {
     //根据类型获取券的值
     public static String getCouponStrByType(int type) {
         if (type == 1) {
-            return "满减";
+            return "满减券";
         } else if (type == 2) {
-            return "菜品券";
+            return "单品券";
         } else {
             return "";
         }
@@ -191,7 +191,7 @@ public class UtilTools {
 
     //格式化日期
     public static String formateDateForChat(long date) {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String resultDate = dateFormater.format(date);
         return resultDate;
     }

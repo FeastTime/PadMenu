@@ -164,7 +164,6 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/y100"
         android:divider="@null"
-        android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
         android:layout_marginLeft="@dimen/x35"
         android:layout_marginRight="@dimen/x35">
