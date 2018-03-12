@@ -108,12 +108,14 @@ public class RetrofitService {
     public static void init(Context context) {
         if (GlobalConfig.APP_STATUS == 0) {
             //release
-
+            LogUtil.DEBUG = false;
         } else if (GlobalConfig.APP_STATUS == 1) {
             //test
+            LogUtil.DEBUG = true;
             BASE_URL = "https://www.timefeast.com/api/feast-web/";
         } else if (GlobalConfig.APP_STATUS == 2) {
             //development
+            LogUtil.DEBUG = true;
             BASE_URL = "http://47.94.16.58:9798/feast-web/";
         }
 
