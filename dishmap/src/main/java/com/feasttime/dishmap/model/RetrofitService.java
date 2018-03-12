@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.CouponInfo;
 import com.feasttime.dishmap.model.bean.DownloadInfo;
@@ -64,14 +65,9 @@ public class RetrofitService {
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
 
-    //小庆mac
-  //  private static final String BASE_URL = "http://192.168.11.98:8080/";
 
-    //研发服务器
-    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
-
-    //测试服务器
-//    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
+    //服务器地址
+    private static String BASE_URL = null;
 
 
     private static DishMapApi sMenuService;
@@ -110,6 +106,17 @@ public class RetrofitService {
      * 初始化网络通信服务
      */
     public static void init(Context context) {
+        if (GlobalConfig.APP_STATUS == 0) {
+            //release
+
+        } else if (GlobalConfig.APP_STATUS == 1) {
+            //test
+            BASE_URL = "https://www.timefeast.com/api/feast-web/";
+        } else if (GlobalConfig.APP_STATUS == 2) {
+            //development
+            BASE_URL = "http://47.94.16.58:9798/feast-web/";
+        }
+
         deviceID = DeviceTool.getIMEI(context);
         ipv4 = DeviceTool.getIP(context);
         mobileNO = DeviceTool.getPhoneNumber(context);
