@@ -232,6 +232,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         Message message = messages.get(i);
                         handleRongImMessageLogic(message);
                     }
+
+                    contentLv.setSelection(mChatAdapter.getCount() - 1);
                 } else
                     LogUtil.d(TAG, "远端服务器存储的历史消息个数为 0" + '\n');
 
