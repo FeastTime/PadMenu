@@ -268,7 +268,7 @@ public class MyDialogs {
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.width = (int)context.getResources().getDimension(R.dimen.x615);
-        params.height = (int)context.getResources().getDimension(R.dimen.y981);
+        params.height = (int)context.getResources().getDimension(R.dimen.y1060);
         dialog.getWindow().setAttributes(params);
         dialog.show();
     }
