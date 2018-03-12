@@ -35,6 +35,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -66,10 +68,10 @@ public class RetrofitService {
   //  private static final String BASE_URL = "http://192.168.11.98:8080/";
 
     //研发服务器
-//    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
+    private static final String BASE_URL = "http://47.94.16.58:9798/feast-web/";
 
     //测试服务器
-    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
+//    private static final String BASE_URL = "https://www.timefeast.com/api/feast-web/";
 
 
     private static DishMapApi sMenuService;
@@ -321,5 +323,29 @@ public class RetrofitService {
         addDeviceInfo(infoMap);
         return new ObjectLoader().observe(sMenuService.queryRedPackageCountDown(getRequestBody(infoMap)));
     }
+
+    public static Observable<Long> countdown(long time) {
+
+        if (time < 0) time = 0;
+
+        long countTime = time;
+
+        return Observable.interval(0, 1, TimeUnit.SECONDS)
+
+                .subscribeOn(AndroidSchedulers.mainThread())
+
+                .observeOn(AndroidSchedulers.mainThread())
+
+                .map(new Function<Long, Long>() {
+
+                    @Override
+                    public Long apply(Long o) throws Exception {
+                        return null;
+                    }
+                })
+                .take(countTime + 1);
+
+    }
+
 
 }

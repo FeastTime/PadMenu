@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
@@ -16,6 +17,7 @@ import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
 import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
+import com.feasttime.dishmap.im.message.RedPackageCountdownMessage;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
@@ -25,17 +27,20 @@ import com.feasttime.dishmap.utils.KeybordS;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
+import java.util.concurrent.TimeUnit;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
@@ -66,6 +71,17 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
     @Bind(R.id.input_message)
     EditText inputMessage;
+
+    @Bind(R.id.activity_chat_remain_minutes)
+    TextView topMinutes;
+
+    @Bind(R.id.activity_chat_remain_seconds)
+    TextView topSeconds;
+
+    @Bind(R.id.activity_chat_remain_time_ll)
+    LinearLayout countdownLayout;
+
+
 
     ChatAdapter mChatAdapter;
 
@@ -115,10 +131,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         initViews();
 
-
-
-
-
         MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
 
 //        List<Conversation> myList = RongIMClient.getInstance().getHistoryMessages();
@@ -132,7 +144,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
      *
      * @param view View
      */
-    public void sendMessage(View view){
+    public void sendMessage(View view) {
 
         String inputMessageStr = inputMessage.getText().toString();
         inputMessage.setText("");
@@ -141,6 +153,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         }
 
         HashMap<String, String > requestData = new HashMap<>();
+
         requestData.put("message", inputMessageStr);
         requestData.put("type", WebSocketEvent.SEND_MESSAGE+"");
         requestData.put("storeId", storeId);
@@ -167,7 +180,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                             String sendMessage = ((ChatTextMessage) message.getContent()).getContent();
                             Log.d(TAG, "成功发送文本消息: " + ((ChatTextMessage) message.getContent()).getContent());
                             JSONObject jsonObject = JSON.parseObject(sendMessage);
-                            recevieMessageAndAdd(jsonObject.getString("message"),message.getSentTime(),jsonObject.getString("userId"),jsonObject.getString("userIcon"));
+                            receivedMessageAndAdd(jsonObject.getString("message"),message.getSentTime(),jsonObject.getString("userId"),jsonObject.getString("userIcon"));
                         }
                     }
 
@@ -180,8 +193,23 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     }
 
 
-    Timer countDownTimer ;
+    // 倒计时时间
+    long countdownTime = 0;
+
+    // 定时器
+    Observable<Long> timerObservable;
     private void initViews() {
+
+        // 定时器 初始化
+        timerObservable = Observable.interval(0, 1, TimeUnit.SECONDS)//设置0延迟，每隔一秒发送一条数据
+
+            .map(new Function<Long, Long>() {
+                @Override
+                public Long apply(Long aLong) throws Exception {
+
+                    return 0L;
+                }
+            });
 
         contentLv.setOnLongClickListener(null);
         shareIv.setVisibility(View.GONE);
@@ -225,41 +253,26 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         HashMap<String,Object> infoMap = new HashMap<>();
         String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
         String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
+
         infoMap.put("token",token);
         infoMap.put("userId",userId);
         infoMap.put("storeId",storeId);
+
 
         RetrofitService.queryRedPackageCountDown(infoMap).subscribe(new Consumer<RedPackageCountDown>(){
             @Override
             public void accept(RedPackageCountDown redPackageCountDown) throws Exception {
 
-                if (null != countDownTimer){
 
-                    countDownTimer.cancel();
-                    countDownTimer = null;
+                if (!redPackageCountDown.isCountDown()){
+
+                    countdownLayout.setVisibility(View.GONE);
+                    return;
                 }
 
-                if (redPackageCountDown.getResultCode() == 0) {
-
-                    countDownTimer = new Timer();
-
-                    countDownTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-
-                            ChatActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    // 更新倒计时时间。
-                                }
-                            });
-                        }
-                    }, 2);
-
-
-                } else {
-
-                }
+                countdownLayout.setVisibility(View.VISIBLE);
+                countdownTime = redPackageCountDown.getCountDownTime()/1000;
+                observableCountdown();
 
 
                 hideLoading();
@@ -274,6 +287,46 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
             }
         });
 
+
+    }
+
+
+    /**
+     *  订阅倒计时
+     */
+    Disposable countdownDisposable;
+
+    private void observableCountdown() {
+
+        if (countdownDisposable != null && !countdownDisposable.isDisposed()) {
+            //停止倒计时
+            countdownDisposable.dispose();
+        }
+
+        timerObservable.take(countdownTime+1);
+
+        countdownDisposable = timerObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Long>() {
+
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+
+                        Log.d(TAG, "now   : " + countdownTime);
+                        countdownTime-- ;
+
+                        String minutes = String.valueOf(countdownTime/60);
+                        String seconds = String.valueOf(countdownTime%60);
+
+                        topMinutes.setText(minutes);
+                        topSeconds.setText(seconds);
+
+                        if(countdownTime <= 0){
+                            countdownDisposable.dispose();
+                        }
+
+                    }
+                });
 
     }
 
@@ -297,14 +350,20 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     public interface OpenWaitingListener {
 
         void onSend();
-
         void onResult();
-
         void onError();
     }
 
-    //收到消息后添加到列表并刷新
-    private void recevieMessageAndAdd(String receiveMsg,long receiveTime,String imUserId,String userIcon) {
+
+    /**
+     *  收到消息后添加到列表并刷新
+     *
+     * @param receiveMsg 消息内容
+     * @param receiveTime 接收时间
+     * @param imUserId 用户ID
+     * @param userIcon 用户头像
+     */
+    private void receivedMessageAndAdd(String receiveMsg, long receiveTime, String imUserId, String userIcon) {
         ChatMsgItemInfo chatMsgItemInfo = new ChatMsgItemInfo();
         chatMsgItemInfo.setRedPackage(false);
         chatMsgItemInfo.setTime(receiveTime);
@@ -338,20 +397,23 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
     //处理融云收到消息逻辑
     private void handleRongImMessageLogic(final Message message) {
+
         try {
             ChatActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Log.d(TAG, "收到融云消息: " + message.getContent());
+
                     if (message.getContent() instanceof ChatTextMessage) {
                         String receiveMsg = ((ChatTextMessage) message.getContent()).getContent();
                         Log.d(TAG, "收到文本消息: " + receiveMsg);
                         JSONObject jsonObject = JSON.parseObject(receiveMsg);
-                        recevieMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime()
+                        receivedMessageAndAdd(jsonObject.getString("message"),message.getReceivedTime()
                                 ,   jsonObject.getString("userId")
                                 , jsonObject.getString("userIcon"));
 
                     } else if (message.getContent() instanceof ReceiveRedPackageMessage) {
+
                         String receiveMsg = ((ReceiveRedPackageMessage) message.getContent()).getContent();
                         Log.d(TAG, "收到红包消息: " + receiveMsg);
                         JSONObject jsonObject = JSON.parseObject(receiveMsg);
@@ -374,7 +436,36 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         chatMsgItemInfo.setRedPackage(true);
 
                         mChatAdapter.addData(chatMsgItemInfo);
+
                     } else if (message.getContent() instanceof ReceivedRedPackageSurprisedMessage) {
+
+                        Log.d(TAG, "倒计时同步消息: " + "ReceivedRedPackageSurprisedMessage");
+                    } else if (message.getContent() instanceof RedPackageCountdownMessage) {
+
+
+                        String receiveMsg = ((RedPackageCountdownMessage) message.getContent()).getContent();
+                        Log.d(TAG, "倒计时同步消息: " + receiveMsg);
+                        JSONObject jsonObject = JSON.parseObject(receiveMsg);
+
+                        // 是否还有倒计时
+                        boolean isCountDown = jsonObject.getBoolean("isCountDown");
+                        long countDownTime =  jsonObject.getLong("countDownTime");
+
+
+                        if (!isCountDown) {
+
+                            countdownLayout.setVisibility(View.GONE);
+
+                        } else {
+
+                            countdownLayout.setVisibility(View.VISIBLE);
+                            countdownTime = countDownTime/1000;
+                            observableCountdown();
+
+                        }
+
+                        Log.d(TAG, "倒计时同步消息: " + isCountDown + "----" + countDownTime);
+
 
                     }
 
@@ -384,6 +475,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 //                    if (!message.getReceivedStatus().isRead()) {
 //                        setMessageRead(message); //设置收到的消息为已读消息
 //                    }
+
+
                 }
             });
         } catch (Exception e) {
