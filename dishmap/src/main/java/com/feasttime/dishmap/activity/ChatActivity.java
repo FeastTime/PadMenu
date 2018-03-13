@@ -6,8 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -16,10 +16,8 @@ import com.feasttime.dishmap.adapter.ChatAdapter;
 import com.feasttime.dishmap.customview.MyDialogs;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
 import com.feasttime.dishmap.im.message.ReceiveRedPackageMessage;
-import com.feasttime.dishmap.im.message.ReceivedRedPackageSurprisedMessage;
 import com.feasttime.dishmap.im.message.RedPackageCountdownMessage;
 import com.feasttime.dishmap.model.RetrofitService;
-import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.model.bean.ChatMsgItemInfo;
 import com.feasttime.dishmap.model.bean.RedPackageCountDown;
 import com.feasttime.dishmap.rxbus.event.WebSocketEvent;
@@ -27,7 +25,6 @@ import com.feasttime.dishmap.utils.KeybordS;
 import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
 import com.feasttime.dishmap.utils.SoftHideKeyBoardUtil;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,9 +75,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     @Bind(R.id.activity_chat_remain_seconds)
     TextView topSeconds;
 
-    @Bind(R.id.activity_chat_remain_time_ll)
-    LinearLayout countdownLayout;
-
+    @Bind(R.id.activity_chat_tips_rel)
+    RelativeLayout countdownLayout;
 
 
     ChatAdapter mChatAdapter;
@@ -131,11 +127,8 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
         initViews();
 
-        MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
+        MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId, true);
 
-//        List<Conversation> myList = RongIMClient.getInstance().getHistoryMessages();
-
-        requestCounDownData(); //请求倒计时数据
     }
 
 
@@ -229,8 +222,14 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                     //处理老的消息
                     for (int i = messages.size() - 1; i >= 0; i--) {
+
                         Message message = messages.get(i);
-                        handleRongImMessageLogic(message);
+
+                        if (message.getContent() instanceof ChatTextMessage || message.getContent() instanceof ReceiveRedPackageMessage) {
+
+                            handleRongImMessageLogic(message);
+                        }
+
                     }
                 } else
                     LogUtil.d(TAG, "远端服务器存储的历史消息个数为 0" + '\n');
@@ -291,11 +290,22 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
     }
 
 
-    /**
-     *  订阅倒计时
-     */
+    // 倒计时观察者
     Disposable countdownDisposable;
 
+    /**
+     *  取消订阅倒计时
+     */
+    private void disposeObservableCountdown() {
+        if (countdownDisposable != null && !countdownDisposable.isDisposed()) {
+            //停止倒计时
+            countdownDisposable.dispose();
+
+        }
+    }
+    /**
+     *  开启订阅倒计时
+     */
     private void observableCountdown() {
 
         if (countdownDisposable != null && !countdownDisposable.isDisposed()) {
@@ -306,6 +316,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         timerObservable.take(countdownTime+1);
 
         countdownDisposable = timerObservable
+
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
 
@@ -315,11 +326,19 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         Log.d(TAG, "now   : " + countdownTime);
                         countdownTime-- ;
 
-                        String minutes = String.valueOf(countdownTime/60);
-                        String seconds = String.valueOf(countdownTime%60);
 
-                        topMinutes.setText(minutes);
-                        topSeconds.setText(seconds);
+
+                        ChatActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                String minutes = String.valueOf(countdownTime/60);
+                                String seconds = String.valueOf(countdownTime%60);
+                                topMinutes.setText(minutes);
+                                topSeconds.setText(seconds);
+                            }
+                        });
+
 
                         if(countdownTime <= 0){
                             countdownDisposable.dispose();
@@ -330,9 +349,12 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
     }
 
+
+
+
     @OnClick(R.id.title_bar_right_iv)
     public void topRightBarClick(View view){
-        MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId);
+        MyDialogs.modifyEatPersonNumber(ChatActivity.this, storeId, false);
     }
 
 
@@ -437,9 +459,6 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                         mChatAdapter.addData(chatMsgItemInfo);
 
-                    } else if (message.getContent() instanceof ReceivedRedPackageSurprisedMessage) {
-
-                        Log.d(TAG, "倒计时同步消息: " + "ReceivedRedPackageSurprisedMessage");
                     } else if (message.getContent() instanceof RedPackageCountdownMessage) {
 
 
@@ -455,6 +474,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                         if (!isCountDown) {
 
                             countdownLayout.setVisibility(View.GONE);
+                            disposeObservableCountdown();
 
                         } else {
 
@@ -497,32 +517,5 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         }
     }
 
-    //请求倒计时数据
-    private void requestCounDownData() {
-        HashMap<String,Object> infoMap = new HashMap<String,Object>();
-        String userId = PreferenceUtil.getStringKey(PreferenceUtil.USER_ID);
-        String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);
-        infoMap.put("token",token);
-        infoMap.put("userId",userId);
-        infoMap.put("storeId",storeId);
 
-        RetrofitService.countDown(infoMap).subscribe(new Consumer<BaseResponseBean>(){
-            @Override
-            public void accept(BaseResponseBean baseResponseBean) throws Exception {
-                if (baseResponseBean.getResultCode() == 0) {
-
-                } else {
-
-                }
-            }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-            }
-        }, new Action() {
-            @Override
-            public void run() throws Exception {
-            }
-        });
-    }
 }

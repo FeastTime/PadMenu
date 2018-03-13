@@ -102,12 +102,10 @@ public class MyApplication extends Application {
          * 用于自定义消息的注册, 注册后方能正确识别自定义消息, 建议在init后及时注册，保证自定义消息到达时能正确解析。
          */
         try {
-            RongIMClient.registerMessageType(CustomizeMessage.class);
-            RongIMClient.registerMessageType(ReceiveRedPackageMessage.class);
             RongIMClient.registerMessageType(ChatTextMessage.class);
-            RongIMClient.registerMessageType(ReceivedRedPackageSurprisedMessage.class);
-            RongIMClient.registerMessageType(OpenRedPackageMessage.class);
+            RongIMClient.registerMessageType(ReceiveRedPackageMessage.class);
             RongIMClient.registerMessageType(RedPackageCountdownMessage.class);
+
         } catch (AnnotationNotFoundException e) {
             e.printStackTrace();
         }

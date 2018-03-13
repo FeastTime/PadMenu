@@ -323,13 +323,13 @@ public class MyDialogs {
      * @param context Context
      * @param storeId 店铺Id
      */
-    public static void modifyEatPersonNumber(final Context context, final String storeId) {
+    public static void modifyEatPersonNumber(final Context context, final String storeId, boolean isCheckTime) {
 
 
         long lastChangeTime = PreferenceUtil.getLongKey(PreferenceUtil.DINER_COUNT_TIME + storeId);
 
         // 如果45分钟内进入不 弹窗，只设置历史数据到服务端
-        if (System.currentTimeMillis() - lastChangeTime < 45 * 60 * 1000){
+        if (isCheckTime && System.currentTimeMillis() - lastChangeTime < 45 * 60 * 1000){
             return;
         }
 

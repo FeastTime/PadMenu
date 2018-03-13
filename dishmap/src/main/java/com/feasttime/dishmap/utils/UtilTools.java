@@ -101,7 +101,10 @@ public class UtilTools {
 
     //微信登录
     public static void loginWithWeChat(Context context) {
+
         IWXAPI api = WXAPIFactory.createWXAPI(context, GlobalConfig.WECHAT_APPID, false);
+
+
         api.registerApp(GlobalConfig.WECHAT_APPID);
 
         if (!api.isWXAppInstalled()) {
@@ -113,8 +116,16 @@ public class UtilTools {
 
         final SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
-        req.state = "dishmap_wechat_login";
+        req.transaction = GlobalConfig.WECHAT_APPID;
+        req.state = "dishmap_wechat_login" + System.currentTimeMillis() + DeviceTool.getIMEI(context);
+
+
+
         api.sendReq(req);
+
+        Log.d("lixiaoqing", "------SendAuth------");
+
+
     }
 
     //检查登录状态如果未登录就去登录

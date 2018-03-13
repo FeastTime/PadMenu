@@ -65,6 +65,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/activity_chat_remain_time_lll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

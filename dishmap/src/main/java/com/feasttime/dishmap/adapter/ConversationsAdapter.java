@@ -145,6 +145,10 @@ public class ConversationsAdapter extends RecyclerViewBaseAdapter<ConversationsA
 
                         intent.putExtra("STORE_ID", storeItemInfo.getStoreId());
                         intent.putExtra("STORE_NAME",storeItemInfo.getStoreName());
+
+                    } else {
+//                        intent.putExtra("STORE_ID", .getStoreId());
+//                        intent.putExtra("STORE_NAME",.getStoreName());
                     }
 
                     v.getContext().startActivity(intent);

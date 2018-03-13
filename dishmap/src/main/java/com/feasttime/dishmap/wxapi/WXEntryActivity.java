@@ -3,6 +3,7 @@ package com.feasttime.dishmap.wxapi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -81,6 +82,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     @Override
     public void onReq(BaseReq req) {
 
+        Log.d("lixiaoqing", "onReq    req.getType()    :" + req.getType());
+
         switch (req.getType()) {
             case ConstantsAPI.COMMAND_GETMESSAGE_FROM_WX:
                 goToGetMsg();
@@ -96,6 +99,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     // 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法
     @Override
     public void onResp(final BaseResp resp) {
+
+        Log.d("lixiaoqing", "onResp    req.getType()    :" );
         String result = "";
         LogUtil.d(TAG,"chen onResp");
 
