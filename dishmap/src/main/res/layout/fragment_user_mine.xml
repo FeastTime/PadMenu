@@ -64,6 +64,7 @@
                 android:layout_marginTop="@dimen/y15"
                 android:paddingTop="@dimen/x3"
                 android:includeFontPadding="false"
+                android:visibility="invisible"
                 android:paddingBottom="@dimen/x3"
                 android:paddingLeft="@dimen/x8"
                 android:paddingRight="@dimen/x8"

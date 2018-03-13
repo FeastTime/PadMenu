@@ -42,6 +42,23 @@ android {
         debug {
             signingConfig signingConfigs.release
         }
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def file = output.outputFile
+                def fileName = ""
+
+                if (variant.buildType.isDebuggable()) {
+                    fileName = file.name
+                } else {
+                    fileName = file.name.replace(".apk", "-V" + defaultConfig.versionName + "-" + new Date().format("yyyy-MM-dd_HH") + ".apk")
+                }
+
+                fileName = fileName.replace("dishmap","PriorityEatUser")
+                output.outputFile = new File(file.parent, fileName)
+            }
+        }
+
     }
 
     sourceSets {
@@ -51,6 +68,7 @@ android {
     }
 
 }
+
 
 repositories {
     mavenCentral()

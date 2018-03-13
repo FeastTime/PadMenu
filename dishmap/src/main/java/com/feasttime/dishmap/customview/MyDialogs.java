@@ -268,7 +268,7 @@ public class MyDialogs {
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.width = (int)context.getResources().getDimension(R.dimen.x615);
-        params.height = (int)context.getResources().getDimension(R.dimen.y981);
+        params.height = (int)context.getResources().getDimension(R.dimen.y1060);
         dialog.getWindow().setAttributes(params);
         dialog.show();
     }
@@ -424,6 +424,11 @@ public class MyDialogs {
 
                 if (TextUtils.isEmpty(dinerCountStr)){
                     dinerCountStr = "0";
+                }
+
+                if (Integer.parseInt(dinerCountStr) > 20) {
+                    ToastUtil.showToast(v.getContext(),"请输入小于20的人数",Toast.LENGTH_SHORT);
+                    return;
                 }
 
                 String token = PreferenceUtil.getStringKey(PreferenceUtil.TOKEN);

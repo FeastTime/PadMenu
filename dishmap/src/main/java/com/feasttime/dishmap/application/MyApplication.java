@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.feasttime.dishmap.config.GlobalConfig;
 import com.feasttime.dishmap.im.message.ChatTextMessage;
@@ -16,7 +17,9 @@ import com.feasttime.dishmap.im.message.RedPackageCountdownMessage;
 import com.feasttime.dishmap.model.RetrofitService;
 import com.feasttime.dishmap.receiver.NetReceiver;
 import com.feasttime.dishmap.service.MyService;
+import com.feasttime.dishmap.utils.LogUtil;
 import com.feasttime.dishmap.utils.PreferenceUtil;
+import com.feasttime.dishmap.utils.UtilTools;
 import com.mob.MobSDK;
 
 import io.rong.imlib.AnnotationNotFoundException;
@@ -24,6 +27,7 @@ import io.rong.imlib.RongIMClient;
 
 
 public class MyApplication extends Application {
+    private static final String TAG = "MyApplication";
 
     private static  MyApplication sInstance;
     private static NetReceiver netReceiver;
@@ -35,6 +39,12 @@ public class MyApplication extends Application {
         sInstance = this;
 
             //SDKInitializer.initialize(getApplicationContext());
+        if (UtilTools.isApkInDebug(this)) {
+            //debug状态
+        } else {
+            //release状态
+            GlobalConfig.APP_STATUS = 0;
+        }
 
         RetrofitService.init(this);
 
