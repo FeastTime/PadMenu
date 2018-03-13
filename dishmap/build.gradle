@@ -51,7 +51,7 @@ android {
                 if (variant.buildType.isDebuggable()) {
                     fileName = file.name
                 } else {
-                    fileName = file.name.replace(".apk", "-V" + defaultConfig.versionName + "-" + new Date().format("yyyy-MM-dd_HHmm") + ".apk")
+                    fileName = file.name.replace(".apk", "-V" + defaultConfig.versionName + "-" + new Date().format("yyyy-MM-dd_HH") + ".apk")
                 }
 
                 fileName = fileName.replace("dishmap","PriorityEatUser")

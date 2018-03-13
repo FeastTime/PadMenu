@@ -109,6 +109,7 @@ public class RetrofitService {
         if (GlobalConfig.APP_STATUS == 0) {
             //release
             LogUtil.DEBUG = false;
+            BASE_URL = "https://www.timefeast.com/api/feast-web/";
         } else if (GlobalConfig.APP_STATUS == 1) {
             //test
             LogUtil.DEBUG = true;
