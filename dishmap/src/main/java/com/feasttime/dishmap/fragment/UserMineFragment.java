@@ -117,7 +117,15 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
                     QueryUserDetailInfo queryUserDetailInfo = queryUserInfo.getUser();
                     Picasso.with(UserMineFragment.this.getActivity()).load(queryUserDetailInfo.getUserIcon()).placeholder(R.mipmap.default_user_icon).transform(new CircleImageTransformation()).into(userIconIv);
                     nickNameTv.setText(queryUserDetailInfo.getNickName());
-                    phoneTv.setText(queryUserDetailInfo.getMobileNo());
+
+                    String mobileNo = queryUserDetailInfo.getMobileNo();
+                    if (TextUtils.isEmpty(mobileNo)) {
+                        phoneTv.setVisibility(View.INVISIBLE);
+                    } else {
+                        phoneTv.setVisibility(View.VISIBLE);
+                        phoneTv.setText(mobileNo);
+                    }
+
                 } else {
 
                 }
