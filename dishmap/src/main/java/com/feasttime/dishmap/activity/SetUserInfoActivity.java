@@ -259,7 +259,17 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
 
         } else if (v == phoneEt){// 修改手机号弹窗
 
-            SetUserInfoActivity.this.startActivity(new Intent(SetUserInfoActivity.this, UpdateMobileNOActivity.class));
+            SetUserInfoActivity.this.startActivityForResult(new Intent(SetUserInfoActivity.this, UpdateMobileNOActivity.class), 0);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 0 && resultCode == 1){
+            Log.d(TAG, "UpdateMobileNOActivity close");
+            initViews();
         }
     }
 
