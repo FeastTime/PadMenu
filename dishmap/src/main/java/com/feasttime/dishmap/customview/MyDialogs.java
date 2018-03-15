@@ -652,7 +652,7 @@ public class MyDialogs {
                             }
                         });
 
-                        countdownStart(activity, sendVerificationCode , countdownStr, 120);
+
 
                     }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
                         //返回支持发送验证码的国家列表
@@ -730,6 +730,8 @@ public class MyDialogs {
 
                 // 点击后锁住，回调中放开
                 sendVerificationCode.setClickable(false);
+
+                countdownStart(activity, sendVerificationCode , countdownStr, 120);
                 Log.d("发送验证码",mobileNo_str);
 
 
