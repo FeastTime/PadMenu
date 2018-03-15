@@ -135,17 +135,17 @@
                         android:textColor="@color/text_gray_5"
                         android:textSize="@dimen/big_text_size"/>
 
-                    <EditText
+                    <TextView
                         android:id="@+id/activity_set_user_info_nick_phone_et"
                         android:maxLength="11"
                         android:layout_width="match_parent"
                         android:paddingLeft="@dimen/x5"
                         android:layout_height="@dimen/y57"
                         android:layout_marginLeft="@dimen/x14"
-                        android:inputType="number"
-                        android:enabled="false"
                         android:textColor="@color/text_gray_5"
                         android:textSize="@dimen/big_text_size"
+
+                        android:clickable="true"
                         android:background="@color/bg_gray_2"
                         />
                 </LinearLayout>

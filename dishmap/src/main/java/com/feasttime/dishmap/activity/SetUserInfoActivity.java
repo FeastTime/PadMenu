@@ -1,7 +1,9 @@
 package com.feasttime.dishmap.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +38,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 /**
+ *
  * Created by chen on 2018/1/15.
  */
 
@@ -64,7 +67,7 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
     TextView birthdayTv;
 
     @Bind(R.id.activity_set_user_info_nick_phone_et)
-    EditText phoneEt;
+    TextView phoneEt;
 
     @Bind(R.id.activity_set_user_info_nick_region_et)
     EditText regionEt;
@@ -110,7 +113,6 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
                     QueryUserDetailInfo queryUserDetailInfo = queryUserInfo.getUser();
                     Picasso.with(SetUserInfoActivity.this).load(queryUserDetailInfo.getUserIcon()).transform(new CircleImageTransformation()).into(avatarIv);
                     nickNameEt.setText(queryUserDetailInfo.getNickName());
-                    phoneEt.setText(queryUserDetailInfo.getMobileNo());
 
                     long birthday = queryUserDetailInfo.getBirthday();
                     if (birthday != 0) {
@@ -138,6 +140,10 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
                         introduceEt.setText(introduce);
                     }
 
+                    if (!TextUtils.isEmpty(queryUserDetailInfo.getMobileNo())){
+                        phoneEt.setText(queryUserDetailInfo.getMobileNo());
+                    }
+
                 } else {
 
                 }
@@ -156,9 +162,14 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
         });
     }
 
-    @OnClick({R.id.activity_set_user_info_nick_save_btn,R.id.activity_set_user_info_nick_birthday_tv,R.id.activity_set_user_info_nick_sex_tv})
+
+
+    @OnClick({R.id.activity_set_user_info_nick_save_btn, R.id.activity_set_user_info_nick_birthday_tv,R.id.activity_set_user_info_nick_sex_tv, R.id.activity_set_user_info_nick_phone_et})
     @Override
     public void onClick(View v) {
+
+        Log.d(TAG, "click");
+
         if (v == saveBtn) {
             String nickName = nickNameEt.getText().toString();
             Object sex = genderTv.getTag();  // 1:男  2：女
@@ -245,6 +256,10 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
             dialog.show();
         } else if (v == genderTv) {
             MyDialogs.showGenderDialog(this,this);
+
+        } else if (v == phoneEt){// 修改手机号弹窗
+
+            SetUserInfoActivity.this.startActivity(new Intent(SetUserInfoActivity.this, UpdateMobileNOActivity.class));
         }
     }
 

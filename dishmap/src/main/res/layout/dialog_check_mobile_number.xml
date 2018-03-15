@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dialog_check_mobile_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -37,6 +37,7 @@
             android:textColor="@color/black"
             android:textColorHint="@color/text_gray_6"
             android:background="@drawable/white_bg_radius_5_with_stroke"
+            android:inputType="number"
             android:hint="  请输入手机号"
             />
 

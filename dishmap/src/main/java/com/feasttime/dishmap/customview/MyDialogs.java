@@ -66,6 +66,11 @@ public class MyDialogs {
         void overInput(int gender); //1:女 2：男
     }
 
+    public interface MobileNOChangeListener{
+        // 刷新手机号
+        void refresh();
+    }
+
 
     /**
      * 性别选择
@@ -491,6 +496,7 @@ public class MyDialogs {
 
     //抢红包结果对话框
     public static void showGrabRedPacketResult(Context context) {
+
         final Dialog dialog = new Dialog(context,R.style.DialogTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -514,18 +520,20 @@ public class MyDialogs {
         dialog.show();
     }
 
+
     /**
      * 补充手机号
      *
-     * @param activity Context
+     * @param activity Activity
+     * @param isNeedCheckNull 是否需要检查 手机号存在
      */
-    public static void showCheckMobileNODialog(final Activity activity) {
+    public static void showCheckMobileNODialog(final Activity activity, boolean isNeedCheckNull, final MobileNOChangeListener mobileNOChangeListener) {
 
         // 获取手机号
         String mobileNO = PreferenceUtil.getStringKey(PreferenceUtil.MOBILE_NO);
 
         // 如果手机号不为空，不用补充
-        if (!TextUtils.isEmpty(mobileNO)){
+        if (isNeedCheckNull && !TextUtils.isEmpty(mobileNO)){
             return ;
         }
 
@@ -546,7 +554,10 @@ public class MyDialogs {
             }
         });
 
-        dialog.setCancelable(false);
+        if (isNeedCheckNull){
+
+            dialog.setCancelable(false);
+        }
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -596,10 +607,15 @@ public class MyDialogs {
                         });
 
                         //请求网络
-                        RetrofitService.queryUserInfo(infoMap).subscribe(new Consumer<BaseResponseBean>(){
+                        RetrofitService.saveUserPhone(infoMap).subscribe(new Consumer<BaseResponseBean>(){
                             @Override
                             public void accept(BaseResponseBean BaseResponseBean) throws Exception {
                                 if (BaseResponseBean.getResultCode() == 0) {
+
+                                    if (null != mobileNOChangeListener){
+
+                                        mobileNOChangeListener.refresh();
+                                    }
                                     dialog.dismiss();
                                 }
 
@@ -745,9 +761,11 @@ public class MyDialogs {
         });
 
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+
         params.gravity = Gravity.CENTER;
-        params.width = (int)activity.getResources().getDimension(R.dimen.x615);
-        params.height = (int)activity.getResources().getDimension(R.dimen.y981);
+        params.width = (int)activity.getResources().getDimension(R.dimen.x580);
+        params.height = (int)activity.getResources().getDimension(R.dimen.y630);
+
         dialog.getWindow().setAttributes(params);
         dialog.show();
 

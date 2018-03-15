@@ -11,6 +11,7 @@ public class LoginInfo extends BaseResponseBean{
     String userType;
     String userId;
     String imToken;
+    String mobileNo;
 
     public String getImToken() {
         return imToken;
@@ -66,5 +67,13 @@ public class LoginInfo extends BaseResponseBean{
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 }

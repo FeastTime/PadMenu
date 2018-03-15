@@ -82,7 +82,6 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     @Override
     public void onReq(BaseReq req) {
 
-        Log.d("lixiaoqing", "onReq    req.getType()    :" + req.getType());
 
         switch (req.getType()) {
             case ConstantsAPI.COMMAND_GETMESSAGE_FROM_WX:
@@ -157,6 +156,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                         PreferenceUtil.setStringKey(PreferenceUtil.USER_ID,loginInfo.getUserId());
                                         PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,loginInfo.getToken());
                                         PreferenceUtil.setStringKey(PreferenceUtil.IM_TOKEN,loginInfo.getImToken());
+                                        PreferenceUtil.setStringKey(PreferenceUtil.MOBILE_NO,loginInfo.getMobileNo());
 
 
                                         // 如果已经登录，启动长连接

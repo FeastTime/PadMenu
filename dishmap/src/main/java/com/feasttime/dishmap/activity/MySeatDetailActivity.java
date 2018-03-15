@@ -60,7 +60,7 @@ public class MySeatDetailActivity extends BaseActivity {
 
     private void initViews() {
 
-        MyDialogs.showCheckMobileNODialog(MySeatDetailActivity.this);
+        MyDialogs.showCheckMobileNODialog(MySeatDetailActivity.this, true, null);
 
         titleBarOrangeBgIv.setVisibility(View.GONE);
         titleCenterTv.setText("我的座位");

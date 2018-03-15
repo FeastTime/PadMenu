@@ -70,7 +70,7 @@ public class CouponDetailActivity extends BaseActivity {
 
     private void initViews() {
 
-        MyDialogs.showCheckMobileNODialog(CouponDetailActivity.this);
+        MyDialogs.showCheckMobileNODialog(CouponDetailActivity.this, true, null);
 
         titleBarOrangeBgIv.setVisibility(View.GONE);
         titleCenterTv.setText(couponChildListItemInfo.getCouponTitle() + "元" + UtilTools.getCouponStrByType(Integer.parseInt(couponChildListItemInfo.getCouponType())));

@@ -268,6 +268,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
                 if (!redPackageCountDown.isCountDown()){
 
                     countdownLayout.setVisibility(View.GONE);
+                    disposeObservableCountdown();
                     return;
                 }
 
@@ -470,7 +471,12 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                         // 是否还有倒计时
                         boolean isCountDown = jsonObject.getBoolean("isCountDown");
-                        long countDownTime =  jsonObject.getLong("countDownTime");
+
+                        long countDownTime = 0L;
+
+                        try{
+                            countDownTime =  jsonObject.getLong("countDownTime");
+                        } catch (Exception ignored){}
 
 
                         if (!isCountDown) {
