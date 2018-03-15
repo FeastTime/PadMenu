@@ -118,6 +118,10 @@ public class RetrofitService {
             //development
             LogUtil.DEBUG = true;
             BASE_URL = "http://47.94.16.58:9798/feast-web/";
+        } else if (GlobalConfig.APP_STATUS == 3) {
+            //本机调试
+            LogUtil.DEBUG = true;
+            BASE_URL = "http://192.168.0.52:8080/";
         }
 
         deviceID = DeviceTool.getIMEI(context);
