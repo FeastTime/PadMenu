@@ -45,6 +45,8 @@ public class UpdateMobileNOActivity extends BaseActivity {
         ButterKnife.bind(this);
         SoftHideKeyBoardUtil.assistActivity(this);
         initViews();
+
+        this.setResult(1);
     }
 
 
