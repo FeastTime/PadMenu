@@ -41,6 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y25"
                 android:includeFontPadding="false"
+                android:layout_marginRight="@dimen/x10"
+                android:singleLine="true"
                 android:text=""
                 android:textColor="@color/text_gray_3"
                 android:textSize="@dimen/small_text_size" />
