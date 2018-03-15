@@ -30,11 +30,25 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
     private ArrayList<CouponListItemInfo> dataList;
     private Context context;
     private Resources resources;
+    public int expandGroupIndex = -1;
 
     public FragmentCouponAdapter(Context context,ArrayList<CouponListItemInfo> dataList) {
         this.dataList = dataList;
         this.context = context;
         resources = context.getResources();
+    }
+
+    public void initExpandGroupIndex() {
+        expandGroupIndex = -1;
+    }
+
+    public void resetAllData(ArrayList<CouponListItemInfo> dataList) {
+        this.dataList = dataList;
+        this.notifyDataSetChanged();
+    }
+
+    public int getExpandGroupIndex() {
+        return expandGroupIndex;
     }
 
     @Override
@@ -96,6 +110,7 @@ public class FragmentCouponAdapter extends BaseExpandableListAdapter {
 
 
         if (isExpanded) {
+            expandGroupIndex = groupPosition;
             groupViewHolder.arrowIv.setImageResource(R.mipmap.expand_listview_up_arrow);
         } else {
             groupViewHolder.arrowIv.setImageResource(R.mipmap.expand_listview_down_arrow);

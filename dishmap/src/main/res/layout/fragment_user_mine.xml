@@ -29,6 +29,7 @@
             android:layout_width="@dimen/x47"
             android:layout_height="@dimen/x47"
             android:layout_alignParentRight="true"
+            android:visibility="invisible"
             android:layout_marginRight="@dimen/x30"
             android:layout_marginTop="@dimen/y60"
             android:src="@mipmap/msg_icon" />

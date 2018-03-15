@@ -6,9 +6,12 @@ package com.feasttime.dishmap.model;
  */
 
 
+import android.widget.Toast;
+
 import com.feasttime.dishmap.application.MyApplication;
 import com.feasttime.dishmap.model.bean.BaseResponseBean;
 import com.feasttime.dishmap.utils.LogUtil;
+import com.feasttime.dishmap.utils.ToastUtil;
 import com.feasttime.dishmap.utils.UtilTools;
 
 import io.reactivex.Observable;
@@ -43,7 +46,8 @@ public class ObjectLoader {
                         BaseResponseBean baseResponseBean = (BaseResponseBean)t;
                         if (baseResponseBean.getResultCode() == TOKEN_INVALID) {
                             //token失效的时候去微信登录
-                            UtilTools.loginWithWeChat(MyApplication.getInstance());
+                            //UtilTools.loginWithWeChat(MyApplication.getInstance());
+                            ToastUtil.showToastOnUIThread(MyApplication.getInstance(),"用户登录已失效，请重新登录", Toast.LENGTH_SHORT);
                         }
                         LogUtil.d(TAG,"end request" + baseResponseBean.getResultCode());
                     }

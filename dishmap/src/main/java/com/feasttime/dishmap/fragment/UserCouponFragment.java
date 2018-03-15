@@ -16,19 +16,11 @@ import android.widget.TextView;
 import com.feasttime.dishmap.R;
 import com.feasttime.dishmap.activity.BaseActivity;
 import com.feasttime.dishmap.activity.ExpireCouponActivity;
-import com.feasttime.dishmap.activity.SetUserInfoActivity;
 import com.feasttime.dishmap.adapter.FragmentCouponAdapter;
 import com.feasttime.dishmap.model.RetrofitService;
-import com.feasttime.dishmap.model.bean.BaseResponseBean;
-import com.feasttime.dishmap.model.bean.CouponChildListItemInfo;
 import com.feasttime.dishmap.model.bean.CouponInfo;
-import com.feasttime.dishmap.model.bean.CouponListItemInfo;
-import com.feasttime.dishmap.model.bean.QueryUserInfo;
-import com.feasttime.dishmap.utils.CircleImageTransformation;
 import com.feasttime.dishmap.utils.PreferenceUtil;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.Bind;
@@ -82,6 +74,10 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
 
     Resources resources;
 
+    boolean isNoUsed = true;
+
+    FragmentCouponAdapter fragmentCouponAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +96,12 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
     @Override
     public void onResume() {
 
-        noUsedCouponRel.performClick();
+        if (isNoUsed) {
+            noUsedCouponRel.performClick();
+        } else {
+            hadUsedCouponRel.performClick();
+        }
+
         super.onResume();
     }
 
@@ -153,8 +154,17 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
                         nodataView.setVisibility(View.VISIBLE);
                     } else {
                         nodataView.setVisibility(View.GONE);
-                        FragmentCouponAdapter fragmentCouponAdapter = new FragmentCouponAdapter(UserCouponFragment.this.getActivity(),couponInfo.getCouponList());
-                        mContentElv.setAdapter(fragmentCouponAdapter);
+
+                        if (fragmentCouponAdapter == null) {
+                            fragmentCouponAdapter = new FragmentCouponAdapter(UserCouponFragment.this.getActivity(),couponInfo.getCouponList());
+                            mContentElv.setAdapter(fragmentCouponAdapter);
+                        } else {
+                            int expandGroupIndex = fragmentCouponAdapter.getExpandGroupIndex();
+                            fragmentCouponAdapter.resetAllData(couponInfo.getCouponList());
+                            if (expandGroupIndex != -1) {
+                                mContentElv.expandGroup(expandGroupIndex);
+                            }
+                        }
                     }
                 } else {
 
@@ -179,20 +189,32 @@ public class UserCouponFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         if (v == hadUsedCouponRel) {
 
+            isNoUsed = false;
+
             hadUsedTv.setTextColor(resources.getColor(R.color.orange_color));
             noUsedTv.setTextColor(resources.getColor(R.color.text_gray_design_2));
 
             hadUsedLine.setVisibility(View.VISIBLE);
             noUsedLine.setVisibility(View.INVISIBLE);
+
+            if (fragmentCouponAdapter != null)
+                fragmentCouponAdapter.initExpandGroupIndex();
+
             requestNet("2");
         } else if (v == noUsedCouponRel) {
-            requestNet("1");
+
+            isNoUsed = true;
+
+            if (fragmentCouponAdapter != null)
+                fragmentCouponAdapter.initExpandGroupIndex();
 
             noUsedTv.setTextColor(resources.getColor(R.color.orange_color));
             hadUsedTv.setTextColor(resources.getColor(R.color.text_gray_design_2));
 
             noUsedLine.setVisibility(View.VISIBLE);
             hadUsedLine.setVisibility(View.INVISIBLE);
+
+            requestNet("1");
         }
     }
 }

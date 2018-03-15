@@ -160,6 +160,8 @@ public class UserMineFragment extends Fragment implements View.OnClickListener{
         } else if (v == logoutRel) {
             PreferenceUtil.setStringKey(PreferenceUtil.USER_ID,"");
             PreferenceUtil.setStringKey(PreferenceUtil.TOKEN,"");
+            userIconIv.setImageResource(R.mipmap.default_user_icon);
+            nickNameTv.setText("");
             ToastUtil.showToast(this.getActivity(),"退出成功", Toast.LENGTH_SHORT);
         } else if (v == mySeatTv) {
             startActivity(new Intent(this.getActivity(), MySeatActivity.class));
