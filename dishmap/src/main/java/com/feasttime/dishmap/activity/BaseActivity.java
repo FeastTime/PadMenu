@@ -93,6 +93,10 @@ public class BaseActivity extends Activity {
 
 
     public void showLoading(String message) {
+        //如果activity已经结束则直接返回
+        if (this.isFinishing()) {
+            return;
+        }
 
 
         if (isShowProgressDialog)
