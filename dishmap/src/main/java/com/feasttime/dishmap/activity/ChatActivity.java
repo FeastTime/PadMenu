@@ -214,7 +214,7 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
         KeybordS.closeKeybord(inputMessage, this);
 
         // 获取远程消息记录
-        RongIMClient.getInstance().getHistoryMessages(Conversation.ConversationType.GROUP, storeId, 0, 50, new RongIMClient.ResultCallback<List<Message>>() {
+        RongIMClient.getInstance().getHistoryMessages(Conversation.ConversationType.GROUP, storeId, -1, 50, new RongIMClient.ResultCallback<List<Message>>() {
             @Override
             public void onSuccess(List<Message> messages) {
                 if (messages != null) {
