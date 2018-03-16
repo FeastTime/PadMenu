@@ -499,10 +499,10 @@ public class ChatActivity extends BaseActivity implements MyDialogs.PersonNumLis
 
                     LogUtil.d(TAG,"the message status:" + message.getReceivedStatus().isRead());
 
-//                    //如果消息未读过就设置为已读
-//                    if (!message.getReceivedStatus().isRead()) {
-//                        setMessageRead(message); //设置收到的消息为已读消息
-//                    }
+                    //如果消息未读过就设置为已读
+                    if (!message.getReceivedStatus().isRead()) {
+                        setMessageRead(message); //设置收到的消息为已读消息
+                    }
 
 
                 }
